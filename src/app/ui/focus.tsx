@@ -34,7 +34,7 @@ function Focus() {
   return (
     <div className="flex flex-col items-center content-center bg-neutral-400 h-[400px] w-[400px]">
       <div className="flex flex-col h-full">
-        {stage === "breath" && <Breath />}
+        {stage === "breath" && <Breath onComplete={() => setStage("visual")} />}
         {stage === "visual" && <Visual />}
         {stage === "task" && <Task />}
       </div>
