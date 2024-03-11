@@ -16,7 +16,6 @@ import Task from "./task";
  * Different Stage:
  * Get alert: deep breaths (inhale, hold, exhale). Can be in any order
  * Get focused: visual focus on an object for 30-60 seconds
- * Focus session: 90 mins max
  * Random Intermittent Reward
  * NSDR for learning sessions
  *
@@ -49,7 +48,13 @@ function Focus() {
         {stage === "visual" && <Visual onComplete={handleNextStage} />}
         {stage === "task" && <Task onComplete={handleNextStage} />}
       </div>
-      <div>{!stage && <button onClick={handleFocusClick}>Focus</button>}</div>
+      <div>
+        {!stage && (
+          <button onClick={handleFocusClick} className="bg-blue-500">
+            Focus
+          </button>
+        )}
+      </div>
     </div>
   );
 }
