@@ -1,6 +1,5 @@
-import Focus from "./ui/focus"
+import Focus from "./ui/focus";
 export default function Home() {
-
   return (
     <main className="min-h-screen flex flex-col items-center justify-center">
       <Focus />
@@ -12,5 +11,5 @@ export default function Home() {
         <button>Rewards</button>
       </div>
     </main>
-  )
+  );
 }
