@@ -1,6 +1,14 @@
-const VISUAL_FOCUS_TIME_SECONDS = 60;
+import { useEffect } from "react";
 
-function Visual() {
+const VISUAL_FOCUS_TIME_SECONDS = 6;
+
+function Visual({ onComplete }: { onComplete: () => void }) {
+  useEffect(() => {
+    setTimeout(() => {
+      onComplete();
+    }, VISUAL_FOCUS_TIME_SECONDS * 1000);
+  });
+
   return (
     <>
       <h1>Focus on the object for {VISUAL_FOCUS_TIME_SECONDS} seconds </h1>
