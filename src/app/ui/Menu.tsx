@@ -7,6 +7,8 @@ function Menu() {
       <MenuButton>B</MenuButton>
       <MenuButton>S</MenuButton>
       <MenuButton>R</MenuButton>
+      <MenuButton>T</MenuButton>
+      <MenuButton>M</MenuButton>
     </div>
   );
 }
