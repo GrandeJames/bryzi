@@ -37,11 +37,16 @@ function Breath({ onComplete }: { onComplete: () => void }) {
     return () => clearTimeout(timer);
   }, [cycle, onComplete, stage]);
 
+  const cyclesLeft = BREATHING_CYCLES - cycle + 1;
+
   return (
     <>
-      {stage === "inhale" && <div>Inhale through your nose</div>}
-      {stage === "hold" && <div>Hold</div>}
-      {stage === "exhale" && <div>Exhale through your mouth</div>}
+      <div className="font-semibold text-9xl text-orange-400">{cyclesLeft}</div>
+      <div>
+        {stage === "inhale" && <div>inhale through your nose</div>}
+        {stage === "hold" && <div>hold</div>}
+        {stage === "exhale" && <div>exhale through your mouth</div>}
+      </div>
     </>
   );
 }

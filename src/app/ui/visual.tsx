@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const VISUAL_FOCUS_TIME_SECONDS = 6;
+const VISUAL_FOCUS_TIME_SECONDS = 90;
 
 function Visual({ onComplete }: { onComplete: () => void }) {
   useEffect(() => {
@@ -10,7 +10,7 @@ function Visual({ onComplete }: { onComplete: () => void }) {
   });
 
   return (
-    <div className="p-10">
+    <div className="space-y-10 pb-40">
       <h1>Focus on the object for {VISUAL_FOCUS_TIME_SECONDS} seconds </h1>
       <div className="flex items-center justify-center h-full">
         <div className="rounded-full bg-orange-300 w-10 h-10"></div>
