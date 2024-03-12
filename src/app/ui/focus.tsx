@@ -41,9 +41,14 @@ function Focus() {
     }
   };
 
+  const handleExitClick = () => {
+    setStage("");
+  };
+
   return (
     <div className="flex flex-col border border-neutral-900 h-screen justify-center items-center">
-      <div>{!stage && <button onClick={handleFocusClick}>Start</button>}</div>
+      <>{!stage && <button onClick={handleFocusClick}>Start</button>}</>
+      <>{stage && <button onClick={handleExitClick}>x</button>}</>
       <>
         {stage === "breath" && <Breath onComplete={handleNextStage} />}
         {stage === "visual" && <Visual onComplete={handleNextStage} />}
