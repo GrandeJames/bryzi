@@ -40,8 +40,8 @@ function Breath({ onComplete }: { onComplete: () => void }) {
   return (
     <>
       {stage === "inhale" && <div>Inhale through your nose</div>}
-      {stage === "hold" && <div>Hold your breath</div>}
-      {stage === "exhale" && <div>Exhale completely</div>}
+      {stage === "hold" && <div>Hold</div>}
+      {stage === "exhale" && <div>Exhale through your mouth</div>}
     </>
   );
 }

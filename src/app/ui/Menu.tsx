@@ -14,7 +14,7 @@ function Menu() {
 
 function MenuButton({ children }: { children: ReactNode }) {
   return (
-    <button className="bg-neutral-800 w-[60px] h-[60px] text-orange-400 font-extrabold text-xl rounded-full">
+    <button className="bg-neutral-800 size-[60px] text-orange-400 font-extrabold text-xl rounded-full">
       {children}
     </button>
   );
