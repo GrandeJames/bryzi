@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import Breath from "./breath";
-import Visual from "./visual";
 import Task from "./task";
+import Visual from "./visual";
 
 /**
  * TODO:
