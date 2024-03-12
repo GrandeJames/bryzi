@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const TASK_TIME_MINUTES = 90;
 
 function Task({ onComplete }: { onComplete: () => void }) {
-  const [minutesLeft, setMinutesLeft] = useState(TASK_TIME_MINUTES);
+  const [minutesLeft, setMinutesLeft] = useState(TASK_TIME_MINUTES - 1);
 
   useEffect(() => {
     const timer = setTimeout(() => {
