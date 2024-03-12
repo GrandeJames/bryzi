@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Breath from "./breath";
-import Task from "./task";
-import Visual from "./visual";
+import Breath from "./Breath";
+import Task from "./Task";
+import Visual from "./Visual";
 
 /**
  * TODO:
@@ -42,19 +42,13 @@ function Focus() {
   };
 
   return (
-    <div className="flex flex-col items-center content-center bg-neutral-400 h-[400px] w-[400px]">
-      <div className="flex flex-col h-full">
+    <div className="flex flex-col border border-neutral-900 h-screen justify-center items-center">
+      <div>{!stage && <button onClick={handleFocusClick}>Start</button>}</div>
+      <>
         {stage === "breath" && <Breath onComplete={handleNextStage} />}
         {stage === "visual" && <Visual onComplete={handleNextStage} />}
         {stage === "task" && <Task onComplete={handleNextStage} />}
-      </div>
-      <div>
-        {!stage && (
-          <button onClick={handleFocusClick} className="bg-blue-500">
-            Focus
-          </button>
-        )}
-      </div>
+      </>
     </div>
   );
 }

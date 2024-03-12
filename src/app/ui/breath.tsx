@@ -41,7 +41,7 @@ function Breath({ onComplete }: { onComplete: () => void }) {
     <>
       {stage === "inhale" && <div>Inhale through your nose</div>}
       {stage === "hold" && <div>Hold your breath</div>}
-      {stage === "exhale" && <div>Exhale completely with a woosh sound</div>}
+      {stage === "exhale" && <div>Exhale completely</div>}
     </>
   );
 }

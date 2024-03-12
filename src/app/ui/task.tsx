@@ -11,7 +11,7 @@ function Task({ onComplete }: { onComplete: () => void }) {
     return () => clearTimeout(timer);
   });
 
-  return <div>Focus on the task for {TASK_TIME_MINUTES} minutes</div>;
+  return <div>Focus on your task for {TASK_TIME_MINUTES} minutes.</div>;
 }
 
 export default Task;

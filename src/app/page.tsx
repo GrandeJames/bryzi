@@ -1,16 +1,13 @@
 import Focus from "./ui/Focus";
+import Menu from "./ui/Menu";
 
-export default function Home() {
+export default function Page() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center">
-      <Focus />
-      <div className="space-x-5">
-        <button>Home</button>
-        <button>Tasks</button>
-        <button>Breathwork</button>
-        <button>Sounds</button>
-        <button>Rewards</button>
-      </div>
-    </main>
+    <div className="max-w-screen-lg mx-auto space-y-5 min-h-screen">
+      <main>
+        <Focus />
+      </main>
+      <Menu />
+    </div>
   );
 }
