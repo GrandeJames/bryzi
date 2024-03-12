@@ -1,4 +1,4 @@
-import Focus from "./ui/focus";
+import Focus from "./ui/Focus";
 
 export default function Home() {
   return (
