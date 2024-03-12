@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-const INHALE_TIME_SECONDS = 1;
-const HOLD_TIME_SECONDS = 1;
-const EXHALE_TIME_SECONDS = 1;
-const BREATHING_CYCLES = 1;
+const INHALE_TIME_SECONDS = 4;
+const HOLD_TIME_SECONDS = 7;
+const EXHALE_TIME_SECONDS = 8;
+const BREATHING_CYCLES = 4;
 
 function Breath({ onComplete }: { onComplete: () => void }) {
   const [stage, setStage] = useState("inhale");
