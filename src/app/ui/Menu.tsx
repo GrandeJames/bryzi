@@ -7,8 +7,8 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Input } from "postcss";
 import { ReactNode } from "react";
+import { GearIcon, ListBulletIcon, StarIcon } from "@radix-ui/react-icons";
 
 function Menu() {
   /**
@@ -20,10 +20,12 @@ function Menu() {
    * Settings (have the toggles here?)
    */
   return (
-    <div className="space-x-8 rounded-full fixed bottom-14 left-1/2 transform -translate-x-1/2">
+    <div className="flex space-x-5 fixed bottom-0">
       <Dialog>
         <DialogTrigger asChild>
-          <MenuButton>TL</MenuButton>
+          <MenuButton>
+            <ListBulletIcon className="size-5" />
+          </MenuButton>
         </DialogTrigger>
         <DialogContent className="sm:max-w-xl backdrop-blur-xl border-none dark:bg-white/5">
           <DialogHeader>
@@ -36,7 +38,9 @@ function Menu() {
       </Dialog>
       <Dialog>
         <DialogTrigger asChild>
-          <MenuButton>Rs</MenuButton>
+          <MenuButton>
+            <StarIcon className="size-5" />
+          </MenuButton>
         </DialogTrigger>
         <DialogContent className="sm:max-w-xl backdrop-blur-xl border-none dark:bg-white/5">
           <DialogHeader>
@@ -49,7 +53,9 @@ function Menu() {
       </Dialog>
       <Dialog>
         <DialogTrigger asChild>
-          <MenuButton>Ss</MenuButton>
+          <MenuButton>
+            <GearIcon className="size-5" />
+          </MenuButton>
         </DialogTrigger>
         <DialogContent className="sm:max-w-xl backdrop-blur-xl border-none dark:bg-white/5">
           <DialogHeader>
@@ -66,7 +72,7 @@ function Menu() {
 
 function MenuButton({ children }: { children: ReactNode }) {
   return (
-    <button className="dark:bg-neutral-900 bg-gray-100 size-[60px] text-orange-400 font-bold text-xl rounded-full">
+    <button className="dark:bg-neutral-900 bg-gray-100 size-[60px] text-orange-400 font-bold text-xl rounded-full dark:hover:bg-neutral-800 flex justify-center items-center">
       {children}
     </button>
   );
