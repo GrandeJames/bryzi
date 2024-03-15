@@ -20,7 +20,7 @@ function Menu() {
    * Settings (have the toggles here?)
    */
   return (
-    <div className="flex space-x-5 fixed bottom-0">
+    <div className="flex space-x-5 sticky bottom-0 w-full justify-center">
       <Dialog>
         <DialogTrigger asChild>
           <MenuButton>
@@ -45,6 +45,21 @@ function Menu() {
         <DialogContent className="sm:max-w-xl backdrop-blur-xl border-none dark:bg-white/5">
           <DialogHeader>
             <DialogTitle>Rewards</DialogTitle>
+            <DialogDescription>
+              Make changes to your profile here. Click save when youre done.
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+      <Dialog>
+        <DialogTrigger asChild>
+          <MenuButton>
+            <GearIcon className="size-5" />
+          </MenuButton>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-xl backdrop-blur-xl border-none dark:bg-white/5">
+          <DialogHeader>
+            <DialogTitle>Settings</DialogTitle>
             <DialogDescription>
               Make changes to your profile here. Click save when youre done.
             </DialogDescription>
