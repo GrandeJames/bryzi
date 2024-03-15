@@ -4,9 +4,11 @@ const VISUAL_FOCUS_TIME_SECONDS = 90;
 
 function Visual({ onComplete }: { onComplete: () => void }) {
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       onComplete();
     }, VISUAL_FOCUS_TIME_SECONDS * 1000);
+
+    return () => clearTimeout(timeout);
   });
 
   return (
