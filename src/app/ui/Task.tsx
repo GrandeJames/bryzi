@@ -22,7 +22,10 @@ function Task({ onComplete }: { onComplete: () => void }) {
       setSecondsLeft(secondsLeft);
     }, 500);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      document.title = "focus";
+    };
   }, [onComplete]);
 
   return (

@@ -1,14 +1,19 @@
 import { ReactNode } from "react";
 
 function Menu() {
+  /**
+   * Breathwork (toggle)
+   * Visual Focus ()
+   * Sounds
+   * Rewards
+   * Todo-list
+   * Settings (have the toggles here?)
+   */
   return (
     <div className="space-x-8 rounded-full fixed bottom-14 left-1/2 transform -translate-x-1/2">
-      <MenuButton>H</MenuButton>
-      <MenuButton>B</MenuButton>
-      <MenuButton>S</MenuButton>
-      <MenuButton>R</MenuButton>
-      <MenuButton>T</MenuButton>
-      <MenuButton>M</MenuButton>
+      <MenuButton>Rs</MenuButton>
+      <MenuButton>TL</MenuButton>
+      <MenuButton>Ss</MenuButton>
     </div>
   );
 }
