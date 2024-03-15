@@ -21,8 +21,32 @@ function Menu() {
    */
   return (
     <div className="space-x-8 rounded-full fixed bottom-14 left-1/2 transform -translate-x-1/2">
-      <MenuButton>Rs</MenuButton>
-      <MenuButton>TL</MenuButton>
+      <Dialog>
+        <DialogTrigger asChild>
+          <MenuButton>TL</MenuButton>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-xl backdrop-blur-xl border-none dark:bg-white/5">
+          <DialogHeader>
+            <DialogTitle>Todo-list</DialogTitle>
+            <DialogDescription>
+              Make changes to your profile here. Click save when youre done.
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+      <Dialog>
+        <DialogTrigger asChild>
+          <MenuButton>Rs</MenuButton>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-xl backdrop-blur-xl border-none dark:bg-white/5">
+          <DialogHeader>
+            <DialogTitle>Rewards</DialogTitle>
+            <DialogDescription>
+              Make changes to your profile here. Click save when youre done.
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
       <Dialog>
         <DialogTrigger asChild>
           <MenuButton>Ss</MenuButton>
