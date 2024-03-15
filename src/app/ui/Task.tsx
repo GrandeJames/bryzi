@@ -42,11 +42,11 @@ function Task({
         <span className="text-9xl text-orange-400">{timerDisplay(secondsLeft).number}</span>{" "}
         {timerDisplay(getSecondsLeft(endTimeRef.current)).label} left
       </div>
-      <div className="text-gray-200">Focus on your task. You got this!</div>
+      <div className="dark:text-gray-200 text-gray-700">Focus on your task. You got this!</div>
 
       <Actions>
         <ExitStage handleExitStage={handleExitStage} />
-        <button className="bg-neutral-800 rounded-full p-2">
+        <button className="dark:bg-neutral-800 bg-neutral-100 rounded-full p-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
