@@ -1,6 +1,9 @@
 function SkipStage({ handleSkipStage }: { handleSkipStage: () => void }) {
   return (
-    <button onClick={handleSkipStage} className="rounded-full bg-neutral-800 p-2">
+    <button
+      onClick={handleSkipStage}
+      className="rounded-full dark:bg-neutral-800 bg-neutral-100 p-2"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
