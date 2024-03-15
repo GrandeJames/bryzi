@@ -13,7 +13,16 @@ function Menu() {
     <div className="flex space-x-7 sticky bottom-0 w-full justify-center">
       <Dialog>
         <DialogTrigger asChild>
-          <MenuButton>awd</MenuButton>
+          <MenuButton>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-6 h-6"
+            >
+              <path d="M5.625 3.75a2.625 2.625 0 1 0 0 5.25h12.75a2.625 2.625 0 0 0 0-5.25H5.625ZM3.75 11.25a.75.75 0 0 0 0 1.5h16.5a.75.75 0 0 0 0-1.5H3.75ZM3 15.75a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75ZM3.75 18.75a.75.75 0 0 0 0 1.5h16.5a.75.75 0 0 0 0-1.5H3.75Z" />
+            </svg>
+          </MenuButton>
         </DialogTrigger>
         <DialogContent className="sm:max-w-xl backdrop-blur-xl border-none dark:bg-white/5">
           <DialogHeader>
@@ -109,7 +118,5 @@ function MenuButton({ children }: { children: ReactNode }) {
     </button>
   );
 }
-
-// BUG: Refactor of removing Focus and making page use client so menu button is causing error
 
 export default Menu;
