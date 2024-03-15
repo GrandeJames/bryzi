@@ -8,18 +8,6 @@ import Visual from "./Visual";
 /**
  * TODO:
  * - All stages should be optional
- * - I should be able to skip to the next stage
- * - Refactor: use useEffect
- */
-
-/**
- * Different Stage:
- * Get alert: deep breaths (inhale, hold, exhale). Can be in any order
- * Get focused: visual focus on an object for 30-60 seconds
- * Random Intermittent Reward
- * NSDR for learning sessions
- *
- * Note: stages can be optional
  */
 
 function Focus() {
