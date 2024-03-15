@@ -60,6 +60,19 @@ function Menu() {
           </DialogHeader>
         </DialogContent>
       </Dialog>
+      <Dialog>
+        <DialogTrigger asChild>
+          <MenuButton>Si</MenuButton>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-xl backdrop-blur-xl border-none dark:bg-white/5">
+          <DialogHeader>
+            <DialogTitle>Sign in</DialogTitle>
+            <DialogDescription>
+              Make changes to your profile here. Click save when youre done.
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
