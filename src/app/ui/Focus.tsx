@@ -46,7 +46,7 @@ function Focus() {
   };
 
   return (
-    <div className="flex flex-col border border-neutral-900 h-screen justify-center items-center">
+    <div className="flex flex-col h-screen justify-center items-center">
       {!stage && <button onClick={handleFocusClick}>Start</button>}
       {stage && <button onClick={handleExitClick}>x</button>}
 
