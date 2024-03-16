@@ -13,8 +13,8 @@ function Task({
   onComplete: () => void;
   handleExitStage: () => void;
 }) {
-  const endTimeRef = useRef(new Date().getTime() + TASK_TIME_MINUTES * 60 * 1000);
-  const [secondsLeft, setSecondsLeft] = useState(getSecondsLeft(endTimeRef.current));
+  const [endTime, setEndTime] = useState(new Date().getTime() + TASK_TIME_MINUTES * 60 * 1000);
+  const [secondsLeft, setSecondsLeft] = useState(getSecondsLeft(endTime));
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function Task({
         return;
       }
 
-      const secondsLeft = getSecondsLeft(endTimeRef.current);
+      const secondsLeft = getSecondsLeft(endTime);
 
       if (secondsLeft <= 0) {
         document.title = "Time's up!";
@@ -41,7 +41,7 @@ function Task({
     return () => {
       clearInterval(interval);
     };
-  }, [onComplete, paused]);
+  }, [endTime, onComplete, paused]);
 
   const handlePauseClick = () => {
     setPaused(true);
@@ -50,13 +50,14 @@ function Task({
 
   const handlePlayClick = () => {
     setPaused(false);
+    setEndTime(new Date().getTime() + secondsLeft * 1000);
   };
 
   return (
     <>
       <div className="font-semibold">
         <span className="text-9xl text-orange-400">{timerDisplay(secondsLeft).number}</span>{" "}
-        {timerDisplay(getSecondsLeft(endTimeRef.current)).label} left
+        {timerDisplay(getSecondsLeft(endTime)).label} left
       </div>
       <div className="dark:text-gray-200 text-gray-700">Focus on your task. You got this!</div>
 
