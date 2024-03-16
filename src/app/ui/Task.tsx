@@ -2,7 +2,7 @@
 
 import Actions from "@/components/Actions";
 import ExitStage from "@/components/ExitStage";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const TASK_TIME_MINUTES = 1;
 
@@ -14,17 +14,18 @@ function Task({
   handleExitStage: () => void;
 }) {
   const [endTime, setEndTime] = useState(new Date().getTime() + TASK_TIME_MINUTES * 60 * 1000);
-  const [secondsLeft, setSecondsLeft] = useState(getSecondsLeft(endTime));
+  const [secondsLeft, setSecondsLeft] = useState(getSecondsLeftUntilEndTime(endTime));
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
       if (paused) {
-        console.log("paused. interval exiting");
         return;
       }
 
-      const secondsLeft = getSecondsLeft(endTime);
+      const secondsLeft = getSecondsLeftUntilEndTime(endTime);
+
+      setSecondsLeft(secondsLeft);
 
       if (secondsLeft <= 0) {
         document.title = "Time's up!";
@@ -35,7 +36,6 @@ function Task({
       document.title = `${timerDisplay(secondsLeft).number} ${
         timerDisplay(secondsLeft).label
       } left`;
-      setSecondsLeft(secondsLeft);
     }, 500);
 
     return () => {
@@ -45,7 +45,7 @@ function Task({
 
   const handlePauseClick = () => {
     setPaused(true);
-    document.title = "Paused!";
+    document.title = "Paused";
   };
 
   const handlePlayClick = () => {
@@ -57,9 +57,12 @@ function Task({
     <>
       <div className="font-semibold">
         <span className="text-9xl text-orange-400">{timerDisplay(secondsLeft).number}</span>{" "}
-        {timerDisplay(getSecondsLeft(endTime)).label} left
+        {timerDisplay(getSecondsLeftUntilEndTime(endTime)).label} left
       </div>
-      <div className="dark:text-gray-200 text-gray-700">Focus on your task. You got this!</div>
+
+      <div className="dark:text-gray-200 text-gray-700">
+        {paused ? "Paused" : "Focus on your task. You got this!"}
+      </div>
 
       <Actions>
         <ExitStage handleExitStage={handleExitStage} />
@@ -72,7 +75,7 @@ function Task({
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-5 h-5"
+              className="w-5 h-5 text-orange-400"
             >
               <path
                 fillRule="evenodd"
@@ -105,7 +108,7 @@ function Task({
   );
 }
 
-function getSecondsLeft(endTime: number) {
+function getSecondsLeftUntilEndTime(endTime: number) {
   const now = new Date().getTime();
   const secondsLeft = Math.floor((endTime - now) / 1000);
   return secondsLeft;
