@@ -4,7 +4,7 @@ import Actions from "@/components/Actions";
 import ExitStage from "@/components/ExitStage";
 import { useEffect, useState } from "react";
 
-const TASK_TIME_MINUTES = 1;
+const TASK_TIME_MINUTES = 90;
 
 function Task({
   onComplete,
