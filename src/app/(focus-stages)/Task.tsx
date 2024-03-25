@@ -15,14 +15,11 @@ export function Task() {
         <span className="text-9xl text-orange-400">{timerDisplay(secondsLeft).number}</span>{" "}
         {timerDisplay(getSecondsLeftUntilEndTime(endTime)).label} left
       </div>
-
-      {/* <div className="dark:text-gray-200 text-gray-700">
+      <div className="dark:text-gray-200 text-gray-700">
         {paused ? "Paused" : "Focus on your task. You got this!"}
-      </div> */}
-
+      </div>
       <Actions>
         <ExitStage />
-
         <button
           className="dark:bg-neutral-800 bg-neutral-100 rounded-full p-2"
           onClick={paused ? play : pause}

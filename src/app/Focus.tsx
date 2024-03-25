@@ -9,11 +9,10 @@ export function Focus() {
   const { stage, start } = useFocusStore();
 
   return (
-    <div className="flex flex-col h-[80vh] justify-center items-center space-y-20">
+    <div className="flex flex-col h-[80vh] justify-center items-center">
       {stage === "task" && (
-        <div className="flex flex-col items-center">
-          <div className="text-3xl font-bold">Code</div>
-          <div className="text-gray-300">Random decription</div>
+        <div className="text-2xl font-bold fixed top-8 text-gray-200 underline underline-offset-4 lowercase">
+          Code
         </div>
       )}
       {!stage && (
