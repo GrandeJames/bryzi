@@ -10,15 +10,15 @@ export function Task() {
   const { secondsLeft, endTime, paused, play, pause } = useTimer();
 
   return (
-    <>
+    <div>
       <div className="font-semibold">
         <span className="text-9xl text-orange-400">{timerDisplay(secondsLeft).number}</span>{" "}
         {timerDisplay(getSecondsLeftUntilEndTime(endTime)).label} left
       </div>
 
-      <div className="dark:text-gray-200 text-gray-700">
+      {/* <div className="dark:text-gray-200 text-gray-700">
         {paused ? "Paused" : "Focus on your task. You got this!"}
-      </div>
+      </div> */}
 
       <Actions>
         <ExitStage />
@@ -30,7 +30,7 @@ export function Task() {
           {paused ? <PauseIcon className="text-orange-400" /> : <PlayIcon />}
         </button>
       </Actions>
-    </>
+    </div>
   );
 }
 
