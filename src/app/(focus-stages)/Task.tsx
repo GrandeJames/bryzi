@@ -27,15 +27,13 @@ export function Task({ onComplete, handleExitStage }: TaskProps) {
 
       <Actions>
         <ExitStage handleExitStage={handleExitStage} />
-        {paused ? (
-          <button className="dark:bg-neutral-800 bg-neutral-100 rounded-full p-2" onClick={play}>
-            <PauseIcon className="text-orange-400" />
-          </button>
-        ) : (
-          <button className="dark:bg-neutral-800 bg-neutral-100 rounded-full p-2" onClick={pause}>
-            <PlayIcon />
-          </button>
-        )}
+
+        <button
+          className="dark:bg-neutral-800 bg-neutral-100 rounded-full p-2"
+          onClick={paused ? play : pause}
+        >
+          {paused ? <PauseIcon className="text-orange-400" /> : <PlayIcon />}
+        </button>
       </Actions>
     </>
   );
