@@ -6,13 +6,12 @@ import { useEffect, useState } from "react";
 
 const TASK_TIME_MINUTES = 90;
 
-function Task({
-  onComplete,
-  handleExitStage,
-}: {
+interface TaskProps {
   onComplete: () => void;
   handleExitStage: () => void;
-}) {
+}
+
+function Task({ onComplete, handleExitStage }: TaskProps) {
   const [endTime, setEndTime] = useState(new Date().getTime() + TASK_TIME_MINUTES * 60 * 1000);
   const [secondsLeft, setSecondsLeft] = useState(getSecondsLeftUntilEndTime(endTime));
   const [paused, setPaused] = useState(false);

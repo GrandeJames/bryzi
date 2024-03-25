@@ -5,15 +5,13 @@ import { useEffect } from "react";
 
 const VISUAL_FOCUS_TIME_SECONDS = 90;
 
-function Visual({
-  onComplete,
-  handleExit,
-  handleSkipStage,
-}: {
+interface VisualProps {
   onComplete: () => void;
   handleExit: () => void;
   handleSkipStage: () => void;
-}) {
+}
+
+function Visual({ onComplete, handleExit, handleSkipStage }: VisualProps) {
   useEffect(() => {
     const timeout = setTimeout(() => {
       onComplete();

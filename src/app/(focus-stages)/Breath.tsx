@@ -8,15 +8,13 @@ const HOLD_TIME_SECONDS = 7;
 const EXHALE_TIME_SECONDS = 8;
 const BREATHING_CYCLES = 4;
 
-function Breath({
-  onComplete,
-  handleExit,
-  handleSkipStage,
-}: {
+interface BreathProps {
   onComplete: () => void;
   handleExit: () => void;
   handleSkipStage: () => void;
-}) {
+}
+
+function Breath({ onComplete, handleExit, handleSkipStage }: BreathProps) {
   const [stage, setStage] = useState("inhale");
   const [cycle, setCycle] = useState(1);
 
