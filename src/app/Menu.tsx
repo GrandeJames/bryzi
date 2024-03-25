@@ -1,3 +1,4 @@
+import { ChartBarIcon } from "@/components/icons/ChartBarIcon";
 import { Cog6ToothIcon } from "@/components/icons/Cog6ToothIcon";
 import { GiftIcon } from "@/components/icons/GiftIcon";
 import { QueueListIcon } from "@/components/icons/QueueListIcon";
@@ -88,6 +89,21 @@ export function Menu() {
         <DialogContent className="sm:max-w-xl backdrop-blur-xl border-none dark:bg-white/5">
           <DialogHeader>
             <DialogTitle>Rewards</DialogTitle>
+            <DialogDescription>
+              Make changes to your profile here. Click save when youre done.
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+      <Dialog>
+        <DialogTrigger asChild>
+          <MenuButton>
+            <ChartBarIcon />
+          </MenuButton>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-xl backdrop-blur-xl border-none dark:bg-white/5">
+          <DialogHeader>
+            <DialogTitle>Data Insights</DialogTitle>
             <DialogDescription>
               Make changes to your profile here. Click save when youre done.
             </DialogDescription>
