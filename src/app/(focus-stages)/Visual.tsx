@@ -11,7 +11,7 @@ interface VisualProps {
   handleSkipStage: () => void;
 }
 
-function Visual({ onComplete, handleExit, handleSkipStage }: VisualProps) {
+export function Visual({ onComplete, handleExit, handleSkipStage }: VisualProps) {
   useEffect(() => {
     const timeout = setTimeout(() => {
       onComplete();
@@ -36,5 +36,3 @@ function Visual({ onComplete, handleExit, handleSkipStage }: VisualProps) {
     </>
   );
 }
-
-export default Visual;

@@ -1,5 +1,5 @@
 import { Focus } from "./Focus";
-import Menu from "./Menu";
+import { Menu } from "./Menu";
 
 export default function Page() {
   return (

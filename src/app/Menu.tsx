@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { ReactNode } from "react";
 
-function Menu() {
+export function Menu() {
   return (
     <div className="flex space-x-7 sticky bottom-0 w-full justify-center">
       <Dialog>
@@ -86,5 +86,3 @@ function MenuButton({ children }: { children: ReactNode }) {
     </button>
   );
 }
-
-export default Menu;

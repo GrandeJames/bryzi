@@ -14,7 +14,7 @@ interface BreathProps {
   handleSkipStage: () => void;
 }
 
-function Breath({ onComplete, handleExit, handleSkipStage }: BreathProps) {
+export function Breath({ onComplete, handleExit, handleSkipStage }: BreathProps) {
   const [stage, setStage] = useState("inhale");
   const [cycle, setCycle] = useState(1);
 
@@ -66,5 +66,3 @@ function Breath({ onComplete, handleExit, handleSkipStage }: BreathProps) {
     </>
   );
 }
-
-export default Breath;

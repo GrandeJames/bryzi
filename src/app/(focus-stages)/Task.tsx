@@ -11,7 +11,7 @@ interface TaskProps {
   handleExitStage: () => void;
 }
 
-function Task({ onComplete, handleExitStage }: TaskProps) {
+export function Task({ onComplete, handleExitStage }: TaskProps) {
   const [endTime, setEndTime] = useState(new Date().getTime() + TASK_TIME_MINUTES * 60 * 1000);
   const [secondsLeft, setSecondsLeft] = useState(getSecondsLeftUntilEndTime(endTime));
   const [paused, setPaused] = useState(false);
@@ -125,5 +125,3 @@ const timerDisplay = (seconds: number) => {
     return { number: seconds, label };
   }
 };
-
-export default Task;
