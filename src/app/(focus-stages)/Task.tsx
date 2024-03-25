@@ -2,9 +2,7 @@
 
 import Actions from "@/components/Actions";
 import ExitStage from "@/components/ExitStage";
-import { useEffect, useState } from "react";
-
-const TASK_TIME_MINUTES = 90;
+import { useTimer } from "@/hooks/useTimer";
 
 interface TaskProps {
   onComplete: () => void;
@@ -12,45 +10,7 @@ interface TaskProps {
 }
 
 export function Task({ onComplete, handleExitStage }: TaskProps) {
-  const [endTime, setEndTime] = useState(new Date().getTime() + TASK_TIME_MINUTES * 60 * 1000);
-  const [secondsLeft, setSecondsLeft] = useState(getSecondsLeftUntilEndTime(endTime));
-  const [paused, setPaused] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (paused) {
-        return;
-      }
-
-      const secondsLeft = getSecondsLeftUntilEndTime(endTime);
-
-      setSecondsLeft(secondsLeft);
-
-      if (secondsLeft <= 0) {
-        document.title = "Time's up!";
-        onComplete();
-        return;
-      }
-
-      document.title = `${timerDisplay(secondsLeft).number} ${
-        timerDisplay(secondsLeft).label
-      } left`;
-    }, 500);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [endTime, onComplete, paused]);
-
-  const handlePauseClick = () => {
-    setPaused(true);
-    document.title = "Paused";
-  };
-
-  const handlePlayClick = () => {
-    setPaused(false);
-    setEndTime(new Date().getTime() + secondsLeft * 1000);
-  };
+  const { secondsLeft, endTime, paused, play, pause } = useTimer(onComplete);
 
   return (
     <>
@@ -66,10 +26,7 @@ export function Task({ onComplete, handleExitStage }: TaskProps) {
       <Actions>
         <ExitStage handleExitStage={handleExitStage} />
         {paused ? (
-          <button
-            className="dark:bg-neutral-800 bg-neutral-100 rounded-full p-2"
-            onClick={handlePlayClick}
-          >
+          <button className="dark:bg-neutral-800 bg-neutral-100 rounded-full p-2" onClick={play}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -84,10 +41,7 @@ export function Task({ onComplete, handleExitStage }: TaskProps) {
             </svg>
           </button>
         ) : (
-          <button
-            className="dark:bg-neutral-800 bg-neutral-100 rounded-full p-2"
-            onClick={handlePauseClick}
-          >
+          <button className="dark:bg-neutral-800 bg-neutral-100 rounded-full p-2" onClick={pause}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
