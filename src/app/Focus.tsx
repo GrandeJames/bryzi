@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Breath from "./Breath";
-import Task from "./Task";
-import Visual from "./Visual";
+import Breath from "./(focus-stages)/Breath";
+import Task from "./(focus-stages)/Task";
+import Visual from "./(focus-stages)/Visual";
 
 export function Focus() {
   const [stage, setStage] = useState("");

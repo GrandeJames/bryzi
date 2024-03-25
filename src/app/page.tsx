@@ -1,5 +1,5 @@
-import { Focus } from "./ui/Focus";
-import Menu from "./ui/Menu";
+import { Focus } from "./Focus";
+import Menu from "./Menu";
 
 export default function Page() {
   return (
