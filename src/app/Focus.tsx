@@ -3,10 +3,12 @@
 import { Breath } from "./(focus-stages)/Breath";
 import { Task } from "./(focus-stages)/Task";
 import { Visual } from "./(focus-stages)/Visual";
-import { useFocus } from "@/hooks/useFocus";
+import { useFocusStore } from "@/hooks/useFocusStore";
 
 export function Focus() {
-  const { stage, start, exit, complete, skipStage } = useFocus();
+  const { stage, start, exit, complete, skipStage } = useFocusStore();
+
+  console.log(useFocusStore());
 
   return (
     <div className="flex flex-col h-[80vh] justify-center items-center">
@@ -15,9 +17,7 @@ export function Focus() {
           start
         </button>
       )}
-      {stage === "breath" && (
-        <Breath onComplete={skipStage} handleExit={exit} handleSkipStage={skipStage} />
-      )}
+      {stage === "breath" && <Breath />}
       {stage === "visual" && (
         <Visual onComplete={skipStage} handleExit={exit} handleSkipStage={skipStage} />
       )}

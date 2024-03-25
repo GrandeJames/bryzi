@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
+import { useFocusStore } from "./useFocusStore";
 
 const INHALE_TIME_SECONDS = 4;
 const HOLD_TIME_SECONDS = 7;
 const EXHALE_TIME_SECONDS = 8;
 const BREATHING_CYCLES = 4;
 
-export function useBreathingCycle(onComplete: () => void) {
+export function useBreathingCycle() {
+  const { complete } = useFocusStore();
+
   const [stage, setStage] = useState("inhale");
   const [cycle, setCycle] = useState(1);
 
@@ -29,13 +32,13 @@ export function useBreathingCycle(onComplete: () => void) {
         if (cycle < BREATHING_CYCLES) {
           setCycle(cycle + 1);
         } else {
-          onComplete();
+          complete();
         }
       }
     }, stageDurations[stage] * 1000);
 
     return () => clearTimeout(timer);
-  }, [cycle, onComplete, stage]);
+  }, [cycle, complete, stage]);
 
   const cyclesLeft = BREATHING_CYCLES - cycle + 1;
 

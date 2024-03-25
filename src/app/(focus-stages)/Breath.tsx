@@ -3,14 +3,8 @@ import ExitStage from "@/components/ExitStage";
 import SkipStage from "@/components/SkipStage";
 import { useBreathingCycle } from "@/hooks/useBreathingCycle";
 
-interface BreathProps {
-  onComplete: () => void;
-  handleExit: () => void;
-  handleSkipStage: () => void;
-}
-
-export function Breath({ onComplete, handleExit, handleSkipStage }: BreathProps) {
-  const { stage, cyclesLeft } = useBreathingCycle(onComplete);
+export function Breath() {
+  const { stage, cyclesLeft } = useBreathingCycle();
 
   return (
     <>
@@ -24,8 +18,8 @@ export function Breath({ onComplete, handleExit, handleSkipStage }: BreathProps)
       </div>
 
       <Actions>
-        <ExitStage handleExitStage={handleExit} />
-        <SkipStage handleSkipStage={handleSkipStage} />
+        <ExitStage />
+        <SkipStage />
       </Actions>
     </>
   );

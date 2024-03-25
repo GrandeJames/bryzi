@@ -1,9 +1,10 @@
-function SkipStage({ handleSkipStage }: { handleSkipStage: () => void }) {
+import { useFocusStore } from "@/hooks/useFocusStore";
+
+function SkipStage() {
+  const { skipStage } = useFocusStore();
+
   return (
-    <button
-      onClick={handleSkipStage}
-      className="rounded-full dark:bg-neutral-800 bg-neutral-100 p-2"
-    >
+    <button onClick={skipStage} className="rounded-full dark:bg-neutral-800 bg-neutral-100 p-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
