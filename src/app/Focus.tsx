@@ -28,7 +28,7 @@ export function Focus() {
     setStage("");
   };
 
-  const handleComplete = () => {
+  const handleFocusComplete = () => {
     setStage("");
     // TODO: reward points
   };
@@ -54,7 +54,9 @@ export function Focus() {
           handleSkipStage={handleSkipStage}
         />
       )}
-      {stage === "task" && <Task onComplete={handleComplete} handleExitStage={handleExitClick} />}
+      {stage === "task" && (
+        <Task onComplete={handleFocusComplete} handleExitStage={handleExitClick} />
+      )}
     </div>
   );
 }
