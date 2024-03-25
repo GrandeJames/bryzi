@@ -51,30 +51,6 @@ export function Menu() {
                   <div>Write Essay oiahwd oiawd awidj</div>
                   <div className="text text-gray-500">random desc</div>
                 </div>
-                <div>
-                  <div>Write Essa pojawdo paowjdy</div>
-                  <div className="text text-gray-500">random desc</div>
-                </div>
-                <div>
-                  <div>Write Essay</div>
-                  <div className="text text-gray-500">random desc</div>
-                </div>
-                <div>
-                  <div>Write Essay paowjd awd</div>
-                  <div className="text text-gray-500">random desc</div>
-                </div>
-                <div>
-                  <div>Write Essa pojawdo paowjdy</div>
-                  <div className="text text-gray-500">random desc</div>
-                </div>
-                <div>
-                  <div>Write Essay</div>
-                  <div className="text text-gray-500">random desc</div>
-                </div>
-                <div>
-                  <div>Write Essay paowjd awd</div>
-                  <div className="text text-gray-500">random desc</div>
-                </div>
               </div>
             </div>
           </div>
