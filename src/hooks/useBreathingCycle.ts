@@ -7,7 +7,7 @@ const EXHALE_TIME_SECONDS = 8;
 const BREATHING_CYCLES = 4;
 
 export function useBreathingCycle() {
-  const { complete } = useFocusStore();
+  const { skipStage } = useFocusStore();
 
   const [stage, setStage] = useState("inhale");
   const [cycle, setCycle] = useState(1);
@@ -32,13 +32,13 @@ export function useBreathingCycle() {
         if (cycle < BREATHING_CYCLES) {
           setCycle(cycle + 1);
         } else {
-          complete();
+          skipStage();
         }
       }
     }, stageDurations[stage] * 1000);
 
     return () => clearTimeout(timer);
-  }, [cycle, complete, stage]);
+  }, [cycle, skipStage, stage]);
 
   const cyclesLeft = BREATHING_CYCLES - cycle + 1;
 

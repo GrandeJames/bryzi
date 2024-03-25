@@ -1,20 +1,17 @@
 import Actions from "@/components/Actions";
 import ExitStage from "@/components/ExitStage";
 import SkipStage from "@/components/SkipStage";
+import { useFocusStore } from "@/hooks/useFocusStore";
 import { useEffect } from "react";
 
 const VISUAL_FOCUS_TIME_SECONDS = 90;
 
-interface VisualProps {
-  onComplete: () => void;
-  handleExit: () => void;
-  handleSkipStage: () => void;
-}
+export function Visual() {
+  const { skipStage } = useFocusStore();
 
-export function Visual({ onComplete, handleExit, handleSkipStage }: VisualProps) {
   useEffect(() => {
     const timeout = setTimeout(() => {
-      onComplete();
+      skipStage();
     }, VISUAL_FOCUS_TIME_SECONDS * 1000);
 
     return () => clearTimeout(timeout);
@@ -30,8 +27,8 @@ export function Visual({ onComplete, handleExit, handleSkipStage }: VisualProps)
       </div>
 
       <Actions>
-        <ExitStage handleExitStage={handleExit} />
-        <SkipStage handleSkipStage={handleSkipStage} />
+        <ExitStage />
+        <SkipStage />
       </Actions>
     </>
   );

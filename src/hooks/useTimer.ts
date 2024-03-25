@@ -1,10 +1,11 @@
-import Actions from "@/components/Actions";
-import ExitStage from "@/components/ExitStage";
 import { useEffect, useState } from "react";
+import { useFocusStore } from "./useFocusStore";
 
 const TASK_TIME_MINUTES = 90;
 
-export function useTimer(onComplete: () => void) {
+export function useTimer() {
+  const { complete } = useFocusStore();
+
   const [endTime, setEndTime] = useState(new Date().getTime() + TASK_TIME_MINUTES * 60 * 1000);
   const [secondsLeft, setSecondsLeft] = useState(getSecondsLeftUntilEndTime(endTime));
   const [paused, setPaused] = useState(false);
@@ -21,7 +22,7 @@ export function useTimer(onComplete: () => void) {
 
       if (secondsLeft <= 0) {
         document.title = "Time's up!";
-        onComplete();
+        complete();
         return;
       }
 
@@ -33,7 +34,7 @@ export function useTimer(onComplete: () => void) {
     return () => {
       clearInterval(interval);
     };
-  }, [endTime, onComplete, paused]);
+  }, [endTime, complete, paused]);
 
   const pause = () => {
     setPaused(true);

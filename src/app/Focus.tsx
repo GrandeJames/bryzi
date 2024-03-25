@@ -6,9 +6,7 @@ import { Visual } from "./(focus-stages)/Visual";
 import { useFocusStore } from "@/hooks/useFocusStore";
 
 export function Focus() {
-  const { stage, start, exit, complete, skipStage } = useFocusStore();
-
-  console.log(useFocusStore());
+  const { stage, start } = useFocusStore();
 
   return (
     <div className="flex flex-col h-[80vh] justify-center items-center">
@@ -18,10 +16,8 @@ export function Focus() {
         </button>
       )}
       {stage === "breath" && <Breath />}
-      {stage === "visual" && (
-        <Visual onComplete={skipStage} handleExit={exit} handleSkipStage={skipStage} />
-      )}
-      {stage === "task" && <Task onComplete={complete} handleExitStage={exit} />}
+      {stage === "visual" && <Visual />}
+      {stage === "task" && <Task />}
     </div>
   );
 }

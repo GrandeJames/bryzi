@@ -6,13 +6,8 @@ import { PauseIcon } from "@/components/icons/PauseIcon";
 import { PlayIcon } from "@/components/icons/PlayIcon";
 import { useTimer } from "@/hooks/useTimer";
 
-interface TaskProps {
-  onComplete: () => void;
-  handleExitStage: () => void;
-}
-
-export function Task({ onComplete, handleExitStage }: TaskProps) {
-  const { secondsLeft, endTime, paused, play, pause } = useTimer(onComplete);
+export function Task() {
+  const { secondsLeft, endTime, paused, play, pause } = useTimer();
 
   return (
     <>
@@ -26,7 +21,7 @@ export function Task({ onComplete, handleExitStage }: TaskProps) {
       </div>
 
       <Actions>
-        <ExitStage handleExitStage={handleExitStage} />
+        <ExitStage />
 
         <button
           className="dark:bg-neutral-800 bg-neutral-100 rounded-full p-2"
