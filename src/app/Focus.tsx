@@ -12,9 +12,12 @@ export function Focus() {
 
   return (
     <>
-      <div className="my-3">
-        <TotalProgress />
-      </div>
+      {!stage && (
+        <div className="my-3">
+          <TotalProgress />
+        </div>
+      )}
+
       <div className="flex flex-col h-[80vh] justify-center items-center">
         {!stage && (
           <>
