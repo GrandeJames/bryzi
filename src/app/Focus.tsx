@@ -6,6 +6,7 @@ import { Task } from "./(focus-stages)/Task";
 import { Visual } from "./(focus-stages)/Visual";
 import { useFocusStore } from "@/hooks/useFocusStore";
 import { Menu } from "./Menu";
+import { Prepare } from "./(focus-stages)/Prepare";
 
 export function Focus() {
   const { stage, start } = useFocusStore();
@@ -30,6 +31,7 @@ export function Focus() {
         {stage === "breath" && <Breath />}
         {stage === "visual" && <Visual />}
         {stage === "task" && <Task />}
+        {stage === "prepare" && <Prepare />}
       </div>
     </>
   );

@@ -8,11 +8,11 @@ interface FocusState {
   complete: () => void;
 }
 
-const stages = ["breath", "visual", "task"];
+const stages = ["prepare", "breath", "visual", "task"];
 
 export const useFocusStore = create<FocusState>((set) => ({
   stage: "",
-  start: () => set(() => ({ stage: "breath" })),
+  start: () => set(() => ({ stage: stages[0] })),
   exit: () => set(() => ({ stage: "" })),
   complete: () => set(() => ({ stage: "" })), // TODO: handle rewards on complete
   skipStage: () =>
