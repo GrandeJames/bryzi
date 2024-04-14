@@ -1,3 +1,5 @@
+'use client';
+
 import { ChartBarIcon } from "@/components/icons/ChartBarIcon";
 import { Cog6ToothIcon } from "@/components/icons/Cog6ToothIcon";
 import { GiftIcon } from "@/components/icons/GiftIcon";
@@ -15,7 +17,7 @@ import { ReactNode } from "react";
 
 export function Menu() {
   return (
-    <div className="flex space-x-7 sticky bottom-0 w-full justify-center">
+    <div className="flex space-x-7 absolute bottom-10 w-full justify-center">
       <Dialog>
         <DialogTrigger asChild>
           <MenuButton>
