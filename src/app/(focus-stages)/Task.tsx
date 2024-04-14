@@ -4,19 +4,26 @@ import Actions from "@/components/Actions";
 import ExitStage from "@/components/ExitStage";
 import { PauseIcon } from "@/components/icons/PauseIcon";
 import { PlayIcon } from "@/components/icons/PlayIcon";
+import { Progress } from "@/components/ui/progress";
 import { useTimer } from "@/hooks/useTimer";
 
 export function Task() {
-  const { secondsLeft, endTime, paused, play, pause } = useTimer();
+  const { secondsLeft, endTime, paused, play, pause, percentComplete } = useTimer();
 
   return (
-    <div>
-      <div className="font-semibold">
-        <span className="text-9xl text-orange-400">{timerDisplay(secondsLeft).number}</span>{" "}
-        {timerDisplay(getSecondsLeftUntilEndTime(endTime)).label} left
-      </div>
-      <div className="dark:text-gray-200 text-gray-700">
-        {paused ? "Paused" : "Focus on your task. You got this!"}
+    <div className="h-full w-full">
+      <Progress value={percentComplete()} className="my-5 bg-red-400" />
+      <div className="flex justify-center font-bold text-2xl underline underline-offset-8">Code</div>
+      <div className="flex justify-center h-full place-items-center">
+        <div>
+          <div className="font-semibold">
+            <span className="text-9xl text-orange-400">{timerDisplay(secondsLeft).number}</span>{" "}
+            {timerDisplay(getSecondsLeftUntilEndTime(endTime)).label} left
+          </div>
+          <div className="dark:text-gray-200 text-gray-700">
+            {paused ? "Paused" : "Focus on your task. You got this!"}
+          </div>
+        </div>
       </div>
       <Actions>
         <ExitStage />

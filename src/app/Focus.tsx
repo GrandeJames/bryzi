@@ -10,11 +10,6 @@ export function Focus() {
 
   return (
     <div className="flex flex-col h-[80vh] justify-center items-center">
-      {stage === "task" && (
-        <div className="text-2xl font-bold fixed top-8 text-gray-200 underline underline-offset-4 lowercase">
-          Code
-        </div>
-      )}
       {!stage && (
         <button onClick={start} className="text-3xl font-bold text-orange-400">
           start

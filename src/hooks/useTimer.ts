@@ -46,7 +46,14 @@ export function useTimer() {
     setEndTime(new Date().getTime() + secondsLeft * 1000);
   };
 
-  return { endTime, secondsLeft, paused, pause, play };
+  const percentComplete = () => {
+    const totalSeconds = TASK_TIME_MINUTES * 60;
+    const remainingSeconds = secondsLeft;
+    const percent = ((totalSeconds - remainingSeconds) / totalSeconds) * 100;
+    return percent;
+  };
+
+  return { endTime, secondsLeft, paused, pause, play, percentComplete};
 }
 
 function getSecondsLeftUntilEndTime(endTime: number) {
