@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFocusStore } from "./useFocusStore";
 
-const TASK_TIME_MINUTES = 90;
+const TASK_TIME_MINUTES = 45;
 
 export function useTimer() {
   const { complete } = useFocusStore();
