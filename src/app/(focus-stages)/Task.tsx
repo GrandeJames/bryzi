@@ -19,7 +19,7 @@ export function Task() {
       <div className="flex justify-center h-full place-items-center">
         <div>
           <div className="font-semibold">
-            <span className="text-9xl text-orange-400">{timerDisplay(secondsLeft).number}</span>{" "}
+            <span className="text-[13rem] leading-none text-orange-400">{timerDisplay(secondsLeft).number}</span>{" "}
             {timerDisplay(getSecondsLeftUntilEndTime(endTime)).label} left
           </div>
           <div className="dark:text-gray-200 text-gray-700 flex justify-center">
