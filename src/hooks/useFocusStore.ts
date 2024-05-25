@@ -13,7 +13,10 @@ const stages = ["prepare", "breath", "visual", "task"];
 export const useFocusStore = create<FocusState>((set) => ({
   stage: "",
   start: () => set(() => ({ stage: stages[0] })),
-  exit: () => set(() => ({ stage: "" })),
+  exit: () => {
+    document.title = "Focus";
+    set(() => ({ stage: "" }));
+  },
   complete: () => set(() => ({ stage: "" })), // TODO: handle rewards on complete
   skipStage: () =>
     set((state) => {

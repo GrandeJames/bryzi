@@ -21,14 +21,14 @@ export function useTimer() {
       setSecondsLeft(secondsLeft);
 
       if (secondsLeft <= 0) {
-        document.title = "Time's up!";
+        document.title = "Time's up! | Focus";
         complete();
         return;
       }
 
       document.title = `${timerDisplay(secondsLeft).number} ${
         timerDisplay(secondsLeft).label
-      } left`;
+      } left | Focus`;
     }, 500);
 
     return () => {
@@ -38,7 +38,7 @@ export function useTimer() {
 
   const pause = () => {
     setPaused(true);
-    document.title = "Paused";
+    document.title = "Paused | Focus";
   };
 
   const play = () => {
