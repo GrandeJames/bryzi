@@ -5,7 +5,6 @@ import { Breath } from "./(focus-stages)/BreathStage";
 import { FocusSessionStage } from "./(focus-stages)/FocusSessionStage";
 import { Visual } from "./(focus-stages)/VisualStage";
 import { useFocusStore } from "@/hooks/useFocusStore";
-import { Menu } from "./Menu";
 import { Prepare } from "./(focus-stages)/PrepareStage";
 
 export function Focus() {
@@ -13,11 +12,7 @@ export function Focus() {
 
   return (
     <>
-      {!stage && (
-        <div className="my-3">
-          <TotalProgress />
-        </div>
-      )}
+      {!stage && <TotalProgress className="my-3" />}
 
       <div className="flex flex-col h-[80vh] justify-center items-center">
         {!stage && (
