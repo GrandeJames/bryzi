@@ -25,7 +25,6 @@ export function Focus() {
             <button onClick={start} className="text-3xl font-bold text-orange-400">
               start
             </button>
-            <Menu />
           </>
         )}
         {stage === "breath" && <Breath />}
