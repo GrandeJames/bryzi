@@ -3,9 +3,20 @@ import ExitStage from "@/components/ExitStage";
 import SkipStage from "@/components/SkipStage";
 
 export function Prepare() {
+
+  // TODO: make this configurable
+  const prepareMessages = ["Declutter your space (physical and digital)", "Hydrate"];
+
   return (
     <>
-      <p className="text-orange-400">Declutter your space (physical and digital)</p>
+      <ul>
+        {prepareMessages.map((message, index) => (
+          <li key={index} className="text-orange-400">
+            - {message}
+          </li>
+        ))}
+      </ul>
+
       <Actions>
         <ExitStage />
         <SkipStage />
