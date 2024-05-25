@@ -1,12 +1,12 @@
 "use client";
 
 import { TotalProgress } from "@/components/TotalProgress";
-import { Breath } from "./(focus-stages)/Breath";
-import { Task } from "./(focus-stages)/Task";
-import { Visual } from "./(focus-stages)/Visual";
+import { Breath } from "./(focus-stages)/BreathStage";
+import { FocusSessionStage } from "./(focus-stages)/FocusSessionStage";
+import { Visual } from "./(focus-stages)/VisualStage";
 import { useFocusStore } from "@/hooks/useFocusStore";
 import { Menu } from "./Menu";
-import { Prepare } from "./(focus-stages)/Prepare";
+import { Prepare } from "./(focus-stages)/PrepareStage";
 
 export function Focus() {
   const { stage, start } = useFocusStore();
@@ -30,7 +30,7 @@ export function Focus() {
         )}
         {stage === "breath" && <Breath />}
         {stage === "visual" && <Visual />}
-        {stage === "task" && <Task />}
+        {stage === "task" && <FocusSessionStage />}
         {stage === "prepare" && <Prepare />}
       </div>
     </>

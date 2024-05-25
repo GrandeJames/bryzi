@@ -7,7 +7,7 @@ import { PlayIcon } from "@/components/icons/PlayIcon";
 import { Progress } from "@/components/ui/progress";
 import { useTimer } from "@/hooks/useTimer";
 
-export function Task() {
+export function FocusSessionStage() {
   const { secondsLeft, endTime, paused, play, pause, percentComplete } = useTimer();
 
   return (
@@ -19,7 +19,9 @@ export function Task() {
       <div className="flex justify-center h-full place-items-center">
         <div>
           <div className="font-semibold">
-            <span className="text-[13rem] leading-none text-orange-400">{timerDisplay(secondsLeft).number}</span>{" "}
+            <span className="text-[13rem] leading-none text-orange-400">
+              {timerDisplay(secondsLeft).number}
+            </span>{" "}
             {timerDisplay(getSecondsLeftUntilEndTime(endTime)).label} left
           </div>
           <div className="dark:text-gray-200 text-gray-700 flex justify-center">
