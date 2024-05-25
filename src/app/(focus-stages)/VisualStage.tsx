@@ -1,6 +1,6 @@
 "use client";
 
-import Actions from "@/components/Actions";
+import ActionsContainer from "@/components/Actions";
 import ExitStage from "@/components/ExitStage";
 import SkipStage from "@/components/SkipStage";
 import { useFocusStore } from "@/hooks/useFocusStore";
@@ -28,10 +28,10 @@ export function Visual() {
         <div className="rounded-full bg-orange-400 size-10"></div>
       </div>
 
-      <Actions>
+      <ActionsContainer>
         <ExitStage />
         <SkipStage />
-      </Actions>
+      </ActionsContainer>
     </>
   );
 }

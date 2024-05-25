@@ -1,6 +1,6 @@
 "use client";
 
-import Actions from "@/components/Actions";
+import ActionsContainer from "@/components/Actions";
 import ExitStage from "@/components/ExitStage";
 import { PauseIcon } from "@/components/icons/PauseIcon";
 import { PlayIcon } from "@/components/icons/PlayIcon";
@@ -12,10 +12,13 @@ export function FocusSessionStage() {
 
   return (
     <div className="h-full w-full">
-      <Progress value={percentComplete()} />
-      <div className="flex justify-center font-bold text-2xl underline underline-offset-8 my-5">
-        Code
-      </div>
+      <header>
+        <Progress value={percentComplete()} />
+        <div className="flex justify-center font-bold text-2xl underline underline-offset-8 my-5">
+          Code
+        </div>
+      </header>
+
       <div className="flex justify-center h-full place-items-center">
         <div>
           <div className="font-semibold">
@@ -29,7 +32,7 @@ export function FocusSessionStage() {
           </div>
         </div>
       </div>
-      <Actions>
+      <ActionsContainer>
         <ExitStage />
         <button
           className="dark:bg-neutral-800 bg-neutral-100 rounded-full p-2"
@@ -37,7 +40,7 @@ export function FocusSessionStage() {
         >
           {paused ? <PauseIcon className="text-orange-400" /> : <PlayIcon />}
         </button>
-      </Actions>
+      </ActionsContainer>
     </div>
   );
 }

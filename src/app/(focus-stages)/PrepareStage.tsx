@@ -1,4 +1,4 @@
-import Actions from "@/components/Actions";
+import ActionsContainer from "@/components/Actions";
 import ExitStage from "@/components/ExitStage";
 import SkipStage from "@/components/SkipStage";
 
@@ -17,10 +17,10 @@ export function Prepare() {
         ))}
       </ul>
 
-      <Actions>
+      <ActionsContainer>
         <ExitStage />
         <SkipStage />
-      </Actions>
+      </ActionsContainer>
     </>
   );
 }

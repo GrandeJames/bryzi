@@ -1,6 +1,6 @@
 "use client";
 
-import Actions from "@/components/Actions";
+import ActionsContainer from "@/components/Actions";
 import ExitStage from "@/components/ExitStage";
 import SkipStage from "@/components/SkipStage";
 import { useBreathingCycle } from "@/hooks/useBreathingCycle";
@@ -23,10 +23,10 @@ export function Breath() {
         {stage === "exhale" && <div>{breathLabels.exhale}</div>}
       </div>
 
-      <Actions>
+      <ActionsContainer>
         <ExitStage />
         <SkipStage />
-      </Actions>
+      </ActionsContainer>
     </>
   );
 }
