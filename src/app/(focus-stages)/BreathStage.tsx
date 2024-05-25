@@ -5,7 +5,7 @@ import ExitStage from "@/components/ExitStage";
 import SkipStage from "@/components/SkipStage";
 import { useBreathingCycle } from "@/hooks/useBreathingCycle";
 
-export function Breath() {
+export function BreathStage() {
   const { stage, cyclesLeft } = useBreathingCycle();
 
   const breathLabels = {

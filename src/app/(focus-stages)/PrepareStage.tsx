@@ -2,7 +2,7 @@ import ActionsContainer from "@/components/Actions";
 import ExitStage from "@/components/ExitStage";
 import SkipStage from "@/components/SkipStage";
 
-export function Prepare() {
+export function PrepareStage() {
 
   // TODO: make this configurable
   const prepareMessages = ["Declutter your space (physical and digital)", "Hydrate"];

@@ -14,9 +14,9 @@ export function FocusSessionStage() {
     <div className="h-full w-full">
       <header>
         <Progress value={percentComplete()} />
-        <div className="flex justify-center font-bold text-2xl underline underline-offset-8 my-5">
+        {/* <div className="flex justify-center font-bold text-2xl underline underline-offset-8 my-5">
           Code
-        </div>
+        </div> */}
       </header>
 
       <div className="flex justify-center h-full place-items-center">

@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 const VISUAL_FOCUS_TIME_SECONDS = 90;
 
-export function Visual() {
+export function VisualStage() {
   const { skipStage } = useFocusStore();
 
   useEffect(() => {
