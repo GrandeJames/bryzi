@@ -1,3 +1,5 @@
+"use client";
+
 import Actions from "@/components/Actions";
 import ExitStage from "@/components/ExitStage";
 import SkipStage from "@/components/SkipStage";
