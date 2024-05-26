@@ -3,20 +3,27 @@ import { Cog6ToothIcon } from "@/components/icons/Cog6ToothIcon";
 import { GiftIcon } from "@/components/icons/GiftIcon";
 import { QueueListIcon } from "@/components/icons/QueueListIcon";
 import { UserCircleIcon } from "@/components/icons/UserCircleIcon";
+import Link from "next/link";
 import { ReactNode } from "react";
 
 export function Menu() {
   return (
     <div className="flex space-x-7 fixed bottom-10 w-full justify-center">
-      <MenuButton>
-        <QueueListIcon />
-      </MenuButton>
-      <MenuButton>
-        <GiftIcon />
-      </MenuButton>
-      <MenuButton>
-        <ChartBarIcon />
-      </MenuButton>
+      <Link href={"tasks"}>
+        <MenuButton>
+          <QueueListIcon />
+        </MenuButton>
+      </Link>
+      <Link href={"rewards"}>
+        <MenuButton>
+          <GiftIcon />
+        </MenuButton>
+      </Link>
+      <Link href={"data-insights"}>
+        <MenuButton>
+          <ChartBarIcon />
+        </MenuButton>
+      </Link>
       <MenuButton>
         <Cog6ToothIcon />
       </MenuButton>
