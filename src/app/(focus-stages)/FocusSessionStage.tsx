@@ -11,15 +11,15 @@ export function FocusSessionStage() {
   const { secondsLeft, endTime, paused, play, pause, percentComplete } = useTimer();
 
   return (
-    <div className="h-full w-full">
-      <header>
+    <div className="flex flex-col h-[75vh] w-full relative">
+      <header className="py-3">
         <Progress value={percentComplete()} />
         {/* <div className="flex justify-center font-bold text-2xl underline underline-offset-8 my-5">
           Code
         </div> */}
       </header>
 
-      <div className="flex justify-center h-full place-items-center">
+      <div className="flex justify-center place-items-center h-full">
         <div>
           <div className="font-semibold">
             <span className="text-[13rem] leading-none text-orange-400">
