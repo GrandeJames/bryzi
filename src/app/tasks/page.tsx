@@ -3,18 +3,27 @@
 import { useState } from "react";
 
 function Tasks() {
-  const [selectedTab, setSelectedTab] = useState("Today");
-
-  const onTabClick = (tab: string) => {
-    setSelectedTab(tab);
-  };
-
   // TODO: obtain all of users tasks
   // TODO: filter tasks based on selected tab
   // TODO: clean up repetitive code
 
   return (
     <div className="flex min-h-screen">
+      <TasksNavbar />
+      <div>test</div>
+    </div>
+  );
+}
+
+function TasksNavbar() {
+  const [selectedTab, setSelectedTab] = useState("Today");
+
+  const onTabClick = (tab: string) => {
+    setSelectedTab(tab);
+  };
+
+  return (
+    <>
       <ul className="flex flex-col px-5 py-10 space-y-1">
         <li>
           <button
@@ -56,9 +65,16 @@ function Tasks() {
             Completed
           </button>
         </li>
+        <li>
+          <button
+            className={`${selectedTab === "Deleted" && "bg-white text-black"}`}
+            onClick={() => onTabClick("Deleted")}
+          >
+            Deleted
+          </button>
+        </li>
       </ul>
-      <div>test</div>
-    </div>
+    </>
   );
 }
 
