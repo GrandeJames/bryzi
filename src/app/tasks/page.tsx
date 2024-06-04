@@ -57,6 +57,7 @@ function TasksNavbar() {
             Inbox
           </button>
         </li>
+        <hr />
         <li>
           <button
             className={`${selectedTab === "Completed" && "bg-white text-black"}`}
