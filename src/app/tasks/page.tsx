@@ -10,8 +10,45 @@ function Tasks() {
   return (
     <div className="flex min-h-screen">
       <TasksNavbar />
-      <div>test</div>
+      <CreateTaskForm />
     </div>
+  );
+}
+
+type Task = {
+  id: string;
+  title: string;
+  completed: boolean;
+};
+
+function CreateTaskForm() {
+  const [title, setTitle] = useState("");
+
+  const handleTitleInputChange = (e: any) => {
+    setTitle(e.target.value);
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    // TODO: figure out how to obtain the values of the form
+    console.log("handle submit. e,", e);
+  };
+
+  return (
+    <form className="border border-gray-800 h-min">
+      <input type="text" placeholder="Task title" onChange={handleTitleInputChange} />
+      {title && (
+        <div>
+          <div>Date</div>
+          <div>Deadline</div>
+          <div>Importance</div>
+          <div>Difficulty</div>
+          <div>Duration</div>
+          <div>Reward</div>
+          <div>Tag</div>
+        </div>
+      )}
+    </form>
   );
 }
 
