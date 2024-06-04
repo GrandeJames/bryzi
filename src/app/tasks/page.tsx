@@ -30,7 +30,7 @@ function CreateTaskForm() {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    // TODO: figure out how to obtain the values of the form
+    // TODO: create a post request.
     console.log("handle submit. e,", e);
   };
 
