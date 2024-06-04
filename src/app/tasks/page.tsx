@@ -9,6 +9,9 @@ function Tasks() {
     setSelectedTab(tab);
   };
 
+  // TODO: obtain all of users tasks
+  // TODO: filter tasks based on selected tab
+
   return (
     <div className="flex min-h-screen">
       <ul className="flex flex-col px-5 py-10 space-y-1">
