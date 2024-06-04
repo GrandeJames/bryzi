@@ -11,6 +11,7 @@ function Tasks() {
 
   // TODO: obtain all of users tasks
   // TODO: filter tasks based on selected tab
+  // TODO: clean up repetitive code
 
   return (
     <div className="flex min-h-screen">
