@@ -11,37 +11,47 @@ function Tasks() {
 
   return (
     <div className="flex min-h-screen">
-      <ul className="flex flex-col border-r border-gray-800">
-        <button
-          className={`${selectedTab === "Today" && "bg-white text-black"}`}
-          onClick={() => onTabClick("Today")}
-        >
-          Today
-        </button>
-        <button
-          className={`${selectedTab === "Tomorrow" && "bg-white text-black"}`}
-          onClick={() => onTabClick("Tomorrow")}
-        >
-          Tomorrow
-        </button>
-        <button
-          className={`${selectedTab === "Next 7 Days" && "bg-white text-black"}`}
-          onClick={() => onTabClick("Next 7 Days")}
-        >
-          Next 7 Days
-        </button>
-        <button
-          className={`${selectedTab === "Inbox" && "bg-white text-black"}`}
-          onClick={() => onTabClick("Inbox")}
-        >
-          Inbox
-        </button>
-        <button
-          className={`${selectedTab === "Completed" && "bg-white text-black"}`}
-          onClick={() => onTabClick("Completed")}
-        >
-          Completed
-        </button>
+      <ul className="flex flex-col px-5 py-10 space-y-1">
+        <li>
+          <button
+            className={`${selectedTab === "Today" && "bg-white text-black"}`}
+            onClick={() => onTabClick("Today")}
+          >
+            Today
+          </button>
+        </li>
+        <li>
+          <button
+            className={`${selectedTab === "Tomorrow" && "bg-white text-black"}`}
+            onClick={() => onTabClick("Tomorrow")}
+          >
+            Tomorrow
+          </button>
+        </li>
+        <li>
+          <button
+            className={`${selectedTab === "Next 7 Days" && "bg-white text-black"}`}
+            onClick={() => onTabClick("Next 7 Days")}
+          >
+            Next 7 Days
+          </button>
+        </li>
+        <li>
+          <button
+            className={`${selectedTab === "Inbox" && "bg-white text-black"}`}
+            onClick={() => onTabClick("Inbox")}
+          >
+            Inbox
+          </button>
+        </li>
+        <li>
+          <button
+            className={`${selectedTab === "Completed" && "bg-white text-black"}`}
+            onClick={() => onTabClick("Completed")}
+          >
+            Completed
+          </button>
+        </li>
       </ul>
       <div>test</div>
     </div>
