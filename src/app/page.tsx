@@ -3,7 +3,7 @@ import { Focus } from "./Focus";
 export default function Page() {
   return (
     <>
-      <div className="max-w-screen-xl mx-auto">
+      <div className="flex-1">
         <Focus />
       </div>
     </>

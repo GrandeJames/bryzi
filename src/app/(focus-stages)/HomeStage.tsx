@@ -1,4 +1,3 @@
-import { Menu } from "@/components/Menu";
 import { TotalProgress } from "@/components/TotalProgress";
 import { useFocusStore } from "@/hooks/useFocusStore";
 
@@ -39,7 +38,6 @@ function HomeStage() {
         </div>
       </div>
 
-      <Menu />
     </>
   );
 }
