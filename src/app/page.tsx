@@ -3,7 +3,7 @@ import { Focus } from "./Focus";
 export default function Page() {
   return (
     <>
-      <div className="flex-1">
+      <div className="flex-1 px-5">
         <Focus />
       </div>
     </>
