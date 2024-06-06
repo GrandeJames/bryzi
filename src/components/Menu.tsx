@@ -6,6 +6,7 @@ import { UserCircleIcon } from "@/components/icons/UserCircleIcon";
 import Link from "next/link";
 import { ReactNode } from "react";
 import { HomeIcon } from "./icons/HomeIcon";
+import { SignIn } from "./SignIn";
 
 export function Menu() {
   return (
@@ -38,6 +39,7 @@ export function Menu() {
       <MenuButton>
         <UserCircleIcon />
       </MenuButton>
+      <SignIn />
     </div>
   );
 }
