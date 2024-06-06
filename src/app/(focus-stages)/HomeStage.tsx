@@ -19,15 +19,6 @@ function HomeStage() {
       <button onClick={start} className="text-3xl font-bold text-orange-400">
         start
       </button>
-      <div className="flex space-x-5">
-        <div>
-          Goals
-          <ul className="grid grid-cols-1 max-w-sm">
-            <li className="border border-gray-800">
-              <div>Goal title</div>
-            </li>
-          </ul>
-        </div>
         <div>
           <p className="mb-2 font-semibold">Tasks</p>
           <ul className="grid grid-cols-1 max-w-sm space-y-2">
@@ -36,7 +27,7 @@ function HomeStage() {
             ))}
           </ul>
         </div>
-      </div>
+  
 
     </>
   );

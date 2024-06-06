@@ -30,9 +30,11 @@ export function Menu() {
           <ChartBarIcon />
         </MenuButton>
       </Link>
-      <MenuButton>
-        <Cog6ToothIcon />
-      </MenuButton>
+      <Link href={"settings"}>
+        <MenuButton>
+          <Cog6ToothIcon />
+        </MenuButton>
+      </Link>
       <MenuButton>
         <UserCircleIcon />
       </MenuButton>
