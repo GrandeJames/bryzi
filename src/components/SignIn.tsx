@@ -1,14 +1,15 @@
-import Image from "next/image";
+import { signIn } from "@/auth.ts"
+
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
+
+
 
 function SignIn() {
   return (
@@ -23,8 +24,7 @@ function SignIn() {
         </DialogHeader>
         <div className="flex justify-center mt-10 mb-20">
           <div className="space-y-3">
-            <SignInOrgButton org="Google" />
-            <SignInOrgButton org="Apple" />
+            <SignInOrgButton org="github" />
           </div>
         </div>
         <div className="flex justify-center">
@@ -38,7 +38,14 @@ function SignIn() {
 }
 
 function SignInOrgButton({ org }: { org: string }) {
-  return <button className="bg-neutral-800 w-full rounded-md py-3 text-neutral-300">Sign in with {org}</button>;
+    return <form
+      action={async () => {
+        "use server"
+        await signIn("github")
+      }}
+    >
+      <button className="bg-neutral-800 rounded-md py-3 text-neutral-300">Sign in with {org}</button>
+    </form>
 }
 
 export { SignIn };
