@@ -2,11 +2,10 @@ import { ChartBarIcon } from "@/components/icons/ChartBarIcon";
 import { Cog6ToothIcon } from "@/components/icons/Cog6ToothIcon";
 import { GiftIcon } from "@/components/icons/GiftIcon";
 import { QueueListIcon } from "@/components/icons/QueueListIcon";
-import { UserCircleIcon } from "@/components/icons/UserCircleIcon";
 import Link from "next/link";
 import { ReactNode } from "react";
 import { HomeIcon } from "./icons/HomeIcon";
-import { SignIn } from "./SignIn";
+import { SignInDialog } from "./SignInDialog";
 import { auth, signOut } from "@/auth";
 
 export async function Menu() {
@@ -50,7 +49,7 @@ export async function Menu() {
           <button type="submit">Sign out</button>{" "}
         </form>
       ) : (
-        <SignIn />
+        <SignInDialog />
       )}
     </div>
   );

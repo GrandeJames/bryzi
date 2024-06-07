@@ -3,13 +3,12 @@ import { signIn } from "@/auth";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
 
-function SignIn() {
+function SignInDialog() {
   return (
     <Dialog>
       <DialogTrigger>Sign In</DialogTrigger>
@@ -48,4 +47,4 @@ function SignInForm({ provider }: { provider: string }) {
   );
 }
 
-export { SignIn };
+export { SignInDialog };
