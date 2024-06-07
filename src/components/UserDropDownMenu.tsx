@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import Image from "next/image";
+import { Cog6ToothIcon } from "./icons/Cog6ToothIcon";
 
 async function UserDropDownMenu() {
   const session = await auth();
@@ -16,9 +17,13 @@ async function UserDropDownMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <MenuItemContainer>
-          <Image src={session?.user?.image ?? ""} alt="" fill={true}></Image>
-        </MenuItemContainer>
+        <div className="relative size-[65px] rounded-lg overflow-hidden">
+          {session?.user?.image ? (
+            <Image src={session.user.image ?? ""} alt="" fill={true}></Image>
+          ) : (
+            <Cog6ToothIcon />
+          )}
+        </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>Account</DropdownMenuLabel>
