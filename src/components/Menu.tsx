@@ -42,7 +42,7 @@ export async function Menu() {
           </MenuItemContainer>
         </Link>
       </div>
-      <div>{session ? <UserDropDownMenu /> : <SignInDialog />}</div>
+      <div className="flex justify-center">{session ? <UserDropDownMenu /> : <SignInDialog />}</div>
     </div>
   );
 }

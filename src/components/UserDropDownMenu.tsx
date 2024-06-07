@@ -17,7 +17,7 @@ async function UserDropDownMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <div className="relative size-[60px] rounded-full overflow-hidden">
+        <div className="relative size-[40px] rounded-full overflow-hidden">
           {session?.user?.image ? (
             <Image src={session.user.image ?? ""} alt="" fill={true}></Image>
           ) : (
