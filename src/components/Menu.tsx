@@ -7,8 +7,12 @@ import Link from "next/link";
 import { ReactNode } from "react";
 import { HomeIcon } from "./icons/HomeIcon";
 import { SignIn } from "./SignIn";
+import { auth, signOut } from "@/auth";
 
-export function Menu() {
+export async function Menu() {
+  const session = await auth();
+
+  console.log("session", session);
   return (
     <div className="flex flex-col space-y-3 w-min border-r h-screen border-neutral-800 px-2 py-10">
       <Link href={"/"}>
@@ -36,10 +40,18 @@ export function Menu() {
           <Cog6ToothIcon />
         </MenuButton>
       </Link>
-      <MenuButton>
-        <UserCircleIcon />
-      </MenuButton>
-      <SignIn />
+      {session ? (
+        <form
+          action={async () => {
+            "use server";
+            await signOut();
+          }}
+        >
+          <button type="submit">Sign out</button>{" "}
+        </form>
+      ) : (
+        <SignIn />
+      )}
     </div>
   );
 }
