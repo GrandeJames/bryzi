@@ -3,10 +3,11 @@ import { Cog6ToothIcon } from "@/components/icons/Cog6ToothIcon";
 import { GiftIcon } from "@/components/icons/GiftIcon";
 import { QueueListIcon } from "@/components/icons/QueueListIcon";
 import Link from "next/link";
-import { ReactNode } from "react";
 import { HomeIcon } from "./icons/HomeIcon";
 import { SignInDialog } from "./SignInDialog";
-import { auth, signOut } from "@/auth";
+import { auth } from "@/auth";
+import { MenuItemContainer } from "./MenuItemContainer";
+import { UserDropDownMenu } from "./UserDropDownMenu";
 
 export async function Menu() {
   const session = await auth();
@@ -15,50 +16,31 @@ export async function Menu() {
   return (
     <div className="flex flex-col space-y-3 w-min border-r h-screen border-neutral-800 px-2 py-10">
       <Link href={"/"}>
-        <MenuButton>
+        <MenuItemContainer>
           <HomeIcon />
-        </MenuButton>
+        </MenuItemContainer>
       </Link>
       <Link href={"tasks"}>
-        <MenuButton>
+        <MenuItemContainer>
           <QueueListIcon />
-        </MenuButton>
+        </MenuItemContainer>
       </Link>
       <Link href={"rewards"}>
-        <MenuButton>
+        <MenuItemContainer>
           <GiftIcon />
-        </MenuButton>
+        </MenuItemContainer>
       </Link>
       <Link href={"data-insights"}>
-        <MenuButton>
+        <MenuItemContainer>
           <ChartBarIcon />
-        </MenuButton>
+        </MenuItemContainer>
       </Link>
       <Link href={"settings"}>
-        <MenuButton>
+        <MenuItemContainer>
           <Cog6ToothIcon />
-        </MenuButton>
+        </MenuItemContainer>
       </Link>
-      {session ? (
-        <form
-          action={async () => {
-            "use server";
-            await signOut();
-          }}
-        >
-          <button type="submit">Sign out</button>{" "}
-        </form>
-      ) : (
-        <SignInDialog />
-      )}
+      {session ? <UserDropDownMenu /> : <SignInDialog />}
     </div>
-  );
-}
-
-function MenuButton({ children }: { children: ReactNode }) {
-  return (
-    <button className="dark:bg-neutral-900 bg-gray-100 size-[65px] text-orange-400 font-bold text-xl rounded-full dark:hover:bg-neutral-800 flex justify-center items-center">
-      {children}
-    </button>
   );
 }
