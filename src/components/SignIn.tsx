@@ -1,4 +1,4 @@
-import { signIn } from "@/auth.ts"
+import { signIn } from "@/auth"
 
 import {
   Dialog,
@@ -8,8 +8,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
-
-
 
 function SignIn() {
   return (
