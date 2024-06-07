@@ -13,7 +13,6 @@ import { Cog6ToothIcon } from "./icons/Cog6ToothIcon";
 async function UserDropDownMenu() {
   const session = await auth();
 
-  console.log("session", session);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>

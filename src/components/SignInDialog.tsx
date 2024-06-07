@@ -1,17 +1,30 @@
 import { signIn } from "@/auth";
 
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { UserCircleIcon } from "./icons/UserCircleIcon";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "./ui/dialog";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { MenuItemContainer } from "./MenuItemContainer";
 
 function SignInDialog() {
   return (
     <Dialog>
-      <DialogTrigger>Sign In</DialogTrigger>
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <MenuItemContainer>
+            <UserCircleIcon />
+          </MenuItemContainer>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem>
+            <DialogTrigger>Sign in</DialogTrigger>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
       <DialogContent className="dark:bg-neutral-500/10 backdrop-blur-md max-w-xl border-none py-16">
         <DialogHeader>
           <DialogTitle className="text-center text-4xl dark:text-neutral-100">Sign In</DialogTitle>
