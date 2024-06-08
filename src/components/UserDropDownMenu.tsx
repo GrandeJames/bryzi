@@ -1,5 +1,4 @@
 import { auth, signOut } from "@/auth";
-import { MenuItemContainer } from "./MenuItemContainer";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,7 +7,8 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import Image from "next/image";
-import { Cog6ToothIcon } from "./icons/Cog6ToothIcon";
+import { UserCircleIcon } from "./icons/UserCircleIcon";
+import { MenuItemContainer } from "./MenuItemContainer";
 
 async function UserDropDownMenu() {
   const session = await auth();
@@ -18,9 +18,13 @@ async function UserDropDownMenu() {
       <DropdownMenuTrigger>
         <div className="relative size-[40px] rounded-full overflow-hidden">
           {session?.user?.image ? (
-            <Image src={session.user.image ?? ""} alt="" fill={true}></Image>
+            <div className="relative size-[40px] rounded-full overflow-hidden">
+              <Image src={session.user.image ?? ""} alt="" fill={true} />
+            </div>
           ) : (
-            <Cog6ToothIcon />
+            <MenuItemContainer>
+              <UserCircleIcon />
+            </MenuItemContainer>
           )}
         </div>
       </DropdownMenuTrigger>
@@ -34,7 +38,9 @@ async function UserDropDownMenu() {
             }}
             className="w-full"
           >
-            <button type="submit" className="w-full text-left p-2">Sign out</button>
+            <button type="submit" className="w-full text-left p-2">
+              Sign out
+            </button>
           </form>
         </DropdownMenuItem>
       </DropdownMenuContent>
