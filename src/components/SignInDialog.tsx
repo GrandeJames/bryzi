@@ -31,7 +31,7 @@ function SignInDialog() {
         </DialogHeader>
         <div className="mt-6 mb-10 flex flex-col gap-2">
           <SignInForm provider="GitHub" />
-          <SignInForm provider="GitHub" />
+          <SignInForm provider="Google" />
         </div>
         <div className="flex justify-center">
           <p className="text-center dark:text-neutral-400 text-sm max-w-sm">
