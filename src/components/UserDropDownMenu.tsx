@@ -32,8 +32,9 @@ async function UserDropDownMenu() {
               "use server";
               await signOut();
             }}
+            className="w-full"
           >
-            <button type="submit">Sign out</button>
+            <button type="submit" className="w-full text-left p-2">Sign out</button>
           </form>
         </DropdownMenuItem>
       </DropdownMenuContent>

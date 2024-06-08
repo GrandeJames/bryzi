@@ -21,7 +21,7 @@ function SignInDialog() {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem>
-            <DialogTrigger>Sign in</DialogTrigger>
+            <DialogTrigger className="w-full text-left p-2">Sign in</DialogTrigger>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
