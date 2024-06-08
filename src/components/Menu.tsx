@@ -2,50 +2,47 @@ import { ChartBarIcon } from "@/components/icons/ChartBarIcon";
 import { Cog6ToothIcon } from "@/components/icons/Cog6ToothIcon";
 import { GiftIcon } from "@/components/icons/GiftIcon";
 import { QueueListIcon } from "@/components/icons/QueueListIcon";
-import { UserCircleIcon } from "@/components/icons/UserCircleIcon";
 import Link from "next/link";
-import { ReactNode } from "react";
 import { HomeIcon } from "./icons/HomeIcon";
+import { SignInDialog } from "./SignInDialog";
+import { auth } from "@/auth";
+import { MenuItemContainer } from "./MenuItemContainer";
+import { UserDropDownMenu } from "./UserDropDownMenu";
 
-export function Menu() {
+export async function Menu() {
+  const session = await auth();
+
+  console.log("session", session);
   return (
-    <div className="flex flex-col space-y-3 w-min border-r h-screen border-neutral-800 px-2 py-10">
-      <Link href={"/"}>
-        <MenuButton>
-          <HomeIcon />
-        </MenuButton>
-      </Link>
-      <Link href={"tasks"}>
-        <MenuButton>
-          <QueueListIcon />
-        </MenuButton>
-      </Link>
-      <Link href={"rewards"}>
-        <MenuButton>
-          <GiftIcon />
-        </MenuButton>
-      </Link>
-      <Link href={"data-insights"}>
-        <MenuButton>
-          <ChartBarIcon />
-        </MenuButton>
-      </Link>
-      <Link href={"settings"}>
-        <MenuButton>
-          <Cog6ToothIcon />
-        </MenuButton>
-      </Link>
-      <MenuButton>
-        <UserCircleIcon />
-      </MenuButton>
+    <div className="flex flex-col h-screen justify-between border-r border-neutral-800 px-2 py-7">
+      <div className="flex flex-col space-y-3">
+        <Link href={"/"}>
+          <MenuItemContainer>
+            <HomeIcon />
+          </MenuItemContainer>
+        </Link>
+        <Link href={"tasks"}>
+          <MenuItemContainer>
+            <QueueListIcon />
+          </MenuItemContainer>
+        </Link>
+        <Link href={"rewards"}>
+          <MenuItemContainer>
+            <GiftIcon />
+          </MenuItemContainer>
+        </Link>
+        <Link href={"data-insights"}>
+          <MenuItemContainer>
+            <ChartBarIcon />
+          </MenuItemContainer>
+        </Link>
+        <Link href={"settings"}>
+          <MenuItemContainer>
+            <Cog6ToothIcon />
+          </MenuItemContainer>
+        </Link>
+      </div>
+      <div className="flex justify-center">{session ? <UserDropDownMenu /> : <SignInDialog />}</div>
     </div>
-  );
-}
-
-function MenuButton({ children }: { children: ReactNode }) {
-  return (
-    <button className="dark:bg-neutral-900 bg-gray-100 size-[65px] text-orange-400 font-bold text-xl rounded-full dark:hover:bg-neutral-800 flex justify-center items-center">
-      {children}
-    </button>
   );
 }
