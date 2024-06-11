@@ -16,7 +16,7 @@ function HomeStage() {
 
   return (
     <>
-      <Timeline />
+      <Timeline className="my-3" />
       <TotalProgress className="my-3" />
       <button onClick={start} className="text-3xl font-bold text-orange-400">
         start
