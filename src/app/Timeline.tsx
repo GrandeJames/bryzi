@@ -1,6 +1,6 @@
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
-function Timeline() {
+function Timeline({ className }: { className?: string }) {
   // 24 hour format
 
   // Timeline configuration
@@ -15,13 +15,21 @@ function Timeline() {
   let minutesFromStartTime = 20;
   let taskOffset = Math.round((minutesFromStartTime / TOTAL_FOCUS_TIME_IN_MINUTES) * 100);
 
+  // EDGE CASE: Task starts before the start time
+  // EDGE CASE: Task ends after the end time
+
   const TASKS = [
     { title: "ICS 311: Data Structure & Algorithms", start: "9:00", end: "10:15" },
     { title: "ICS 332: Computer Organization & Architecture", start: "10:30", end: "11:45" },
   ];
 
   return (
-    <div className="border border-neutral-700 rounded-md h-10 bg-neutral-800 relative overflow-hidden">
+    <div
+      className={cn(
+        "border border-neutral-700 rounded-md h-10 bg-neutral-800 relative overflow-hidden",
+        className
+      )}
+    >
       <div
         className={"absolute left-[0px] h-full rounded-md border-orange-300 border-2 bg-orange-400"}
         style={{ width: `${taskWidth}%`, left: `${taskOffset}%` }}
