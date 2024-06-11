@@ -1,5 +1,6 @@
 import { TotalProgress } from "@/components/TotalProgress";
 import { useFocusStore } from "@/hooks/useFocusStore";
+import { Timeline } from "../Timeline";
 
 function HomeStage() {
   const { start } = useFocusStore();
@@ -15,20 +16,19 @@ function HomeStage() {
 
   return (
     <>
+      <Timeline />
       <TotalProgress className="my-3" />
       <button onClick={start} className="text-3xl font-bold text-orange-400">
         start
       </button>
-        <div>
-          <p className="mb-2 font-semibold">Tasks</p>
-          <ul className="grid grid-cols-1 max-w-sm space-y-2">
-            {tasks.map((task, index) => (
-              <Task key={index} task={task} />
-            ))}
-          </ul>
-        </div>
-  
-
+      <div>
+        <p className="mb-2 font-semibold">Tasks</p>
+        <ul className="grid grid-cols-1 max-w-sm space-y-2">
+          {tasks.map((task, index) => (
+            <Task key={index} task={task} />
+          ))}
+        </ul>
+      </div>
     </>
   );
 }
