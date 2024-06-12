@@ -21,7 +21,50 @@ function getDifficultyLabel(difficulty: number) {
 function HomeStage() {
   const { start } = useFocusStore();
 
-  const focusWork = [
+  const todaysTasks = [
+    {
+      title: "Attend class",
+      class: "ICS 311: Data Structures & Algorithms",
+      importance: 3,
+      difficulty: 3,
+      date: {
+        date: "2022-01-01",
+        startTime: "10:30",
+        endTime: "11:15",
+      },
+    },
+    {
+      title: "Office hour",
+      class: "ICS 212: Program Structure",
+      difficulty: 2,
+      date: {
+        startTime: "11:30",
+      },
+    },
+    {
+      title: "Attend class",
+      class: "MATH 307: Linear Algebra & Differential Equations",
+      importance: 3,
+      date: {
+        startTime: "14:00",
+        endTime: "15:15",
+      },
+    },
+    {
+      title: "Attend class",
+      class: "SPAN 202: Spanish",
+      date: {
+        startTime: "16:00",
+        endTime: "16:50",
+      },
+    },
+    {
+      title: "Appointment",
+      date: {
+        startTime: "17:00",
+      },
+    },
+    { title: "Work", date: { startTime: "17:00", endTime: "21:00" } },
     {
       title: "Module 1 Essay",
       class: "IP 364: Philippine Popular Culture",
@@ -38,10 +81,12 @@ function HomeStage() {
       deadline: "2022-01-01",
     },
     { title: "Work on personal project", importance: 2, difficulty: 1, deadline: "2022-01-01" },
-    { title: "Work on personal project", importance: 2, difficulty: 1, deadline: "2022-01-01" },
-    { title: "Work on personal project", importance: 2, difficulty: 1, deadline: "2022-01-01" },
-    { title: "Work on personal project", importance: 2, difficulty: 1, deadline: "2022-01-01" },
-
+    {
+      title: "Discussion Post",
+      class: "ICS 425: Computer Security & Ethics",
+      importance: 1,
+      deadline: "2022-01-01",
+    },
   ];
 
   const miscTasks = [{ title: "Gym💪", importance: 3, difficulty: 3, doDate: "2022-01-01" }];
@@ -69,25 +114,22 @@ function HomeStage() {
             <div className="font-bold text-3xl text-neutral-100">Your Activities for the Day</div>
             <div className="text-5xl">😈</div>
           </div>
-          <div className="flex gap-10 overflow-scroll max-w-screen">
+          <div className="flex gap-10">
             <div className="text-neutral-700 text-xl font-semibold text-nowrap">
-              &quot;Lock the fuck in&quot; - You 🔓
+              &quot;Lock the fuck in&quot; - You
             </div>
             <div className="text-neutral-700 text-xl font-semibold  text-nowrap">
-              &quot;gym later? text me&quot; - Jane Doe 🔓
+              &quot;😈😈😈&quot; - John Doe
             </div>
             <div className="text-neutral-700 text-xl font-semibold  text-nowrap">
-              &quot;lock innnn&quot; - John Doe 🔓
-            </div>
-            <div className="text-neutral-700 text-xl font-semibold  text-nowrap">
-              &quot;yo&quot; - Trixy 🔒
+              &quot;yo&quot; - Trixy
             </div>
           </div>
         </header>
         <section>
           <header className="font-semibold text-xl mb-1 text-neutral-100">Schedule</header>
           <div className="flex gap-7 divide-x first:px-0">
-            <div className=" border-neutral-800 max-w-sm py-1">
+            <div className="max-w-sm py-1">
               <div className="text-sm font-semibold">Attend Class</div>
               <div className="text-sm text-neutral-300">
                 <div>ICS 311: Algorithms</div>
@@ -137,7 +179,7 @@ function HomeStage() {
             <div></div>
           </header>
           <ul className="grid grid-cols-1 max-w-3xl space-y-2 divide-neutral-800 divide-y">
-            {focusWork.map((task, index) => (
+            {todaysTasks.map((task, index) => (
               <FocusWork key={index} task={task} />
             ))}
           </ul>
@@ -156,25 +198,12 @@ function HomeStage() {
   );
 }
 
-function ScheduledTask() {
-  return (
-    <div className=" border-neutral-800 max-w-sm px-5 py-2">
-      <div className="text-sm font-semibold">Data Structures & Algorithms Class</div>
-      <div className="text-sm text-neutral-200">
-        <div>ICS 311</div>
-        <div>10:30 am - 11:15 am</div>
-        <div className="text-red-500">starting in 46 minutes</div>
-      </div>
-    </div>
-  );
-}
-
 interface TaskInterface {
   task: {
     title: string;
-    class: string;
-    importance: number;
-    difficulty: number;
+    class?: string;
+    importance?: number;
+    difficulty?: number;
   };
 }
 
@@ -184,11 +213,13 @@ function FocusWork({ task }: TaskInterface) {
       <div className="flex flex-col col-span-3">
         <div className="font-semibold">
           {task.title}
-          {getImportance(task.importance)}
+          {task.importance && getImportance(task.importance)}
         </div>
         <div className="text-sm text-neutral-300">{task.class}</div>
       </div>
-      <div className="col-span-2 text-center">{getDifficultyLabel(task.difficulty)}</div>
+      <div className="col-span-2 text-center">
+        {task.difficulty && getDifficultyLabel(task.difficulty)}
+      </div>
       <div className="text-red-500 text-center">2d left</div>
       <div className="col-span-2 flex justify-center p-3">
         <Progress value={40}></Progress>
@@ -204,7 +235,7 @@ function MiscTask({ task }: TaskInterface) {
       <div className="flex flex-col col-span-3">
         <div className="font-semibold">
           {task.title}
-          {getImportance(task.importance)}
+          {task.importance && getImportance(task.importance)}
         </div>
         <div className="text-sm text-neutral-300">{task.class}</div>
       </div>
