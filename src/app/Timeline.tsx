@@ -74,7 +74,7 @@ function Timeline({ className }: { className?: string }) {
           <div
             key={index}
             className={
-              "absolute h-full rounded-md bg-orange-400 blur-lg md:blur-2xl"
+              "absolute h-full rounded-md bg-orange-400 blur-lg md:blur-xl"
             }
             style={{ width: `${taskWidth}%`, left: `${taskOffset}%` }}
           />
@@ -100,7 +100,7 @@ function Timeline({ className }: { className?: string }) {
           <div
             key={index}
             className={
-              "absolute h-full rounded-md border-blue-400 border-2 bg-blue-500 blur-lg md:blur-2xl"
+              "absolute h-full rounded-md border-blue-400 border-2 bg-blue-500 blur-lg md:blur-xl"
             }
             style={{ width: `${taskWidth}%`, left: `${taskOffset}%` }}
           />
