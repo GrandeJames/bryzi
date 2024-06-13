@@ -216,12 +216,12 @@ function FocusWork({ task }: TaskInterface) {
         </div>
       )}
       {!task.completed && !task.currentDuration && (
-        <button className="text-orange-500 font-bold text-center" onClick={start}>
+        <button className="text-orange-500 font-bold text-center" onClick={() => start(task.title)}>
           Start
         </button>
       )}
       {!task.completed && task.currentDuration && (
-        <button className="text-orange-500 font-bold text-center" onClick={start}>
+        <button className="text-orange-500 font-bold text-center" onClick={() => start(task.title)}>
           Continue
         </button>
       )}
