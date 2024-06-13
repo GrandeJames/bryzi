@@ -33,15 +33,7 @@ function HomeStage() {
       startTime: "11:30",
       completed: true,
     },
-    {
-      title: "Attend class",
-      class: "MATH 307: Linear Algebra & Differential Equations",
-      importance: 3,
-      date: "2022-01-01",
-      startTime: "14:00",
-      endTime: "15:15",
-      completed: false,
-    },
+
     {
       title: "Attend class",
       class: "SPAN 202: Spanish",
@@ -111,8 +103,8 @@ function HomeStage() {
 
   return (
     <>
-      <Timeline className="my-3" />
       <TotalProgress className="my-3" />
+      <Timeline className="my-3" />
       <button className="fixed bottom-3 right-3">
         <div className="flex gap-2 rounded-md p-1">
           <div className="flex items-center text-orange-500 font-semibold">Create Task</div>
@@ -131,9 +123,9 @@ function HomeStage() {
           <div className="space-y-8">
             <section>
               <header className="font-semibold text-xl mb-1 text-neutral-100">Schedule</header>
-              <div className="flex gap-7 divide-x first:px-0">
+              <div className="flex gap-7 divide-x">
                 {scheduledTasks.map((task, index) => (
-                  <div key={index} className=" border-neutral-800 max-w-sm px-5 py-1">
+                  <div key={index} className=" border-neutral-800 min-w-56 max-w-sm px-5 py-1">
                     <div className="text-sm font-semibold">{task.title}</div>
                     <div className="text-sm text-neutral-300">
                       <div>MATH 307: Linear Algebra</div>
@@ -244,7 +236,7 @@ function FocusWork({ task }: TaskInterface) {
 
 function MiscTask({ task }: TaskInterface) {
   return (
-    <div className="grid grid-cols-4 py-1 w-2xl">
+    <div className="grid grid-cols-4 py-1">
       <div className="flex flex-col col-span-3">
         <div className="font-semibold">
           {task.title}
