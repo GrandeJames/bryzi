@@ -237,10 +237,10 @@ function Timeline({ className }: { className?: string }) {
       </div>
       <div className="flex gap-3 absolute right-0 bottom-[-35px] text-xs">
         <div className="text-blue-400">
-          •<span className="text-neutral-600">Scheduled</span>
+          •<span className="text-neutral-600"> Scheduled</span>
         </div>
         <div className="text-orange-400">
-          •<span className="text-neutral-600">Scheduled</span>
+          •<span className="text-neutral-600"> Focus Work</span>
         </div>
       </div>
     </div>
