@@ -35,11 +35,6 @@ export async function Menu() {
             <ChartBarIcon />
           </MenuItemContainer>
         </Link>
-        <Link href={"settings"}>
-          <MenuItemContainer>
-            <Cog6ToothIcon />
-          </MenuItemContainer>
-        </Link>
       </div>
       <div className="flex justify-center">{session ? <UserDropDownMenu /> : <SignInDialog />}</div>
     </div>
