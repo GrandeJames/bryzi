@@ -80,10 +80,10 @@ function TasksNavbar() {
         </li>
         <li>
           <button
-            className={`${selectedTab === "Next 7 Days" && "bg-white text-black"}`}
-            onClick={() => onTabClick("Next 7 Days")}
+            className={`${selectedTab === "Next 5 Days" && "bg-white text-black"}`}
+            onClick={() => onTabClick("Next 5 Days")}
           >
-            Next 7 Days
+            Next 5 Days
           </button>
         </li>
         <li>
@@ -91,7 +91,7 @@ function TasksNavbar() {
             className={`${selectedTab === "Inbox" && "bg-white text-black"}`}
             onClick={() => onTabClick("Inbox")}
           >
-            Inbox
+            All
           </button>
         </li>
         <hr />
