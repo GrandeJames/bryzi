@@ -118,11 +118,11 @@ function HomeStage() {
 
         <div className="pb-20 space-y-5">
           <header className="flex flex-col gap-1">
-            <div className="font-bold text-3xl text-neutral-100">Your Tasks for the Day</div>
+            <div className="font-bold text-3xl text-neutral-100">Today</div>
           </header>
           <div className="space-y-8">
             <section>
-              <header className="font-semibold text-xl mb-1 text-neutral-100">Schedule</header>
+              <header className="font-semibold text-xl mb-1 text-blue-300">Scheduled</header>
               <div className="flex gap-7 divide-x">
                 {scheduledTasks.map((task, index) => (
                   <div key={index} className=" border-neutral-800 min-w-56 max-w-sm px-5 py-1">
@@ -141,7 +141,7 @@ function HomeStage() {
             <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-20">
               <section className="col-span-8">
                 <header className="flex gap-2">
-                  <div className="font-semibold text-xl mb-2 text-neutral-100 ">Focus Work</div>
+                  <div className="font-semibold text-xl mb-2 text-orange-400">Focus Work</div>
                 </header>
                 <ul className="grid grid-cols-1 space-y-2 divide-neutral-800 divide-y">
                   {focusTasks.map((task, index) => (
@@ -150,8 +150,8 @@ function HomeStage() {
                 </ul>
               </section>
               <section className="col-span-4">
-                <header className="font-semibold text-xl mb-2 text-neutral-100">
-                  Miscellaneous
+                <header className="font-semibold text-xl mb-2 text-neutral-300">
+                  Other
                 </header>
                 <ul className="grid grid-cols-1 space-y-2 divide-neutral-800 divide-y">
                   {miscTasks.map((task, index) => (

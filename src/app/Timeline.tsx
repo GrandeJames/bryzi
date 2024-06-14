@@ -212,7 +212,7 @@ function Timeline({ className }: { className?: string }) {
             <div
               key={index}
               className={
-                "absolute h-full rounded-md border-orange-300 border-2 bg-orange-400 blur-lg md:blur-[22px] hover:blur-0"
+                "absolute h-full rounded-md border-orange-300 border-2 bg-orange-400 blur-lg md:blur-[22px]"
               }
               style={{ width: `${taskWidth}%`, left: `${taskOffset}%` }}
             />
@@ -228,20 +228,12 @@ function Timeline({ className }: { className?: string }) {
             <div
               key={index}
               className={
-                "absolute h-full rounded-md border-blue-400 border-2 bg-blue-500 blur-lg md:blur-[22px] hover:blur-0"
+                "absolute h-full rounded-md border-blue-400 border-2 bg-blue-500 blur-lg md:blur-[22px]"
               }
               style={{ width: `${taskWidth}%`, left: `${taskOffset}%` }}
             />
           );
         })}
-      </div>
-      <div className="flex gap-3 absolute right-0 bottom-[-35px] text-xs">
-        <div className="text-blue-400">
-          •<span className="text-neutral-600"> Scheduled</span>
-        </div>
-        <div className="text-orange-400">
-          •<span className="text-neutral-600"> Focus Work</span>
-        </div>
       </div>
     </div>
   );
