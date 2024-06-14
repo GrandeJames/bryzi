@@ -12,9 +12,8 @@ import { UserDropDownMenu } from "./UserDropDownMenu";
 export async function Menu() {
   const session = await auth();
 
-  console.log("session", session);
   return (
-    <div className="flex flex-col h-screen justify-between border-r border-neutral-800 px-2 py-7">
+    <div className="flex flex-col h-screen justify-between border-r border-neutral-800 px-2 py-7 sticky top-0">
       <div className="flex flex-col space-y-3">
         <Link href={"/"}>
           <MenuItemContainer>
@@ -34,11 +33,6 @@ export async function Menu() {
         <Link href={"data-insights"}>
           <MenuItemContainer>
             <ChartBarIcon />
-          </MenuItemContainer>
-        </Link>
-        <Link href={"settings"}>
-          <MenuItemContainer>
-            <Cog6ToothIcon />
           </MenuItemContainer>
         </Link>
       </div>
