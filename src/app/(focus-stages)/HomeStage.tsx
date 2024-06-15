@@ -117,8 +117,10 @@ function HomeStage() {
         </div>
 
         <div className="pb-20 space-y-5">
-          <header className="flex flex-col gap-1">
+          <header className="flex gap-5">
             <div className="font-bold text-3xl text-neutral-100">Today</div>
+            <div className="font-bold text-3xl text-neutral-700">Tomorrow</div>
+            <div className="font-bold text-3xl text-neutral-700">All</div>
           </header>
           <div className="space-y-8">
             <section>
@@ -150,9 +152,7 @@ function HomeStage() {
                 </ul>
               </section>
               <section className="col-span-4">
-                <header className="font-semibold text-xl mb-2 text-neutral-300">
-                  Other
-                </header>
+                <header className="font-semibold text-xl mb-2 text-neutral-300">Other</header>
                 <ul className="grid grid-cols-1 space-y-2 divide-neutral-800 divide-y">
                   {miscTasks.map((task, index) => (
                     <MiscTask key={index} task={task} />
