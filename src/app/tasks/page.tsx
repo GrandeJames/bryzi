@@ -80,35 +80,10 @@ function TasksNavbar() {
         </li>
         <li>
           <button
-            className={`${selectedTab === "Next 5 Days" && "bg-white text-black"}`}
-            onClick={() => onTabClick("Next 5 Days")}
-          >
-            Next 5 Days
-          </button>
-        </li>
-        <li>
-          <button
             className={`${selectedTab === "Inbox" && "bg-white text-black"}`}
             onClick={() => onTabClick("Inbox")}
           >
             All
-          </button>
-        </li>
-        <hr />
-        <li>
-          <button
-            className={`${selectedTab === "Completed" && "bg-white text-black"}`}
-            onClick={() => onTabClick("Completed")}
-          >
-            Completed
-          </button>
-        </li>
-        <li>
-          <button
-            className={`${selectedTab === "Deleted" && "bg-white text-black"}`}
-            onClick={() => onTabClick("Deleted")}
-          >
-            Deleted
           </button>
         </li>
       </ul>
