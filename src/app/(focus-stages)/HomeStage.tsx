@@ -26,6 +26,24 @@ function HomeStage() {
       currentDuration: "0:22",
     },
     {
+      title: "Read Chap",
+      date: "2022-01-01",
+      class: "LLEA 371: Europeans in the Pacific",
+      importance: 3,
+      deadline: "2022-01-01",
+      completed: false,
+      expectedDuration: "0:90",
+    },
+    {
+      title: "Read Chap",
+      date: "2022-01-01",
+      class: "EDEP 311: Educational Psychology",
+      importance: 3,
+      deadline: "2022-01-01",
+      completed: false,
+      expectedDuration: "0:90",
+    },
+    {
       title: "Office hour",
       class: "ICS 212: Program Structure",
       difficulty: 2,
@@ -89,8 +107,7 @@ function HomeStage() {
       expectedDuration: "0:30",
     },
     { title: "Gym💪", date: "2022-01-01", importance: 3, difficulty: 3, completed: true },
-    { title: "Laundry", date: "2022-01-01", importance: 3, difficulty: 4, completed: true },
-    { title: "Grocery shop", date: "2022-01-01", importance: 2, difficulty: 4, completed: true },
+    { title: "Cardio", date: "2022-01-01", importance: 3, difficulty: 3, completed: true },
   ];
 
   const scheduledTasks = todaysTasks.filter((task) => task.startTime);
