@@ -26,13 +26,13 @@ function HomeStage() {
       currentDuration: "0:22",
     },
     {
-      title: "Read Chap",
+      title: "LLEA 371: Read Omai",
       date: "2022-01-01",
       class: "LLEA 371: Europeans in the Pacific",
       importance: 3,
       deadline: "2022-01-01",
       completed: false,
-      expectedDuration: "0:90",
+      expectedDuration: "2:00",
     },
     {
       title: "Read Chap",
