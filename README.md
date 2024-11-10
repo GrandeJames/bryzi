@@ -1,3 +1,25 @@
+## Technologies
+
+- Programming Languages
+    
+    Typescript, SQL
+    
+- Front-end
+    React, TailwindCSS
+    
+- Back-end
+    PostgreSQL
+    
+- Frameworks
+    NextJS
+    
+- Tools
+    AWS (RDS, etc.), Playwright, GitHub Actions (CI/CD)
+    
+- Other
+    Authentication & Authorization (NextAuth), Payment integration (Stripe)
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
