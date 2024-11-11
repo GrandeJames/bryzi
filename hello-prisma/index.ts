@@ -36,6 +36,69 @@ app.get("/feed", async (req, res) => {
   res.json(posts);
 });
 
+// Endpoint to create a task
+app.post("/task", async (req, res) => {
+    const { userId, title, completed, date, deadline, expectedDuration, currentDuration } = req.body;
+  
+    try {
+      const newTask = await prisma.task.create({
+        data: {
+          userId,  // Assuming userId is provided in the request
+          title,
+          completed: completed || false, // Default to false if not provided
+          date: new Date(date),  // Convert date string to Date object
+          deadline: deadline ? new Date(deadline) : null,  // If no deadline provided, set it to null
+          expectedDuration,
+          currentDuration,
+        },
+      });
+      res.json(newTask);  // Return the created task
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Error creating task" });
+    }
+  });
+  
+  // Endpoint to get all tasks
+  app.get("/tasks", async (req, res) => {
+    try {
+      const tasks = await prisma.task.findMany({
+        include: {
+          subtasks: true,  // Optional: Include subtasks related to each task
+          user: true,  // Optional: Include user info associated with each task
+        },
+      });
+      res.json(tasks);  // Return the list of tasks
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Error fetching tasks" });
+    }
+  });
+  
+  // Endpoint to get a task by ID
+  app.get("/task/:id", async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      const task = await prisma.task.findUnique({
+        where: { id: Number(id) },  // Ensure to convert id to a number
+        include: {
+          subtasks: true,  // Optional: Include subtasks related to the task
+          user: true,  // Optional: Include user info associated with the task
+        },
+      });
+  
+      if (task) {
+        res.json(task);
+      } else {
+        res.status(404).json({ error: "Task not found" });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Error fetching task" });
+    }
+  });
+
 app.get("/", async (req, res) => {
   res.send("Hello World!");
 });

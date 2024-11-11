@@ -37,4 +37,32 @@ model User {
   name    String?
   posts   Post[]
   profile Profile?
+  tasks  Task[] // One-to-many relation with Task
+}
+
+model Task {
+  id               Int       @id @default(autoincrement()) // Auto-incrementing ID
+  userId           Int       // Foreign key to User
+  title            String    // Title of the task
+  completed        Boolean   @default(false) // Default value set to false
+  date             DateTime  // Date of task creation or start date
+  deadline         DateTime? // Deadline is optional (nullable)
+  expectedDuration Int?      // Expected duration in minutes (nullable)
+  currentDuration Int?      // Current duration in minutes (nullable)
+  
+  user User  @relation(fields: [userId], references: [id]) // User relation
+  subtasks Subtask[] // One-to-many relation with Subtask
+}
+
+model Subtask {
+  id               Int       @id @default(autoincrement()) // Auto-incrementing ID
+  taskId           Int       // Foreign key to Task
+  title            String    // Title of the subtask
+  completed        Boolean   @default(false) // Default value set to false
+  date             DateTime  // Date of subtask creation
+  deadline         DateTime? // Deadline for subtask (nullable)
+  expectedDuration Int?      // Expected duration in minutes (nullable)
+  currentDuration Int?      // Current duration in minutes (nullable)
+  
+  task Task @relation(fields: [taskId], references: [id]) // Task relation
 }

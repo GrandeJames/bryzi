@@ -2,62 +2,100 @@ import { PrismaClient, Prisma } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
+// Define seed data for users, tasks, and subtasks
 const userData: Prisma.UserCreateInput[] = [
-//   {
-//     name: 'Alice',
-//     email: 'alice@prisma.io',
-//     posts: {
-//       create: [
-//         {
-//           title: 'Join the Prisma Discord',
-//           content: 'https://pris.ly/discord',
-//           published: true,
-//         },
-//       ],
-//     },
-//   },
   {
-    name: 'Nilu',
-    email: 'nilu@prisma.io',
-    posts: {
+    email: 'nilawdu@prisma.io',
+    tasks: {
       create: [
         {
           title: 'Follow Prisma on Twitter',
-          content: 'https://www.twitter.com/prisma',
-          published: true,
+          completed: false,
+          date: new Date(),
+          deadline: new Date('2024-12-31T23:59:59'),
+          expectedDuration: 60,
+          currentDuration: 0,
+          subtasks: {
+            create: [
+              {
+                title: 'Visit Prisma Twitter profile',
+                completed: false,
+                date: new Date(),
+                deadline: new Date('2024-12-31T23:59:59'),
+                expectedDuration: 30,
+                currentDuration: 0,
+              },
+              {
+                title: 'Follow Prisma Twitter',
+                completed: false,
+                date: new Date(),
+                deadline: new Date('2024-12-31T23:59:59'),
+                expectedDuration: 10,
+                currentDuration: 0,
+              },
+            ],
+          },
         },
       ],
     },
   },
   {
-    name: 'Mahmoud',
-    email: 'mahmoud@prisma.io',
-    posts: {
+    email: 'mahmouawdd@prisma.io',
+    tasks: {
       create: [
         {
           title: 'Ask a question about Prisma on GitHub',
-          content: 'https://www.github.com/prisma/prisma/discussions',
-          published: true,
+          completed: false,
+          date: new Date(),
+          deadline: new Date('2024-12-15T23:59:59'),
+          expectedDuration: 120,
+          currentDuration: 0,
+          subtasks: {
+            create: [
+              {
+                title: 'Create a GitHub issue',
+                completed: false,
+                date: new Date(),
+                deadline: new Date('2024-12-15T23:59:59'),
+                expectedDuration: 60,
+                currentDuration: 0,
+              },
+              {
+                title: 'Wait for responses',
+                completed: false,
+                date: new Date(),
+                deadline: new Date('2024-12-15T23:59:59'),
+                expectedDuration: 30,
+                currentDuration: 0,
+              },
+            ],
+          },
         },
         {
           title: 'Prisma on YouTube',
-          content: 'https://pris.ly/youtube',
+          completed: false,
+          date: new Date(),
+          deadline: new Date('2024-12-20T23:59:59'),
+          expectedDuration: 90,
+          currentDuration: 0,
         },
       ],
     },
   },
 ]
 
-// This basically just creates the users and posts in the database
+// This function creates users, tasks, and subtasks in the database
 async function main() {
-  console.log(`Start seeding ...`)
+  console.log('Start seeding ...')
+
   for (const u of userData) {
     const user = await prisma.user.create({
       data: u,
     })
     console.log(`Created user with id: ${user.id}`)
   }
-  console.log(`Seeding finished.`)
+
+  console.log('Seeding finished.')
 }
 
 main()
