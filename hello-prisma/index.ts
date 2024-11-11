@@ -1,103 +1,101 @@
 import { PrismaClient } from "@prisma/client";
 import express from "express";
+import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 const app = express();
 
-const port = 3000;
+const port = 3001;
 
-app.post(`/post`, async (req, res) => {
-  const { title, content, authorEmail } = req.body;
-  const result = await prisma.post.create({
-    data: {
-      title,
-      content,
-      author: { connect: { email: authorEmail } },
-    },
+const AUTH_SECRET = process.env.AUTH_SECRET;
+
+app.use(express.json());
+
+app.post(`/create-user`, async (req, res) => {
+  const { id, name, email } = req.body;
+
+  const user = await prisma.user.findUnique({
+    where: { email },
   });
-  res.json(result);
-});
 
-app.get(`/post/:id`, async (req, res) => {
-  const { id }: { id?: string } = req.params;
-
-  const post = await prisma.post.findUnique({
-    where: { id: Number(id) },
-  });
-  res.json(post);
-});
-
-// get all posts
-app.get("/feed", async (req, res) => {
-  const posts = await prisma.post.findMany({
-    where: { published: true },
-    include: { author: true },
-  });
-  res.json(posts);
+  if (!user) {
+    const newUser = await prisma.user.create({
+      data: {
+        id,
+        name,
+        email,
+      },
+    });
+    console.log("User created");
+    res.json(newUser);
+  } else {
+    console.log("User already exists");
+    res.json(user);
+  }
 });
 
 // Endpoint to create a task
 app.post("/task", async (req, res) => {
-    const { userId, title, completed, date, deadline, expectedDuration, currentDuration } = req.body;
-  
-    try {
-      const newTask = await prisma.task.create({
-        data: {
-          userId,  // Assuming userId is provided in the request
-          title,
-          completed: completed || false, // Default to false if not provided
-          date: new Date(date),  // Convert date string to Date object
-          deadline: deadline ? new Date(deadline) : null,  // If no deadline provided, set it to null
-          expectedDuration,
-          currentDuration,
-        },
-      });
-      res.json(newTask);  // Return the created task
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Error creating task" });
+  const { userId, title, completed, date, deadline, expectedDuration, currentDuration } = req.body;
+
+  try {
+    const newTask = await prisma.task.create({
+      data: {
+        userId, // Assuming userId is provided in the request
+        title,
+        completed: completed || false, // Default to false if not provided
+        date: new Date(date), // Convert date string to Date object
+        deadline: deadline ? new Date(deadline) : null, // If no deadline provided, set it to null
+        expectedDuration,
+        currentDuration,
+      },
+    });
+    res.json(newTask); // Return the created task
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error creating task" });
+  }
+});
+
+// Endpoint to get all tasks
+app.get("/tasks", async (req, res) => {
+  try {
+    const tasks = await prisma.task.findMany({
+      include: {
+        subtasks: true, // Optional: Include subtasks related to each task
+        user: true, // Optional: Include user info associated with each task
+      },
+    });
+    res.json(tasks); // Return the list of tasks
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error fetching tasks" });
+  }
+});
+
+// Endpoint to get a task by ID
+app.get("/task/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const task = await prisma.task.findUnique({
+      where: { id: Number(id) }, // Ensure to convert id to a number
+      include: {
+        subtasks: true, // Optional: Include subtasks related to the task
+        user: true, // Optional: Include user info associated with the task
+      },
+    });
+
+    if (task) {
+      res.json(task);
+    } else {
+      res.status(404).json({ error: "Task not found" });
     }
-  });
-  
-  // Endpoint to get all tasks
-  app.get("/tasks", async (req, res) => {
-    try {
-      const tasks = await prisma.task.findMany({
-        include: {
-          subtasks: true,  // Optional: Include subtasks related to each task
-          user: true,  // Optional: Include user info associated with each task
-        },
-      });
-      res.json(tasks);  // Return the list of tasks
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Error fetching tasks" });
-    }
-  });
-  
-  // Endpoint to get a task by ID
-  app.get("/task/:id", async (req, res) => {
-    const { id } = req.params;
-  
-    try {
-      const task = await prisma.task.findUnique({
-        where: { id: Number(id) },  // Ensure to convert id to a number
-        include: {
-          subtasks: true,  // Optional: Include subtasks related to the task
-          user: true,  // Optional: Include user info associated with the task
-        },
-      });
-  
-      if (task) {
-        res.json(task);
-      } else {
-        res.status(404).json({ error: "Task not found" });
-      }
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Error fetching task" });
-    }
-  });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error fetching task" });
+  }
+});
 
 app.get("/", async (req, res) => {
   res.send("Hello World!");
