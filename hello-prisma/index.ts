@@ -1,21 +1,17 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from "@prisma/client";
+import express from "express";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
+const app = express();
 
-async function main() {
-    const post = await prisma.post.update({
-      where: { id: 1 },
-      data: { published: true },
-    })
-    console.log(post)
-  }
+const port = 3000;
 
-main()
-  .then(async () => {
-    await prisma.$disconnect()
-  })
-  .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+app.get("/", async (req, res) => {
+  res.send("Hello World!");
+});
+
+
+  app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`);
+  });
+  
