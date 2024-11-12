@@ -1,46 +1,8 @@
 import { PrismaClient } from "@prisma/client";
-import express from "express";
-
-const rateLimit = require("express-rate-limit");
 
 const prisma = new PrismaClient();
-const app = express();
 
-const port = 3001;
-
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100,
-});
-
-app.use(limiter);
-app.use(express.json());
-
-app.post(`/create-user`, async (req, res) => {
-  const { id, name, email } = req.body;
-
-  const user = await prisma.user.findUnique({
-    where: { email },
-  });
-
-  if (!user) {
-    const newUser = await prisma.user.create({
-      data: {
-        id,
-        name,
-        email,
-      },
-    });
-    console.log("User created");
-    res.json(newUser);
-  } else {
-    console.log("User already exists");
-    res.json(user);
-  }
-});
-
-// Endpoint to create a task
-app.post("/task", async (req, res) => {
+export const createTask = async (req: any, res: any) => {
   const { userId, title, completed, date, deadline, expectedDuration, currentDuration } = req.body;
 
   try {
@@ -60,10 +22,9 @@ app.post("/task", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Error creating task" });
   }
-});
+};
 
-// Endpoint to get all tasks
-app.get("/tasks", async (req, res) => {
+export const getAllTasks = async (req: any, res: any) => {
   try {
     const tasks = await prisma.task.findMany({
       include: {
@@ -76,10 +37,9 @@ app.get("/tasks", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Error fetching tasks" });
   }
-});
+};
 
-// Endpoint to get a task by ID
-app.get("/task/:id", async (req, res) => {
+export const getTaskById = async (req: any, res: any) => {
   const { id } = req.params;
 
   try {
@@ -100,10 +60,9 @@ app.get("/task/:id", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Error fetching task" });
   }
-});
+};
 
-// Endpoint to get a task by user ID
-app.get("/tasks/user/:id", async (req, res) => {
+export const getTaskByUserId = async (req: any, res: any) => {
   const { id } = req.params;
 
   try {
@@ -119,12 +78,4 @@ app.get("/tasks/user/:id", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Internal server error while fetching tasks" });
   }
-});
-
-app.get("/", async (req, res) => {
-  res.send("Hello World!");
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+};
