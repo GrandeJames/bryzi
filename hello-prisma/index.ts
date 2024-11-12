@@ -1,14 +1,19 @@
 import { PrismaClient } from "@prisma/client";
 import express from "express";
-import jwt from "jsonwebtoken";
+
+const rateLimit = require("express-rate-limit");
 
 const prisma = new PrismaClient();
 const app = express();
 
 const port = 3001;
 
-const AUTH_SECRET = process.env.AUTH_SECRET;
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,
+});
 
+app.use(limiter);
 app.use(express.json());
 
 app.post(`/create-user`, async (req, res) => {
