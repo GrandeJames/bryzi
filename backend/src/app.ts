@@ -1,6 +1,7 @@
 import express from "express";
 import rateLimit from "express-rate-limit";
 import routes from "./routes";
+import cors from "cors";
 
 const app = express();
 
@@ -9,6 +10,7 @@ const limiter = rateLimit({
   max: 100,
 });
 
+app.use(cors());
 app.use(limiter);
 app.use(express.json());
 app.use('/api', routes)
