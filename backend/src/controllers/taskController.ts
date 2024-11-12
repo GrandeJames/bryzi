@@ -6,18 +6,26 @@ export const createTask = async (req: any, res: any) => {
   const { userId, title, completed, date, deadline, expectedDuration, currentDuration } = req.body;
 
   try {
+    const userExists = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!userExists) {
+      return res.status(400).json({ error: "User not found" });
+    }
+
     const newTask = await prisma.task.create({
       data: {
-        userId, // Assuming userId is provided in the request
+        userId,
         title,
-        completed: completed || false, // Default to false if not provided
-        date: new Date(date), // Convert date string to Date object
-        deadline: deadline ? new Date(deadline) : null, // If no deadline provided, set it to null
+        completed,
+        date,
+        deadline,
         expectedDuration,
         currentDuration,
       },
     });
-    res.json(newTask); // Return the created task
+    res.json(newTask);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Error creating task" });

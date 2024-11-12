@@ -25,7 +25,7 @@ model Task {
   userId           String       // Foreign key to User
   title            String    // Title of the task
   completed        Boolean   @default(false) // Default value set to false
-  date             DateTime  // Date of task creation or start date
+  date             DateTime  @default(now()) // Date of task creation or start date
   deadline         DateTime? // Deadline is optional (nullable)
   expectedDuration Int?      // Expected duration in minutes (nullable)
   currentDuration Int?      // Current duration in minutes (nullable)
