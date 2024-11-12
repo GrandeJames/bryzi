@@ -102,6 +102,25 @@ app.get("/task/:id", async (req, res) => {
   }
 });
 
+// Endpoint to get a task by user ID
+app.get("/tasks/user/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const tasks = await prisma.task.findMany({
+      where: { userId: id },
+      include: {
+        subtasks: true,
+      },
+    });
+
+    res.json(tasks);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error while fetching tasks" });
+  }
+});
+
 app.get("/", async (req, res) => {
   res.send("Hello World!");
 });
