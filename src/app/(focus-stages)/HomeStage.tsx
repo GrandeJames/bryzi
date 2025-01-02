@@ -129,10 +129,6 @@ function HomeStage() {
         </div>
       </button>
       <div className="relative space-y-10">
-        <div className="absolute top-0 right-0 text-right">
-          <div className="font-bold text-neutral-200 text-xl">364 pts</div>
-        </div>
-
         <div className="pb-20 space-y-5">
           <header className="flex flex-col gap-1">
             <div className="font-bold text-3xl text-neutral-100">Today</div>

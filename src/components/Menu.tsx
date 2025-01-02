@@ -25,11 +25,6 @@ export async function Menu() {
             <QueueListIcon />
           </MenuItemContainer>
         </Link>
-        <Link href={"rewards"}>
-          <MenuItemContainer>
-            <GiftIcon />
-          </MenuItemContainer>
-        </Link>
         <Link href={"data-insights"}>
           <MenuItemContainer>
             <ChartBarIcon />
