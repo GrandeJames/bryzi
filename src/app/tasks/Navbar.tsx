@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-function TasksNavbar() {
+function TasksNavbar({className}: {className?: string}) {
   const [selectedTab, setSelectedTab] = useState("Today");
 
   const onTabClick = (tab: string) => {
@@ -10,7 +10,7 @@ function TasksNavbar() {
   };
 
   return (
-    <>
+    <div className={className}>
       <ul className="flex font-bol text-gray-600 font-bold text-4xl space-x-5">
         <li>
           <button
@@ -37,7 +37,7 @@ function TasksNavbar() {
           </button>
         </li>
       </ul>
-    </>
+    </div>
   );
 }
 

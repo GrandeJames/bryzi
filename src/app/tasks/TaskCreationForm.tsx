@@ -4,8 +4,9 @@ import { addLocalTask, getLocalTasks } from "@/lib/localStorageTasks";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import useTasksStore from "@/stores/tasksStore";
+import { cn } from "@/lib/utils";
 
-function TaskCreationForm() {
+function TaskCreationForm({ className }: { className?: string }) {
   const [title, setTitle] = useState("");
   const [estimatedDuration, setEstimatedDuration] = useState(0);
 
@@ -48,9 +49,9 @@ function TaskCreationForm() {
 
   return (
     <form
-      className="border border-gray-800 h-min w-[30rem]"
       onSubmit={handleTaskFormSubmit}
       onKeyDown={handleKeyPress}
+      className={cn(className, "gap-2 flex flex-col")}
     >
       <input
         type="text"
