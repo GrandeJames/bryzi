@@ -5,6 +5,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import useTasksStore from "@/stores/tasksStore";
 import { cn } from "@/lib/utils";
+import { DatePickerWithPresets } from "@/components/ui/date-picker-presets";
 
 function TaskCreationForm({ className }: { className?: string }) {
   const [title, setTitle] = useState("");
@@ -64,6 +65,7 @@ function TaskCreationForm({ className }: { className?: string }) {
         <div>
           <div className="flex gap-5">
             <div>Deadline</div>
+            <DatePickerWithPresets />
             <div>Impact</div>
             <div>Est. Duration (hrs)</div>
             <input

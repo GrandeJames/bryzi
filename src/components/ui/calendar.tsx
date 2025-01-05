@@ -1,20 +1,15 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { DayPicker } from "react-day-picker"
+import * as React from "react";
+import { DayPicker } from "react-day-picker";
 
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
-import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons"
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker>
+export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
-function Calendar({
-  className,
-  classNames,
-  showOutsideDays = true,
-  ...props
-}: CalendarProps) {
+function Calendar({ className, classNames, showOutsideDays = true, ...props }: CalendarProps) {
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
@@ -33,8 +28,7 @@ function Calendar({
         nav_button_next: "absolute right-1",
         table: "w-full border-collapse space-y-1",
         head_row: "flex",
-        head_cell:
-          "text-gray-500 rounded-md w-8 font-normal text-[0.8rem] dark:text-gray-400",
+        head_cell: "text-gray-500 rounded-md w-8 font-normal text-[0.8rem] dark:text-gray-400",
         row: "flex w-full mt-2",
         cell: cn(
           "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-gray-100 [&:has([aria-selected].day-outside)]:bg-gray-100/50 [&:has([aria-selected].day-range-end)]:rounded-r-md dark:[&:has([aria-selected])]:bg-gray-800 dark:[&:has([aria-selected].day-outside)]:bg-gray-800/50",
@@ -60,17 +54,17 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        IconLeft: ({ className, ...props }) => (
+        IconLeft: ({ className, children, ...props }) => (
           <ChevronLeftIcon className={cn("h-4 w-4", className)} {...props} />
         ),
-        IconRight: ({ className, ...props }) => (
+        IconRight: ({ className, children, ...props }) => (
           <ChevronRightIcon className={cn("h-4 w-4", className)} {...props} />
         ),
       }}
       {...props}
     />
-  )
+  );
 }
-Calendar.displayName = "Calendar"
+Calendar.displayName = "Calendar";
 
-export { Calendar }
+export { Calendar };
