@@ -64,7 +64,6 @@ function TaskCreationForm({ className }: { className?: string }) {
       {title && (
         <div>
           <div className="flex gap-5">
-            <div>Deadline</div>
             <DatePickerWithPresets />
             <div>Impact</div>
             <div>Est. Duration (hrs)</div>
@@ -72,7 +71,7 @@ function TaskCreationForm({ className }: { className?: string }) {
               id="est-duration"
               type="number"
               step={0.5}
-              className="w-12 border-gray-600 border-2"
+              className="w-12 border-gray-600 border"
               max={10}
               min={0}
               onChange={(e) => setEstimatedDuration(Number(e.target.value))}
