@@ -16,36 +16,33 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+function dateFormatted(date: Date | undefined) {
+  if (!date) {
+    return;
+  }
+  if (isToday(date)) {
+    return "Today";
+  }
+  if (isTomorrow(date)) {
+    return "Tomorrow";
+  }
+  if (isSameDay(addDays(new Date(), 2), date)) {
+    return "In 2 days";
+  }
+  if (isYesterday(date)) {
+    return "Yesterday";
+  }
+  if (isSameDay(addDays(new Date(), -2), date)) {
+    return "2 days ago";
+  }
+  if (isThisYear(date)) {
+    return format(date, "MMM d");
+  }
+  return format(date, "PPP");
+}
+
 export function DatePickerWithPresets() {
   const [date, setDate] = React.useState<Date>();
-
-  const dateFormatted = () => {
-    // if (date) {
-    //   return format(date, "PPP")
-    // }
-    if (!date) {
-      return <span>Pick a date</span>;
-    }
-    if (isToday(date)) {
-      return "Today";
-    }
-    if (isTomorrow(date)) {
-      return "Tomorrow";
-    }
-    if (isSameDay(addDays(new Date(), 2), date)) {
-      return "In 2 days";
-    }
-    if (isYesterday(date)) {
-      return "Yesterday";
-    }
-    if (isSameDay(addDays(new Date(), -2), date)) {
-      return "2 days ago";
-    }
-    if (isThisYear(date)) {
-      return format(date, "MMM d");
-    }
-    return format(date, "PPP");
-  };
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -57,7 +54,7 @@ export function DatePickerWithPresets() {
           )}
         >
           <CalendarIcon />
-          {dateFormatted()}
+          {dateFormatted(date)}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="flex w-auto flex-col space-y-2 p-2">
