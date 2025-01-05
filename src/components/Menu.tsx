@@ -13,11 +13,11 @@ export async function Menu() {
   const session = await auth();
 
   return (
-    <div className="flex flex-col h-screen justify-between border-r border-neutral-800 px-2 py-7 sticky top-0">
+    <div className="flex flex-col h-screen justify-between border-r border-neutral-900 px-2 py-7 sticky top-0">
       <div className="flex flex-col space-y-3">
         <Link href={"/"}>
           <MenuItemContainer>
-            <HomeIcon />
+            <SunIcon />
           </MenuItemContainer>
         </Link>
         <Link href={"tasks"}>
