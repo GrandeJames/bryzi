@@ -7,7 +7,6 @@ import TaskCreationForm from "./TaskCreationForm";
 const TasksList = dynamic(() => import("./TasksList"), { ssr: false }); // used to prevent hydration error when using localStorage to get tasks
 
 function Tasks() {
-  // TODO: make the component take classnames as props to style it
   // TODO: filter tasks based on selected tab
 
   return (
