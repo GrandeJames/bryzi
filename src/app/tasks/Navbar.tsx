@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 
-function TasksNavbar({className}: {className?: string}) {
-  const [selectedTab, setSelectedTab] = useState("Today");
+function TasksNavbar({ className }: { className?: string }) {
+  const [selectedTab, setSelectedTab] = useState("Inbox");
 
   const onTabClick = (tab: string) => {
     setSelectedTab(tab);
@@ -11,7 +11,7 @@ function TasksNavbar({className}: {className?: string}) {
 
   return (
     <div className={className}>
-      <ul className="flex font-bol text-gray-600 font-bold text-4xl space-x-5">
+      <ul className="flex font-bol text-gray-600 font-bold text-4xl space-x-7">
         <li>
           <button
             className={`${selectedTab === "Today" && "text-white"}`}
@@ -22,10 +22,10 @@ function TasksNavbar({className}: {className?: string}) {
         </li>
         <li>
           <button
-            className={`${selectedTab === "Tomorrow" && "text-white"}`}
-            onClick={() => onTabClick("Tomorrow")}
+            className={`${selectedTab === "Upcoming" && "text-white"}`}
+            onClick={() => onTabClick("Upcoming")}
           >
-            Tomorrow
+            Upcoming
           </button>
         </li>
         <li>
@@ -33,7 +33,15 @@ function TasksNavbar({className}: {className?: string}) {
             className={`${selectedTab === "Inbox" && "text-white"}`}
             onClick={() => onTabClick("Inbox")}
           >
-            All
+            Inbox
+          </button>
+        </li>
+        <li>
+          <button
+            className={`${selectedTab === "Completed" && "text-white"}`}
+            onClick={() => onTabClick("Completed")}
+          >
+            Completed
           </button>
         </li>
       </ul>
