@@ -17,7 +17,7 @@ function TasksList({ className }: { className?: string }) {
 
 function TaskComponent({ task }: { task: Task }) {
   return (
-    <div className="border border-gray-800 p-3 rounded-lg">
+    <div className="p-3">
       <div>{task.title}</div>
     </div>
   );
