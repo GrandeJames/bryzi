@@ -17,6 +17,7 @@ import { Label } from "@radix-ui/react-select";
 import { Copy } from "lucide-react";
 import { Input } from "postcss";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 function HomeStage() {
   const todaysTasks = [
@@ -148,11 +149,13 @@ function HomeStage() {
           </Button>
           {/* <div className="bg-neutral-800 px-2 py-1 rounded-md text-neutral-400">⌘ K</div> */}
         </DialogTrigger>
-        <DialogContent className="sm:max-w-sm bg-red-50">
-          <div className="flex items-center space-x-2">
-            <div className="grid flex-1 gap-2"></div>
-          </div>
-          <TaskCreationForm />
+        <DialogContent className="sm:max-w-sm p-0">
+          <ScrollArea className="max-h-[80vh] p-6">
+            <div className="flex items-center space-x-2">
+              <div className="grid flex-1 gap-2"></div>
+            </div>
+            <TaskCreationForm />
+          </ScrollArea>
         </DialogContent>
       </Dialog>
       {/* </button> */}
