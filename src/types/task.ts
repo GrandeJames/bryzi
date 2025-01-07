@@ -18,6 +18,6 @@ export interface Task {
     endDate?: string; // when the recurrence ends
   };
   subTasks?: Task[]; // TODO: limit to a depth of 3 subtasks
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
