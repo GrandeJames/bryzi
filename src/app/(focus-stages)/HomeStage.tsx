@@ -2,6 +2,21 @@ import { TotalProgress } from "@/components/TotalProgress";
 import { useFocusStore } from "@/hooks/useFocusStore";
 import { Timeline } from "../Timeline";
 import { Progress } from "@/components/ui/progress";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import TaskCreationForm from "@/components/TaskCreationForm";
+import { Label } from "@radix-ui/react-select";
+import { Copy } from "lucide-react";
+import { Input } from "postcss";
+import { Button } from "@/components/ui/button";
 
 function HomeStage() {
   const todaysTasks = [
@@ -122,12 +137,25 @@ function HomeStage() {
     <>
       <TotalProgress className="my-3" />
       <Timeline className="my-3" />
-      <button className="fixed bottom-3 right-3">
-        <div className="flex gap-2 rounded-md p-1">
-          <div className="flex items-center text-orange-500 font-semibold">Create Task</div>
-          <div className="bg-neutral-800 px-2 py-1 rounded-md text-neutral-400">⌘ K</div>
-        </div>
-      </button>
+      {/* <button className="fixed bottom-3 right-3"> */}
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button
+            className="flex items-center text-orange-500 font-semibold fixed bottom-5 right-5 z-50"
+            variant={"ghost"}
+          >
+            Create Task
+          </Button>
+          {/* <div className="bg-neutral-800 px-2 py-1 rounded-md text-neutral-400">⌘ K</div> */}
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-sm bg-red-50">
+          <div className="flex items-center space-x-2">
+            <div className="grid flex-1 gap-2"></div>
+          </div>
+          <TaskCreationForm />
+        </DialogContent>
+      </Dialog>
+      {/* </button> */}
       <div className="relative space-y-10">
         <div className="pb-20 space-y-5">
           <header className="flex flex-col gap-1">
