@@ -70,11 +70,11 @@ export function DatePickerWithPresets() {
           variant={"ghost"}
           className={cn("justify-start text-left font-normal", !date && "text-muted-foreground")}
         >
-          <CalendarIcon />
+          <CalendarIcon className="h-9 w-9" />
           {dateFormatted(date)}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="flex w-auto flex-col space-y-2 p-2">
+      <PopoverContent className="flex w-auto flex-col space-y-2 p-2 bg-red-50">
         <div className="flex w-full justify-between px-8 py-2">
           <PresetButton onClick={() => setDate(new Date())} text="Today">
             <SunIcon />
@@ -89,9 +89,11 @@ export function DatePickerWithPresets() {
         <div className="rounded-md">
           <Calendar mode="single" selected={date} onSelect={setDate} />
         </div>
-        <div className="flex flex-col">
-          <button>Repeat</button>
-          <button onClick={() => setDate(undefined)}>Clear</button>
+        <div className="flex flex-grow w-full space-x-2">
+          <button onClick={() => setDate(undefined)} className="flex-1 bg-gray-800 rounded-md">
+            Clear
+          </button>
+          <button className="flex-1 bg-blue-500 rounded-md">OK</button>
         </div>
       </PopoverContent>
     </Popover>
