@@ -90,12 +90,12 @@ export function DatePickerWithPresets() {
         <div className="rounded-md">
           <Calendar mode="single" selected={date} onSelect={setDate} />
         </div>
-        <div className="flex flex-grow w-full space-x-2">
-          <button onClick={() => setDate(undefined)} className="flex-1 bg-gray-800 rounded-md">
-            Clear
-          </button>
-          <button className="flex-1 bg-blue-500 rounded-md">OK</button>
-        </div>
+        <button
+          onClick={() => setDate(undefined)}
+          className="flex-1 bg-gray-800 rounded-md text-sm"
+        >
+          Clear
+        </button>
       </PopoverContent>
     </Popover>
   );
