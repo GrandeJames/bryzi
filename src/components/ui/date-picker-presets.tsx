@@ -64,7 +64,8 @@ export function DatePickerWithPresets() {
   );
   const [date, setDate] = React.useState<Date>();
   return (
-    <Popover>
+    <Popover modal={true}>
+      {/* setting modal to true allows the popover to be clicked on when inside a dialog */}
       <PopoverTrigger asChild>
         <Button
           variant={"ghost"}
