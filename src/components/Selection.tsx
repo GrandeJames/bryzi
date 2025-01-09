@@ -1,19 +1,27 @@
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
 
 function Selection({
   title,
   items,
-  defaultItemId,
   icon,
-  setStateValue,
+  defaultValue,
+  onSelect,
 }: {
   title: string;
-  items: string[];
-  defaultItemId?: number;
+  items: {
+    text: string;
+    value: any;
+  }[];
   icon?: React.ReactNode;
-  setStateValue: (value: any) => void;
+  defaultValue?: any;
+  onSelect: (value: any) => void;
 }) {
-  const [selectedItem, setSelectedItem] = useState(defaultItemId);
+  const handleSelectionButtonClick = (e: MouseEvent, item: any) => {
+    e.preventDefault();
+    onSelect(item.value ? item.value : item);
+    console.log("Selected item:", item);
+  };
+
   return (
     <div className="flex flex-col gap-3">
       <header className="flex justify-between">
@@ -25,16 +33,12 @@ function Selection({
         {items.map((item, index) => (
           <button
             key={index}
-            onClick={(e) => {
-              e.preventDefault();
-              setSelectedItem(index);
-              setStateValue(items[index].toLowerCase());
-            }}
-            className={`py-1 px-3 rounded-md ${
-              selectedItem == index && "bg-orange-400 font-semibold"
-            } text-sm`}
+            className={`py-1 px-3 rounded-md text-sm ${
+              defaultValue === item.value && "bg-orange-400 text-white"
+            }`}
+            onClick={(e) => handleSelectionButtonClick(e, item)}
           >
-            {item}
+            {item.text}
           </button>
         ))}
       </div>
