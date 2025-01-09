@@ -14,22 +14,6 @@ function TasksNavbar({ className }: { className?: string }) {
       <ul className="flex font-bol text-gray-600 font-bold text-4xl space-x-7">
         <li>
           <button
-            className={`${selectedTab === "Today" && "text-white"}`}
-            onClick={() => onTabClick("Today")}
-          >
-            Today
-          </button>
-        </li>
-        <li>
-          <button
-            className={`${selectedTab === "Upcoming" && "text-white"}`}
-            onClick={() => onTabClick("Upcoming")}
-          >
-            Upcoming
-          </button>
-        </li>
-        <li>
-          <button
             className={`${selectedTab === "Inbox" && "text-white"}`}
             onClick={() => onTabClick("Inbox")}
           >
