@@ -83,7 +83,6 @@ export function DatePickerWithPresets({
           {dateFormatted(date)}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="flex w-auto flex-col space-y-2 p-2 bg-red-50">
         <div className="flex w-full justify-between px-8 py-2">
           <PresetButton onClick={() => setDate(new Date())} text="Today">
             <SunIcon />
