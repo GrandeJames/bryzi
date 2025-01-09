@@ -2,20 +2,7 @@ import { TotalProgress } from "@/components/TotalProgress";
 import { useFocusStore } from "@/hooks/useFocusStore";
 import { Timeline } from "../Timeline";
 import { Progress } from "@/components/ui/progress";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import TaskCreationForm from "@/components/TaskCreationForm";
-import { Label } from "@radix-ui/react-select";
-import { Copy } from "lucide-react";
-import { Input } from "postcss";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
