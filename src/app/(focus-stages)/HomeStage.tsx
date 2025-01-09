@@ -166,7 +166,7 @@ function HomeStage() {
           </header>
           <div className="space-y-8">
             <section>
-              <header className="font-semibold text-xl mb-1 text-blue-300">Scheduled</header>
+              <header className="font-semibold text-xl mb-1 text-blue-300">Events</header>
               <div className="flex gap-7 divide-x">
                 {scheduledTasks.map((task, index) => (
                   <div key={index} className=" border-neutral-800 min-w-56 max-w-sm px-5 py-1">
