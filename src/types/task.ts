@@ -1,3 +1,5 @@
+import { Subtask } from "./subtask";
+
 export interface Task {
   id: string;
   title: string;
@@ -13,12 +15,12 @@ export interface Task {
     endTime: string; // end time can be calculated from start time and duration
   };
   recurrence?: {
-    frequency?: "daily" | "weekly" | "monthly";
+    frequency?: "once" | "daily" | "weekly" | "monthly";
     occurrences?: number; // e.g., 3 times a week
     daysOfWeek?: ("mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun")[]; // for weekly tasks
-    endDate?: Date; // when the recurrence ends
+    endDate?: Date;
   };
-  subTasks?: Task[]; // TODO: limit to a depth of 3 subtasks
+  subTasks?: Subtask[];
   createdAt?: string;
   updatedAt?: string;
 }
