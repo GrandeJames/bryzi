@@ -2,9 +2,11 @@ import { TotalProgress } from "@/components/TotalProgress";
 import { useFocusStore } from "@/hooks/useFocusStore";
 import { Timeline } from "../Timeline";
 import { Progress } from "@/components/ui/progress";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import TaskCreationForm from "@/components/TaskCreationForm";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useState } from "react";
 
 function HomeStage() {
   const todaysTasks = [
@@ -121,12 +123,14 @@ function HomeStage() {
   focusTasks.sort((a, b) => (b.importance || 0) - (a.importance || 0));
   miscTasks.sort((a, b) => (b.importance || 0) - (a.importance || 0));
 
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <TotalProgress className="my-3" />
       <Timeline className="my-3" />
       {/* <button className="fixed bottom-3 right-3"> */}
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button
             className="flex items-center text-orange-500 font-semibold fixed bottom-5 right-5 z-50"
@@ -141,7 +145,7 @@ function HomeStage() {
             <div className="flex items-center space-x-2">
               <div className="grid flex-1 gap-2"></div>
             </div>
-            <TaskCreationForm />
+            <TaskCreationForm onSubmission={() => setOpen(false)} />
           </ScrollArea>
         </DialogContent>
       </Dialog>
