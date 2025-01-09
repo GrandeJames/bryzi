@@ -2,8 +2,9 @@ export interface Task {
   id: string;
   title: string;
   completed: boolean;
-  deadline?: string; // determines urgency
-  impact?: number;
+  deadline?: Date; // determines urgency
+  impact?: string;
+  difficulty?: string;
   durationInMinutes?: number; // used for focus sessions
   actualDurationInMinutes?: number; // used for focus sessions
   description?: string;
@@ -12,10 +13,10 @@ export interface Task {
     endTime: string; // end time can be calculated from start time and duration
   };
   recurrence?: {
-    frequency?: "daily" | "weekly" | "monthly" | "yearly";
+    frequency?: "daily" | "weekly" | "monthly";
     occurrences?: number; // e.g., 3 times a week
     daysOfWeek?: ("mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun")[]; // for weekly tasks
-    endDate?: string; // when the recurrence ends
+    endDate?: Date; // when the recurrence ends
   };
   subTasks?: Task[]; // TODO: limit to a depth of 3 subtasks
   createdAt?: string;
