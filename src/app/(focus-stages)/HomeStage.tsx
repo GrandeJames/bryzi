@@ -136,7 +136,7 @@ function HomeStage() {
           </Button>
           {/* <div className="bg-neutral-800 px-2 py-1 rounded-md text-neutral-400">⌘ K</div> */}
         </DialogTrigger>
-        <DialogContent className="sm:max-w-sm p-0 dark:bg-neutral-500/10 backdrop-blur-2xl">
+        <DialogContent className="sm:max-w-sm p-0">
           <ScrollArea className="max-h-[80vh] p-6">
             <div className="flex items-center space-x-2">
               <div className="grid flex-1 gap-2"></div>
