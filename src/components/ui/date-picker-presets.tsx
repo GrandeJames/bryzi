@@ -40,7 +40,13 @@ function dateFormatted(date: Date | undefined) {
   return format(date, "PPP");
 }
 
-export function DatePickerWithPresets() {
+export function DatePickerWithPresets({
+  date,
+  setDate,
+}: {
+  date: Date | undefined;
+  setDate: (date: Date | undefined) => void;
+}) {
   const PresetButton = ({
     onClick,
     children,
@@ -62,7 +68,9 @@ export function DatePickerWithPresets() {
       </Tooltip>
     </TooltipProvider>
   );
-  const [date, setDate] = React.useState<Date>();
+
+  // const [date, setDate] = React.useState<Date>();
+  // Commented out for now because the state is managed by the parent component
   return (
     <Popover>
       {/* setting modal to true allows the popover to be clicked on when inside a dialog */}
