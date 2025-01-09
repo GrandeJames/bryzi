@@ -29,7 +29,7 @@ function Selection({
           <div className="flex items-center justify-center h-4 w-4">{icon}</div> {title}
         </div>
       </header>
-      <div className="flex justify-between px-5 py-2 bg-neutral-900 rounded-md dark:bg-neutral-500/10 backdrop-blur-lg">
+      <div className="flex justify-between px-5 py-2 bg-neutral-900 rounded-md">
         {items.map((item, index) => (
           <button
             key={index}
