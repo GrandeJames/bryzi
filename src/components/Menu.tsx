@@ -6,6 +6,7 @@ import { auth } from "@/auth";
 import { MenuItemContainer } from "./MenuItemContainer";
 import { UserDropDownMenu } from "./UserDropDownMenu";
 import { SunIcon } from "lucide-react";
+import { HomeIcon } from "./icons/HomeIcon";
 
 export async function Menu() {
   const session = await auth();
@@ -15,7 +16,7 @@ export async function Menu() {
       <div className="flex flex-col space-y-3">
         <Link href={"/"}>
           <MenuItemContainer>
-            <SunIcon />
+            <HomeIcon />
           </MenuItemContainer>
         </Link>
         <Link href={"tasks"}>
