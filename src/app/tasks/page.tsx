@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import TasksNavbar from "./Navbar";
 import TaskCreationForm from "@/components/TaskCreationForm";
+import TaskCreationDialog from "@/components/TaskCreationDialog";
 
 const TasksList = dynamic(() => import("./TasksList"), { ssr: false }); // used to prevent hydration error when using localStorage to get tasks
 
@@ -16,9 +17,9 @@ function Tasks() {
       </header>
       <main>
         <div className="w-[40rem]">
-          <TaskCreationForm className="my-3" />
           <TasksList className="divide-y-[1px] divide-gray-900"/>
         </div>
+        <TaskCreationDialog />
       </main>
     </div>
   );

@@ -2,11 +2,7 @@ import { TotalProgress } from "@/components/TotalProgress";
 import { useFocusStore } from "@/hooks/useFocusStore";
 import { Timeline } from "../Timeline";
 import { Progress } from "@/components/ui/progress";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import TaskCreationForm from "@/components/TaskCreationForm";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { useState } from "react";
+import TaskCreationDialog from "@/components/TaskCreationDialog";
 
 function HomeStage() {
   const todaysTasks = [
@@ -123,33 +119,11 @@ function HomeStage() {
   focusTasks.sort((a, b) => (b.importance || 0) - (a.importance || 0));
   miscTasks.sort((a, b) => (b.importance || 0) - (a.importance || 0));
 
-  const [open, setOpen] = useState(false);
-
   return (
     <>
       <TotalProgress className="my-3" />
       <Timeline className="my-3" />
-      {/* <button className="fixed bottom-3 right-3"> */}
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <Button
-            className="flex items-center text-orange-500 font-semibold fixed bottom-5 right-5 z-50"
-            variant={"ghost"}
-          >
-            Create Task
-          </Button>
-          {/* <div className="bg-neutral-800 px-2 py-1 rounded-md text-neutral-400">⌘ K</div> */}
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-sm p-0">
-          <ScrollArea className="max-h-[80vh] p-6">
-            <div className="flex items-center space-x-2">
-              <div className="grid flex-1 gap-2"></div>
-            </div>
-            <TaskCreationForm onSubmission={() => setOpen(false)} />
-          </ScrollArea>
-        </DialogContent>
-      </Dialog>
-      {/* </button> */}
+      <TaskCreationDialog />
       <div className="relative space-y-10">
         <div className="pb-20 space-y-5">
           <header className="flex flex-col gap-1">
