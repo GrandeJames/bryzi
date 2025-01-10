@@ -83,7 +83,7 @@ export function DatePickerWithPresets({
           {dateFormatted(date)}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="flex w-auto flex-col space-y-2 p-2" align="end">
+      <PopoverContent className="flex w-auto flex-col space-y-2 p-2 border-none" align="end">
         <div className="flex w-full justify-between px-8 py-2">
           <PresetButton onClick={() => setDate(new Date())} text="Today">
             <SunIcon />
@@ -100,7 +100,7 @@ export function DatePickerWithPresets({
         </div>
         <button
           onClick={() => setDate(undefined)}
-          className="flex-1 bg-gray-800 rounded-md text-sm"
+          className="flex-1 bg-neutral-800 rounded-md text-md px-3 py-1 text-white font-medium"
         >
           Clear
         </button>
