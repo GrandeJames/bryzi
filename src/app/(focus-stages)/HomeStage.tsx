@@ -137,7 +137,7 @@ function HomeStage() {
                   <div key={index} className=" border-neutral-900 min-w-56 max-w-sm px-5 py-1">
                     <div className="text-sm font-semibold">{task.title}</div>
                     <div className="text-sm text-neutral-300">
-                      <div>MATH 307: Linear Algebra</div>
+                      <div>{task.class}</div>
                       <div className="text-orange-400">
                         {task.startTime} {task.endTime && ` - ${task.endTime}`}
                       </div>
