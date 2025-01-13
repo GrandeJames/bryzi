@@ -1,4 +1,3 @@
-// import { TotalProgress } from "@/components/TotalProgress";
 import { useFocusStore } from "@/hooks/useFocusStore";
 import { Timeline } from "../Timeline";
 import { Progress } from "@/components/ui/progress";
@@ -17,8 +16,8 @@ function HomeStage() {
 
   return (
     <div className="max-h-screen overflow-hidden">
-      {/* <TotalProgress className="my-3" /> */}
-      <Timeline className="my-4" />
+      <Progress value={70} label="3/5 Tasks" className="mb-2 mt-5 text-xs" />
+      <Timeline className="mb-4" />
       <TaskCreationDialog />
       <div className="relative space-y-10">
         <div className="pb-20 pt-5 space-y-5">
@@ -35,7 +34,7 @@ function HomeStage() {
             <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-20">
               <section className="col-span-8">
                 <header className="flex gap-2">
-                  <div className="font-semibold text-xl mb-2 text-orange-300">Focus</div>
+                  <div className="font-semibold text-xl mb-2 text-orange-300">Assignments</div>
                 </header>
                 <ul className="grid grid-cols-1 space-y-2 divide-neutral-800 divide-y">
                   {focusTasks.map((task, index) => (
@@ -84,26 +83,17 @@ function FocusWork({ task }: TaskInterface) {
       <div className="text-red-500 text-center">2d left</div>
       {task.completed && (
         <div className="flex flex-col col-span-2 px-5">
-          <div className=" flex justify-center">
-            <Progress value={80}></Progress>
-          </div>
-          <p className="text-xs text-neutral-500">2.7/3.0 hrs</p>
+          <Progress value={80} label="2.7/3.0 hrs" className="text-xs" />
         </div>
       )}
       {!task.completed && task.currentDuration && (
         <div className="flex flex-col col-span-2 px-5">
-          <div className=" flex justify-center">
-            <Progress value={40}></Progress>
-          </div>
-          <p className="text-xs text-neutral-500">2.2/3.0 hrs</p>
+          <Progress value={40} label="2.2/3.0 hrs" className="text-xs" />
         </div>
       )}
       {!task.completed && !task.currentDuration && (
         <div className="flex flex-col col-span-2 px-5">
-          <div className=" flex justify-center">
-            <Progress value={0}></Progress>
-          </div>
-          <p className="text-xs text-neutral-500">0/3.0 hrs</p>
+          <Progress value={0} label="0/3.0 hrs" className="text-xs" />
         </div>
       )}
       {!task.completed && !task.currentDuration && (
