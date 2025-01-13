@@ -7,8 +7,8 @@ export interface Task {
   deadline?: Date; // determines urgency
   impact?: string;
   difficulty?: string;
-  durationInMinutes?: number; // used for focus sessions
-  actualDurationInMinutes?: number; // used for focus sessions
+  estimatedDurationInMins?: number; // used for focus sessions
+  actualDurationInMins?: number; // used for focus sessions
   description?: string;
   time?: {
     startTime: string;

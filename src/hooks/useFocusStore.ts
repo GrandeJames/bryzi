@@ -9,7 +9,9 @@ interface FocusState {
   complete: () => void;
 }
 
-const stages = ["prepare", "breath", "visual", "task"];
+// const stages = ["prepare", "breath", "visual", "task"];
+const stages = ["breath", "visual", "task"];
+
 
 export const useFocusStore = create<FocusState>((set) => ({
   stage: "",
