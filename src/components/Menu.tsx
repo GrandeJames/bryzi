@@ -5,7 +5,7 @@ import { SignInDialog } from "./SignInDialog";
 import { auth } from "@/auth";
 import { MenuItemContainer } from "./MenuItemContainer";
 import { UserDropDownMenu } from "./UserDropDownMenu";
-import { SunIcon } from "lucide-react";
+import { LibraryIcon, SunIcon } from "lucide-react";
 import { HomeIcon } from "./icons/HomeIcon";
 
 export async function Menu() {
@@ -24,6 +24,11 @@ export async function Menu() {
             <QueueListIcon />
           </MenuItemContainer>
         </Link> */}
+        <Link href={"classes"}>
+          <MenuItemContainer>
+            <LibraryIcon/>
+            </MenuItemContainer>
+        </Link>
         <Link href={"data-insights"}>
           <MenuItemContainer>
             <ChartBarIcon />
