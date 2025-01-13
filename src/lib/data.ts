@@ -65,16 +65,6 @@ export const tasks = [
   },
   { title: "Work", date: "2022-01-01", startTime: "17:00", endTime: "21:00", completed: false },
   {
-    title: "Module 1 Essay",
-    date: "2022-01-01",
-    class: "IP 364: Philippine Popular Culture",
-    impact: 3,
-    difficulty: 3,
-    deadline: "2022-01-03",
-    expectedDuration: "4:30",
-    completed: false,
-  },
-  {
     title: "Discussion Post",
     date: "2022-01-01",
     class: "ICS 425: Computer Security & Ethics",
