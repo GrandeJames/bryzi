@@ -4,6 +4,7 @@ import { Timeline } from "../Timeline";
 import { Progress } from "@/components/ui/progress";
 import TaskCreationDialog from "@/components/TaskCreationDialog";
 import { tasks } from "@/lib/data";
+import { format } from "date-fns";
 
 function HomeStage() {
   const scheduledTasks = tasks.filter((task) => task.startTime);
@@ -21,9 +22,7 @@ function HomeStage() {
       <TaskCreationDialog />
       <div className="relative space-y-10">
         <div className="pb-20 pt-5 space-y-5">
-          <header className="flex flex-col gap-1">
-            <div className="font-bold text-3xl text-white">Today</div>
-          </header>
+          <DateHeading />
           <div className="space-y-8">
             <section>
               <header className="font-semibold text-xl mb-1 text-blue-300">Schedule</header>
@@ -153,6 +152,20 @@ function ScheduledTask({ task }: { task: any }) {
         )}
       </div>
     </div>
+  );
+}
+
+function DateHeading() {
+  const today = new Date();
+
+  const day = format(today, "EEEE"); // Full day name, e.g., "Monday"
+  const monthAndDay = format(today, "MMM d"); // Month and day, e.g., "Jan 13"
+
+  return (
+    <header className="flex items-end gap-2">
+      <span className="text-3xl font-bold text-neutral-200">{day}</span>
+      <span className="text-2xl font-bold text-neutral-500">{monthAndDay}</span>
+    </header>
   );
 }
 
