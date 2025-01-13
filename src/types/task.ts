@@ -18,6 +18,9 @@ export interface Task {
     frequency?: "once" | "daily" | "weekly" | "monthly";
     occurrences?: number; // e.g., 3 times a week
     daysOfWeek?: ("mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun")[]; // for weekly tasks
+    // maybe have a start date? because if it's a generated task by AI, for example, it should not start immediately
+    // another ex: guest speaker talks are every Wednesday from 4-Sept to 20-Nov
+    startDate?: Date;
     endDate?: Date;
   };
   subTasks?: Subtask[];
