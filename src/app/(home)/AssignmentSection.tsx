@@ -1,3 +1,4 @@
+import { useTaskDialogStore } from "@/components/TaskDetailsDialog";
 import { Progress } from "@/components/ui/progress";
 import { useFocusStore } from "@/hooks/useFocusStore";
 import { Task } from "@/types/task";
@@ -26,13 +27,24 @@ function AssignmentsList({ task }: { task: Task }) {
 }
 
 function Assignment({ task }: { task: Task }) {
+  const { isTaskDetailsDialogOpen, openDialog, closeDialog } = useTaskDialogStore();
+
   return (
     <>
-      <div className="flex flex-col col-span-3">
-        <div className="font-semibold">{task.title}</div>
-        <div className="text-sm text-neutral-300">task class</div>
+      <div
+        className="flex items-center col-span-4 hover:cursor-pointer"
+        onClick={() => {
+          console.log("open dialog");
+          openDialog();
+        }}
+      >
+        <div className="flex flex-col col-span-3">
+          <div className="font-semibold">{task.title}</div>
+          <div className="text-sm text-neutral-300">task class</div>
+        </div>
+        <div className="text-red-500 text-center">deadline</div>
       </div>
-      <div className="text-red-500 text-center">deadline</div>
+
       <Status task={task} />
     </>
   );

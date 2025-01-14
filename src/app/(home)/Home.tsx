@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import AssignmentsSection from "./AssignmentSection";
 import ScheduleSection from "./ScheduleSection";
 import MiscSection from "./MiscSection";
+import TaskDetailsDialog from "@/components/TaskDetailsDialog";
 
 function Home() {
   const scheduledTasks = tasks.filter((task) => task.startTime);
@@ -30,6 +31,7 @@ function Home() {
               </div>
             </div>
           </div>
+          <TaskDetailsDialog />
         </main>
       </div>
       <TaskCreationDialog />
