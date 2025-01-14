@@ -27,14 +27,14 @@ function AssignmentsList({ task }: { task: Task }) {
 }
 
 function Assignment({ task }: { task: Task }) {
-  const { isTaskDetailsDialogOpen, openDialog, closeDialog } = useTaskDialogStore();
+  const { openDialog, setTask } = useTaskDialogStore();
 
   return (
     <>
       <div
         className="flex items-center col-span-4 hover:cursor-pointer"
         onClick={() => {
-          console.log("open dialog");
+          setTask(task);
           openDialog();
         }}
       >
