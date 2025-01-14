@@ -5,14 +5,14 @@ import { FocusSessionStage } from "./(focus-stages)/FocusSessionStage";
 import { VisualStage } from "./(focus-stages)/VisualStage";
 import { useFocusStore } from "@/hooks/useFocusStore";
 import { PrepareStage } from "./(focus-stages)/PrepareStage";
-import { HomeStage } from "./(focus-stages)/HomeStage";
+import Home from "./(home)/Home";
 
 export function Focus() {
   const { stage } = useFocusStore();
 
   return (
     <>
-      {!stage && <HomeStage />}
+      {!stage && <Home />}
       {stage === "breath" && <BreathStage />}
       {stage === "visual" && <VisualStage />}
       {stage === "task" && <FocusSessionStage />}
