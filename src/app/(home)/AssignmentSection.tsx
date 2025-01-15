@@ -1,19 +1,26 @@
+"use client";
 import { useTaskDialogStore } from "@/components/TaskDetailsDialog";
 import { Progress } from "@/components/ui/progress";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useFocusStore } from "@/hooks/useFocusStore";
 import { Task } from "@/types/task";
 
-function AssignmentsSection({ focusTasks }: { focusTasks: any[] }) {
+function AssignmentsSection({ tasks }: { tasks: any[] }) {
   return (
     <section className="col-span-8">
       <header className="flex gap-2">
         <div className="font-semibold text-xl mb-2 text-orange-300">Assignments</div>
       </header>
-      <ul className="grid grid-cols-1 space-y-2 divide-neutral-800 divide-y">
-        {focusTasks.map((task, index) => (
-          <AssignmentsList key={index} task={task} />
-        ))}
-      </ul>
+      <ScrollArea className="h-96 rounded-md" >
+        <ul className="grid grid-cols-1 space-y-2 divide-neutral-800 divide-y">
+          {tasks.length === 0 && <div>No assignments</div>}
+          {tasks.map((task, index) => (
+            <li key={index}>
+              <AssignmentsList task={task} />
+            </li>
+          ))}
+        </ul>
+      </ScrollArea>
     </section>
   );
 }
