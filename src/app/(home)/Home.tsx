@@ -1,3 +1,5 @@
+"use client";
+
 import { Timeline } from "../Timeline";
 import { Progress } from "@/components/ui/progress";
 import TaskCreationDialog from "@/components/TaskCreationDialog";
@@ -7,10 +9,25 @@ import AssignmentsSection from "./AssignmentSection";
 import ScheduleSection from "./ScheduleSection";
 import MiscSection from "./MiscSection";
 import TaskDetailsDialog from "@/components/TaskDetailsDialog";
+import useTasksStore from "@/stores/tasksStore";
+import { useEffect, useState } from "react";
 
 function Home() {
+  const tasks2 = useTasksStore((state) => state.tasks);
+
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  if (!isHydrated) {
+    return <div>Loading...</div>;
+  }
+
+  const assignments = tasks2.filter((task) => task.title);
+
   const scheduledTasks = tasks.filter((task) => task.startTime);
-  const focusTasks = tasks.filter((task) => task.expectedDuration);
   const miscTasks = tasks.filter((task) => !task.startTime && !task.expectedDuration);
 
   return (
