@@ -11,7 +11,7 @@ function AssignmentsSection({ tasks }: { tasks: any[] }) {
       <header className="flex gap-2">
         <div className="font-semibold text-xl mb-2 text-orange-300">Assignments</div>
       </header>
-      <ScrollArea className="h-96 rounded-md" >
+      <ScrollArea className="h-96 rounded-md">
         <ul className="grid grid-cols-1 space-y-2 divide-neutral-800 divide-y">
           {tasks.length === 0 && <div>No assignments</div>}
           {tasks.map((task, index) => (

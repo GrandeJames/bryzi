@@ -31,8 +31,7 @@ function Home() {
   const miscTasks = tasks.filter((task) => !task.startTime && !task.expectedDuration);
 
   return (
-    <div>
-      <div className="max-h-screen overflow-hidden">
+    <div className="max-h-screen overflow-hidden">
         <header>
           <Progress value={70} label="3/5 Tasks" className="mb-2 mt-5 text-xs" />
           <Timeline className="mb-4" />
@@ -49,9 +48,8 @@ function Home() {
             </div>
           </div>
           <TaskDetailsDialog />
+          <TaskCreationDialog />
         </main>
-      </div>
-      <TaskCreationDialog />
     </div>
   );
 }
