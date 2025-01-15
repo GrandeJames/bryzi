@@ -43,7 +43,7 @@ function Home() {
             <div className="space-y-8">
               <ScheduleSection scheduledTasks={scheduledTasks} />
               <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-20">
-                <AssignmentsSection focusTasks={focusTasks} />
+                <AssignmentsSection tasks={assignments} />
                 <MiscSection miscTasks={miscTasks} />
               </div>
             </div>
