@@ -26,7 +26,7 @@ function TaskCreationForm({
   const [date, setDate] = useState<Date>();
   const [impact, setImpact] = useState("");
   const [difficulty, setDifficulty] = useState("");
-  const [estimatedDuration, setEstimatedDuration] = useState(0);
+  const [estimatedDurationInMins, setEstimatedDuration] = useState(0);
   const [frequency, setFrequency] = useState<"once" | "daily" | "weekly" | "monthly">("once");
   const [daysOfWeek, setDaysOfWeek] = useState([]);
   const [description, setDescription] = useState("");
@@ -48,8 +48,8 @@ function TaskCreationForm({
       deadline: date,
       impact,
       difficulty,
-      estimatedDuration,
-      actualDurationInMinutes: 0,
+      estimatedDurationInMins,
+      actualDurationInMins: 0,
       description,
       recurrence: {
         frequency: frequency,
@@ -139,7 +139,7 @@ function TaskCreationForm({
           ]}
           icon={<ClockIcon />}
           onSelect={setEstimatedDuration}
-          defaultValue={estimatedDuration}
+          defaultValue={estimatedDurationInMins}
         />
         <Textarea
           className="resize-none border-none focus-visible:ring-0 bg-neutral-800"
