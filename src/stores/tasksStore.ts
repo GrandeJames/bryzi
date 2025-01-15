@@ -5,6 +5,8 @@ import { getLocalTasks } from "@/lib/localStorageTasks";
 interface TasksStore {
   tasks: Task[];
   setTasks: (newTasks: Task[]) => void;
+  addTask: (newTask: Task) => void;
+  removeTask: (id: string) => void;
 }
 
 const useTasksStore = create<TasksStore>((set) => ({
