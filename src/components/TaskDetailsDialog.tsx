@@ -2,6 +2,8 @@ import { Task } from "@/types/task";
 import { Dialog, DialogContent, DialogHeader } from "./ui/dialog";
 import { create } from "zustand";
 import { Subtask } from "@/types/subtask";
+import { removeLocalTask } from "@/lib/localStorageTasks";
+import useTasksStore from "@/stores/tasksStore";
 
 interface TaskDialogStore {
   isTaskDetailsDialogOpen: boolean;
@@ -21,10 +23,18 @@ export const useTaskDialogStore = create<TaskDialogStore>((set) => ({
 
 function TaskDetailsDialog() {
   const { isTaskDetailsDialogOpen, closeDialog, task } = useTaskDialogStore();
+  const removeTask = useTasksStore((state) => state.removeTask);
 
   if (!task) {
     return null;
   }
+
+  const handleTaskDelete = () => {
+    removeLocalTask(task.id);
+    removeTask(task.id);
+    closeDialog();
+    console.log("task deleted");
+  };
 
   return (
     <Dialog open={isTaskDetailsDialogOpen}>
@@ -43,9 +53,11 @@ function TaskDetailsDialog() {
                 </div>
               ))}
           </div>
-          <div className="flex flex-col gap-2">
-            <button className="w-full bg-neutral-800 rounded-md py-2">Edit</button>
-            <button className="w-full bg-neutral-800 rounded-md py-2">Delete</button>
+          <div className="flex flex-col gap-3">
+            <button className="w-full bg-neutral-700 rounded-md py-2">Edit</button>
+            <button className="w-full bg-red-500 rounded-md py-2" onClick={handleTaskDelete}>
+              Delete
+            </button>
           </div>
         </div>
       </DialogContent>
