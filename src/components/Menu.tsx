@@ -19,11 +19,11 @@ export async function Menu() {
             <HomeIcon />
           </MenuItemContainer>
         </Link>
-        {/* <Link href={"tasks"}>
+        <Link href={"tasks"}>
           <MenuItemContainer>
             <QueueListIcon />
           </MenuItemContainer>
-        </Link> */}
+        </Link>
         <Link href={"classes"}>
           <MenuItemContainer>
             <LibraryIcon/>
