@@ -23,7 +23,7 @@ export interface Task {
     startDate?: Date;
     endDate?: Date;
   };
-  subTasks?: Subtask[];
+  subtasks?: Subtask[];
   class?: {
     name: string;
     abbreviation?: string;
