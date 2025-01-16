@@ -12,8 +12,8 @@ const users = [
 
 export const tasks = [
   {
-    title: "Attend class",
-    class: "ICS 311: Data Structures & Algorithms",
+    title: "ICS 311: Attend class",
+    // class: "ICS 311: Data Structures & Algorithms",
     impact: 3,
     difficulty: 3,
     date: "2022-01-01",
@@ -41,8 +41,8 @@ export const tasks = [
     expectedDuration: "0:90",
   },
   {
-    title: "Office hour",
-    class: "ICS 212: Program Structure",
+    title: "ICS 212: Office hour",
+    // class: "ICS 212: Program Structure",
     difficulty: 2,
     date: "2022-01-01",
     startTime: "11:30",
@@ -50,8 +50,8 @@ export const tasks = [
   },
 
   {
-    title: "Attend class",
-    class: "SPAN 202: Spanish",
+    title: "SPAN-202: Attend class",
+    // class: "SPAN 202: Spanish",
     date: "2022-01-01",
     startTime: "16:00",
     endTime: "16:50",
@@ -64,6 +64,8 @@ export const tasks = [
     completed: true,
   },
   { title: "Work", date: "2022-01-01", startTime: "17:00", endTime: "21:00", completed: false },
+  // { title: "Sleep", date: "2022-01-01", startTime: "17:00", endTime: "21:00", completed: false },
+
   {
     title: "Discussion Post",
     date: "2022-01-01",
