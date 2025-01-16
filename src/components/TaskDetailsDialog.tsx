@@ -45,8 +45,8 @@ function TaskDetailsDialog() {
         </DialogHeader>
         <div>
           <div>
-            {task.subTasks &&
-              task.subTasks.map((subtask: Subtask) => (
+            {task.subtasks &&
+              task.subtasks.map((subtask: Subtask) => (
                 <div key={subtask.id}>
                   <input type="checkbox" checked={subtask.completed} />
                   <span>{subtask.title}</span>
