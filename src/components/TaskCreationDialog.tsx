@@ -19,9 +19,6 @@ function TaskCreationDialog() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-sm p-0">
         <ScrollArea className="max-h-[80vh] p-6">
-          <div className="flex items-center space-x-2">
-            <div className="grid flex-1 gap-2"></div>
-          </div>
           <TaskCreationForm onSubmission={() => setOpen(false)} />
         </ScrollArea>
       </DialogContent>
