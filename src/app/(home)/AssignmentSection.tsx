@@ -2,7 +2,7 @@
 
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useFocusStore } from "@/hooks/useFocusStore";
+import { useFocusStore } from "@/stores/focusStore";
 import useDialogStore from "@/stores/dialogStore";
 import { Task } from "@/types/task";
 import { ListTodoIcon, Repeat2Icon } from "lucide-react";

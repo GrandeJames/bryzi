@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useFocusStore } from "./useFocusStore";
+import { useFocusStore } from "../stores/focusStore";
 
 const INHALE_TIME_SECONDS = 4;
 const HOLD_TIME_SECONDS = 7;

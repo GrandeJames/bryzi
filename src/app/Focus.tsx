@@ -3,7 +3,7 @@
 import { BreathStage } from "./(focus-stages)/BreathStage";
 import { FocusSessionStage } from "./(focus-stages)/FocusSessionStage";
 import { VisualStage } from "./(focus-stages)/VisualStage";
-import { useFocusStore } from "@/hooks/useFocusStore";
+import { useFocusStore } from "@/stores/focusStore";
 import { PrepareStage } from "./(focus-stages)/PrepareStage";
 import Home from "./(home)/Home";
 

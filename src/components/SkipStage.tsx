@@ -1,4 +1,4 @@
-import { useFocusStore } from "@/hooks/useFocusStore";
+import { useFocusStore } from "@/stores/focusStore";
 
 function SkipStage() {
   const { skipStage } = useFocusStore();

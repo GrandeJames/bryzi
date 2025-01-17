@@ -3,7 +3,7 @@
 import ActionsContainer from "@/components/Actions";
 import ExitStage from "@/components/ExitStage";
 import SkipStage from "@/components/SkipStage";
-import { useFocusStore } from "@/hooks/useFocusStore";
+import { useFocusStore } from "@/stores/focusStore";
 import { useEffect } from "react";
 
 const VISUAL_FOCUS_TIME_SECONDS = 90;
