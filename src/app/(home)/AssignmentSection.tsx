@@ -11,7 +11,7 @@ function AssignmentsSection({ tasks }: { tasks: any[] }) {
   return (
     <section className="col-span-8">
       <header className="flex flex-col gap-2">
-        <div className="font-semibold text-xl text-orange-300">Tasks</div>
+        <div className="font-semibold text-xl text-orange-300">Class Work</div>
         <div className="flex mb-2 gap-4 px-4">
           <div className="bg-orange-500 text-xs px-3 py-1 rounded-full text-neutral-100 font-medium">
             Recommended
@@ -27,7 +27,7 @@ function AssignmentsSection({ tasks }: { tasks: any[] }) {
           </div>
         </div>
       </header>
-      <div className="w-8/12 px-4">
+      <div className="px-4">
         <ul className="space-y-2 divide-neutral-800 divide-y">
           {tasks.map((task, index) => (
             <li key={index}>
