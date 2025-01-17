@@ -1,12 +1,14 @@
 import { Task } from "@/types/task";
 import { Subtask } from "@/types/subtask";
-import { removeLocalTask } from "@/lib/localStorageTasks";
+import { removeLocalTask, updateLocalTask } from "@/lib/localStorageTasks";
 import useTasksStore from "@/stores/tasksStore";
 import { CircleCheckIcon, PencilIcon, Repeat2Icon, Trash2Icon } from "lucide-react";
 import useDialogStore from "@/stores/dialogStore";
 
 function TaskDetails({ task }: { task: Task }) {
   const removeTask = useTasksStore((state) => state.removeTask);
+  const updateTask = useTasksStore((state) => state.updateTask);
+
   const closeDialog = useDialogStore((state) => state.closeDialog);
   const openDialog = useDialogStore((state) => state.openDialog);
 
@@ -20,11 +22,14 @@ function TaskDetails({ task }: { task: Task }) {
   const handleTaskDeleteClick = () => {
     removeLocalTask(task.id);
     removeTask(task.id);
-
     closeDialog();
   };
 
   const handleTaskCompleteClick = () => {
+    const updatedTask = { ...task, completed: true };
+
+    updateLocalTask(updatedTask);
+    updateTask(updatedTask);
     closeDialog();
   };
 
