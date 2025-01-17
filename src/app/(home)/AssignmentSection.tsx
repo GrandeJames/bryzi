@@ -5,6 +5,7 @@ import { useFocusStore } from "@/stores/focusStore";
 import useDialogStore from "@/stores/dialogStore";
 import { Task } from "@/types/task";
 import { ListTodoIcon, Repeat2Icon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 function AssignmentsSection({ tasks }: { tasks: any[] }) {
   return (
@@ -57,9 +58,9 @@ function Assignment({ task }: { task: Task }) {
     ((task.actualDurationInMins ?? 0) / (task.estimatedDurationInMins ?? 0)) * 100;
 
   return (
-    <div className="flex bg-neutral-900/70 rounded-3xl py-5 px-8">
+    <div className="grid grid-cols-12 w-full rounded-3xl py-5 px-8 bg-neutral-900/70">
       <div
-        className="flex justify-between w-full hover:cursor-pointer gap-5"
+        className="col-span-10 flex justify-between hover:cursor-pointer"
         onClick={() => {
           dialogData.task = task;
           openTaskDetailsDialog();
@@ -80,43 +81,42 @@ function Assignment({ task }: { task: Task }) {
             )}
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-3 items-center">
+        <div className="text-xs w-20 flex place-items-center">
           {task.completed ? (
-            <Progress value={100} label="46 mins" className="w-28 text-xs" />
+            <Progress value={100} label="46 mins" />
           ) : (
             <Progress
               value={54}
               label={`${task.actualDurationInMins ?? 0}/${task.estimatedDurationInMins} mins`}
-              className="w-28 text-xs"
             />
           )}
-          <Status task={task} />
         </div>
       </div>
+
+      <Status task={task} className="col-span-2" />
     </div>
   );
 }
 
-function Status({ task }: { task: Task }) {
+function Status({ task, className }: { task: Task; className?: string }) {
   const { start } = useFocusStore();
 
-  if (task.completed) {
-    return <div className="text-orange-400 font-semibold text-center">Complete</div>;
-  }
+  const renderContent = () => {
+    if (task.completed) {
+      return <div className="text-orange-400 font-semibold">Complete</div>;
+    }
 
-  if (!task.actualDurationInMins) {
     return (
-      <button className="text-orange-500 font-bold text-center" onClick={() => start(task.title)}>
-        Start
+      <button className="text-orange-500 font-bold" onClick={() => start(task.title)}>
+        {task.actualDurationInMins ? "Continue" : "Start"}
       </button>
     );
-  }
+  };
 
   return (
-    <button className="text-orange-500 font-bold text-center" onClick={() => start(task.title)}>
-      Continue
-    </button>
+    <div className={cn("flex items-center justify-center h-full", className)}>
+      {renderContent()}
+    </div>
   );
 }
-
 export default AssignmentsSection;
