@@ -4,6 +4,7 @@ export interface Task {
   id: string;
   title: string;
   completed: boolean;
+  type?: "class" | "event" | "misc";
   deadline?: Date; // determines urgency
   impact?: string;
   difficulty?: string;

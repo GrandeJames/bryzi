@@ -1,7 +1,6 @@
 "use client";
 
 import { Progress } from "@/components/ui/progress";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { useFocusStore } from "@/stores/focusStore";
 import useDialogStore from "@/stores/dialogStore";
 import { Task } from "@/types/task";
@@ -11,8 +10,8 @@ function AssignmentsSection({ tasks }: { tasks: any[] }) {
   return (
     <section className="col-span-8">
       <header className="flex flex-col gap-2">
-        <div className="font-semibold text-xl text-orange-300">Class Work</div>
-        <div className="flex mb-2 gap-4 px-4">
+        <div className="font-semibold text-xl text-orange-200">Class Work ✏</div>
+        <div className="flex mb-2 gap-4 px-2">
           <div className="bg-orange-500 text-xs px-3 py-1 rounded-full text-neutral-100 font-medium">
             Recommended
           </div>
@@ -27,24 +26,24 @@ function AssignmentsSection({ tasks }: { tasks: any[] }) {
           </div>
         </div>
       </header>
-      <div className="px-4">
-        <ul className="space-y-2 divide-neutral-800 divide-y">
-          {tasks.map((task, index) => (
-            <li key={index}>
-              <AssignmentsList task={task} />
-            </li>
-          ))}
-        </ul>
+      <div className="px-2">
+        <AssignmentsList tasks={tasks} />
       </div>
     </section>
   );
 }
 
-function AssignmentsList({ task }: { task: Task }) {
+function AssignmentsList({ tasks }: { tasks: Task[] }) {
   return (
-    <div className="py-1">
-      <Assignment task={task} />
-    </div>
+    <ul className="space-y-2">
+      {tasks.map((task, index) => (
+        <li key={index}>
+          <div className="py-0">
+            <Assignment task={task} />
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -58,7 +57,7 @@ function Assignment({ task }: { task: Task }) {
     ((task.actualDurationInMins ?? 0) / (task.estimatedDurationInMins ?? 0)) * 100;
 
   return (
-    <div className="flex">
+    <div className="flex bg-neutral-900/70 rounded-3xl py-5 px-8">
       <div
         className="flex justify-between w-full hover:cursor-pointer gap-5"
         onClick={() => {
@@ -69,34 +68,31 @@ function Assignment({ task }: { task: Task }) {
         <div className="flex flex-col">
           <div className="flex gap-2">
             <span className="text-neutral-300">ICS-496</span>
-            <span className="font-semibold">{task.title}</span>
+            <span className="font-semibold text-md">{task.title}</span>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-2 items-center">
+            <div className="text-red-500">2d</div>
             {(task.subtasks?.length ?? 0) > 0 && (
-              <div className="text-neutral-500 text-center text-xs flex gap-3">
-                <div className="flex gap-[2px]">
-                  <span>0/{task.subtasks?.length}</span>
-                  <ListTodoIcon className="size-4" />
-                </div>
-              </div>
+              <ListTodoIcon className="size-4 text-neutral-500" />
             )}
             {task.recurrence?.frequency !== "once" && (
               <Repeat2Icon className="text-neutral-500 size-4" />
             )}
           </div>
         </div>
-        <div className="flex gap-3">
-          {/* <div>{task.deadline?.toDateString()}</div> */}
-          <div className="text-red-400 text-center">{task.impact || ""}</div>
-          <Progress
-            value={progressPercentage}
-            label={`${task.actualDurationInMins ?? 0}/${task.estimatedDurationInMins} mins`}
-            className="w-28 text-xs"
-          />
-          <div className="text-red-500">2d</div>
+        <div className="grid grid-cols-2 gap-3 items-center">
+          {task.completed ? (
+            <Progress value={100} label="46 mins" className="w-28 text-xs" />
+          ) : (
+            <Progress
+              value={54}
+              label={`${task.actualDurationInMins ?? 0}/${task.estimatedDurationInMins} mins`}
+              className="w-28 text-xs"
+            />
+          )}
+          <Status task={task} />
         </div>
       </div>
-      <Status task={task} />
     </div>
   );
 }
@@ -105,7 +101,7 @@ function Status({ task }: { task: Task }) {
   const { start } = useFocusStore();
 
   if (task.completed) {
-    return <div>Completed</div>;
+    return <div className="text-orange-400 font-semibold text-center">Complete</div>;
   }
 
   if (!task.actualDurationInMins) {
@@ -117,14 +113,9 @@ function Status({ task }: { task: Task }) {
   }
 
   return (
-    <div>
-      <div className="flex flex-col col-span-2 px-5">
-        <Progress value={80} label="2.7/3.0 hrs" className="text-xs" />
-      </div>
-      <button className="text-orange-500 font-bold text-center" onClick={() => start(task.title)}>
-        Continue
-      </button>
-    </div>
+    <button className="text-orange-500 font-bold text-center" onClick={() => start(task.title)}>
+      Continue
+    </button>
   );
 }
 

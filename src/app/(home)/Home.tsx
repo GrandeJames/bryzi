@@ -55,7 +55,7 @@ function Home() {
       <main className="space-y-10">
         <div className="pb-20 pt-5 space-y-5">
           <DateHeading />
-          <div className="space-y-3 w-full flex flex-col">
+          <div className="space-y-8 flex flex-col">
             <ScheduleSection scheduledTasks={scheduledTasks} />
             <div className="grid grid-cols-12 gap-10">
               <AssignmentsSection tasks={assignments} />

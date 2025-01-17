@@ -109,29 +109,27 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
           setDate={(date) => handleChange("deadline", date)}
         />
       </div>
+
       <div className="flex flex-col gap-7 mt-5 mb-14">
+        <Textarea
+          className="resize-none border-none focus-visible:ring-0 bg-neutral-800"
+          placeholder="Description"
+          value={task.description}
+          onChange={(e) => handleChange("description", e.target.value)}
+        />
         <Selection
           title="Impact"
           items={[
             { text: "Minor", value: "minor" },
             { text: "Moderate", value: "moderate" },
+            { text: "High", value: "high" },
             { text: "Critical", value: "critical" },
           ]}
           icon={<ZapIcon />}
           onSelect={(value) => handleChange("impact", value)}
           defaultValue={task.impact}
         />
-        <Selection
-          title="Difficulty"
-          items={[
-            { text: "Simple", value: "simple" },
-            { text: "Moderate", value: "moderate" },
-            { text: "Complex", value: "complex" },
-          ]}
-          icon={<FlameIcon />}
-          onSelect={(value) => handleChange("difficulty", value)}
-          defaultValue={task.difficulty}
-        />
+
         <Selection
           title="Estimated Duration"
           items={[
@@ -147,11 +145,17 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
           onSelect={(value) => handleChange("estimatedDurationInMins", value)}
           defaultValue={task.estimatedDurationInMins}
         />
-        <Textarea
-          className="resize-none border-none focus-visible:ring-0 bg-neutral-800"
-          placeholder="Description"
-          value={task.description}
-          onChange={(e) => handleChange("description", e.target.value)}
+        <Selection
+          title="Difficulty"
+          items={[
+            { text: "Simple", value: "simple" },
+            { text: "Moderate", value: "moderate" },
+            { text: "Challenging", value: "challenging" },
+            { text: "Intense", value: "intense" },
+          ]}
+          icon={<FlameIcon />}
+          onSelect={(value) => handleChange("difficulty", value)}
+          defaultValue={task.difficulty}
         />
         <div className="flex flex-col gap-3">
           <Input
