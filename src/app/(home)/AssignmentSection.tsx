@@ -35,9 +35,20 @@ function AssignmentsSection({ tasks }: { tasks: any[] }) {
 }
 
 function AssignmentsList({ tasks }: { tasks: Task[] }) {
+  /* TODO: sort by task properties including: deadline, impact, estimated duration, difficulty
+   * TODO: the tasks shown should be completable within the day though all tasks due today should be shown even if they are likely not completable
+   */
+  const newTasks = [];
+
+  const incompleteTasks = tasks.filter((task) => !task.completed);
+  const completedTasks = tasks.filter((task) => task.completed);
+
+  newTasks.push(...incompleteTasks);
+  newTasks.push(...completedTasks);
+
   return (
     <ul className="space-y-2">
-      {tasks.map((task, index) => (
+      {newTasks.map((task, index) => (
         <li key={index}>
           <div className="py-0">
             <Assignment task={task} />
