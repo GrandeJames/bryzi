@@ -1,8 +1,8 @@
-'use client';
-
-// TODO: remove a task, update a task, get a task by id
+"use client";
 
 import { Task } from "@/types/task";
+
+const LOCAL_STORAGE_KEY = "tasks";
 
 const getLocalTasks = () => {
   if (typeof window === "undefined") {
@@ -18,13 +18,13 @@ const getLocalTasks = () => {
 const addLocalTask = (task: Task) => {
   const tasks = getLocalTasks();
   tasks.push(task);
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(tasks));
 };
 
 const removeLocalTask = (id: string) => {
   const tasks = getLocalTasks();
   const updatedTasks = tasks.filter((task: Task) => task.id !== id);
-  localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTasks));
 };
 
 export { getLocalTasks, addLocalTask, removeLocalTask };
