@@ -13,7 +13,7 @@ function TaskCreationDialog() {
           className="flex items-center text-orange-500 font-semibold fixed bottom-5 right-5 z-50"
           variant={"ghost"}
         >
-          Create Assignment
+          Create Task
         </Button>
         {/* <div className="bg-neutral-800 px-2 py-1 rounded-md text-neutral-400">⌘ K</div> */}
       </DialogTrigger>
