@@ -31,10 +31,6 @@ function Home() {
 
   const openCreateTaskDialog = () => useDialogStore.getState().open("create");
 
-  const handleCreateTaskBtnClick = () => {
-    openCreateTaskDialog();
-  };
-
   return (
     <div className="max-h-screen overflow-hidden">
       <header>
@@ -52,7 +48,7 @@ function Home() {
             </div>
           </div>
         </div>
-        <button onClick={handleCreateTaskBtnClick}>Create task..</button>
+        <button onClick={openCreateTaskDialog}>Create task..</button>
       </main>
     </div>
   );
