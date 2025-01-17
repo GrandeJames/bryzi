@@ -50,9 +50,7 @@ function AssignmentsList({ task }: { task: Task }) {
 
 function Assignment({ task }: { task: Task }) {
   const { dialogData } = useDialogStore();
-  const openTaskDetailsDialog = () => useDialogStore.getState().open('details', { task });
-
-  // const { openDialog, setTask } = useTaskDialogStore();
+  const openTaskDetailsDialog = () => useDialogStore.getState().open("details", { task });
 
   // TODO: handle this better
   const progressPercentage =
@@ -65,8 +63,6 @@ function Assignment({ task }: { task: Task }) {
         onClick={() => {
           dialogData.task = task;
           openTaskDetailsDialog();
-          // setTask(task);
-          // openDialog();
         }}
       >
         <div className="flex flex-col">
@@ -105,7 +101,7 @@ function Status({ task }: { task: Task }) {
   const { start } = useFocusStore();
 
   if (task.completed) {
-    return <>complete</>;
+    return <div>Completed</div>;
   }
 
   if (!task.actualDurationInMins) {
