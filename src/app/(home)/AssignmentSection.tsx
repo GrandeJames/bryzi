@@ -69,7 +69,11 @@ function Assignment({ task }: { task: Task }) {
     ((task.actualDurationInMins ?? 0) / (task.estimatedDurationInMins ?? 0)) * 100;
 
   return (
-    <div className="grid grid-cols-12 w-full rounded-3xl py-5 px-8 bg-neutral-900/70">
+    <div
+      className={`grid grid-cols-12 w-full rounded-3xl py-5 px-8 ${
+        task.completed ? "bg-neutral-900/40" : "bg-neutral-900/70"
+      }`}
+    >
       <div
         className="col-span-10 flex justify-between hover:cursor-pointer"
         onClick={() => {
