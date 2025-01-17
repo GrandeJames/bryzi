@@ -55,7 +55,7 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
     handleChange("title", e.target.value);
   };
 
-  const close = useDialogStore((state) => state.close);
+  const close = useDialogStore((state) => state.closeDialog);
 
   const resetForm = () => {
     setTask({

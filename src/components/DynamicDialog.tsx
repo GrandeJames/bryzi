@@ -7,12 +7,11 @@ import { ScrollArea } from "./ui/scroll-area";
 import TaskDetails from "./TaskDetails";
 
 function DynamicDialog() {
-  const { openDialogName, close, dialogData } = useDialogStore();
+  const { openDialogName, closeDialog, dialogData } = useDialogStore();
 
   // onOpenChange is provided to ensure that when the dialog is closed, the openDialog state is set to null so that the dialog is closed.
   return (
-    <Dialog open={!!openDialogName} onOpenChange={(isOpen) => !isOpen && close()}>
-      <DialogContent>
+    <Dialog open={!!openDialogName} onOpenChange={(isOpen) => !isOpen && closeDialog()}>
         <ScrollArea className="max-h-[80vh]">
           {openDialogName === "create" && <TaskForm />}
           {openDialogName === "details" && <TaskDetails task={dialogData.task} />}

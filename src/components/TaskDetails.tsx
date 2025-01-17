@@ -7,9 +7,9 @@ import useDialogStore from "@/stores/dialogStore";
 
 function TaskDetails({ task }: { task: Task }) {
   const removeTask = useTasksStore((state) => state.removeTask);
-  const close = useDialogStore((state) => state.close);
-  const open = useDialogStore((state) => state.open);
-  const openEditDialog = () => open("edit", { task });
+  const closeDialog = useDialogStore((state) => state.closeDialog);
+  const openDialog = useDialogStore((state) => state.openDialog);
+  const openEditDialog = () => openDialog("edit", { task });
 
   if (!task) {
     console.error("Task not found");
@@ -20,15 +20,15 @@ function TaskDetails({ task }: { task: Task }) {
     removeLocalTask(task.id);
     removeTask(task.id);
 
-    close();
+    closeDialog();
   };
 
   const handleTaskComplete = () => {
-    close();
+    closeDialog();
   };
 
   const handleTaskEdit = () => {
-    close();
+    closeDialog();
     openEditDialog();
   };
 
