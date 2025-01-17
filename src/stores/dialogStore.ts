@@ -1,15 +1,16 @@
-
 import { create } from "zustand";
 
 interface DialogStore {
   openDialog: string | null;
-  open: (name: string) => void;
+  dialogData: { [key: string]: any };
+  open: (name: string, data?: any) => void;
   close: () => void;
 }
 
 const useDialogStore = create<DialogStore>((set) => ({
   openDialog: null,
-  open: (name) => set({ openDialog: name }),
+  dialogData: {},
+  open: (name, data = {}) => set({ openDialog: name, dialogData: data }),
   close: () => set({ openDialog: null }),
 }));
 
