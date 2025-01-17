@@ -4,6 +4,7 @@ import { removeLocalTask, updateLocalTask } from "@/lib/localStorageTasks";
 import useTasksStore from "@/stores/tasksStore";
 import { CircleCheckIcon, PencilIcon, Repeat2Icon, Trash2Icon } from "lucide-react";
 import useDialogStore from "@/stores/dialogStore";
+import { Checkbox } from "./ui/checkbox";
 
 function TaskDetails({ task }: { task: Task }) {
   const removeTask = useTasksStore((state) => state.removeTask);
@@ -72,10 +73,9 @@ function TaskDetails({ task }: { task: Task }) {
           {task.subtasks &&
             task.subtasks.map((subtask: Subtask) => (
               <div key={subtask.id} className="flex gap-2 items-center">
-                <input
-                  type="checkbox"
+                <Checkbox
                   checked={subtask.completed}
-                  onChange={() => handleSubtaskCompleteClick(subtask)}
+                  onCheckedChange={() => handleSubtaskCompleteClick(subtask)}
                 />
                 <span>{subtask.title}</span>
               </div>
