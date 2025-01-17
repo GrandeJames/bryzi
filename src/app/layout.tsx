@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Menu } from "@/components/Menu";
+import DynamicDialog from "@/components/DynamicDialog";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="flex">
             <Menu />
             {children}
+            <DynamicDialog />
           </div>
         </ThemeProvider>
       </body>
