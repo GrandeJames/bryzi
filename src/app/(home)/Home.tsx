@@ -8,13 +8,13 @@ import AssignmentsSection from "./AssignmentSection";
 import ScheduleSection from "./ScheduleSection";
 import MiscSection from "./MiscSection";
 import useTasksStore from "@/stores/tasksStore";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useDialogStore from "@/stores/dialogStore";
 import { PlusIcon } from "lucide-react";
 
 function Home() {
   const open = useDialogStore((state) => state.openDialog);
-  const openCreateTaskDialog = () => open("create");
+  const openCreateTaskDialog = useCallback(() => open("create"), [open]);
 
   const tasks2 = useTasksStore((state) => state.tasks);
 
