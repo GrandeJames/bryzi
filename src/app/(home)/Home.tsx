@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import useDialogStore from "@/stores/dialogStore";
 
 function Home() {
+  const open = useDialogStore((state) => state.openDialog);
   const tasks2 = useTasksStore((state) => state.tasks);
 
   const [isHydrated, setIsHydrated] = useState(false);
@@ -29,7 +30,7 @@ function Home() {
   const scheduledTasks = tasks.filter((task) => task.startTime);
   // const miscTasks = tasks.filter((task) => !task.startTime && !task.expectedDuration);
 
-  const openCreateTaskDialog = () => useDialogStore.getState().open("create");
+  const openCreateTaskDialog = () => open("create");
 
   return (
     <div className="max-h-screen overflow-hidden">
