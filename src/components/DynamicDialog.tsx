@@ -12,6 +12,7 @@ function DynamicDialog() {
   // onOpenChange is provided to ensure that when the dialog is closed, the openDialog state is set to null so that the dialog is closed.
   return (
     <Dialog open={!!openDialogName} onOpenChange={(isOpen) => !isOpen && closeDialog()}>
+      <DialogContent className="max-w-md">
         <ScrollArea className="max-h-[80vh]">
           {openDialogName === "create" && <TaskForm />}
           {openDialogName === "details" && <TaskDetails task={dialogData.task} />}
