@@ -27,7 +27,7 @@ function AssignmentsSection({ tasks }: { tasks: any[] }) {
           </div>
         </div>
       </header>
-      <ScrollArea className="h-60 w-9/12 rounded-md px-5">
+      <div className="w-8/12 px-4">
         <ul className="space-y-2 divide-neutral-800 divide-y">
           {tasks.map((task, index) => (
             <li key={index}>
@@ -35,7 +35,7 @@ function AssignmentsSection({ tasks }: { tasks: any[] }) {
             </li>
           ))}
         </ul>
-      </ScrollArea>
+      </div>
     </section>
   );
 }

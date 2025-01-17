@@ -52,7 +52,7 @@ function Home() {
         </div>
         <button
           onClick={openCreateTaskDialog}
-          className="absolute right-5 bottom-5 bg-orange-500 rounded-full p-4"
+          className="fixed right-5 bottom-5 bg-orange-500 rounded-full p-4"
         >
           <PlusIcon className="size-6" />
         </button>
