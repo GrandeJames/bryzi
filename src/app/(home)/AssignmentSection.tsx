@@ -27,7 +27,7 @@ function AssignmentsSection({ tasks }: { tasks: any[] }) {
           </div>
         </div>
       </header>
-      <ScrollArea className="h-96 w-9/12 rounded-md px-5">
+      <ScrollArea className="h-60 w-9/12 rounded-md px-5">
         <ul className="space-y-2 divide-neutral-800 divide-y">
           {tasks.map((task, index) => (
             <li key={index}>
@@ -42,7 +42,7 @@ function AssignmentsSection({ tasks }: { tasks: any[] }) {
 
 function AssignmentsList({ task }: { task: Task }) {
   return (
-    <div className=" py-1">
+    <div className="py-1">
       <Assignment task={task} />
     </div>
   );
