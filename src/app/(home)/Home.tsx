@@ -39,9 +39,9 @@ function Home() {
         <main className="relative space-y-10">
           <div className="pb-20 pt-5 space-y-5">
             <DateHeading />
-            <div className="space-y-8">
+            <div className="space-y-3">
               <ScheduleSection scheduledTasks={scheduledTasks} />
-              <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-20">
+              <div className="">
                 <AssignmentsSection tasks={assignments} />
                 {/* <MiscSection miscTasks={miscTasks} /> */}
               </div>
@@ -62,8 +62,8 @@ function DateHeading() {
 
   return (
     <header className="flex items-end gap-2">
-      <span className="text-3xl font-bold text-neutral-200">{day}</span>
-      <span className="text-2xl font-bold text-neutral-500">{monthAndDay}</span>
+      <span className="text-2xl font-bold text-neutral-200">{day}</span>
+      <span className="text-xl font-bold text-neutral-500">{monthAndDay}</span>
     </header>
   );
 }
