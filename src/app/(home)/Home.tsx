@@ -2,15 +2,15 @@
 
 import { Timeline } from "../Timeline";
 import { Progress } from "@/components/ui/progress";
-import TaskCreationDialog from "@/components/TaskCreationDialog";
 import { tasks } from "@/lib/data";
 import { format } from "date-fns";
 import AssignmentsSection from "./AssignmentSection";
 import ScheduleSection from "./ScheduleSection";
 // import MiscSection from "./MiscSection";
-import TaskDetailsDialog from "@/components/TaskDetailsDialog";
+import TaskDetails from "@/components/TaskDetails";
 import useTasksStore from "@/stores/tasksStore";
 import { useEffect, useState } from "react";
+import useDialogStore from "@/stores/dialogStore";
 
 function Home() {
   const tasks2 = useTasksStore((state) => state.tasks);
@@ -30,6 +30,13 @@ function Home() {
   const scheduledTasks = tasks.filter((task) => task.startTime);
   // const miscTasks = tasks.filter((task) => !task.startTime && !task.expectedDuration);
 
+  // const open = useDialogStore((state) => state.open);
+  const openCreateTaskDialog = () => useDialogStore.getState().open('create');
+
+  const handleCreateTaskBtnClick = () => {
+    openCreateTaskDialog();
+  };
+
   return (
     <div className="max-h-screen overflow-hidden">
         <header>
@@ -47,8 +54,7 @@ function Home() {
               </div>
             </div>
           </div>
-          <TaskDetailsDialog />
-          <TaskCreationDialog />
+          <button onClick={handleCreateTaskBtnClick}>Create task..</button>
         </main>
     </div>
   );

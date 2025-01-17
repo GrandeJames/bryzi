@@ -15,6 +15,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from "./ui/button";
 import { Task } from "@/types/task";
 import { Subtask } from "@/types/subtask";
+import useDialogStore from "@/stores/dialogStore";
 
 function TaskCreationForm({
   className,
@@ -59,8 +60,11 @@ function TaskCreationForm({
     handleChange("title", e.target.value);
   };
 
+  const { close } = useDialogStore();
+
   const handleTaskFormSubmit = (e: any) => {
     console.log("Task Form submitted");
+    close();
     e.preventDefault();
     onSubmission && onSubmission();
 

@@ -1,8 +1,9 @@
 "use client";
-import { useTaskDialogStore } from "@/components/TaskDetailsDialog";
+
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useFocusStore } from "@/hooks/useFocusStore";
+import useDialogStore from "@/stores/dialogStore";
 import { Task } from "@/types/task";
 import { ListTodoIcon, Repeat2Icon } from "lucide-react";
 
@@ -48,7 +49,10 @@ function AssignmentsList({ task }: { task: Task }) {
 }
 
 function Assignment({ task }: { task: Task }) {
-  const { openDialog, setTask } = useTaskDialogStore();
+  const { dialogData } = useDialogStore();
+  const openTaskDetailsDialog = () => useDialogStore.getState().open('details', { task });
+
+  // const { openDialog, setTask } = useTaskDialogStore();
 
   // TODO: handle this better
   const progressPercentage =
@@ -59,8 +63,10 @@ function Assignment({ task }: { task: Task }) {
       <div
         className="flex justify-between w-full hover:cursor-pointer gap-5"
         onClick={() => {
-          setTask(task);
-          openDialog();
+          dialogData.task = task;
+          openTaskDetailsDialog();
+          // setTask(task);
+          // openDialog();
         }}
       >
         <div className="flex flex-col">
