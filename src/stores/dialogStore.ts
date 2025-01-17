@@ -1,16 +1,18 @@
 import { create } from "zustand";
 
+type OpenDialogName = "create" | "edit" | "details" | null;
+
 interface DialogStore {
-  openDialogName: string | null;
+  openDialogName: OpenDialogName;
   dialogData: { [key: string]: any };
-  open: (name: string, data?: any) => void;
+  open: (name: "create" | "edit" | "details", data?: any) => void;
   close: () => void;
 }
 
 const useDialogStore = create<DialogStore>((set) => ({
   openDialogName: null,
   dialogData: {},
-  open: (name, data = {}) => set({ openDialogName: name, dialogData: data }),
+  open: (name: OpenDialogName, data = {}) => set({ openDialogName: name, dialogData: data }),
   close: () => set({ openDialogName: null }),
 }));
 
