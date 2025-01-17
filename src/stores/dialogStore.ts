@@ -10,8 +10,8 @@ interface DialogStore {
 const useDialogStore = create<DialogStore>((set) => ({
   openDialogName: null,
   dialogData: {},
-  open: (name, data = {}) => set({ openDialog: name, dialogData: data }),
-  close: () => set({ openDialog: null }),
+  open: (name, data = {}) => set({ openDialogName: name, dialogData: data }),
+  close: () => set({ openDialogName: null }),
 }));
 
 export default useDialogStore;
