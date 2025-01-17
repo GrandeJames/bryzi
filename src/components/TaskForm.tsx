@@ -1,6 +1,6 @@
 "use client";
 
-import { addLocalTask, getLocalTasks } from "@/lib/localStorageTasks";
+import { addLocalTask, getLocalTasks, updateLocalTask } from "@/lib/localStorageTasks";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import useTasksStore from "@/stores/tasksStore";
@@ -17,15 +17,7 @@ import { Task } from "@/types/task";
 import { Subtask } from "@/types/subtask";
 import useDialogStore from "@/stores/dialogStore";
 
-function TaskCreationForm({
-  className,
-  onSubmission,
-  initialTask,
-}: {
-  className?: string;
-  onSubmission?: () => void;
-  initialTask?: Task;
-}) {
+function TaskForm({ className, initialTask }: { className?: string; initialTask?: Task }) {
   const [task, setTask] = useState({
     id: initialTask?.id || uuidv4(),
     title: initialTask?.title || "",
@@ -41,6 +33,9 @@ function TaskCreationForm({
     subtasks: initialTask?.subtasks || [],
     completed: initialTask?.completed || false,
   });
+  const updateTask = useTasksStore((state) => state.updateTask);
+  const tasks = useTasksStore((state) => state.tasks);
+  const addTask = useTasksStore((state) => state.addTask);
 
   const handleChange = (key: string, value: any) => {
     setTask((prevTask) => ({
@@ -60,30 +55,9 @@ function TaskCreationForm({
     handleChange("title", e.target.value);
   };
 
-  const { close } = useDialogStore();
+  const close = useDialogStore((state) => state.close);
 
-  const handleTaskFormSubmit = (e: any) => {
-    console.log("Task Form submitted");
-    close();
-    e.preventDefault();
-    onSubmission && onSubmission();
-
-    const updateLocalStorageTasks = () => {
-      addLocalTask(task);
-    };
-
-    const updateTasksStore = () => {
-      const tasks = useTasksStore.getState().tasks;
-      const setTasks = useTasksStore.getState().setTasks;
-      setTasks([...tasks, task]);
-    };
-
-    console.log("New Task:", task);
-
-    e.preventDefault();
-    updateLocalStorageTasks();
-    updateTasksStore();
-
+  const resetForm = () => {
     setTask({
       id: uuidv4(),
       title: "",
@@ -98,10 +72,25 @@ function TaskCreationForm({
       description: "",
       subtasks: [],
       completed: false,
-    }); // reset the form
+    });
+  };
+
+  const handleTaskFormSubmit = (e: any) => {
+    e.preventDefault();
+
+    if (initialTask) {
+      updateTask(task);
+      updateLocalTask(task);
+    } else {
+      addTask(task);
+      addLocalTask(task);
+    }
+
+    resetForm();
+    close();
 
     console.log("LocalStorage Tasks:", getLocalTasks());
-    console.log("Tasks Store:", useTasksStore.getState().tasks);
+    console.log("Tasks Store:", tasks);
   };
 
   return (
@@ -161,6 +150,7 @@ function TaskCreationForm({
         <Textarea
           className="resize-none border-none focus-visible:ring-0 bg-neutral-800"
           placeholder="Description"
+          value={task.description}
           onChange={(e) => handleChange("description", e.target.value)}
         />
         <div className="flex flex-col gap-3">
@@ -233,10 +223,10 @@ function TaskCreationForm({
         disabled={!task.title}
         onClick={handleTaskFormSubmit}
       >
-        Create task
+        {initialTask ? "Update Task" : "Create task"}
       </button>
     </form>
   );
 }
 
-export default TaskCreationForm;
+export default TaskForm;
