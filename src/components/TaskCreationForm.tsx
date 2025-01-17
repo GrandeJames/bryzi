@@ -11,29 +11,52 @@ import { Textarea } from "./ui/textarea";
 import Selection from "./Selection";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Subtask } from "@/types/subtask";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from "./ui/button";
+import { Task } from "@/types/task";
+import { Subtask } from "@/types/subtask";
 
 function TaskCreationForm({
   className,
   onSubmission,
+  initialTask,
 }: {
   className?: string;
   onSubmission?: () => void;
+  initialTask?: Task;
 }) {
-  const [title, setTitle] = useState("");
-  const [date, setDate] = useState<Date>();
-  const [impact, setImpact] = useState("");
-  const [difficulty, setDifficulty] = useState("");
-  const [estimatedDurationInMins, setEstimatedDuration] = useState(0);
-  const [frequency, setFrequency] = useState<"once" | "daily" | "weekly" | "monthly">("once");
-  const [daysOfWeek, setDaysOfWeek] = useState([]);
-  const [description, setDescription] = useState("");
-  const [subtasks, setSubtasks] = useState<Subtask[]>([]);
+  const [task, setTask] = useState({
+    id: initialTask?.id || uuidv4(),
+    title: initialTask?.title || "",
+    deadline: initialTask?.deadline || undefined,
+    impact: initialTask?.impact || "",
+    difficulty: initialTask?.difficulty || "",
+    estimatedDurationInMins: initialTask?.estimatedDurationInMins || 0,
+    recurrence: {
+      frequency: initialTask?.recurrence?.frequency || "once",
+      daysOfWeek: initialTask?.recurrence?.daysOfWeek || [],
+    },
+    description: initialTask?.description || "",
+    subtasks: initialTask?.subtasks || [],
+    completed: initialTask?.completed || false,
+  });
+
+  const handleChange = (key: string, value: any) => {
+    setTask((prevTask) => ({
+      ...prevTask,
+      [key]: value,
+    }));
+  };
+
+  const handleSubtaskAdd = (newSubtask: Subtask) => {
+    setTask((prevTask) => ({
+      ...prevTask,
+      subtasks: [...prevTask.subtasks, newSubtask],
+    }));
+  };
 
   const handleTitleInputChange = (e: any) => {
-    setTitle(e.target.value);
+    handleChange("title", e.target.value);
   };
 
   const handleTaskFormSubmit = (e: any) => {
@@ -41,48 +64,37 @@ function TaskCreationForm({
     e.preventDefault();
     onSubmission && onSubmission();
 
-    const newTask = {
-      id: uuidv4(),
-      title,
-      completed: false,
-      deadline: date,
-      impact,
-      difficulty,
-      estimatedDurationInMins,
-      actualDurationInMins: 0,
-      description,
-      recurrence: {
-        frequency: frequency,
-        daysOfWeek: daysOfWeek,
-      },
-      subtasks,
-    };
-
     const updateLocalStorageTasks = () => {
-      addLocalTask(newTask);
+      addLocalTask(task);
     };
 
     const updateTasksStore = () => {
       const tasks = useTasksStore.getState().tasks;
       const setTasks = useTasksStore.getState().setTasks;
-      setTasks([...tasks, newTask]);
+      setTasks([...tasks, task]);
     };
 
-    console.log("New Task:", newTask);
+    console.log("New Task:", task);
 
     e.preventDefault();
     updateLocalStorageTasks();
     updateTasksStore();
 
-    setTitle("");
-    setDate(undefined);
-    setImpact("");
-    setDifficulty("");
-    setEstimatedDuration(0);
-    setFrequency("once");
-    setDaysOfWeek([]);
-    setDescription("");
-    setSubtasks([]);
+    setTask({
+      id: uuidv4(),
+      title: "",
+      deadline: undefined,
+      impact: "",
+      difficulty: "",
+      estimatedDurationInMins: 0,
+      recurrence: {
+        frequency: "once",
+        daysOfWeek: [],
+      },
+      description: "",
+      subtasks: [],
+      completed: false,
+    }); // reset the form
 
     console.log("LocalStorage Tasks:", getLocalTasks());
     console.log("Tasks Store:", useTasksStore.getState().tasks);
@@ -94,14 +106,15 @@ function TaskCreationForm({
         type="text"
         placeholder="Add Task"
         onChange={handleTitleInputChange}
-        value={title}
-        // onFocus={() => setInputFocused(true)}
-        // onBlur={() => setInputFocused(false)}
+        value={task.title}
         className={`px-3 py-2 outline-blue-600 outline-4 w-full placeholder-gray-600 bg-neutral-800 rounded-md`}
       />
 
       <div className={`flex gap-1 absolute right-2`}>
-        <DatePickerWithPresets date={date} setDate={setDate} />
+        <DatePickerWithPresets
+          date={task.deadline}
+          setDate={(date) => handleChange("deadline", date)}
+        />
       </div>
       <div className="flex flex-col gap-7 mt-5 mb-14">
         <Selection
@@ -112,8 +125,8 @@ function TaskCreationForm({
             { text: "Critical", value: "critical" },
           ]}
           icon={<ZapIcon />}
-          onSelect={setImpact}
-          defaultValue={impact}
+          onSelect={(value) => handleChange("impact", value)}
+          defaultValue={task.impact}
         />
         <Selection
           title="Difficulty"
@@ -123,8 +136,8 @@ function TaskCreationForm({
             { text: "Complex", value: "complex" },
           ]}
           icon={<FlameIcon />}
-          onSelect={setDifficulty}
-          defaultValue={difficulty}
+          onSelect={(value) => handleChange("difficulty", value)}
+          defaultValue={task.difficulty}
         />
         <Selection
           title="Estimated Duration"
@@ -138,13 +151,13 @@ function TaskCreationForm({
             { text: "8h", value: 480 },
           ]}
           icon={<ClockIcon />}
-          onSelect={setEstimatedDuration}
-          defaultValue={estimatedDurationInMins}
+          onSelect={(value) => handleChange("estimatedDurationInMins", value)}
+          defaultValue={task.estimatedDurationInMins}
         />
         <Textarea
           className="resize-none border-none focus-visible:ring-0 bg-neutral-800"
           placeholder="Description"
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={(e) => handleChange("description", e.target.value)}
         />
         <div className="flex flex-col gap-3">
           <Input
@@ -152,27 +165,29 @@ function TaskCreationForm({
             className="border-none bg-neutral-800 focus-visible:ring-0"
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                console.log("Subtask added:", (e.target as HTMLInputElement).value);
                 e.preventDefault();
-                setSubtasks([
-                  ...subtasks,
-                  { id: uuidv4(), title: (e.target as HTMLInputElement).value, completed: false },
-                ]);
+                const newSubtask = {
+                  id: uuidv4(),
+                  title: (e.target as HTMLInputElement).value.trim(),
+                  completed: false,
+                };
+
+                handleSubtaskAdd(newSubtask);
                 (e.target as HTMLInputElement).value = ""; // to clear the input field
               }
             }}
           />
           <div className="flex flex-col gap-2 mb-4">
-            {subtasks.map((subtask, index) => (
+            {task.subtasks.map((subtask: Subtask, index: any) => (
               <div className="flex space-x-2" key={index}>
                 <Checkbox
                   id={`subtask-${index}`}
                   checked={subtask.completed}
                   onClick={() => {
-                    const updatedSubtasks = subtasks.map((item) =>
+                    const updatedSubtasks = task.subtasks.map((item) =>
                       item.id === subtask.id ? { ...item, completed: !item.completed } : item
                     );
-                    setSubtasks(updatedSubtasks);
+                    handleChange("subtasks", updatedSubtasks);
                   }}
                 />
                 <label
@@ -201,8 +216,8 @@ function TaskCreationForm({
                     { text: "Monthly", value: "monthly" },
                   ]}
                   icon={<RepeatIcon />}
-                  onSelect={setFrequency}
-                  defaultValue={frequency}
+                  onSelect={(value) => handleChange("recurrence", { frequency: value })}
+                  defaultValue={task.recurrence.frequency}
                 />
               </div>
             </PopoverContent>
@@ -211,7 +226,7 @@ function TaskCreationForm({
       </div>
       <button
         className={`bg-orange-400 py-2 px-4 rounded-lg w-full font-bold sticky bottom-0 disabled:bg-orange-200`}
-        disabled={!title}
+        disabled={!task.title}
         onClick={handleTaskFormSubmit}
       >
         Create task
