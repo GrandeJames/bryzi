@@ -14,12 +14,27 @@ import { PlusIcon } from "lucide-react";
 
 function Home() {
   const open = useDialogStore((state) => state.openDialog);
+  const openCreateTaskDialog = () => open("create");
+
   const tasks2 = useTasksStore((state) => state.tasks);
 
   const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
     setIsHydrated(true);
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "n" && event.ctrlKey) {
+        event.preventDefault();
+        openCreateTaskDialog();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   if (!isHydrated) {
