@@ -32,10 +32,10 @@ const removeLocalTask = (id: string) => {
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTasks));
 };
 
-const updateLocalTask = (newTask: Task) => {
+const updateLocalTask = (updatedTask: Task) => {
   const tasks = getLocalTasks();
   const updatedTasks = tasks.map((originalTask: Task) =>
-    originalTask.id === newTask.id ? newTask : originalTask
+    originalTask.id === updatedTask.id ? updatedTask : originalTask
   );
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTasks));
 };
