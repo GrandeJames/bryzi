@@ -99,7 +99,10 @@ export function DatePickerWithPresets({
           <Calendar mode="single" selected={date} onSelect={setDate} />
         </div>
         <button
-          onClick={() => setDate(undefined)}
+          onClick={(e) => {
+            e.preventDefault();
+            setDate(undefined);
+          }}
           className="flex-1 bg-neutral-800 rounded-md text-md px-3 py-1 text-white font-medium"
         >
           Clear
