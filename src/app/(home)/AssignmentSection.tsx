@@ -53,7 +53,6 @@ function Assignment({ task }: { task: Task }) {
   const open = useDialogStore((state) => state.openDialog);
   const openTaskDetailsDialog = () => open("details", { task });
 
-
   // TODO: handle this better
   const progressPercentage =
     ((task.actualDurationInMins ?? 0) / (task.estimatedDurationInMins ?? 0)) * 100;
@@ -72,16 +71,19 @@ function Assignment({ task }: { task: Task }) {
             <span className="text-neutral-300">ICS-496</span>
             <span className="font-semibold">{task.title}</span>
           </div>
-          {(task.subtasks?.length ?? 0) > 0 && (
-            <div className="text-neutral-400 text-center text-xs flex gap-3">
-              <div className="flex gap-1">
-                <span>0/{task.subtasks?.length}</span>
-                <ListTodoIcon className="h-4 w-4" />
+          <div className="flex gap-4">
+            {(task.subtasks?.length ?? 0) > 0 && (
+              <div className="text-neutral-500 text-center text-xs flex gap-3">
+                <div className="flex gap-[2px]">
+                  <span>0/{task.subtasks?.length}</span>
+                  <ListTodoIcon className="size-4" />
+                </div>
               </div>
-
-              {task.recurrence?.frequency !== "once" && <Repeat2Icon className="h-4 w-4" />}
-            </div>
-          )}
+            )}
+            {task.recurrence?.frequency !== "once" && (
+              <Repeat2Icon className="text-neutral-500 size-4" />
+            )}
+          </div>
         </div>
         <div className="flex gap-3">
           {/* <div>{task.deadline?.toDateString()}</div> */}
