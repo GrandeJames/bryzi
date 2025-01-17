@@ -44,7 +44,6 @@ function Home() {
   const assignments = tasks2.filter((task) => task.title);
 
   const scheduledTasks = tasks.filter((task) => task.startTime);
-  const openCreateTaskDialog = () => open("create");
   const miscTasks = tasks.filter((task) => !task.startTime && !task.expectedDuration);
 
   return (
