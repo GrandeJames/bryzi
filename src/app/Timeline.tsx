@@ -46,7 +46,7 @@ function Timeline({ className }: { className?: string }) {
   const endTimeRoundedUp = Math.ceil(Number(END_TIME.split(":")[1]) / 30) * 30;
   const ROUNDED_END_TIME = `${END_TIME.split(":")[0]}:${endTimeRoundedUp}`;
 
-  console.log(ROUNDED_START_TIME, ROUNDED_END_TIME, CURRENT_TIME);
+  // console.log(ROUNDED_START_TIME, ROUNDED_END_TIME, CURRENT_TIME);
 
   const TOTAL_FOCUS_MINUTES = minutesBetweenTimes(ROUNDED_START_TIME, ROUNDED_END_TIME);
   let startTimeOffset = `${Math.round(
