@@ -15,6 +15,11 @@ const getLocalTasks = () => {
   return [];
 };
 
+const getLocalTask = (id: string) => {
+  const tasks = getLocalTasks();
+  return tasks.find((task: Task) => task.id === id);
+};
+
 const addLocalTask = (task: Task) => {
   const tasks = getLocalTasks();
   tasks.push(task);
@@ -27,4 +32,12 @@ const removeLocalTask = (id: string) => {
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTasks));
 };
 
-export { getLocalTasks, addLocalTask, removeLocalTask };
+const updateLocalTask = (newTask: Task) => {
+  const tasks = getLocalTasks();
+  const updatedTasks = tasks.map((originalTask: Task) =>
+    originalTask.id === newTask.id ? newTask : originalTask
+  );
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTasks));
+};
+
+export { getLocalTasks, getLocalTask, addLocalTask, removeLocalTask, updateLocalTask };
