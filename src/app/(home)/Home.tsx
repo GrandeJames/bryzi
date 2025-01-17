@@ -10,6 +10,7 @@ import ScheduleSection from "./ScheduleSection";
 import useTasksStore from "@/stores/tasksStore";
 import { useEffect, useState } from "react";
 import useDialogStore from "@/stores/dialogStore";
+import { PlusIcon } from "lucide-react";
 
 function Home() {
   const open = useDialogStore((state) => state.openDialog);
@@ -33,12 +34,12 @@ function Home() {
   const openCreateTaskDialog = () => open("create");
 
   return (
-    <div className="max-h-screen overflow-hidden">
+    <div className="">
       <header>
         <Progress value={70} label="3/5 Tasks" className="mb-2 mt-5 text-xs" />
         <Timeline className="mb-4" />
       </header>
-      <main className="relative space-y-10">
+      <main className="space-y-10">
         <div className="pb-20 pt-5 space-y-5">
           <DateHeading />
           <div className="space-y-3">
@@ -49,7 +50,12 @@ function Home() {
             </div>
           </div>
         </div>
-        <button onClick={openCreateTaskDialog}>Create task..</button>
+        <button
+          onClick={openCreateTaskDialog}
+          className="absolute right-5 bottom-5 bg-orange-500 rounded-full p-4"
+        >
+          <PlusIcon className="size-6" />
+        </button>
       </main>
     </div>
   );
