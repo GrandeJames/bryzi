@@ -6,15 +6,15 @@ import { CircleCheckIcon, PencilIcon, Repeat2Icon, Trash2Icon } from "lucide-rea
 import useDialogStore from "@/stores/dialogStore";
 
 function TaskDetails({ task }: { task: Task }) {
-  const removeTask = useTasksStore((state) => state.removeTask);
-  const closeDialog = useDialogStore((state) => state.closeDialog);
-  const openDialog = useDialogStore((state) => state.openDialog);
-  const openEditDialog = () => openDialog("edit", { task });
-
   if (!task) {
     console.error("Task not found");
     return null;
   }
+
+  const removeTask = useTasksStore((state) => state.removeTask);
+  const closeDialog = useDialogStore((state) => state.closeDialog);
+  const openDialog = useDialogStore((state) => state.openDialog);
+  const openEditDialog = () => openDialog("edit", { task });
 
   const handleTaskDelete = () => {
     removeLocalTask(task.id);
