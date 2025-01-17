@@ -11,6 +11,7 @@ function TaskDetails({ task }: { task: Task }) {
 
   const closeDialog = useDialogStore((state) => state.closeDialog);
   const openDialog = useDialogStore((state) => state.openDialog);
+  const setDialogData = useDialogStore((state) => state.setDialogData);
 
   if (!task) {
     console.error("Task not found");
@@ -23,6 +24,20 @@ function TaskDetails({ task }: { task: Task }) {
     removeLocalTask(task.id);
     removeTask(task.id);
     closeDialog();
+  };
+
+  const handleSubtaskCompleteClick = (subtask: Subtask) => {
+    const updatedSubtask = { ...subtask, completed: !subtask.completed };
+    const updatedTask = {
+      ...task,
+      subtasks: (task.subtasks ?? []).map((subtask) =>
+        subtask.id === updatedSubtask.id ? updatedSubtask : subtask
+      ),
+    };
+
+    updateLocalTask(updatedTask);
+    updateTask(updatedTask);
+    setDialogData({ task: updatedTask });
   };
 
   const handleTaskCompleteClick = () => {
@@ -57,7 +72,11 @@ function TaskDetails({ task }: { task: Task }) {
           {task.subtasks &&
             task.subtasks.map((subtask: Subtask) => (
               <div key={subtask.id} className="flex gap-2 items-center">
-                {/* <input type="checkbox" checked={subtask.completed} /> this is current causing a console error */}
+                <input
+                  type="checkbox"
+                  checked={subtask.completed}
+                  onChange={() => handleSubtaskCompleteClick(subtask)}
+                />
                 <span>{subtask.title}</span>
               </div>
             ))}
