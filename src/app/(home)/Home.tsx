@@ -35,7 +35,7 @@ function Home() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [openCreateTaskDialog]);
 
   if (!isHydrated) {
     return <div>Loading...</div>;
