@@ -6,7 +6,7 @@ import { tasks } from "@/lib/data";
 import { format } from "date-fns";
 import AssignmentsSection from "./AssignmentSection";
 import ScheduleSection from "./ScheduleSection";
-// import MiscSection from "./MiscSection";
+import MiscSection from "./MiscSection";
 import useTasksStore from "@/stores/tasksStore";
 import { useEffect, useState } from "react";
 import useDialogStore from "@/stores/dialogStore";
@@ -29,9 +29,8 @@ function Home() {
   const assignments = tasks2.filter((task) => task.title);
 
   const scheduledTasks = tasks.filter((task) => task.startTime);
-  // const miscTasks = tasks.filter((task) => !task.startTime && !task.expectedDuration);
-
   const openCreateTaskDialog = () => open("create");
+  const miscTasks = tasks.filter((task) => !task.startTime && !task.expectedDuration);
 
   return (
     <div className="">
@@ -42,11 +41,11 @@ function Home() {
       <main className="space-y-10">
         <div className="pb-20 pt-5 space-y-5">
           <DateHeading />
-          <div className="space-y-3">
+          <div className="space-y-3 w-full flex flex-col">
             <ScheduleSection scheduledTasks={scheduledTasks} />
-            <div className="">
+            <div className="grid grid-cols-12 gap-10">
               <AssignmentsSection tasks={assignments} />
-              {/* <MiscSection miscTasks={miscTasks} /> */}
+              <MiscSection miscTasks={miscTasks} />
             </div>
           </div>
         </div>
