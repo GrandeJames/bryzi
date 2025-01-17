@@ -33,28 +33,31 @@ function TaskDetails({ task }: { task: Task }) {
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-7">
       <div>
-        <div className="text-neutral-500 text-sm">
-          {task.recurrence?.frequency !== "once" && (
-            <div className="flex gap-1 items-center">
-              <Repeat2Icon className="size-4" />
-              {task.recurrence && <p>{task.recurrence.frequency}</p>}
-            </div>
-          )}
+        <div>
+          <div className="text-neutral-500 text-sm">
+            {task.recurrence?.frequency !== "once" && (
+              <div className="flex gap-1 items-center">
+                <Repeat2Icon className="size-4" />
+                {task.recurrence && <p>{task.recurrence.frequency}</p>}
+              </div>
+            )}
+          </div>
+          <div className="font-bold text-xl mb-1">{task.title}</div>
+          <div className="text-neutral-200">{task.description && <p>{task.description}</p>}</div>
         </div>
-        <div className="font-bold text-xl mb-1">{task.title}</div>
-        <div className="text-neutral-200">{task.description && <p>{task.description}</p>}</div>
+        <div className="my-2">
+          {task.subtasks &&
+            task.subtasks.map((subtask: Subtask) => (
+              <div key={subtask.id} className="flex gap-2 items-center">
+                {/* <input type="checkbox" checked={subtask.completed} /> this is current causing a console error */}
+                <span>{subtask.title}</span>
+              </div>
+            ))}
+        </div>
       </div>
-      <div className="my-2">
-        {task.subtasks &&
-          task.subtasks.map((subtask: Subtask) => (
-            <div key={subtask.id} className="flex gap-2 items-center">
-              {/* <input type="checkbox" checked={subtask.completed} /> this is current causing a console error */}
-              <span>{subtask.title}</span>
-            </div>
-          ))}
-      </div>
+
       <div className="text-orange-400 text-sm font-semibold flex flex-col gap-5">
         <div className="flex gap-5">
           <button
