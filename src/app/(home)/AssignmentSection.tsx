@@ -50,7 +50,9 @@ function AssignmentsList({ task }: { task: Task }) {
 
 function Assignment({ task }: { task: Task }) {
   const { dialogData } = useDialogStore();
-  const openTaskDetailsDialog = () => useDialogStore.getState().open("details", { task });
+  const open = useDialogStore((state) => state.openDialog);
+  const openTaskDetailsDialog = () => open("details", { task });
+
 
   // TODO: handle this better
   const progressPercentage =
