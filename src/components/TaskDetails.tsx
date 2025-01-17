@@ -16,18 +16,18 @@ function TaskDetails({ task }: { task: Task }) {
   const openDialog = useDialogStore((state) => state.openDialog);
   const openEditDialog = () => openDialog("edit", { task });
 
-  const handleTaskDelete = () => {
+  const handleTaskDeleteClick = () => {
     removeLocalTask(task.id);
     removeTask(task.id);
 
     closeDialog();
   };
 
-  const handleTaskComplete = () => {
+  const handleTaskCompleteClick = () => {
     closeDialog();
   };
 
-  const handleTaskEdit = () => {
+  const handleTaskEditClick = () => {
     closeDialog();
     openEditDialog();
   };
@@ -62,14 +62,14 @@ function TaskDetails({ task }: { task: Task }) {
         <div className="flex gap-5">
           <button
             className="w-full bg-neutral-800/80 rounded-md py-4 flex flex-col items-center gap-2"
-            onClick={handleTaskDelete}
+            onClick={handleTaskDeleteClick}
           >
             <Trash2Icon className="size-4" />
             <span>Delete</span>
           </button>
           <button
             className="w-full bg-neutral-800/80 rounded-md py-4 flex flex-col items-center gap-2"
-            onClick={handleTaskComplete}
+            onClick={handleTaskCompleteClick}
           >
             <CircleCheckIcon className="size-4" />
             <span>Complete</span>
@@ -77,7 +77,7 @@ function TaskDetails({ task }: { task: Task }) {
         </div>
         <button
           className="w-full bg-neutral-800/80 rounded-md py-4 flex justify-center gap-2"
-          onClick={handleTaskEdit}
+          onClick={handleTaskEditClick}
         >
           <PencilIcon className="size-4" />
           <span>Edit</span>
