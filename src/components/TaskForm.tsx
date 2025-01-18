@@ -16,6 +16,7 @@ import { Button } from "./ui/button";
 import { Task } from "@/types/task";
 import { Subtask } from "@/types/subtask";
 import useDialogStore from "@/stores/dialogStore";
+import { TASK_DIFFICULTY, TASK_IMPACT } from "@/lib/taskConstants";
 
 function TaskForm({ className, initialTask }: { className?: string; initialTask?: Task }) {
   const [task, setTask] = useState({
@@ -120,10 +121,10 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
         <Selection
           title="Impact"
           items={[
-            { text: "Minor", value: 1 },
-            { text: "Moderate", value: 2 },
-            { text: "High", value: 3 },
-            { text: "Critical", value: 4 },
+            { text: TASK_IMPACT[1], value: 1 },
+            { text: TASK_IMPACT[2], value: 2 },
+            { text: TASK_IMPACT[3], value: 3 },
+            { text: TASK_IMPACT[4], value: 4 },
           ]}
           icon={<ZapIcon />}
           onSelect={(value) => handleChange("impact", value)}
@@ -148,10 +149,10 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
         <Selection
           title="Difficulty"
           items={[
-            { text: "Simple", value: 1 },
-            { text: "Moderate", value: 2 },
-            { text: "Challenging", value: 3 },
-            { text: "Intense", value: 4 },
+            { text: TASK_DIFFICULTY[1], value: 1 },
+            { text: TASK_DIFFICULTY[2], value: 2 },
+            { text: TASK_DIFFICULTY[3], value: 3 },
+            { text: TASK_DIFFICULTY[4], value: 4 },
           ]}
           icon={<FlameIcon />}
           onSelect={(value) => handleChange("difficulty", value)}
