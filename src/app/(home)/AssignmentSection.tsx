@@ -8,7 +8,7 @@ import { ListTodoIcon, Repeat2Icon, ZapIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import clsx from "clsx";
 import { TASK_DIFFICULTY, TASK_IMPACT } from "@/lib/taskConstants";
-import { differenceInCalendarDays } from "date-fns";
+import { differenceInCalendarDays, format, getYear } from "date-fns";
 
 function AssignmentsSection({ tasks }: { tasks: any[] }) {
   return (
@@ -210,17 +210,14 @@ function Deadline({ deadline }: { deadline: Date }) {
 
   if (diffInDays < 7) {
     return (
-      <div className={`${diffInDays <= 2 ? "text-red-500" : "text-orange-500"}`}>
+      <div className={`${diffInDays < 3 ? "text-red-500" : "text-orange-500"}`}>
         {Math.floor(diffInDays)}d
       </div>
     );
   }
 
-  if (deadline.getFullYear() === now.getFullYear()) {
-    return (
-      <div className="text-neutral-400">
-        {deadline.toLocaleDateString("en-US", { month: "short", day: "numeric" })}
-      </div>
-    );
+  if (getYear(deadline) === getYear(now)) {
+    return <div className="text-neutral-400">{format(deadline, "MMM dd")}</div>;
   }
+  return <div className="text-neutral-400">{format(deadline, "MMM dd, yyyy")}</div>;
 }
