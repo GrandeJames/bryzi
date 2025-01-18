@@ -6,6 +6,8 @@ import useDialogStore from "@/stores/dialogStore";
 import { Task } from "@/types/task";
 import { ListTodoIcon, Repeat2Icon, ZapIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import clsx from "clsx";
+import { TASK_DIFFICULTY, TASK_IMPACT } from "@/lib/taskConstants";
 
 function AssignmentsSection({ tasks }: { tasks: any[] }) {
   return (
@@ -71,7 +73,7 @@ function Assignment({ task }: { task: Task }) {
   return (
     <div
       className={`grid grid-cols-12 w-full rounded-3xl py-5 px-8 ${
-        task.completed ? "bg-neutral-900/40" : "bg-neutral-900/70"
+        task.completed ? "bg-neutral-900/50" : "bg-neutral-900/70"
       }`}
     >
       <div
@@ -82,18 +84,59 @@ function Assignment({ task }: { task: Task }) {
         }}
       >
         <div className="flex flex-col">
-          <div className="flex gap-2">
-            <span className="text-neutral-300">ICS-496</span>
-            <span className="font-semibold text-md">{task.title}</span>
-          </div>
           <div className="flex gap-2 items-center">
-            <div className="text-red-500">2d</div>
+            <span className="text-neutral-300">ICS-496</span>
+            <span
+              className={`font-semibold text-md ${
+                task.completed && "line-through text-gray-400 decoration-gray-400/90"
+              }`}
+            >
+              {task.title}
+            </span>
             {(task.subtasks?.length ?? 0) > 0 && (
               <ListTodoIcon className="size-4 text-neutral-500" />
             )}
+          </div>
+          <div className="flex gap-4 items-center text-xs">
+            <div className="text-red-500">2d</div>
+
             {task.recurrence?.frequency !== "once" && (
               <Repeat2Icon className="text-neutral-500 size-4" />
             )}
+            <div className="text-neutral-500 flex items-center gap-1">
+              {task.impact && (
+                <span>
+                  Impact:{" "}
+                  <span
+                    className={clsx("border rounded-lg px-1", {
+                      "text-red-500 border-red-500/30": task.impact === 4,
+                      "text-orange-500 border-orange-500/30": task.impact === 3,
+                      "text-yellow-500 border-yellow-500/30": task.impact === 2,
+                      "text-green-500 border-green-500/30": task.impact === 1,
+                    })}
+                  >
+                    {TASK_IMPACT[task.impact as keyof typeof TASK_IMPACT]}
+                  </span>
+                </span>
+              )}
+            </div>
+            <div className="text-neutral-500 flex items-center gap-1">
+              {task.difficulty && (
+                <span>
+                  Difficulty:{" "}
+                  <span
+                    className={clsx("border rounded-lg px-1", {
+                      "text-red-500 border-red-500/30": task.difficulty === 4,
+                      "text-orange-500 border-orange-500/30": task.difficulty === 3,
+                      "text-yellow-500 border-yellow-500/30": task.difficulty === 2,
+                      "text-green-500 border-green-500/30": task.difficulty === 1,
+                    })}
+                  >
+                    {TASK_DIFFICULTY[task.difficulty as keyof typeof TASK_DIFFICULTY]}
+                  </span>
+                </span>
+              )}
+            </div>
           </div>
         </div>
         <div className="text-xs w-20 flex place-items-center">
