@@ -45,6 +45,15 @@ function AssignmentsList({ tasks }: { tasks: Task[] }) {
   const incompleteTasks = tasks.filter((task) => !task.completed);
   const completedTasks = tasks.filter((task) => task.completed);
 
+  incompleteTasks.sort((task1, task2) => {
+    if (task1.impact === task2.impact) {
+      return (task1.difficulty ?? 0) - (task2.difficulty ?? 0);
+    }
+    return (task1.impact ?? 0) - (task2.impact ?? 0);
+  });
+
+  incompleteTasks.reverse();
+
   newTasks.push(...incompleteTasks);
   newTasks.push(...completedTasks);
 
