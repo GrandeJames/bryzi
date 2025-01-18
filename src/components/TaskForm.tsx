@@ -19,24 +19,25 @@ import useDialogStore from "@/stores/dialogStore";
 import { TASK_DIFFICULTY, TASK_IMPACT } from "@/lib/taskConstants";
 
 function TaskForm({ className, initialTask }: { className?: string; initialTask?: Task }) {
-  const [task, setTask] = useState({
+  const [task, setTask] = useState<Task>({
     id: initialTask?.id || uuidv4(),
     title: initialTask?.title || "",
-    deadline: initialTask?.deadline || undefined,
-    impact: initialTask?.impact || undefined,
-    difficulty: initialTask?.difficulty || undefined,
-    estimatedDurationInMins: initialTask?.estimatedDurationInMins || 0,
-    recurrence: {
-      frequency: initialTask?.recurrence?.frequency || "once",
-      daysOfWeek: initialTask?.recurrence?.daysOfWeek || [],
+    deadline: initialTask?.deadline,
+    impact: initialTask?.impact,
+    difficulty: initialTask?.difficulty,
+    estimatedDurationInMins: initialTask?.estimatedDurationInMins,
+    recurrence: initialTask?.recurrence || {
+      frequency: "once",
+      daysOfWeek: [],
     },
     description: initialTask?.description || "",
     subtasks: initialTask?.subtasks || [],
     completed: initialTask?.completed || false,
   });
-  const updateTask = useTasksStore((state) => state.updateTask);
   const tasks = useTasksStore((state) => state.tasks);
+  const updateTask = useTasksStore((state) => state.updateTask);
   const addTask = useTasksStore((state) => state.addTask);
+  const close = useDialogStore((state) => state.closeDialog);
 
   const handleChange = (key: string, value: any) => {
     setTask((prevTask) => ({
@@ -48,15 +49,9 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
   const handleSubtaskAdd = (newSubtask: Subtask) => {
     setTask((prevTask) => ({
       ...prevTask,
-      subtasks: [...prevTask.subtasks, newSubtask],
+      subtasks: [...(prevTask.subtasks || []), newSubtask],
     }));
   };
-
-  const handleTitleInputChange = (e: any) => {
-    handleChange("title", e.target.value);
-  };
-
-  const close = useDialogStore((state) => state.closeDialog);
 
   const resetForm = () => {
     setTask({
@@ -65,7 +60,7 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
       deadline: undefined,
       impact: undefined,
       difficulty: undefined,
-      estimatedDurationInMins: 0,
+      estimatedDurationInMins: undefined,
       recurrence: {
         frequency: "once",
         daysOfWeek: [],
@@ -86,12 +81,8 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
       addTask(task);
       addLocalTask(task);
     }
-
     resetForm();
     close();
-
-    console.log("LocalStorage Tasks:", getLocalTasks());
-    console.log("Tasks Store:", tasks);
   };
 
   return (
@@ -99,7 +90,7 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
       <input
         type="text"
         placeholder="Add Task"
-        onChange={handleTitleInputChange}
+        onChange={(e) => handleChange("title", e.target.value)}
         value={task.title}
         className={`px-3 py-2 outline-blue-600 outline-4 w-full placeholder-gray-600 bg-neutral-800 rounded-md`}
       />
@@ -120,12 +111,10 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
         />
         <Selection
           title="Impact"
-          items={[
-            { text: TASK_IMPACT[1], value: 1 },
-            { text: TASK_IMPACT[2], value: 2 },
-            { text: TASK_IMPACT[3], value: 3 },
-            { text: TASK_IMPACT[4], value: 4 },
-          ]}
+          items={Object.entries(TASK_IMPACT).map(([taskValue, taskLabel]) => ({
+            text: taskLabel,
+            value: parseInt(taskValue),
+          }))}
           icon={<ZapIcon />}
           onSelect={(value) => handleChange("impact", value)}
           defaultValue={task.impact}
@@ -148,12 +137,10 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
         />
         <Selection
           title="Difficulty"
-          items={[
-            { text: TASK_DIFFICULTY[1], value: 1 },
-            { text: TASK_DIFFICULTY[2], value: 2 },
-            { text: TASK_DIFFICULTY[3], value: 3 },
-            { text: TASK_DIFFICULTY[4], value: 4 },
-          ]}
+          items={Object.entries(TASK_DIFFICULTY).map(([difficultyValue, difficultyLabel]) => ({
+            text: difficultyLabel,
+            value: parseInt(difficultyValue),
+          }))}
           icon={<FlameIcon />}
           onSelect={(value) => handleChange("difficulty", value)}
           defaultValue={task.difficulty}
@@ -177,13 +164,13 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
             }}
           />
           <div className="flex flex-col gap-2 mb-4">
-            {task.subtasks.map((subtask: Subtask, index: any) => (
+            {(task.subtasks || []).map((subtask: Subtask, index: any) => (
               <div className="flex space-x-2" key={index}>
                 <Checkbox
                   id={`subtask-${index}`}
                   checked={subtask.completed}
                   onClick={() => {
-                    const updatedSubtasks = task.subtasks.map((item) =>
+                    const updatedSubtasks = (task.subtasks || []).map((item) =>
                       item.id === subtask.id ? { ...item, completed: !item.completed } : item
                     );
                     handleChange("subtasks", updatedSubtasks);
@@ -216,7 +203,7 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
                   ]}
                   icon={<RepeatIcon />}
                   onSelect={(value) => handleChange("recurrence", { frequency: value })}
-                  defaultValue={task.recurrence.frequency}
+                  defaultValue={task.recurrence?.frequency || "once"}
                 />
               </div>
             </PopoverContent>
