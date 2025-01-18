@@ -96,7 +96,7 @@ function Assignment({ task }: { task: Task }) {
           openTaskDetailsDialog();
         }}
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-1">
           <div className="flex gap-2 items-center">
             <span className="text-neutral-300">ICS-496</span>
             <span
