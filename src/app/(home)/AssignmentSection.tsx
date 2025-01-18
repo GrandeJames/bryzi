@@ -40,7 +40,10 @@ function AssignmentsSection({ tasks }: { tasks: any[] }) {
 function AssignmentsList({ tasks }: { tasks: Task[] }) {
   /* TODO: sort by task properties including: deadline, impact, estimated duration, difficulty
    * TODO: the tasks shown should be completable within the day though all tasks due today should be shown even if they are likely not completable
+   *
+   * Actual: closer deadline ^, higher impact ^, more difficult ^, longer estimated duration ^.
    */
+
   const newTasks = [];
 
   const incompleteTasks = tasks.filter((task) => !task.completed);
