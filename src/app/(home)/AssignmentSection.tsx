@@ -8,6 +8,7 @@ import { ListTodoIcon, Repeat2Icon, ZapIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import clsx from "clsx";
 import { TASK_DIFFICULTY, TASK_IMPACT } from "@/lib/taskConstants";
+import { differenceInCalendarDays } from "date-fns";
 
 function AssignmentsSection({ tasks }: { tasks: any[] }) {
   return (
@@ -107,7 +108,7 @@ function Assignment({ task }: { task: Task }) {
             )}
           </div>
           <div className="flex gap-4 items-center text-xs">
-            <div className="text-red-500">2d</div>
+            {task.deadline && <Deadline deadline={task.deadline} />}
 
             {task.recurrence?.frequency !== "once" && (
               <Repeat2Icon className="text-neutral-500 size-4" />
@@ -187,3 +188,35 @@ function Status({ task, className }: { task: Task; className?: string }) {
   );
 }
 export default AssignmentsSection;
+
+function Deadline({ deadline }: { deadline: Date }) {
+  const now = new Date();
+  const diffInDays = differenceInCalendarDays(deadline, now);
+
+  if (diffInDays < 0) {
+    return <div className="text-red-500">Overdue</div>;
+  }
+
+  if (diffInDays === 0) {
+    return <div className="text-red-500">Today</div>;
+  }
+
+  if (diffInDays === 1) {
+    return <div className="text-red-500">Tomorrow</div>;
+  }
+
+  if (diffInDays < 7) {
+    return (
+      <div className={`${diffInDays <= 2 ? "text-red-500" : "text-orange-500"}`}>
+        {Math.floor(diffInDays)}d
+      </div>
+    );
+  }
+
+  if (deadline.getFullYear() === now.getFullYear()) {
+    return (
+      <div className="text-neutral-400">
+        {deadline.toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+      </div>
+    );
+  }
