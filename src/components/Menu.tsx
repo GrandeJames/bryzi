@@ -29,11 +29,11 @@ export async function Menu() {
             <LibraryIcon/>
             </MenuItemContainer>
         </Link>
-        <Link href={"data-insights"}>
+        {/* <Link href={"data-insights"}>
           <MenuItemContainer>
             <ChartBarIcon />
           </MenuItemContainer>
-        </Link>
+        </Link> */}
       </div>
       <div className="flex justify-center">{session ? <UserDropDownMenu /> : <SignInDialog />}</div>
     </div>
