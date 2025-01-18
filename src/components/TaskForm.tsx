@@ -86,16 +86,18 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
   };
 
   return (
-    <form onSubmit={handleTaskFormSubmit} className={cn(className, "gap-2 flex flex-col relative")}>
-      <input
-        type="text"
-        placeholder="Add Task"
-        onChange={(e) => handleChange("title", e.target.value)}
-        value={task.title}
-        className={`px-3 py-2 outline-blue-600 outline-4 w-full placeholder-gray-600 bg-neutral-800 rounded-md`}
-      />
-
-      <div className={`flex gap-1 absolute right-2`}>
+    <form
+      onSubmit={handleTaskFormSubmit}
+      className={cn(className, "gap-2 flex flex-col relative px-6")}
+    >
+      <div className="flex bg-neutral-800 rounded-md p-1">
+        <input
+          type="text"
+          placeholder="Add Task"
+          onChange={(e) => handleChange("title", e.target.value)}
+          value={task.title}
+          className={`px-3 py-2 outline-blue-600 outline-4 w-full placeholder-gray-600 bg-neutral-800`}
+        />
         <DatePickerWithPresets
           date={task.deadline}
           setDate={(date) => handleChange("deadline", date)}

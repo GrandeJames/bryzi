@@ -55,7 +55,7 @@ function TaskDetails({ task }: { task: Task }) {
   };
 
   return (
-    <div className="flex flex-col gap-7">
+    <div className="flex flex-col gap-7 px-5">
       <div>
         <div>
           <div className="text-neutral-500 text-sm">
