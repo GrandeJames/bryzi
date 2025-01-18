@@ -4,7 +4,7 @@ import { Progress } from "@/components/ui/progress";
 import { useFocusStore } from "@/stores/focusStore";
 import useDialogStore from "@/stores/dialogStore";
 import { Task } from "@/types/task";
-import { ListTodoIcon, Repeat2Icon } from "lucide-react";
+import { ListTodoIcon, Repeat2Icon, ZapIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 function AssignmentsSection({ tasks }: { tasks: any[] }) {
