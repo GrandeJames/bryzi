@@ -142,7 +142,7 @@ function Assignment({ task }: { task: Task }) {
             <div className="text-neutral-500 flex items-center gap-1">
               {task.difficulty && (
                 <span>
-                  Difficulty:{" "}
+                  Effort:{" "}
                   <span
                     className={clsx("border rounded-lg px-1", {
                       "text-red-500 border-red-500/30": task.difficulty === 4,

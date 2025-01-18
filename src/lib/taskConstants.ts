@@ -9,10 +9,10 @@ const TASK_IMPACT: Record<TaskImpact, string> = {
 };
 
 const TASK_DIFFICULTY: Record<TaskDifficulty, string> = {
-  1: "Easy",
-  2: "Medium",
-  3: "Challenging",
-  4: "Complex",
+  1: "Minimal",
+  2: "Moderate",
+  3: "High",
+  4: "Max",
 };
 
 export { TASK_IMPACT, TASK_DIFFICULTY };
