@@ -107,7 +107,13 @@ function Assignment({ task }: { task: Task }) {
               {task.title}
             </span>
             {(task.subtasks?.length ?? 0) > 0 && (
-              <ListTodoIcon className="size-4 text-neutral-500" />
+              <div className="flex items-center text-neutral-500 gap-1">
+                <ListTodoIcon className="size-4" />
+                <span className="text-xs">
+                  {task.subtasks?.reduce((acc, subtask) => acc + (subtask.completed ? 1 : 0), 0)}/
+                  {task.subtasks?.length} {task.subtasks?.length === 1 ? "subtask" : "subtasks"}
+                </span>
+              </div>
             )}
           </div>
           <div className="flex gap-4 items-center text-xs">
