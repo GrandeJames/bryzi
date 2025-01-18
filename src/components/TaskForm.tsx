@@ -22,8 +22,8 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
     id: initialTask?.id || uuidv4(),
     title: initialTask?.title || "",
     deadline: initialTask?.deadline || undefined,
-    impact: initialTask?.impact || "",
-    difficulty: initialTask?.difficulty || "",
+    impact: initialTask?.impact || undefined,
+    difficulty: initialTask?.difficulty || undefined,
     estimatedDurationInMins: initialTask?.estimatedDurationInMins || 0,
     recurrence: {
       frequency: initialTask?.recurrence?.frequency || "once",
@@ -62,8 +62,8 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
       id: uuidv4(),
       title: "",
       deadline: undefined,
-      impact: "",
-      difficulty: "",
+      impact: undefined,
+      difficulty: undefined,
       estimatedDurationInMins: 0,
       recurrence: {
         frequency: "once",
@@ -120,10 +120,10 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
         <Selection
           title="Impact"
           items={[
-            { text: "Minor", value: "minor" },
-            { text: "Moderate", value: "moderate" },
-            { text: "High", value: "high" },
-            { text: "Critical", value: "critical" },
+            { text: "Minor", value: 1 },
+            { text: "Moderate", value: 2 },
+            { text: "High", value: 3 },
+            { text: "Critical", value: 4 },
           ]}
           icon={<ZapIcon />}
           onSelect={(value) => handleChange("impact", value)}
@@ -148,10 +148,10 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
         <Selection
           title="Difficulty"
           items={[
-            { text: "Simple", value: "simple" },
-            { text: "Moderate", value: "moderate" },
-            { text: "Challenging", value: "challenging" },
-            { text: "Intense", value: "intense" },
+            { text: "Simple", value: 1 },
+            { text: "Moderate", value: 2 },
+            { text: "Challenging", value: 3 },
+            { text: "Intense", value: 4 },
           ]}
           icon={<FlameIcon />}
           onSelect={(value) => handleChange("difficulty", value)}

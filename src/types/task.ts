@@ -6,8 +6,8 @@ export interface Task {
   completed: boolean;
   type?: "class" | "event" | "misc";
   deadline?: Date; // determines urgency
-  impact?: string;
-  difficulty?: string;
+  impact?: number;
+  difficulty?: number;
   estimatedDurationInMins?: number; // used for focus sessions
   actualDurationInMins?: number; // used for focus sessions
   description?: string;
