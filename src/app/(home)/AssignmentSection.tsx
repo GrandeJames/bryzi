@@ -128,10 +128,10 @@ function Assignment({ task }: { task: Task }) {
                   Impact:{" "}
                   <span
                     className={clsx("border rounded-lg px-1", {
-                      "text-red-500 border-red-500/30": task.impact === 4,
-                      "text-orange-500 border-orange-500/30": task.impact === 3,
-                      "text-yellow-500 border-yellow-500/30": task.impact === 2,
-                      "text-green-500 border-green-500/30": task.impact === 1,
+                      "text-red-300/80 border-red-400/30": task.impact === 4,
+                      "text-orange-300/80 border-orange-400/30": task.impact === 3,
+                      "text-yellow-300/80 border-yellow-400/30": task.impact === 2,
+                      "text-green-300/80 border-green-400/30": task.impact === 1,
                     })}
                   >
                     {TASK_IMPACT[task.impact as keyof typeof TASK_IMPACT]}
@@ -145,10 +145,10 @@ function Assignment({ task }: { task: Task }) {
                   Effort:{" "}
                   <span
                     className={clsx("border rounded-lg px-1", {
-                      "text-red-500 border-red-500/30": task.difficulty === 4,
-                      "text-orange-500 border-orange-500/30": task.difficulty === 3,
-                      "text-yellow-500 border-yellow-500/30": task.difficulty === 2,
-                      "text-green-500 border-green-500/30": task.difficulty === 1,
+                      "text-red-300/80 border-red-500/30": task.difficulty === 4,
+                      "text-orange-300/80 border-orange-500/30": task.difficulty === 3,
+                      "text-yellow-300/80 border-yellow-500/30": task.difficulty === 2,
+                      "text-green-300/80 border-green-500/30": task.difficulty === 1,
                     })}
                   >
                     {TASK_DIFFICULTY[task.difficulty as keyof typeof TASK_DIFFICULTY]}
@@ -180,7 +180,11 @@ function Status({ task, className }: { task: Task; className?: string }) {
 
   const renderContent = () => {
     if (task.completed) {
-      return <div className="text-orange-400 font-semibold">Complete</div>;
+      return (
+        <div className="border rounded-md border-neutral-800 size-5 mx-auto relative">
+          <span className="text-orange-500 text-3xl absolute bottom-0 left-1">✔</span>
+        </div>
+      );
     }
 
     return (
