@@ -60,7 +60,7 @@ export function DatePickerWithPresets({
       <Tooltip>
         <TooltipTrigger onFocus={(e) => e.preventDefault()}>
           {/* Prevents the the preset button tooltip from showing on focus */}
-          <button onClick={onClick} className="hover:bg-gray-900 rounded-md p-2">
+          <button onClick={onClick} className="hover:bg-neutral-900 rounded-md p-2">
             {children}
           </button>
         </TooltipTrigger>
