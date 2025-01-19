@@ -170,10 +170,10 @@ function Assignment({ task }: { task: Task }) {
             </div>
           </div>
         </div>
-        {task.estimatedDurationInMins && (
+        {(task.estimatedDurationInMins ?? 0) > 0 && (
           <div className="text-xs w-20 flex place-items-center">
             {task.completed ? (
-              <Progress value={100} label="46 mins" />
+              <Progress value={99} label="46 mins" />
             ) : (
               <Progress
                 value={54}
