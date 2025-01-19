@@ -124,13 +124,12 @@ function Assignment({ task }: { task: Task }) {
                 </span>
               </div>
             )}
+            {task.recurrence?.frequency !== "once" && (
+              <Repeat2Icon className="text-neutral-400 size-4" />
+            )}
           </div>
           <div className="flex gap-4 items-center text-xs">
             {task.deadline && <Deadline deadline={task.deadline} />}
-
-            {task.recurrence?.frequency !== "once" && (
-              <Repeat2Icon className="text-neutral-500 size-4" />
-            )}
             <div className="text-neutral-500 flex items-center gap-1">
               {task.impact && (
                 <span>
