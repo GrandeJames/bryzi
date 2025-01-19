@@ -44,8 +44,6 @@ function AssignmentsList({ tasks }: { tasks: Task[] }) {
    * Actual: closer deadline ^, higher impact ^, more difficult ^, longer estimated duration ^.
    */
 
-  const newTasks = [];
-
   const incompleteTasks = tasks.filter((task) => !task.completed);
   const completedTasks = tasks.filter((task) => task.completed);
 
@@ -58,19 +56,30 @@ function AssignmentsList({ tasks }: { tasks: Task[] }) {
 
   incompleteTasks.reverse();
 
-  newTasks.push(...incompleteTasks);
-  newTasks.push(...completedTasks);
-
   return (
-    <ul className="space-y-2">
-      {newTasks.map((task, index) => (
-        <li key={index}>
-          <div className="py-0">
-            <Assignment task={task} />
-          </div>
-        </li>
-      ))}
-    </ul>
+    <div>
+      <ul className="space-y-2">
+        {incompleteTasks.map((task, index) => (
+          <li key={index}>
+            <div className="py-0">
+              <Assignment task={task} />
+            </div>
+          </li>
+        ))}
+      </ul>
+      <div>
+        <header className="text-neutral-500 text-xs font-semibold mt-5 mb-1">COMPLETED</header>
+        <ul className="space-y-2">
+          {completedTasks.map((task, index) => (
+            <li key={index}>
+              <div className="py-0">
+                <Assignment task={task} />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
 
@@ -96,9 +105,9 @@ function Assignment({ task }: { task: Task }) {
           openTaskDetailsDialog();
         }}
       >
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col">
+          <div className="text-neutral-300 text-xs">Introductory Psychology</div>
           <div className="flex gap-2 items-center">
-            <span className="text-neutral-300">ICS-496</span>
             <span
               className={`font-semibold text-md ${
                 task.completed && "line-through text-gray-400 decoration-gray-400/90"
@@ -107,11 +116,11 @@ function Assignment({ task }: { task: Task }) {
               {task.title}
             </span>
             {(task.subtasks?.length ?? 0) > 0 && (
-              <div className="flex items-center text-neutral-500 gap-1">
+              <div className="flex items-center text-neutral-400 gap-1">
                 <ListTodoIcon className="size-4" />
                 <span className="text-xs">
                   {task.subtasks?.reduce((acc, subtask) => acc + (subtask.completed ? 1 : 0), 0)}/
-                  {task.subtasks?.length} {task.subtasks?.length === 1 ? "subtask" : "subtasks"}
+                  {task.subtasks?.length}
                 </span>
               </div>
             )}
@@ -128,10 +137,10 @@ function Assignment({ task }: { task: Task }) {
                   Impact:{" "}
                   <span
                     className={clsx("border rounded-lg px-1", {
-                      "text-red-300/80 border-red-400/30": task.impact === 4,
-                      "text-orange-300/80 border-orange-400/30": task.impact === 3,
-                      "text-yellow-300/80 border-yellow-400/30": task.impact === 2,
-                      "text-green-300/80 border-green-400/30": task.impact === 1,
+                      "text-red-300/80 border-red-400/10": task.impact === 4,
+                      "text-orange-300/80 border-orange-400/10": task.impact === 3,
+                      "text-yellow-300/80 border-yellow-400/10": task.impact === 2,
+                      "text-green-300/80 border-green-400/10": task.impact === 1,
                     })}
                   >
                     {TASK_IMPACT[task.impact as keyof typeof TASK_IMPACT]}
@@ -145,10 +154,10 @@ function Assignment({ task }: { task: Task }) {
                   Effort:{" "}
                   <span
                     className={clsx("border rounded-lg px-1", {
-                      "text-red-300/80 border-red-500/30": task.difficulty === 4,
-                      "text-orange-300/80 border-orange-500/30": task.difficulty === 3,
-                      "text-yellow-300/80 border-yellow-500/30": task.difficulty === 2,
-                      "text-green-300/80 border-green-500/30": task.difficulty === 1,
+                      "text-red-300/80 border-red-500/10": task.difficulty === 4,
+                      "text-orange-300/80 border-orange-500/10": task.difficulty === 3,
+                      "text-yellow-300/80 border-yellow-500/10": task.difficulty === 2,
+                      "text-green-300/80 border-green-500/10": task.difficulty === 1,
                     })}
                   >
                     {TASK_DIFFICULTY[task.difficulty as keyof typeof TASK_DIFFICULTY]}
