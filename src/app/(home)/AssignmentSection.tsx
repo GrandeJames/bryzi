@@ -110,7 +110,7 @@ function Assignment({ task }: { task: Task }) {
           <div className="flex gap-2 items-center">
             <span
               className={`font-semibold text-md ${
-                task.completed && "line-through text-gray-400 decoration-gray-400/90"
+                task.completed ? "line-through text-neutral-400 decoration-neutral-400/90" : "text-neutral-200"
               }`}
             >
               {task.title}
