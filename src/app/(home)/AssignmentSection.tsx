@@ -170,16 +170,18 @@ function Assignment({ task }: { task: Task }) {
             </div>
           </div>
         </div>
-        <div className="text-xs w-20 flex place-items-center">
-          {task.completed ? (
-            <Progress value={100} label="46 mins" />
-          ) : (
-            <Progress
-              value={54}
-              label={`${task.actualDurationInMins ?? 0}/${task.estimatedDurationInMins} mins`}
-            />
-          )}
-        </div>
+        {task.estimatedDurationInMins && (
+          <div className="text-xs w-20 flex place-items-center">
+            {task.completed ? (
+              <Progress value={100} label="46 mins" />
+            ) : (
+              <Progress
+                value={54}
+                label={`${task.actualDurationInMins ?? 0}/${task.estimatedDurationInMins} mins`}
+              />
+            )}
+          </div>
+        )}
       </div>
 
       <Status task={task} className="col-span-2" />
