@@ -67,18 +67,20 @@ function AssignmentsList({ tasks }: { tasks: Task[] }) {
           </li>
         ))}
       </ul>
-      <div>
-        <header className="text-neutral-500 text-xs font-semibold mt-5 mb-1">COMPLETED</header>
-        <ul className="space-y-2">
-          {completedTasks.map((task, index) => (
-            <li key={index}>
-              <div className="py-0">
-                <Assignment task={task} />
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {completedTasks.length > 0 && (
+        <div>
+          <header className="text-neutral-500 text-xs font-semibold mt-5 mb-1">COMPLETED</header>
+          <ul className="space-y-2">
+            {completedTasks.map((task, index) => (
+              <li key={index}>
+                <div className="py-0">
+                  <Assignment task={task} />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
@@ -94,12 +96,12 @@ function Assignment({ task }: { task: Task }) {
 
   return (
     <div
-      className={`grid grid-cols-12 w-full rounded-3xl py-5 px-8 ${
+      className={`grid grid-cols-12 w-full rounded-3xl ${
         task.completed ? "bg-neutral-900/50" : "bg-neutral-900/70"
       }`}
     >
       <div
-        className="col-span-10 flex justify-between hover:cursor-pointer"
+        className="col-span-10 flex justify-between hover:cursor-pointer py-5 px-6"
         onClick={() => {
           dialogData.task = task;
           openTaskDetailsDialog();
@@ -110,7 +112,9 @@ function Assignment({ task }: { task: Task }) {
           <div className="flex gap-2 items-center">
             <span
               className={`font-semibold text-md ${
-                task.completed ? "line-through text-neutral-400 decoration-neutral-400/90" : "text-neutral-200"
+                task.completed
+                  ? "line-through text-neutral-400 decoration-neutral-400/90"
+                  : "text-neutral-200"
               }`}
             >
               {task.title}
