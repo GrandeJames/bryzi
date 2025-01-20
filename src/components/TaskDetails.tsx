@@ -56,8 +56,8 @@ function TaskDetails({ task }: { task: Task }) {
               </div>
             )}
           </div>
-          <div className="font-bold text-xl mb-1">{task.title}</div>
-          <div className="text-neutral-200">{task.description && <p>{task.description}</p>}</div>
+          <div className="font-bold text-xl mb-1 text-neutral-200">{task.title}</div>
+          <div className="text-neutral-300">{task.description && <p>{task.description}</p>}</div>
         </div>
         <div className="my-2">
           {task.subtasks &&

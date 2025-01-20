@@ -1,7 +1,7 @@
 "use client";
 
 function Classes() {
-  return <div>coming soon</div>;
+  return <div className="text-neutral-200">coming soon</div>;
 }
 
 export default Classes;

@@ -101,7 +101,7 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
           placeholder="Add Task"
           onChange={(e) => handleChange("title", e.target.value)}
           value={task.title}
-          className={`px-3 py-2 outline-blue-600 outline-4 w-full placeholder-gray-600 bg-neutral-800`}
+          className={`px-3 py-2 outline-blue-600 outline-4 w-full placeholder-gray-600 bg-neutral-800 text-neutral-200`}
         />
         <DatePickerWithPresets
           date={task.deadline}
@@ -111,7 +111,7 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
 
       <div className="flex flex-col gap-7 mt-5 mb-14">
         <Textarea
-          className="resize-none border-none focus-visible:ring-0 bg-neutral-800"
+          className="resize-none border-none focus-visible:ring-0 bg-neutral-800 text-neutral-200"
           placeholder="Description"
           value={task.description}
           onChange={(e) => handleChange("description", e.target.value)}
@@ -155,7 +155,7 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
         <div className="flex flex-col gap-3">
           <Input
             placeholder="Add subtask"
-            className="border-none bg-neutral-800 focus-visible:ring-0"
+            className="border-none bg-neutral-800 focus-visible:ring-0 text-neutral-200"
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 e.preventDefault();
@@ -226,7 +226,7 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
         </div>
       </div>
       <button
-        className={`bg-orange-400 py-2 px-4 rounded-lg w-full font-bold sticky bottom-0 disabled:bg-orange-200`}
+        className={`bg-orange-400 py-2 px-4 rounded-lg w-full font-bold sticky bottom-0 disabled:bg-orange-200 text-white`}
         disabled={!task.title}
         onClick={handleTaskFormSubmit}
       >

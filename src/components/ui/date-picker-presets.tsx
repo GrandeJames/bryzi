@@ -77,9 +77,9 @@ export function DatePickerWithPresets({
       <PopoverTrigger asChild>
         <Button
           variant={"ghost"}
-          className={cn("justify-start text-left font-normal", !date && "text-muted-foreground")}
+          className={cn("justify-start text-left font-normal text-neutral-200", !date && "text-muted-foreground")}
         >
-          <CalendarIcon className="h-9 w-9" />
+          <CalendarIcon className="h-9 w-9 text-neutral-200" />
           {dateFormatted(date)}
         </Button>
       </PopoverTrigger>

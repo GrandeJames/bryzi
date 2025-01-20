@@ -18,7 +18,7 @@ function TasksList({ className }: { className?: string }) {
 function TaskComponent({ task }: { task: Task }) {
   return (
     <div className="p-3">
-      <div>{task.title}</div>
+      <div className="text-neutral-200">{task.title}</div>
     </div>
   );
 }

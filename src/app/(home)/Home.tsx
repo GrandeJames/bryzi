@@ -67,7 +67,7 @@ function Home() {
           onClick={openCreateTaskDialog}
           className="fixed right-5 bottom-5 bg-orange-500 rounded-full p-4"
         >
-          <PlusIcon className="size-6" />
+          <PlusIcon className="size-6 text-neutral-200" />
         </button>
       </main>
     </div>

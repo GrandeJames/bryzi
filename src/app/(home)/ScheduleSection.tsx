@@ -15,7 +15,7 @@ function ScheduleSection({ scheduledTasks }: { scheduledTasks: any[] }) {
 function ScheduledTask({ task }: { task: any }) {
   return (
     <div className="bg-neutral-900/70 rounded-2xl min-w-56 max-w-sm px-4 py-5">
-      <div className="text-sm font-semibold">{task.title}</div>
+      <div className="text-sm font-semibold text-neutral-200">{task.title}</div>
       <div className="text-sm text-neutral-300">
         <div>{task.class}</div>
         <div className="text-neutral-400">

@@ -33,8 +33,8 @@ function Selection({
         {items.map((item, index) => (
           <button
             key={index}
-            className={`py-1 px-3 rounded-md text-sm ${
-              defaultValue === item.value && "bg-orange-400 text-white"
+            className={`py-1 px-3 rounded-md text-sm text-neutral-200 ${
+              defaultValue === item.value && "bg-orange-400"
             }`}
             onClick={(e) => handleSelectionButtonClick(e, item)}
           >
