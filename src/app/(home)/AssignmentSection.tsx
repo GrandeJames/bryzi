@@ -5,9 +5,9 @@ import { useFocusStore } from "@/stores/focusStore";
 import useDialogStore from "@/stores/dialogStore";
 import { Task } from "@/types/task";
 import { ListTodoIcon, Repeat2Icon, ZapIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils.ts/cn";
 import clsx from "clsx";
-import { TASK_DIFFICULTY, TASK_IMPACT } from "@/lib/taskConstants";
+import { TASK_DIFFICULTY, TASK_IMPACT } from "@/constants/taskConstants";
 import { differenceInCalendarDays, format, getYear } from "date-fns";
 
 function AssignmentsSection({ tasks }: { tasks: any[] }) {

@@ -4,7 +4,7 @@ import { addLocalTask, getLocalTasks, updateLocalTask } from "@/lib/localStorage
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import useTasksStore from "@/stores/tasksStore";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils.ts/cn";
 import { DatePickerWithPresets } from "@/components/ui/date-picker-presets";
 import { ClockIcon, FlameIcon, RepeatIcon, ZapIcon } from "lucide-react";
 import { Textarea } from "./ui/textarea";
@@ -16,7 +16,7 @@ import { Button } from "./ui/button";
 import { Task } from "@/types/task";
 import { Subtask } from "@/types/subtask";
 import useDialogStore from "@/stores/dialogStore";
-import { TASK_DIFFICULTY, TASK_IMPACT } from "@/lib/taskConstants";
+import { TASK_DIFFICULTY, TASK_IMPACT } from "@/constants/taskConstants";
 
 function TaskForm({ className, initialTask }: { className?: string; initialTask?: Task }) {
   const [task, setTask] = useState<Task>({

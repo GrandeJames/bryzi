@@ -1,6 +1,6 @@
 import { Task } from "@/types/task";
 import useTasksStore from "@/stores/tasksStore";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils.ts/cn";
 
 function TasksList({ className }: { className?: string }) {
   const tasks: Task[] = useTasksStore((state) => state.tasks);

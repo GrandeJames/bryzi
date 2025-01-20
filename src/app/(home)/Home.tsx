@@ -2,7 +2,7 @@
 
 import { Timeline } from "../Timeline";
 import { Progress } from "@/components/ui/progress";
-import { tasks } from "@/lib/data";
+import { tasks } from "@/data/sampleTasks";
 import { format } from "date-fns";
 import AssignmentsSection from "./AssignmentSection";
 import ScheduleSection from "./ScheduleSection";
