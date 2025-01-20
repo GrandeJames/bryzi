@@ -1,5 +1,5 @@
 import { Task } from "@/types/task";
-import { addLocalTask, updateLocalTask } from "./localStorageTasks";
+import { addLocalTask, removeLocalTask, updateLocalTask } from "./localStorageTasks";
 
 /*
  * Note: updateTask must be passed as a prop otherwise it causes a hook error
@@ -20,4 +20,9 @@ export function handleTaskUpdate(task: Task, updateTask: (task: Task) => void) {
 export function handleAddTask(task: Task, addTask: (task: Task) => void) {
   addTask(task);
   addLocalTask(task);
+}
+
+export function handleTaskRemove(task: Task, removeTask: (id: string) => void) {
+  removeLocalTask(task.id);
+  removeTask(task.id);
 }
