@@ -1,25 +1,26 @@
+import { Task } from "@/types/task";
 import { create } from "zustand";
 
 interface FocusState {
   stage: string;
-  focusTask: string;
-  start: (task: string) => void;
+  focusTask: Task | undefined;
+  start: (focusTask: Task) => void;
   skipStage: () => void;
   exit: () => void;
   complete: () => void;
+  setFocusTask: (focusTask: Task) => void;
 }
 
 // const stages = ["prepare", "breath", "visual", "task"];
 const stages = ["breath", "task"];
 
-
 export const useFocusStore = create<FocusState>((set) => ({
   stage: "",
-  focusTask: "",
-  setTask: (task: string) => set(() => ({ focusTask: task })),
-  start: (task: string) => {
+  focusTask: undefined,
+  setTask: (focusTask: Task) => set(() => ({ focusTask })),
+  start: (focusTask: Task) => {
     set(() => ({ stage: stages[0] }));
-    set(() => ({ focusTask: task }));
+    set(() => ({ focusTask }));
   },
   exit: () => {
     document.title = "Focus";
@@ -32,4 +33,5 @@ export const useFocusStore = create<FocusState>((set) => ({
       const nextStage = stages[currentStageIndex + 1] || "";
       return { stage: nextStage };
     }),
+  setFocusTask: (focusTask: Task) => set(() => ({ focusTask })),
 }));
