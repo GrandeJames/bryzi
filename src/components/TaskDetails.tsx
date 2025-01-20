@@ -1,11 +1,10 @@
 import { Task } from "@/types/task";
 import { Subtask } from "@/types/subtask";
-import { removeLocalTask, updateLocalTask } from "@/lib/localStorageTasks";
 import useTasksStore from "@/stores/tasksStore";
 import { CircleCheckIcon, PencilIcon, Repeat2Icon, Trash2Icon } from "lucide-react";
 import useDialogStore from "@/stores/dialogStore";
 import { Checkbox } from "./ui/checkbox";
-import { handleTaskComplete } from "@/lib/taskUtils";
+import { handleTaskComplete, handleTaskRemove, handleTaskUpdate } from "@/lib/taskUtils";
 
 function TaskDetails({ task }: { task: Task }) {
   const removeTask = useTasksStore((state) => state.removeTask);
@@ -23,8 +22,7 @@ function TaskDetails({ task }: { task: Task }) {
   const openEditDialog = () => openDialog("edit", { task });
 
   const handleTaskDeleteClick = () => {
-    removeLocalTask(task.id);
-    removeTask(task.id);
+    handleTaskRemove(task, removeTask);
     closeDialog();
   };
 
@@ -37,8 +35,7 @@ function TaskDetails({ task }: { task: Task }) {
       ),
     };
 
-    updateLocalTask(updatedTask);
-    updateTask(updatedTask);
+    handleTaskUpdate(updatedTask, updateTask);
     setDialogData({ task: updatedTask });
   };
 

@@ -1,6 +1,5 @@
 "use client";
 
-import { addLocalTask, getLocalTasks, updateLocalTask } from "@/lib/localStorageTasks";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import useTasksStore from "@/stores/tasksStore";
@@ -17,6 +16,7 @@ import { Task } from "@/types/task";
 import { Subtask } from "@/types/subtask";
 import useDialogStore from "@/stores/dialogStore";
 import { TASK_DIFFICULTY, TASK_IMPACT } from "@/constants/taskConstants";
+import { handleTaskAdd, handleTaskUpdate } from "@/lib/taskUtils";
 
 function TaskForm({ className, initialTask }: { className?: string; initialTask?: Task }) {
   const [task, setTask] = useState<Task>({
@@ -75,11 +75,9 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
     e.preventDefault();
 
     if (initialTask) {
-      updateTask(task);
-      updateLocalTask(task);
+      handleTaskUpdate(task, updateTask);
     } else {
-      addTask(task);
-      addLocalTask(task);
+      handleTaskAdd(task, addTask);
     }
     resetForm();
     close();
