@@ -22,18 +22,25 @@ import {
 import { useState } from "react";
 
 export function FocusSessionStage() {
-  const { focusTask } = useFocusStore();
+  const focusTask = useFocusStore((state) => state.focusTask);
   const setFocusTask = useFocusStore((state) => state.setFocusTask);
   const updateTask = useTasksStore((state) => state.updateTask);
 
   const { secondsLeft, endTime, paused, play, pause, percentComplete } = useTimer();
 
-  const handleSubtaskCompleteClick = (subtask: Subtask) => {
-    if (!focusTask) {
+  // The Select component uses string values for the selected item, so storing subtaskId instead of the subtask object
+  const [subtaskId, setSubtaskId] = useState<string>(
+    focusTask?.subtasks?.find((subtask) => !subtask.completed)?.id ?? ""
+  );
+
+  const getSubtask = () => focusTask?.subtasks?.find((subtask) => subtask.id === subtaskId);
+
+  const handleSubtaskToggle = () => {
+    if (!focusTask || !subtaskId) {
       return;
     }
 
-    const updatedSubtask = { ...subtask, completed: !subtask.completed };
+    const updatedSubtask = { ...getSubtask()!, completed: !getSubtask()!.completed };
     const updatedTask = {
       ...focusTask,
       subtasks: (focusTask.subtasks ?? []).map((subtask) =>
@@ -44,51 +51,26 @@ export function FocusSessionStage() {
     handleTaskUpdate(updatedTask, updateTask);
     setFocusTask(updatedTask);
 
-    const nextIncompleteSubtask = updatedTask.subtasks?.find((item) => !item.completed);
-    if (nextIncompleteSubtask) {
-      setSubtaskId(nextIncompleteSubtask.id);
-    } else {
-      setSubtaskId("");
-    }
-  };
-
-  const firstIncompleteSubtaskId = focusTask?.subtasks?.find((subtask) => !subtask.completed)?.id;
-  const [subtaskId, setSubtaskId] = useState<string>(firstIncompleteSubtaskId ?? "");
-
-  const getSubtask = () => {
-    if (!focusTask || !subtaskId) {
-      return null;
-    }
-    return focusTask.subtasks?.find((subtask) => subtask.id === subtaskId);
+    const nextIncompleteSubtask =
+      updatedTask.subtasks.find((subtask) => !subtask.completed)?.id || "";
+    setSubtaskId(nextIncompleteSubtask);
   };
 
   return (
     <div className="flex flex-col h-[75vh] w-full relative">
       <header className="py-3">
         <Progress value={percentComplete()} />
-        <div className="flex justify-center font-bold text-2xl underline underline-offset-8 my-5">
+        <div className="text-center font-bold text-2xl underline underline-offset-8 my-5">
           {focusTask?.title}
         </div>
         <div className="flex justify-center gap-2 items-center">
           <Checkbox
             checked={getSubtask()?.completed}
-            disabled={!subtaskId || subtaskId === ""}
-            onCheckedChange={() => {
-              if (!subtaskId || subtaskId === "") {
-                return;
-              }
-              const subtask = getSubtask();
-              if (subtask) {
-                handleSubtaskCompleteClick(subtask);
-              }
-            }}
+            disabled={!subtaskId}
+            onCheckedChange={handleSubtaskToggle}
           />
-          <Select
-            onValueChange={(subtaskId) => setSubtaskId(subtaskId)}
-            defaultValue={subtaskId}
-            value={subtaskId}
-          >
-            <SelectTrigger className="w-[180px] border-none focus:outline-none focus:ring-0 data-[state=open]:ring-0">
+          <Select value={subtaskId} onValueChange={setSubtaskId} defaultValue={subtaskId}>
+            <SelectTrigger className="w-[180px] border-none focus:outline-none focus:ring-0">
               <SelectValue placeholder="Select a subtask" />
             </SelectTrigger>
             <SelectContent className="dark:bg-neutral-900/70 backdrop-blur-lg border dark:border-neutral-800 rounded-xl">
@@ -116,20 +98,19 @@ export function FocusSessionStage() {
           </Select>
         </div>
       </header>
-
-      <div className="flex justify-center place-items-center h-full">
-        <div>
+      <main className="flex justify-center place-items-center h-full">
+        <div className="text-center">
           <div className="font-semibold">
             <span className="text-[13rem] leading-none text-orange-400">
               {timerDisplay(secondsLeft).number}
             </span>{" "}
             {timerDisplay(getSecondsLeftUntilEndTime(endTime)).label} left
           </div>
-          <div className="dark:text-gray-200 text-gray-700 flex justify-center">
+          <div className="dark:text-gray-200 text-gray-700">
             {paused ? "Paused" : "Focus on your task. You got this!"}
           </div>
         </div>
-      </div>
+      </main>
       <ActionsContainer>
         <button className="bg-neutral-800 rounded-full size-9">✔</button>
         <ExitStage />
@@ -150,15 +131,9 @@ function getSecondsLeftUntilEndTime(endTime: number) {
   return secondsLeft;
 }
 
-const timerDisplay = (seconds: number) => {
-  if (seconds > 60) {
-    const number = Math.floor(seconds / 60);
-    const label = number === 1 ? "minute" : "minutes";
-
-    return { number, label };
-  } else {
-    const label = seconds === 1 ? "second" : "seconds";
-
-    return { number: seconds, label };
-  }
-};
+function timerDisplay(seconds: number) {
+  const minutes = Math.floor(seconds / 60);
+  return minutes > 0
+    ? { number: minutes, label: minutes === 1 ? "minute" : "minutes" }
+    : { number: seconds, label: seconds === 1 ? "second" : "seconds" };
+}
