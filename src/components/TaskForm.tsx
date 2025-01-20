@@ -206,7 +206,7 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
                 Repeat
               </Button>
             </PopoverTrigger>
-            <PopoverContent>
+            <PopoverContent className="w-full">
               <div className="flex flex-col gap-3">
                 <Selection
                   title={"Repeat"}
