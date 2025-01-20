@@ -63,40 +63,36 @@ export function FocusSessionStage() {
         <div className="text-center font-bold text-2xl underline underline-offset-8 my-5">
           {focusTask?.title}
         </div>
-        <div className="flex justify-center gap-2 items-center">
-          <Checkbox
-            checked={getSubtask()?.completed}
-            disabled={!subtaskId}
-            onCheckedChange={handleSubtaskToggle}
-          />
-          <Select value={subtaskId} onValueChange={setSubtaskId} defaultValue={subtaskId}>
-            <SelectTrigger className="w-[180px] border-none focus:outline-none focus:ring-0">
-              <SelectValue placeholder="Select a subtask" />
-            </SelectTrigger>
-            <SelectContent className="dark:bg-neutral-900/70 backdrop-blur-lg border dark:border-neutral-800 rounded-xl">
-              <SelectGroup>
-                {focusTask?.subtasks && focusTask.subtasks.length < 1 ? (
-                  <div className="text-sm px-2">No subtasks created</div>
-                ) : (
-                  <div>
-                    {focusTask?.subtasks?.map((subtask: Subtask) => (
-                      <SelectItem
-                        key={subtask.id}
-                        value={subtask.id}
-                        className={subtask.completed ? "line-through dark:text-neutral-400" : ""}
-                        onClick={() => {
-                          setSubtaskId(subtask.id);
-                        }}
-                      >
-                        {subtask.title}
-                      </SelectItem>
-                    ))}
-                  </div>
-                )}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
+        {(focusTask?.subtasks?.length || 0) > 0 && (
+          <div className="flex justify-center gap-2 items-center">
+            <Checkbox
+              checked={getSubtask()?.completed}
+              disabled={!subtaskId}
+              onCheckedChange={handleSubtaskToggle}
+            />
+            <Select value={subtaskId} onValueChange={setSubtaskId} defaultValue={subtaskId}>
+              <SelectTrigger className="w-[180px] border-none focus:outline-none focus:ring-0">
+                <SelectValue placeholder="Select a subtask" />
+              </SelectTrigger>
+              <SelectContent className="dark:bg-neutral-900/70 backdrop-blur-lg border dark:border-neutral-800 rounded-xl">
+                <SelectGroup>
+                  {focusTask?.subtasks?.map((subtask: Subtask) => (
+                    <SelectItem
+                      key={subtask.id}
+                      value={subtask.id}
+                      className={subtask.completed ? "line-through dark:text-neutral-400" : ""}
+                      onClick={() => {
+                        setSubtaskId(subtask.id);
+                      }}
+                    >
+                      {subtask.title}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+        )}
       </header>
       <main className="flex justify-center place-items-center h-full">
         <div className="text-center">
