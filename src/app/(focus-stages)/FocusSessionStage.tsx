@@ -5,7 +5,7 @@ import ExitStage from "@/components/ExitStage";
 import { PauseIcon } from "@/components/icons/PauseIcon";
 import { PlayIcon } from "@/components/icons/PlayIcon";
 import { Progress } from "@/components/ui/progress";
-import { useFocusStore } from "@/stores/focusStore";
+import { useFocusStore } from "@/stores/focusSessionStore";
 import { useTimer } from "@/hooks/useTimer";
 
 export function FocusSessionStage() {

@@ -1,4 +1,4 @@
-import { useFocusStore } from "@/stores/focusStore";
+import { useFocusStore } from "@/stores/focusSessionStore";
 
 function ExitStage() {
   const { exit } = useFocusStore();

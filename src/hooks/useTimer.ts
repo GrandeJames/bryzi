@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useFocusStore } from "../stores/focusStore";
+import { useFocusStore } from "../stores/focusSessionStore";
 
 const TASK_TIME_MINUTES = 90;
 

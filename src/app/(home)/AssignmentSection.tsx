@@ -1,7 +1,7 @@
 "use client";
 
 import { Progress } from "@/components/ui/progress";
-import { useFocusStore } from "@/stores/focusStore";
+import { useFocusStore } from "@/stores/focusSessionStore";
 import useDialogStore from "@/stores/dialogStore";
 import { Task } from "@/types/task";
 import { ListTodoIcon, Repeat2Icon, ZapIcon } from "lucide-react";
