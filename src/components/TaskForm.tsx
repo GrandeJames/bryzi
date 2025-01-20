@@ -171,9 +171,9 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
             }}
           />
           <div className="flex flex-col gap-2 mb-4">
-            {(task.subtasks || []).map((subtask: Subtask, index: any) => (
-              <div className="flex items-center justify-between gap-2 group">
-                <div className="flex space-x-2" key={index}>
+            {(task.subtasks || []).map((subtask: Subtask, index: number) => (
+              <div className="flex items-center justify-between gap-2 group" key={subtask.id}>
+                <div className="flex space-x-2">
                   <Checkbox
                     id={`subtask-${index}`}
                     checked={subtask.completed}
