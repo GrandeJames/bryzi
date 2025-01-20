@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import useTasksStore from "@/stores/tasksStore";
 import { cn } from "@/utils.ts/cn";
 import { DatePickerWithPresets } from "@/components/ui/date-picker-presets";
-import { ClockIcon, FlameIcon, RepeatIcon, ZapIcon } from "lucide-react";
+import { ClockIcon, FlameIcon, RepeatIcon, XIcon, ZapIcon } from "lucide-react";
 import { Textarea } from "./ui/textarea";
 import Selection from "./Selection";
 import { Input } from "@/components/ui/input";
@@ -50,6 +50,13 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
     setTask((prevTask) => ({
       ...prevTask,
       subtasks: [...(prevTask.subtasks || []), newSubtask],
+    }));
+  };
+
+  const handleSubtaskRemove = (subtask: Subtask) => {
+    setTask((prevTask) => ({
+      ...prevTask,
+      subtasks: (prevTask.subtasks || []).filter((prevSubtask) => prevSubtask.id !== subtask.id),
     }));
   };
 
@@ -165,23 +172,31 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
           />
           <div className="flex flex-col gap-2 mb-4">
             {(task.subtasks || []).map((subtask: Subtask, index: any) => (
-              <div className="flex space-x-2" key={index}>
-                <Checkbox
-                  id={`subtask-${index}`}
-                  checked={subtask.completed}
-                  onClick={() => {
-                    const updatedSubtasks = (task.subtasks || []).map((item) =>
-                      item.id === subtask.id ? { ...item, completed: !item.completed } : item
-                    );
-                    handleChange("subtasks", updatedSubtasks);
-                  }}
-                />
-                <label
-                  htmlFor={`subtask-${index}`}
-                  className="text-sm font-medium leading-none text-neutral-200"
+              <div className="flex items-center justify-between gap-2 group">
+                <div className="flex space-x-2" key={index}>
+                  <Checkbox
+                    id={`subtask-${index}`}
+                    checked={subtask.completed}
+                    onClick={() => {
+                      const updatedSubtasks = (task.subtasks || []).map((item) =>
+                        item.id === subtask.id ? { ...item, completed: !item.completed } : item
+                      );
+                      handleChange("subtasks", updatedSubtasks);
+                    }}
+                  />
+                  <label
+                    htmlFor={`subtask-${index}`}
+                    className="text-sm font-medium leading-none text-neutral-200"
+                  >
+                    {subtask.title}
+                  </label>
+                </div>
+                <div
+                  className="hidden group-hover:flex items-center gap-2 hover:cursor-pointer"
+                  onClick={() => handleSubtaskRemove(subtask)}
                 >
-                  {subtask.title}
-                </label>
+                  <XIcon className="size-4 text-neutral-300" />
+                </div>
               </div>
             ))}
           </div>
