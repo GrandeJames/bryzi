@@ -17,7 +17,7 @@ export function handleTaskUpdate(task: Task, updateTask: (task: Task) => void) {
   updateTask(task);
 }
 
-export function handleAddTask(task: Task, addTask: (task: Task) => void) {
+export function handleTaskAdd(task: Task, addTask: (task: Task) => void) {
   addTask(task);
   addLocalTask(task);
 }
