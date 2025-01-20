@@ -5,6 +5,7 @@ import useTasksStore from "@/stores/tasksStore";
 import { CircleCheckIcon, PencilIcon, Repeat2Icon, Trash2Icon } from "lucide-react";
 import useDialogStore from "@/stores/dialogStore";
 import { Checkbox } from "./ui/checkbox";
+import { handleTaskComplete } from "@/lib/taskUtils";
 
 function TaskDetails({ task }: { task: Task }) {
   const removeTask = useTasksStore((state) => state.removeTask);
@@ -39,14 +40,6 @@ function TaskDetails({ task }: { task: Task }) {
     updateLocalTask(updatedTask);
     updateTask(updatedTask);
     setDialogData({ task: updatedTask });
-  };
-
-  const handleTaskCompleteClick = () => {
-    const updatedTask = { ...task, completed: true };
-
-    updateLocalTask(updatedTask);
-    updateTask(updatedTask);
-    closeDialog();
   };
 
   const handleTaskEditClick = () => {
@@ -94,10 +87,13 @@ function TaskDetails({ task }: { task: Task }) {
           </button>
           <button
             className="w-full bg-neutral-800/80 rounded-md py-4 flex flex-col items-center gap-2"
-            onClick={handleTaskCompleteClick}
+            onClick={() => {
+              handleTaskComplete(task, updateTask);
+              closeDialog();
+            }}
           >
             <CircleCheckIcon className="size-4" />
-            <span>Complete</span>
+            <span>{task.completed ? "Incomplete" : "Complete"}</span>
           </button>
         </div>
         <button
