@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import useTasksStore from "@/stores/tasksStore";
 import { cn } from "@/utils.ts/cn";
 import { DatePickerWithPresets } from "@/components/ui/date-picker-presets";
-import { ClockIcon, FlameIcon, RepeatIcon, XIcon, ZapIcon } from "lucide-react";
+import { ClockIcon, FlameIcon, PlusIcon, RepeatIcon, XIcon, ZapIcon } from "lucide-react";
 import { Textarea } from "./ui/textarea";
 import Selection from "./Selection";
 import { Input } from "@/components/ui/input";
@@ -34,6 +34,7 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
     subtasks: initialTask?.subtasks || [],
     completed: initialTask?.completed || false,
   });
+  const [currentSubtaskInput, setCurrentSubtaskInput] = useState<string>("");
 
   const updateTask = useTasksStore((state) => state.updateTask);
   const addTask = useTasksStore((state) => state.addTask);
@@ -46,11 +47,25 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
     }));
   };
 
-  const handleSubtaskAdd = (newSubtask: Subtask) => {
+  const handleSubtaskAdd = () => {
+    const trimmedSubtaskInput = currentSubtaskInput.trim();
+
+    if (!trimmedSubtaskInput) {
+      return;
+    }
+
+    const newSubtask = {
+      id: uuidv4(),
+      title: trimmedSubtaskInput,
+      completed: false,
+    };
+
     setTask((prevTask) => ({
       ...prevTask,
       subtasks: [...(prevTask.subtasks || []), newSubtask],
     }));
+
+    setCurrentSubtaskInput("");
   };
 
   const handleSubtaskRemove = (subtask: Subtask) => {
@@ -153,23 +168,29 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
           defaultValue={task.difficulty}
         />
         <div className="flex flex-col gap-3">
-          <Input
-            placeholder="Add subtask"
-            className="border-none bg-neutral-800 focus-visible:ring-0 text-neutral-200"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                const newSubtask = {
-                  id: uuidv4(),
-                  title: (e.target as HTMLInputElement).value.trim(),
-                  completed: false,
-                };
-
-                handleSubtaskAdd(newSubtask);
-                (e.target as HTMLInputElement).value = ""; // to clear the input field
-              }
-            }}
-          />
+          <div className="flex gap-1">
+            <Input
+              placeholder="Add subtask"
+              className="border-none bg-neutral-800 focus-visible:ring-0 text-neutral-200"
+              value={currentSubtaskInput}
+              onChange={(e) => setCurrentSubtaskInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleSubtaskAdd();
+                }
+              }}
+            />
+            <button
+              type="button"
+              className="bg-neutral-800 rounded-md p-2 hover:bg-neutral-700"
+              onClick={() => {
+                handleSubtaskAdd();
+              }}
+            >
+              <PlusIcon className="size-5 text-neutral-200" />
+            </button>
+          </div>
           <div className="flex flex-col gap-2 mb-4">
             {(task.subtasks || []).map((subtask: Subtask, index: number) => (
               <div className="flex items-center justify-between gap-2 group" key={subtask.id}>
