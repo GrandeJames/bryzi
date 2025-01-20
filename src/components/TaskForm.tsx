@@ -34,7 +34,7 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
     subtasks: initialTask?.subtasks || [],
     completed: initialTask?.completed || false,
   });
-  const tasks = useTasksStore((state) => state.tasks);
+
   const updateTask = useTasksStore((state) => state.updateTask);
   const addTask = useTasksStore((state) => state.addTask);
   const close = useDialogStore((state) => state.closeDialog);
