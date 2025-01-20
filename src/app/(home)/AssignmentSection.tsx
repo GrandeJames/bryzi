@@ -217,7 +217,7 @@ function Status({ task, className }: { task: Task; className?: string }) {
     }
 
     return (
-      <button className="text-orange-500 font-bold" onClick={() => start(task.title)}>
+      <button className="text-orange-500 font-bold" onClick={() => start(task)}>
         {task.actualDurationInMins ? "Continue" : "Start"}
       </button>
     );
