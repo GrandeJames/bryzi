@@ -9,6 +9,8 @@ import { cn } from "@/utils.ts/cn";
 import clsx from "clsx";
 import { TASK_DIFFICULTY, TASK_IMPACT } from "@/constants/taskConstants";
 import { differenceInCalendarDays, format, getYear } from "date-fns";
+import useTasksStore from "@/stores/tasksStore";
+import { handleTaskComplete } from "@/lib/taskUtils";
 
 function AssignmentsSection({ tasks }: { tasks: any[] }) {
   return (
@@ -191,13 +193,26 @@ function Assignment({ task }: { task: Task }) {
 
 function Status({ task, className }: { task: Task; className?: string }) {
   const { start } = useFocusStore();
+  const updateTask = useTasksStore((state) => state.updateTask);
 
   const renderContent = () => {
     if (task.completed) {
       return (
-        <div className="border rounded-md border-neutral-800 size-5 mx-auto relative">
+        <div
+          className="border rounded-md border-neutral-800 size-5 mx-auto relative hover:cursor-pointer"
+          onClick={() => handleTaskComplete(task, updateTask)}
+        >
           <span className="text-orange-500 text-3xl absolute bottom-0 left-1">✔</span>
         </div>
+      );
+    }
+
+    if ((task.estimatedDurationInMins ?? 0) <= 0) {
+      return (
+        <div
+          className="border rounded-md border-neutral-800 size-5 mx-auto hover:cursor-pointer"
+          onClick={() => handleTaskComplete(task, updateTask)}
+        />
       );
     }
 
