@@ -109,7 +109,7 @@ function TimerStage() {
       </main>
       <ActionsContainer>
         <button className="bg-neutral-800 rounded-full size-9">✔</button>
-        <ExitStage />
+        <DiscardSessionButton />
         <button
           className="dark:bg-neutral-800 bg-neutral-100 rounded-full p-2"
           onClick={paused ? play : pause}
