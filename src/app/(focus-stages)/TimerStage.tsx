@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/select";
 import { useState } from "react";
 
-export function FocusSessionStage() {
+function TimerStage() {
   const focusTask = useFocusSessionStore((state) => state.sessionTask);
   const setFocusTask = useFocusSessionStore((state) => state.setSessionTask);
   const updateTask = useTasksStore((state) => state.updateTask);
@@ -133,3 +133,5 @@ function timerDisplay(seconds: number) {
     ? { number: minutes, label: minutes === 1 ? "minute" : "minutes" }
     : { number: seconds, label: seconds === 1 ? "second" : "seconds" };
 }
+
+export default TimerStage;

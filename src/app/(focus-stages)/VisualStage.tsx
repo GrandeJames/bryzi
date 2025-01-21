@@ -2,7 +2,7 @@
 
 import ActionsContainer from "@/components/Actions";
 import ExitStage from "@/components/ExitStage";
-import SkipStage from "@/components/SkipStage";
+import NextStageButton from "@/components/SkipStageButton";
 import { useFocusSessionStore } from "@/stores/focusSessionStore";
 import { useEffect } from "react";
 
@@ -34,7 +34,7 @@ export function VisualStage() {
 
       <ActionsContainer>
         <ExitStage />
-        <SkipStage />
+        <NextStageButton />
       </ActionsContainer>
     </>
   );

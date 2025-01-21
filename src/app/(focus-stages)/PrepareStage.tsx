@@ -1,6 +1,6 @@
 import ActionsContainer from "@/components/Actions";
 import ExitStage from "@/components/ExitStage";
-import SkipStage from "@/components/SkipStage";
+import NextStageButton from "@/components/SkipStageButton";
 
 export function PrepareStage() {
   const prepareMessages = ["Declutter your space (physical and digital)", "Hydrate"];
@@ -19,7 +19,7 @@ export function PrepareStage() {
 
       <ActionsContainer>
         <ExitStage />
-        <SkipStage />
+        <NextStageButton />
       </ActionsContainer>
     </>
   );

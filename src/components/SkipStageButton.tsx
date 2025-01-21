@@ -1,6 +1,6 @@
 import { useFocusSessionStore } from "@/stores/focusSessionStore";
 
-function SkipStage() {
+function NextStageButton() {
   const { nextSessionStage: skipStage } = useFocusSessionStore();
 
   return (
@@ -21,4 +21,4 @@ function SkipStage() {
   );
 }
 
-export default SkipStage;
+export default NextStageButton;
