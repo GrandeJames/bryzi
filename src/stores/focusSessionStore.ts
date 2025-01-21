@@ -3,19 +3,18 @@ import { create } from "zustand";
 
 // TODO: handle edge cases such as timer only
 const STAGES = ["timer"];
-const OPTIONAL_STAGES = ["breath"];
+const OPTIONAL_STAGES: string[] = [];
 
 STAGES.unshift(...OPTIONAL_STAGES);
 
 type State = {
   sessionStage?: string;
   sessionTask?: Task;
-  focusStartDate?: Date;
 };
 
 type Actions = {
-  startSession: (focusTask: Task) => void;
-  nextSessionStage: () => void;
+  initializeSession: (focusTask: Task) => void;
+  proceedToNextStage: () => void;
   setSessionTask: (focusTask: Task) => void;
   reset: () => void;
 };
@@ -23,7 +22,6 @@ type Actions = {
 const initialState: State = {
   sessionStage: undefined,
   sessionTask: undefined,
-  focusStartDate: undefined,
 };
 
 export const useFocusSessionStore = create<State & Actions>((set) => ({
@@ -31,11 +29,10 @@ export const useFocusSessionStore = create<State & Actions>((set) => ({
   focusTimes: [],
   reset: () => set(initialState),
   setSessionTask: (focusTask: Task) => set(() => ({ sessionTask: focusTask })),
-  startSession: (focusTask: Task) => {
-    set(() => ({ sessionStage: STAGES[0] }));
-    set(() => ({ sessionTask: focusTask }));
+  initializeSession: (focusTask: Task) => {
+    set(() => ({ sessionStage: STAGES[0], sessionTask: focusTask }));
   },
-  nextSessionStage: () => {
+  proceedToNextStage: () => {
     set((state) => {
       const currentStageIndex = STAGES.indexOf(state.sessionStage!);
       const nextStage = STAGES[currentStageIndex + 1];

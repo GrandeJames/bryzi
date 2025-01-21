@@ -192,7 +192,7 @@ function Assignment({ task }: { task: Task }) {
 }
 
 function Status({ task, className }: { task: Task; className?: string }) {
-  const { startSession: start } = useFocusSessionStore();
+  const { initializeSession } = useFocusSessionStore();
   const updateTask = useTasksStore((state) => state.updateTask);
 
   const renderContent = () => {
@@ -217,7 +217,7 @@ function Status({ task, className }: { task: Task; className?: string }) {
     }
 
     return (
-      <button className="text-orange-500 font-bold" onClick={() => start(task)}>
+      <button className="text-orange-500 font-bold" onClick={() => initializeSession(task)}>
         {task.actualDurationInMins ? "Continue" : "Start"}
       </button>
     );
