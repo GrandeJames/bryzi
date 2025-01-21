@@ -2,7 +2,7 @@
 
 import ActionsContainer from "@/components/Actions";
 import ExitStage from "@/components/ExitStage";
-import NextStageButton from "@/components/SkipStageButton";
+import NextStageButton from "@/components/NextStageButton";
 import { useBreathingCycle } from "@/hooks/useBreathingCycle";
 
 export function BreathStage() {
