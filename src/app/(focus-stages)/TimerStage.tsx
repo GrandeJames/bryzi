@@ -127,11 +127,28 @@ function getSecondsLeftUntilEndTime(endTime: number) {
   return secondsLeft;
 }
 
+// function timerDisplay(seconds: number) {
+//   const minutes = Math.floor(seconds / 60);
+//   return minutes > 0
+//     ? { number: minutes, label: minutes === 1 ? "minute" : "minutes" }
+//     : { number: seconds, label: seconds === 1 ? "second" : "seconds" };
+// }
+
 function timerDisplay(seconds: number) {
   const minutes = Math.floor(seconds / 60);
-  return minutes > 0
-    ? { number: minutes, label: minutes === 1 ? "minute" : "minutes" }
-    : { number: seconds, label: seconds === 1 ? "second" : "seconds" };
+  const remainingSeconds = seconds % 60;
+
+  if (minutes > 0) {
+    return {
+      number: `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`,
+      label: "minutes",
+    };
+  }
+
+  return {
+    number: remainingSeconds,
+    label: remainingSeconds === 1 ? "second" : "seconds",
+  };
 }
 
 export default TimerStage;
