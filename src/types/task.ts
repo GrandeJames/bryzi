@@ -9,7 +9,6 @@ export interface Task {
   impact?: number;
   difficulty?: number;
   estimatedDurationInMins?: number; // used for focus sessions
-  actualDurationInMins?: number; // used for focus sessions
   description?: string;
   time?: {
     startTime: string;

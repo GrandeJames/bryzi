@@ -30,10 +30,9 @@ export function handleTaskRemove(task: Task, removeTask: (id: string) => void) {
   removeTask(task.id);
 }
 
-// TODO: remove actualDurationInMins from task
 export function getActualDurationInMinutes(task: Task) {
   const focusEntries = useFocusTrackerStore.getState().focusEntries;
-  
+
   const taskEntries = focusEntries.filter((entry: FocusEntry) => entry.taskId === task.id);
   const totalDurationInSeconds = taskEntries.reduce(
     (acc, entry) => acc + differenceInSeconds(entry.endDate, entry.startDate),
