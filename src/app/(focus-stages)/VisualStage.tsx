@@ -1,8 +1,8 @@
 "use client";
 
 import ActionsContainer from "@/components/Actions";
-import ExitStage from "@/components/ExitStage";
-import NextStageButton from "@/components/NextStageButton";
+import DiscardSessionButton from "@/app/(focus-stages)/DiscardSessionButton";
+import NextStageButton from "@/app/(focus-stages)/NextStageButton";
 import { useFocusSessionStore } from "@/stores/focusSessionStore";
 import { useEffect } from "react";
 
@@ -33,7 +33,7 @@ export function VisualStage() {
       </div>
 
       <ActionsContainer>
-        <ExitStage />
+        <DiscardSessionButton />
         <NextStageButton />
       </ActionsContainer>
     </>

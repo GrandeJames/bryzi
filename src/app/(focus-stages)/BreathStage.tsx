@@ -1,8 +1,8 @@
 "use client";
 
 import ActionsContainer from "@/components/Actions";
-import ExitStage from "@/components/ExitStage";
-import NextStageButton from "@/components/NextStageButton";
+import DiscardSessionButton from "@/app/(focus-stages)/DiscardSessionButton";
+import NextStageButton from "@/app/(focus-stages)/NextStageButton";
 import { useBreathingCycle } from "@/hooks/useBreathingCycle";
 
 export function BreathStage() {
@@ -26,7 +26,7 @@ export function BreathStage() {
       </div>
 
       <ActionsContainer>
-        <ExitStage />
+        <DiscardSessionButton />
         <NextStageButton />
       </ActionsContainer>
     </>

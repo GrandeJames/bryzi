@@ -1,10 +1,14 @@
 import { useFocusSessionStore } from "@/stores/focusSessionStore";
+import { handleExitSession } from "@/lib/focusSessionUtils";
 
-function ExitStage() {
-  const { exitSession: exit } = useFocusSessionStore();
+function DiscardSessionButton() {
+  const reset = useFocusSessionStore((state) => state.reset);
 
   return (
-    <button onClick={exit} className="rounded-full dark:bg-neutral-800 bg-neutral-100 p-2">
+    <button
+      onClick={() => handleExitSession(reset)}
+      className="rounded-full dark:bg-neutral-800 bg-neutral-100 p-2"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -21,4 +25,4 @@ function ExitStage() {
   );
 }
 
-export default ExitStage;
+export default DiscardSessionButton;

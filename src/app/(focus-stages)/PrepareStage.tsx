@@ -1,6 +1,6 @@
 import ActionsContainer from "@/components/Actions";
-import ExitStage from "@/components/ExitStage";
-import NextStageButton from "@/components/NextStageButton";
+import DiscardSessionButton from "@/app/(focus-stages)/DiscardSessionButton";
+import NextStageButton from "@/app/(focus-stages)/NextStageButton";
 
 export function PrepareStage() {
   const prepareMessages = ["Declutter your space (physical and digital)", "Hydrate"];
@@ -18,7 +18,7 @@ export function PrepareStage() {
       </div>
 
       <ActionsContainer>
-        <ExitStage />
+        <DiscardSessionButton />
         <NextStageButton />
       </ActionsContainer>
     </>
