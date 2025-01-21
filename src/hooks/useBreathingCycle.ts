@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useFocusStore } from "../stores/focusSessionStore";
+import { useFocusSessionStore } from "../stores/focusSessionStore";
 
 const INHALE_TIME_SECONDS = 4;
 const HOLD_TIME_SECONDS = 7;
@@ -9,7 +9,7 @@ const EXHALE_TIME_SECONDS = 8;
 const BREATHING_CYCLES = 4;
 
 export function useBreathingCycle() {
-  const { skipStage } = useFocusStore();
+  const { skipSessionStage: skipStage } = useFocusSessionStore();
 
   const [stage, setStage] = useState("inhale");
   const [cycle, setCycle] = useState(1);

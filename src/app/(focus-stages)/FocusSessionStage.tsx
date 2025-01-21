@@ -5,7 +5,7 @@ import ExitStage from "@/components/ExitStage";
 import { PauseIcon } from "@/components/icons/PauseIcon";
 import { PlayIcon } from "@/components/icons/PlayIcon";
 import { Progress } from "@/components/ui/progress";
-import { useFocusStore } from "@/stores/focusSessionStore";
+import { useFocusSessionStore } from "@/stores/focusSessionStore";
 import { useTimer } from "@/hooks/useTimer";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Subtask } from "@/types/subtask";
@@ -22,8 +22,8 @@ import {
 import { useState } from "react";
 
 export function FocusSessionStage() {
-  const focusTask = useFocusStore((state) => state.focusTask);
-  const setFocusTask = useFocusStore((state) => state.setFocusTask);
+  const focusTask = useFocusSessionStore((state) => state.sessionTask);
+  const setFocusTask = useFocusSessionStore((state) => state.setSessionTask);
   const updateTask = useTasksStore((state) => state.updateTask);
 
   const { secondsLeft, endTime, paused, play, pause, percentComplete } = useTimer();

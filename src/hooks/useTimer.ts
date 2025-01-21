@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useFocusStore } from "../stores/focusSessionStore";
+import { useFocusSessionStore } from "../stores/focusSessionStore";
 
 const TASK_TIME_MINUTES = 90;
 
 export function useTimer() {
-  const { complete } = useFocusStore();
+  const { completeSession: complete } = useFocusSessionStore();
 
   const [endTime, setEndTime] = useState(new Date().getTime() + TASK_TIME_MINUTES * 60 * 1000);
   const [secondsLeft, setSecondsLeft] = useState(getSecondsLeftUntilEndTime(endTime));

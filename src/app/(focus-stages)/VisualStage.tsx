@@ -3,13 +3,13 @@
 import ActionsContainer from "@/components/Actions";
 import ExitStage from "@/components/ExitStage";
 import SkipStage from "@/components/SkipStage";
-import { useFocusStore } from "@/stores/focusSessionStore";
+import { useFocusSessionStore } from "@/stores/focusSessionStore";
 import { useEffect } from "react";
 
 const VISUAL_FOCUS_TIME_SECONDS = 90;
 
 export function VisualStage() {
-  const { skipStage } = useFocusStore();
+  const { skipSessionStage: skipStage } = useFocusSessionStore();
 
   useEffect(() => {
     const timeout = setTimeout(() => {

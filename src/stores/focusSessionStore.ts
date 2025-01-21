@@ -2,36 +2,36 @@ import { Task } from "@/types/task";
 import { create } from "zustand";
 
 interface FocusState {
-  stage: string;
-  focusTask: Task | undefined;
-  start: (focusTask: Task) => void;
-  skipStage: () => void;
-  exit: () => void;
-  complete: () => void;
-  setFocusTask: (focusTask: Task) => void;
+  sessionStage: string;
+  sessionTask: Task | undefined;
+  startSession: (focusTask: Task) => void;
+  skipSessionStage: () => void;
+  exitSession: () => void;
+  completeSession: () => void;
+  setSessionTask: (focusTask: Task) => void;
 }
 
 // const stages = ["prepare", "breath", "visual", "task"];
 const stages = ["breath", "task"];
 
-export const useFocusStore = create<FocusState>((set) => ({
-  stage: "",
-  focusTask: undefined,
-  setTask: (focusTask: Task) => set(() => ({ focusTask })),
-  start: (focusTask: Task) => {
-    set(() => ({ stage: stages[0] }));
-    set(() => ({ focusTask }));
+export const useFocusSessionStore = create<FocusState>((set) => ({
+  sessionStage: "",
+  sessionTask: undefined,
+  setTask: (focusTask: Task) => set(() => ({ sessionTask: focusTask })),
+  startSession: (focusTask: Task) => {
+    set(() => ({ sessionStage: stages[0] }));
+    set(() => ({ sessionTask: focusTask }));
   },
-  exit: () => {
+  exitSession: () => {
     document.title = "Focus";
-    set(() => ({ stage: "" }));
+    set(() => ({ sessionStage: "" }));
   },
-  complete: () => set(() => ({ stage: "" })), // TODO: handle rewards on complete
-  skipStage: () =>
+  completeSession: () => set(() => ({ sessionStage: "" })), // TODO: handle rewards on complete
+  skipSessionStage: () =>
     set((state) => {
-      const currentStageIndex = stages.indexOf(state.stage);
+      const currentStageIndex = stages.indexOf(state.sessionStage);
       const nextStage = stages[currentStageIndex + 1] || "";
-      return { stage: nextStage };
+      return { sessionStage: nextStage };
     }),
-  setFocusTask: (focusTask: Task) => set(() => ({ focusTask })),
+  setSessionTask: (focusTask: Task) => set(() => ({ sessionTask: focusTask })),
 }));

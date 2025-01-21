@@ -5,13 +5,13 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Menu } from "@/components/Menu";
 import DynamicDialog from "@/components/DynamicDialog";
-import { useFocusStore } from "@/stores/focusSessionStore";
+import { useFocusSessionStore } from "@/stores/focusSessionStore";
 import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const stage = useFocusStore((state) => state.stage);
+  const stage = useFocusSessionStore((state) => state.sessionStage);
 
   return (
     <html lang="en">

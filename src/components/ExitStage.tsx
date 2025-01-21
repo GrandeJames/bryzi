@@ -1,7 +1,7 @@
-import { useFocusStore } from "@/stores/focusSessionStore";
+import { useFocusSessionStore } from "@/stores/focusSessionStore";
 
 function ExitStage() {
-  const { exit } = useFocusStore();
+  const { exitSession: exit } = useFocusSessionStore();
 
   return (
     <button onClick={exit} className="rounded-full dark:bg-neutral-800 bg-neutral-100 p-2">

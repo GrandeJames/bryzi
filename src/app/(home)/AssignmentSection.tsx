@@ -1,7 +1,7 @@
 "use client";
 
 import { Progress } from "@/components/ui/progress";
-import { useFocusStore } from "@/stores/focusSessionStore";
+import { useFocusSessionStore } from "@/stores/focusSessionStore";
 import useDialogStore from "@/stores/dialogStore";
 import { Task } from "@/types/task";
 import { ListTodoIcon, Repeat2Icon, ZapIcon } from "lucide-react";
@@ -192,7 +192,7 @@ function Assignment({ task }: { task: Task }) {
 }
 
 function Status({ task, className }: { task: Task; className?: string }) {
-  const { start } = useFocusStore();
+  const { startSession: start } = useFocusSessionStore();
   const updateTask = useTasksStore((state) => state.updateTask);
 
   const renderContent = () => {
