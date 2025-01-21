@@ -16,6 +16,15 @@ function handleCompleteSession(reset: () => void, task: Task, updateTask: (task:
   // TODO: save focus duration
   // create a focus sessions store which will store an array of objects with task id, start date, end date, and maybe duration
 
+export function getNextStage(currentStage: string | undefined) {
+  if (!currentStage) {
+    return STAGES[0];
+  }
+
+  const currentStageIndex = STAGES.indexOf(currentStage);
+  return STAGES[currentStageIndex + 1];
+}
+
 }
 
 // saveFocusDuration: () => {

@@ -1,3 +1,4 @@
+import { getNextStage } from "@/lib/focusSessionUtils";
 import { Task } from "@/types/task";
 import { create } from "zustand";
 
@@ -29,15 +30,14 @@ export const useFocusSessionStore = create<State & Actions>((set) => ({
   focusTimes: [],
   reset: () => set(initialState),
   setSessionTask: (focusTask: Task) => set(() => ({ sessionTask: focusTask })),
-  initializeSession: (focusTask: Task) => {
-    set(() => ({ sessionStage: STAGES[0], sessionTask: focusTask }));
+  initializeSession: (sessionTask: Task) => {
+    set((state) => ({ sessionStage: getNextStage(state.sessionStage), sessionTask }));
   },
   proceedToNextStage: () => {
-    set((state) => {
-      const currentStageIndex = STAGES.indexOf(state.sessionStage!);
-      const nextStage = STAGES[currentStageIndex + 1];
-
-      return { sessionStage: nextStage };
-    });
+    set((state) => ({
+      sessionStage: getNextStage(state.sessionStage),
+    }));
   },
 }));
+
+export { STAGES };
