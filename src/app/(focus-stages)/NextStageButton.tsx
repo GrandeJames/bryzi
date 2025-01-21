@@ -1,10 +1,8 @@
-import { useFocusSessionStore } from "@/stores/focusSessionStore";
+import FocusStageSwitchButton from "@/components/FocusStageSwitchButton";
 
 function NextStageButton() {
-  const { proceedToNextStage: skipStage } = useFocusSessionStore();
-
   return (
-    <button onClick={skipStage} className="rounded-full dark:bg-neutral-800 bg-neutral-100 p-2">
+    <FocusStageSwitchButton className="rounded-full dark:bg-neutral-800 bg-neutral-100 p-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -17,7 +15,7 @@ function NextStageButton() {
           clipRule="evenodd"
         />
       </svg>
-    </button>
+    </FocusStageSwitchButton>
   );
 }
 
