@@ -24,6 +24,7 @@ import { useState } from "react";
 function TimerStage() {
   const focusTask = useFocusSessionStore((state) => state.sessionTask);
   const setFocusTask = useFocusSessionStore((state) => state.setSessionTask);
+  const reset = useFocusSessionStore((state) => state.reset);
   const updateTask = useTasksStore((state) => state.updateTask);
 
   const { secondsLeft, endTime, paused, play, pause, percentComplete } = useTimer();
