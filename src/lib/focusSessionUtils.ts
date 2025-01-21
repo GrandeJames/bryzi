@@ -1,20 +1,39 @@
 import { Task } from "@/types/task";
 import { handleTaskComplete } from "./taskUtils";
-
-function handleStartSession(startSession: () => void) {}
+import { STAGES } from "@/stores/focusSessionStore";
+import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
+import { addLocalStorageItem } from "./localStorageUtils";
 
 function handleExitSession(reset: () => void) {
   document.title = "Focus";
   reset();
 }
 
+// TODO: refactor
 function handleCompleteSession(reset: () => void, task: Task, updateTask: (task: Task) => void) {
   document.title = "Focus";
   reset();
   handleTaskComplete(task, updateTask);
 
-  // TODO: save focus duration
-  // create a focus sessions store which will store an array of objects with task id, start date, end date, and maybe duration
+  const temporaryStartDate = useFocusTrackerStore.getState().temporaryStartDate;
+
+  if (!temporaryStartDate) {
+    return;
+  }
+  useFocusTrackerStore.getState().addFocusEntry({
+    taskId: task.id,
+    startDate: temporaryStartDate,
+    endDate: new Date(),
+  });
+  addLocalStorageItem("focusEntries", {
+    taskId: task.id,
+    startDate: temporaryStartDate,
+    endDate: new Date(),
+  });
+
+  // TODO: handle pausing
+  console.log("log entries", useFocusTrackerStore.getState().focusEntries);
+}
 
 export function getNextStage(currentStage: string | undefined) {
   if (!currentStage) {
@@ -25,8 +44,6 @@ export function getNextStage(currentStage: string | undefined) {
   return STAGES[currentStageIndex + 1];
 }
 
-}
-
 // saveFocusDuration: () => {
 //     set((state) => {
 //       const currentDate = new Date();
@@ -35,4 +52,4 @@ export function getNextStage(currentStage: string | undefined) {
 //     });
 //   },
 
-export { handleStartSession, handleExitSession, handleCompleteSession };
+export { handleExitSession, handleCompleteSession };
