@@ -220,9 +220,11 @@ function Status({ task, className }: { task: Task; className?: string }) {
       );
     }
 
+    const actualTaskDuration = getActualDurationInMinutes(task);
+
     return (
       <FocusStageSwitchButton task={task} className="text-orange-500 font-bold">
-        {task.actualDurationInMins ? "Continue" : "Start"}
+        {actualTaskDuration > 0 ? "Continue" : "Start"}
       </FocusStageSwitchButton>
     );
   };
