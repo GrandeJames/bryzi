@@ -119,7 +119,7 @@ function Assignment({ task }: { task: Task }) {
                   : "text-neutral-200"
               }`}
             >
-              {task.title}
+              {task.title.charAt(0).toUpperCase() + task.title.slice(1)}
             </span>
             {(task.subtasks?.length ?? 0) > 0 && (
               <div className="flex items-center text-neutral-400 gap-1">
