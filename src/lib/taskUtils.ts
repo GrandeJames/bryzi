@@ -1,7 +1,7 @@
 import { Task } from "@/types/task";
 import { addLocalTask, removeLocalTask, updateLocalTask } from "./localStorageTasks";
 import { FocusEntry } from "@/types/focusEntry";
-import { differenceInMinutes } from "date-fns";
+import { differenceInSeconds } from "date-fns";
 
 /*
  * Note: updateTask must be passed as a prop otherwise it causes a hook error
@@ -30,12 +30,12 @@ export function handleTaskRemove(task: Task, removeTask: (id: string) => void) {
 }
 
 // TODO: remove actualDurationInMins from task
-export function getActualDuration(task: Task, focusEntries: FocusEntry[]) {
+export function getActualDurationInMinutes(task: Task, focusEntries: FocusEntry[]) {
   const taskEntries = focusEntries.filter((entry: FocusEntry) => entry.taskId === task.id);
-  const totalDuration = taskEntries.reduce(
-    (acc, entry) => acc + differenceInMinutes(entry.endDate, entry.startDate),
+  const totalDurationInSeconds = taskEntries.reduce(
+    (acc, entry) => acc + differenceInSeconds(entry.endDate, entry.startDate),
     0
   );
 
-  return totalDuration;
+  return Math.round((totalDurationInSeconds / 60) * 10) / 10;
 }
