@@ -1,16 +1,18 @@
 "use client";
 
 import { Progress } from "@/components/ui/progress";
-import { useFocusSessionStore } from "@/stores/focusSessionStore";
 import useDialogStore from "@/stores/dialogStore";
 import { Task } from "@/types/task";
-import { ListTodoIcon, Repeat2Icon, ZapIcon } from "lucide-react";
+import { ListTodoIcon, Repeat2Icon } from "lucide-react";
 import { cn } from "@/utils.ts/cn";
 import clsx from "clsx";
 import { TASK_DIFFICULTY, TASK_IMPACT } from "@/constants/taskConstants";
 import { differenceInCalendarDays, format, getYear } from "date-fns";
 import useTasksStore from "@/stores/tasksStore";
-import { handleTaskComplete } from "@/lib/taskUtils";
+import { getActualDurationInMinutes, handleTaskComplete } from "@/lib/taskUtils";
+import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
+import FocusStageSwitchButton from "@/components/FocusStageSwitchButton";
+import { useEffect } from "react";
 
 function AssignmentsSection({ tasks }: { tasks: any[] }) {
   return (
@@ -92,7 +94,7 @@ function Assignment({ task }: { task: Task }) {
   const open = useDialogStore((state) => state.openDialog);
   const openTaskDetailsDialog = () => open("details", { task });
 
-  const actualTaskDuration = getActualDurationInMinutes(task, focusEntries);
+  const actualTaskDuration = getActualDurationInMinutes(task);
   const progressPercentage = (actualTaskDuration / (task.estimatedDurationInMins ?? 0)) * 100;
 
   return (
@@ -191,7 +193,6 @@ function Assignment({ task }: { task: Task }) {
 }
 
 function Status({ task, className }: { task: Task; className?: string }) {
-  const { initializeSession } = useFocusSessionStore();
   const updateTask = useTasksStore((state) => state.updateTask);
 
   const renderContent = () => {
