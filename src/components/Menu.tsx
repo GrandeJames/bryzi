@@ -1,15 +1,17 @@
+"use client";
+
 import { ChartBarIcon } from "@/components/icons/ChartBarIcon";
 import { QueueListIcon } from "@/components/icons/QueueListIcon";
 import Link from "next/link";
-import { SignInDialog } from "./SignInDialog";
-import { auth } from "@/auth";
+// import { SignInDialog } from "./SignInDialog";
+// import { auth } from "@/auth";
 import { MenuItemContainer } from "./MenuItemContainer";
-import { UserDropDownMenu } from "./UserDropDownMenu";
+// import { UserDropDownMenu } from "./UserDropDownMenu";
 import { LibraryIcon, SunIcon } from "lucide-react";
 import { HomeIcon } from "./icons/HomeIcon";
 
-export async function Menu() {
-  const session = await auth();
+export function Menu() {
+  // const session = await auth();
 
   return (
     <div className="flex flex-col h-screen justify-between border-r border-neutral-900 px-2 py-7 sticky top-0">
@@ -26,8 +28,8 @@ export async function Menu() {
         </Link>
         <Link href={"classes"}>
           <MenuItemContainer>
-            <LibraryIcon/>
-            </MenuItemContainer>
+            <LibraryIcon />
+          </MenuItemContainer>
         </Link>
         {/* <Link href={"data-insights"}>
           <MenuItemContainer>
@@ -35,7 +37,7 @@ export async function Menu() {
           </MenuItemContainer>
         </Link> */}
       </div>
-      <div className="flex justify-center">{session ? <UserDropDownMenu /> : <SignInDialog />}</div>
+      {/* <div className="flex justify-center">{session ? <UserDropDownMenu /> : <SignInDialog />}</div> */}
     </div>
   );
 }
