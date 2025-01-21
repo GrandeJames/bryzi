@@ -8,7 +8,7 @@ import { PrepareStage } from "./(focus-stages)/PrepareStage";
 import Home from "./(home)/Home";
 
 export function Focus() {
-  const { stage } = useFocusStore();
+  const stage = useFocusStore((state) => state.stage);
 
   return (
     <>
