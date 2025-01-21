@@ -5,7 +5,7 @@ interface FocusState {
   sessionStage?: string;
   sessionTask?: Task;
   startSession: (focusTask: Task) => void;
-  skipSessionStage: () => void;
+  nextSessionStage: () => void;
   exitSession: () => void;
   completeSession: () => void;
   setSessionTask: (focusTask: Task) => void;
@@ -27,7 +27,7 @@ export const useFocusSessionStore = create<FocusState>((set) => ({
     set(() => ({ sessionStage: undefined }));
   },
   completeSession: () => set(() => ({ sessionStage: undefined })),
-  skipSessionStage: () =>
+  nextSessionStage: () =>
     set((state) => {
       const currentStageIndex = STAGES.indexOf(state.sessionStage!);
       const nextStage = STAGES[currentStageIndex + 1];

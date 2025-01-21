@@ -1,7 +1,7 @@
 import { useFocusSessionStore } from "@/stores/focusSessionStore";
 
 function SkipStage() {
-  const { skipSessionStage: skipStage } = useFocusSessionStore();
+  const { nextSessionStage: skipStage } = useFocusSessionStore();
 
   return (
     <button onClick={skipStage} className="rounded-full dark:bg-neutral-800 bg-neutral-100 p-2">

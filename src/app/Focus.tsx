@@ -1,7 +1,7 @@
 "use client";
 
 import { BreathStage } from "./(focus-stages)/BreathStage";
-import { FocusSessionStage } from "./(focus-stages)/FocusSessionStage";
+import { FocusSessionStage } from "./(focus-stages)/TimerStage";
 import { VisualStage } from "./(focus-stages)/VisualStage";
 import { useFocusSessionStore } from "@/stores/focusSessionStore";
 import { PrepareStage } from "./(focus-stages)/PrepareStage";

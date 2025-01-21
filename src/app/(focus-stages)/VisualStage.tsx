@@ -9,7 +9,7 @@ import { useEffect } from "react";
 const VISUAL_FOCUS_TIME_SECONDS = 90;
 
 export function VisualStage() {
-  const { skipSessionStage: skipStage } = useFocusSessionStore();
+  const { nextSessionStage: skipStage } = useFocusSessionStore();
 
   useEffect(() => {
     const timeout = setTimeout(() => {

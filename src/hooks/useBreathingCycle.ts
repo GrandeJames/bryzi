@@ -9,7 +9,7 @@ const EXHALE_TIME_SECONDS = 8;
 const BREATHING_CYCLES = 4;
 
 export function useBreathingCycle() {
-  const { skipSessionStage: skipStage } = useFocusSessionStore();
+  const { nextSessionStage: skipStage } = useFocusSessionStore();
 
   const [stage, setStage] = useState("inhale");
   const [cycle, setCycle] = useState(1);
