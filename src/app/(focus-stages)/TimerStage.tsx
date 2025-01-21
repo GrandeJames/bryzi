@@ -101,11 +101,10 @@ function TimerStage() {
           <div className="font-semibold">
             <span className="text-[13rem] leading-none text-orange-400">
               {timerDisplay(secondsLeft).number}
-            </span>{" "}
-            {timerDisplay(getSecondsLeftUntilEndTime(endTime)).label} left
+            </span>
           </div>
           <div className="dark:text-gray-200 text-gray-700">
-            {paused ? "Paused" : "Focus on your task. You got this!"}
+            {paused && "Paused"}
           </div>
         </div>
       </main>
