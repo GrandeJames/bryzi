@@ -1,7 +1,7 @@
 export const tasks = [
   {
-    title: "ICS 311: Attend class",
-    // class: "ICS 311: Data Structures & Algorithms",
+    title: "Attend lecture",
+    class: "Data Structures & Algorithms",
     impact: 3,
     difficulty: 3,
     date: "2022-01-01",
@@ -12,7 +12,7 @@ export const tasks = [
   {
     title: "Discussion Post 2",
     date: "2022-01-01",
-    class: "ICS 425: Computer Security & Ethics",
+    class: "Computer Security & Ethics",
     impact: 1,
     deadline: "2022-01-01",
     completed: false,
@@ -22,33 +22,18 @@ export const tasks = [
   {
     title: "Read Chap",
     date: "2022-01-01",
-    class: "EDEP 311: Educational Psychology",
+    class: "Educational Psychology",
     impact: 3,
     deadline: "2022-01-01",
     completed: false,
     expectedDuration: "0:90",
   },
   {
-    title: "ICS 212: Office hour",
-    // class: "ICS 212: Program Structure",
-    difficulty: 2,
-    date: "2022-01-01",
-    startTime: "11:30",
-    completed: true,
-  },
-
-  {
-    title: "SPAN-202: Attend class",
-    // class: "SPAN 202: Spanish",
+    title: "Attend lecture",
+    class: "Spanish",
     date: "2022-01-01",
     startTime: "16:00",
     endTime: "16:50",
-    completed: true,
-  },
-  {
-    title: "Appointment",
-    date: "2022-01-01",
-    startTime: "17:00",
     completed: true,
   },
   { title: "Work", date: "2022-01-01", startTime: "17:00", endTime: "21:00", completed: false },
@@ -57,7 +42,7 @@ export const tasks = [
   {
     title: "Discussion Post",
     date: "2022-01-01",
-    class: "ICS 425: Computer Security & Ethics",
+    class: "Computer Security & Ethics",
     impact: 1,
     deadline: "2022-01-01",
     completed: true,

@@ -15,13 +15,13 @@ function ScheduleSection({ scheduledTasks }: { scheduledTasks: any[] }) {
 function ScheduledTask({ task }: { task: any }) {
   return (
     <div className="bg-neutral-900/70 rounded-2xl min-w-56 max-w-sm px-4 py-5">
+      <div className="text-xs text-neutral-300">{task.class}</div>
       <div className="text-sm font-semibold text-neutral-200">{task.title}</div>
       <div className="text-sm text-neutral-300">
-        <div>{task.class}</div>
         <div className="text-neutral-400">
           {task.startTime} {task.endTime && ` - ${task.endTime}`}
         </div>
-        {task.title === "ICS 311: Attend class" && (
+        {task.class === "Data Structures & Algorithms" && (
           <div className="text-red-500 mt-2">Starting in 22 mins</div>
         )}
       </div>
