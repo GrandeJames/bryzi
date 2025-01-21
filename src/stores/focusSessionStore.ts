@@ -3,7 +3,7 @@ import { create } from "zustand";
 
 // TODO: handle edge cases such as timer only
 const STAGES = ["timer"];
-const OPTIONAL_STAGES: string[] = [];
+const OPTIONAL_STAGES: string[] = ["breath"];
 
 STAGES.unshift(...OPTIONAL_STAGES);
 
