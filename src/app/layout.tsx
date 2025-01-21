@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           disableTransitionOnChange
         >
           <div className="flex">
-            <Menu />
+            {stage === "" && <Menu />}
             {children}
             <DynamicDialog />
           </div>
