@@ -217,10 +217,7 @@ function Status({ task, className }: { task: Task; className?: string }) {
     }
 
     return (
-      <FocusStageSwitchButton
-        task={task}
-        className="border rounded-md border-neutral-800 size-5 mx-auto"
-      >
+      <FocusStageSwitchButton task={task} className="text-orange-500 font-bold">
         {task.actualDurationInMins ? "Continue" : "Start"}
       </FocusStageSwitchButton>
     );
