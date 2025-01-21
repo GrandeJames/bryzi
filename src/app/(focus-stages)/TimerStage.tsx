@@ -63,7 +63,9 @@ function TimerStage() {
       <header className="py-3">
         <Progress value={percentComplete()} />
         <div className="text-center font-extrabold text-3xl underline underline-offset-8 my-5">
-          {focusTask?.title ? focusTask.title.charAt(0).toUpperCase() + focusTask.title.slice(1) : ""}
+          {focusTask?.title
+            ? focusTask.title.charAt(0).toUpperCase() + focusTask.title.slice(1)
+            : ""}
         </div>
         {(focusTask?.subtasks?.length || 0) > 0 && (
           <div className="flex justify-center gap-2 items-center">
