@@ -92,9 +92,8 @@ function Assignment({ task }: { task: Task }) {
   const open = useDialogStore((state) => state.openDialog);
   const openTaskDetailsDialog = () => open("details", { task });
 
-  // TODO: handle this better
-  const progressPercentage =
-    ((task.actualDurationInMins ?? 0) / (task.estimatedDurationInMins ?? 0)) * 100;
+  const actualTaskDuration = getActualDurationInMinutes(task, focusEntries);
+  const progressPercentage = (actualTaskDuration / (task.estimatedDurationInMins ?? 0)) * 100;
 
   return (
     <div
@@ -175,11 +174,11 @@ function Assignment({ task }: { task: Task }) {
         {(task.estimatedDurationInMins ?? 0) > 0 && (
           <div className="text-xs w-20 flex place-items-center">
             {task.completed ? (
-              <Progress value={99} label="46 mins" />
+              <Progress value={100} label={`${actualTaskDuration} mins`} />
             ) : (
               <Progress
-                value={54}
-                label={`${task.actualDurationInMins ?? 0}/${task.estimatedDurationInMins} mins`}
+                value={progressPercentage}
+                label={`${actualTaskDuration}/${task.estimatedDurationInMins} mins`}
               />
             )}
           </div>
