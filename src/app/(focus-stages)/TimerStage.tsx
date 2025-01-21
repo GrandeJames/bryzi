@@ -20,6 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
+import { handleCompleteSession } from "@/lib/focusSessionUtils";
 
 function TimerStage() {
   const focusTask = useFocusSessionStore((state) => state.sessionTask);
@@ -109,7 +110,12 @@ function TimerStage() {
         </div>
       </main>
       <ActionsContainer>
-        <button className="bg-neutral-800 rounded-full size-9">✔</button>
+        <button
+          className="bg-neutral-800 rounded-full size-9"
+          onClick={() => handleCompleteSession(reset, focusTask!, updateTask)}
+        >
+          ✔
+        </button>
         <DiscardSessionButton />
         <button
           className="dark:bg-neutral-800 bg-neutral-100 rounded-full p-2"
