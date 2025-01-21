@@ -42,7 +42,7 @@ function TimerStage() {
       return;
     }
 
-    const updatedSubtask = { ...getSubtask()!, completed: !getSubtask()!.completed};
+    const updatedSubtask = { ...getSubtask()!, completed: !getSubtask()!.completed };
     const updatedTask = {
       ...focusTask,
       subtasks: (focusTask.subtasks ?? []).map((subtask) =>
@@ -73,7 +73,7 @@ function TimerStage() {
               onCheckedChange={handleSubtaskToggle}
             />
             <Select value={subtaskId} onValueChange={setSubtaskId} defaultValue={subtaskId}>
-              <SelectTrigger className="w-[180px] border-none focus:outline-none focus:ring-0">
+              <SelectTrigger className="w-auto border-none focus:outline-none focus:ring-0">
                 <SelectValue placeholder="Select a subtask" />
               </SelectTrigger>
               <SelectContent className="dark:bg-neutral-900/70 backdrop-blur-lg border dark:border-neutral-800 rounded-xl">
@@ -103,9 +103,7 @@ function TimerStage() {
               {timerDisplay(secondsLeft).number}
             </span>
           </div>
-          <div className="dark:text-gray-200 text-gray-700">
-            {paused && "Paused"}
-          </div>
+          <div className="dark:text-gray-200 text-gray-700">{paused && "Paused"}</div>
         </div>
       </main>
       <ActionsContainer>
