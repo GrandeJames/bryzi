@@ -217,9 +217,12 @@ function Status({ task, className }: { task: Task; className?: string }) {
     }
 
     return (
-      <button className="text-orange-500 font-bold" onClick={() => initializeSession(task)}>
+      <FocusStageSwitchButton
+        task={task}
+        className="border rounded-md border-neutral-800 size-5 mx-auto"
+      >
         {task.actualDurationInMins ? "Continue" : "Start"}
-      </button>
+      </FocusStageSwitchButton>
     );
   };
 
