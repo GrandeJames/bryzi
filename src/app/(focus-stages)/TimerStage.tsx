@@ -28,7 +28,7 @@ function TimerStage() {
   const reset = useFocusSessionStore((state) => state.reset);
   const updateTask = useTasksStore((state) => state.updateTask);
 
-  const { secondsLeft, endTime, paused, play, pause, percentComplete } = useTimer();
+  const { secondsLeft, endTime, paused, play, pause, percentComplete } = useTimer(focusTask!);
 
   // The Select component uses string values for the selected item, so storing subtaskId instead of the subtask object
   const [subtaskId, setSubtaskId] = useState<string>(
@@ -42,7 +42,7 @@ function TimerStage() {
       return;
     }
 
-    const updatedSubtask = { ...getSubtask()!, completed: !getSubtask()!.completed };
+    const updatedSubtask = { ...getSubtask()!, completed: !getSubtask()!.completed};
     const updatedTask = {
       ...focusTask,
       subtasks: (focusTask.subtasks ?? []).map((subtask) =>

@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { useFocusSessionStore } from "../stores/focusSessionStore";
+import { handleCompleteSession } from "@/lib/focusSessionUtils";
+import useTasksStore from "@/stores/tasksStore";
+import { Task } from "@/types/task";
 
 const TASK_TIME_MINUTES = 90;
 
-export function useTimer() {
-  const { completeSession: complete } = useFocusSessionStore();
+export function useTimer(task: Task) {
+  const reset = useFocusSessionStore((state) => state.reset);
+  const updateTask = useTasksStore((state) => state.updateTask);
 
   const [endTime, setEndTime] = useState(new Date().getTime() + TASK_TIME_MINUTES * 60 * 1000);
   const [secondsLeft, setSecondsLeft] = useState(getSecondsLeftUntilEndTime(endTime));
@@ -22,7 +26,7 @@ export function useTimer() {
 
       if (secondsLeft <= 0) {
         document.title = "Time's up! | Focus";
-        complete();
+        handleCompleteSession(reset, task, updateTask);
         return;
       }
 
@@ -34,7 +38,7 @@ export function useTimer() {
     return () => {
       clearInterval(interval);
     };
-  }, [endTime, complete, paused]);
+  }, [endTime, paused]);
 
   const pause = () => {
     setPaused(true);
@@ -53,7 +57,7 @@ export function useTimer() {
     return percent;
   };
 
-  return { endTime, secondsLeft, paused, pause, play, percentComplete};
+  return { endTime, secondsLeft, paused, pause, play, percentComplete };
 }
 
 function getSecondsLeftUntilEndTime(endTime: number) {
