@@ -176,16 +176,10 @@ function Assignment({ task }: { task: Task }) {
         {(task.estimatedDurationInMins ?? 0) > 0 && (
           <div className="text-xs w-20 flex place-items-center">
             {task.completed && actualTaskDuration > 0 && (
-              <Progress
-                value={100}
-                label={`${actualTaskDuration}/${task.estimatedDurationInMins} mins`}
-              />
+              <Progress value={100} label={getProgressLabel(task)} />
             )}
             {!task.completed && (
-              <Progress
-                value={progressPercentage}
-                label={`${actualTaskDuration}/${task.estimatedDurationInMins} mins`}
-              />
+              <Progress value={progressPercentage} label={getProgressLabel(task)} />
             )}
           </div>
         )}
@@ -194,6 +188,36 @@ function Assignment({ task }: { task: Task }) {
       <Status task={task} className="col-span-2" />
     </div>
   );
+}
+
+function getProgressLabel(task: Task) {
+  const round = (num: number, precision: number) => {
+    const factor = Math.pow(10, precision);
+    return Math.round(num * factor) / factor;
+  };
+
+  const actualDurationMins = getActualDurationInMinutes(task);
+  const estimatedDurationMins = task.estimatedDurationInMins ?? 0;
+  const isHours = (mins: number) => mins >= 60;
+
+  const actualUnit = isHours(actualDurationMins) ? "h" : "m";
+  const estimatedUnit = isHours(estimatedDurationMins) ? "h" : "m";
+
+  const actualPrecision = actualDurationMins < 1 ? 2 : 1;
+  const estimatedPrecision = estimatedDurationMins < 1 ? 2 : 1;
+
+  const formattedActual = isHours(actualDurationMins)
+    ? round(actualDurationMins / 60, actualPrecision)
+    : round(actualDurationMins, actualPrecision);
+  const formattedEstimated = isHours(estimatedDurationMins)
+    ? round(estimatedDurationMins / 60, estimatedPrecision)
+    : round(estimatedDurationMins, estimatedPrecision);
+
+  if (task.completed) {
+    return `${formattedActual}${actualUnit}`;
+  }
+
+  return `${formattedActual}${actualUnit} / ${formattedEstimated}${estimatedUnit}`;
 }
 
 function Status({ task, className }: { task: Task; className?: string }) {

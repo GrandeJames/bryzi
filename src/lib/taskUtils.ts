@@ -39,5 +39,7 @@ export function getActualDurationInMinutes(task: Task) {
     0
   );
 
-  return Math.round((totalDurationInSeconds / 60) * 10) / 10;
+  const mins = totalDurationInSeconds / 60;
+
+  return mins;
 }
