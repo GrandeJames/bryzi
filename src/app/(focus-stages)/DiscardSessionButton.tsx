@@ -29,7 +29,9 @@ function DiscardSessionButton({ confirmBeforeDiscard }: { confirmBeforeDiscard?:
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel className="dark:hover:bg-neutral-900 dark:bg-neutral-950 border-neutral-900">
+              Cancel
+            </AlertDialogCancel>
             <AlertDialogAction onClick={() => handleSessionDiscard(reset)}>
               Discard
             </AlertDialogAction>
