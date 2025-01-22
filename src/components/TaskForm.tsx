@@ -191,7 +191,7 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
               <PlusIcon className="size-5 text-neutral-200" />
             </button>
           </div>
-          <div className="flex flex-col gap-2 mb-4">
+          <div className="flex flex-col gap-2 mb-2">
             {(task.subtasks || []).map((subtask: Subtask, index: number) => (
               <div className="flex items-center justify-between gap-2 group" key={subtask.id}>
                 <div className="flex space-x-2">
@@ -221,7 +221,7 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
               </div>
             ))}
           </div>
-          <Popover modal={true}>
+          {/* <Popover modal={true}>
             <PopoverTrigger asChild>
               <Button className="dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700">
                 Repeat
@@ -243,7 +243,7 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
                 />
               </div>
             </PopoverContent>
-          </Popover>
+          </Popover> */}
         </div>
       </div>
       <button
