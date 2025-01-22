@@ -1,12 +1,12 @@
 import { useFocusSessionStore } from "@/stores/focusSessionStore";
-import { handleExitSession } from "@/lib/focusSessionUtils";
+import { handleSessionDiscard } from "@/lib/focusSessionUtils";
 
 function DiscardSessionButton() {
   const reset = useFocusSessionStore((state) => state.reset);
 
   return (
     <button
-      onClick={() => handleExitSession(reset)}
+      onClick={() => handleSessionDiscard(reset)}
       className="rounded-full dark:bg-neutral-800 bg-neutral-100 p-2"
     >
       <svg
