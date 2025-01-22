@@ -115,7 +115,7 @@ function TimerStage() {
         >
           ✔
         </button>
-        <DiscardSessionButton />
+        <DiscardSessionButton confirmBeforeDiscard={true} />
         <button
           className="dark:bg-neutral-800 bg-neutral-100 rounded-full p-2"
           onClick={paused ? play : pause}
