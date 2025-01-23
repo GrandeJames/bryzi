@@ -25,6 +25,7 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
     deadline: initialTask?.deadline,
     impact: initialTask?.impact,
     difficulty: initialTask?.difficulty,
+    actualDurationInMins: initialTask?.actualDurationInMins,
     estimatedDurationInMins: initialTask?.estimatedDurationInMins,
     recurrence: initialTask?.recurrence || {
       frequency: "once",
