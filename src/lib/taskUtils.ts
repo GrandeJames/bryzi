@@ -1,38 +1,41 @@
 import { Task } from "@/types/task";
-import { addLocalTask, removeLocalTask, updateLocalTask } from "./localStorageTasks";
 import { FocusEntry } from "@/types/focusEntry";
 import { differenceInSeconds } from "date-fns";
-import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
-import { getLocalStorageData } from "./localStorageUtils";
+import {
+  addLocalStorageItem,
+  updateLocalStorageItem,
+  removeLocalStorageItem,
+  getLocalStorageData,
+} from "./localStorageUtils";
+import { LOCAL_STORAGE_KEYS } from "@/constants/localStorageKeys";
 
 /*
  * Note: updateTask must be passed as a prop otherwise it causes a hook error
- * TODO: database integration
  */
 
 export function handleTaskComplete(task: Task, updateTask: (task: Task) => void) {
   const updatedTask = { ...task, completed: !task.completed };
-  updateLocalTask(updatedTask);
+  updateLocalStorageItem(LOCAL_STORAGE_KEYS.TASKS, updatedTask);
   updateTask(updatedTask);
 }
 
 export function handleTaskUpdate(task: Task, updateTask: (task: Task) => void) {
-  updateLocalTask(task);
+  updateLocalStorageItem(LOCAL_STORAGE_KEYS.TASKS, task);
   updateTask(task);
 }
 
 export function handleTaskAdd(task: Task, addTask: (task: Task) => void) {
   addTask(task);
-  addLocalTask(task);
+  addLocalStorageItem(LOCAL_STORAGE_KEYS.TASKS, task);
 }
 
 export function handleTaskRemove(task: Task, removeTask: (id: string) => void) {
-  removeLocalTask(task.id);
+  removeLocalStorageItem(LOCAL_STORAGE_KEYS.TASKS, task.id);
   removeTask(task.id);
 }
 
-export function getActualDurationInMinutes(task: Task) {
-  const focusEntries = getLocalStorageData<FocusEntry>("focusEntries");
+export function getActualDurationMins(task: Task) {
+  const focusEntries = getLocalStorageData<FocusEntry>(LOCAL_STORAGE_KEYS.FOCUS_ENTRIES);
 
   if (!focusEntries) {
     return 0;
@@ -43,5 +46,7 @@ export function getActualDurationInMinutes(task: Task) {
     0
   );
 
-  return totalDurationInSeconds / 60;
+  const mins = totalDurationInSeconds / 60;
+
+  return mins;
 }

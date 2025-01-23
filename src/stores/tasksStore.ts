@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { Task } from "@/types/task";
-import { getLocalTasks } from "@/lib/localStorageTasks";
+import { getLocalStorageData } from "@/lib/localStorageUtils";
+import { LOCAL_STORAGE_KEYS } from "@/constants/localStorageKeys";
 
 interface TasksStore {
   tasks: Task[];
@@ -11,7 +12,7 @@ interface TasksStore {
 }
 
 const useTasksStore = create<TasksStore>((set) => ({
-  tasks: getLocalTasks(),
+  tasks: getLocalStorageData(LOCAL_STORAGE_KEYS.TASKS) || [],
   setTasks: (newTasks) => set({ tasks: newTasks }),
   addTask: (newTask: Task) => set((state) => ({ tasks: [...state.tasks, newTask] })),
   removeTask: (id: string) =>
