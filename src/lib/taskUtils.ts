@@ -3,6 +3,7 @@ import { addLocalTask, removeLocalTask, updateLocalTask } from "./localStorageTa
 import { FocusEntry } from "@/types/focusEntry";
 import { differenceInSeconds } from "date-fns";
 import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
+import { getLocalStorageData } from "./localStorageUtils";
 
 /*
  * Note: updateTask must be passed as a prop otherwise it causes a hook error
@@ -31,15 +32,16 @@ export function handleTaskRemove(task: Task, removeTask: (id: string) => void) {
 }
 
 export function getActualDurationInMinutes(task: Task) {
-  const focusEntries = useFocusTrackerStore.getState().focusEntries;
+  const focusEntries = getLocalStorageData<FocusEntry>("focusEntries");
 
+  if (!focusEntries) {
+    return 0;
+  }
   const taskEntries = focusEntries.filter((entry: FocusEntry) => entry.taskId === task.id);
   const totalDurationInSeconds = taskEntries.reduce(
     (acc, entry) => acc + differenceInSeconds(entry.endDate, entry.startDate),
     0
   );
 
-  const mins = totalDurationInSeconds / 60;
-
-  return mins;
+  return totalDurationInSeconds / 60;
 }

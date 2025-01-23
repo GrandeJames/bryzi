@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useFocusSessionStore } from "../stores/focusSessionStore";
-import { handleSessionEnd } from "@/lib/focusSessionUtils";
+import { handleSessionSave } from "@/lib/focusSessionUtils";
 import useTasksStore from "@/stores/tasksStore";
 import { Task } from "@/types/task";
 
@@ -26,7 +26,7 @@ export function useTimer(task: Task) {
 
       if (secondsLeft <= 0) {
         document.title = "Time's up! | Focus";
-        handleSessionEnd(reset, task, updateTask);
+        handleSessionSave(reset, task, updateTask);
         return;
       }
 

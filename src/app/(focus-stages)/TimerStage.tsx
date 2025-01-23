@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState, useCallback } from "react";
-import { handleSessionEnd, handleSessionSave } from "@/lib/focusSessionUtils";
+import { handleSessionSave } from "@/lib/focusSessionUtils";
 import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
 
 function TimerStage() {

@@ -9,10 +9,9 @@ import clsx from "clsx";
 import { TASK_DIFFICULTY, TASK_IMPACT } from "@/constants/taskConstants";
 import { differenceInCalendarDays, format, getYear } from "date-fns";
 import useTasksStore from "@/stores/tasksStore";
-import { getActualDurationInMinutes, handleTaskComplete } from "@/lib/taskUtils";
+import { handleTaskComplete } from "@/lib/taskUtils";
 import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
 import FocusStageSwitchButton from "@/components/FocusStageSwitchButton";
-import { useEffect } from "react";
 
 function AssignmentsSection({ tasks }: { tasks: any[] }) {
   return (
@@ -94,7 +93,7 @@ function Assignment({ task }: { task: Task }) {
   const open = useDialogStore((state) => state.openDialog);
   const openTaskDetailsDialog = () => open("details", { task });
 
-  const actualTaskDuration = getActualDurationInMinutes(task);
+  const actualTaskDuration = task.actualDurationInMins ?? 0;
   const progressPercentage = (actualTaskDuration / (task.estimatedDurationInMins ?? 0)) * 100;
 
   return (
@@ -196,7 +195,7 @@ function getProgressLabel(task: Task) {
     return Math.round(num * factor) / factor;
   };
 
-  const actualDurationMins = getActualDurationInMinutes(task);
+  const actualDurationMins = task.actualDurationInMins ?? 0;
   const estimatedDurationMins = task.estimatedDurationInMins ?? 0;
   const isHours = (mins: number) => mins >= 60;
 
@@ -244,11 +243,9 @@ function Status({ task, className }: { task: Task; className?: string }) {
       );
     }
 
-    const actualTaskDuration = getActualDurationInMinutes(task);
-
     return (
       <FocusStageSwitchButton task={task} className="text-orange-500 font-bold">
-        {actualTaskDuration > 0 ? "Continue" : "Start"}
+        {task.actualDurationInMins ?? 0 > 0 ? "Continue" : "Start"}
       </FocusStageSwitchButton>
     );
   };
