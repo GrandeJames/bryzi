@@ -20,7 +20,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-import { handleSessionEnd } from "@/lib/focusSessionUtils";
+import { handleSessionEnd, handleSessionSave } from "@/lib/focusSessionUtils";
+import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
 
 function TimerStage() {
   const focusTask = useFocusSessionStore((state) => state.sessionTask);
@@ -57,6 +58,8 @@ function TimerStage() {
       updatedTask.subtasks.find((subtask) => !subtask.completed)?.id || "";
     setSubtaskId(nextIncompleteSubtask);
   };
+
+  const [temporaryStartDate, setTemporaryStartDate] = useState<Date | null>(new Date());
 
   return (
     <div className="flex flex-col h-[75vh] w-full relative">
@@ -111,14 +114,56 @@ function TimerStage() {
       <ActionsContainer>
         <button
           className="bg-neutral-800 rounded-full size-9"
-          onClick={() => handleSessionEnd(reset, focusTask!, updateTask)}
+          onClick={() => {
+            if (temporaryStartDate !== null) {
+              const addTemporaryFocusEntry = useFocusTrackerStore.getState().addTemporaryFocusEntry;
+
+              addTemporaryFocusEntry({
+                startDate: temporaryStartDate,
+                endDate: new Date(),
+                taskId: focusTask!.id,
+              });
+
+              setTemporaryStartDate(null);
+            }
+
+            handleSessionSave(reset, focusTask!, updateTask);
+          }}
         >
           ✔
         </button>
         <DiscardSessionButton confirmBeforeDiscard={true} />
         <button
           className="dark:bg-neutral-800 bg-neutral-100 rounded-full p-2"
-          onClick={paused ? play : pause}
+          onClick={
+            paused
+              ? () => {
+                  console.log("play");
+                  play();
+                  setTemporaryStartDate(new Date());
+                }
+              : () => {
+                  console.log("pause");
+                  pause();
+
+                  const addTemporaryFocusEntry =
+                    useFocusTrackerStore.getState().addTemporaryFocusEntry;
+
+                  if (temporaryStartDate !== null) {
+                    addTemporaryFocusEntry({
+                      startDate: temporaryStartDate,
+                      endDate: new Date(),
+                      taskId: focusTask!.id,
+                    });
+
+                    setTemporaryStartDate(null);
+                  }
+
+                  const temporaryFocusEntries =
+                    useFocusTrackerStore.getState().temporaryFocusEntries;
+                  console.log("temporaryFocusEntries", temporaryFocusEntries);
+                }
+          }
         >
           {paused ? <PauseIcon className="text-orange-400" /> : <PlayIcon />}
         </button>

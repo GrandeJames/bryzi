@@ -27,6 +27,11 @@ const addLocalStorageItem = <T>(key: string, newItem: T): void => {
   localStorage.setItem(key, JSON.stringify(data));
 };
 
+const addLocalStorageItems = <T>(key: string, newItems: T[]): void => {
+  const data = getLocalStorageData<T>(key);
+  localStorage.setItem(key, JSON.stringify([...data, ...newItems]));
+};
+
 const removeLocalStorageItem = <T extends { id: string }>(key: string, id: string): void => {
   const data = getLocalStorageData<T>(key);
   const updatedData = data.filter((item: any) => item.id !== id);
@@ -43,6 +48,7 @@ export {
   getLocalStorageData,
   getLocalStorageItem,
   addLocalStorageItem,
+  addLocalStorageItems,
   removeLocalStorageItem,
   updateLocalStorageItem,
 };
