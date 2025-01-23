@@ -19,7 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { handleSessionEnd, handleSessionSave } from "@/lib/focusSessionUtils";
 import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
 
@@ -60,6 +60,24 @@ function TimerStage() {
   };
 
   const [temporaryStartDate, setTemporaryStartDate] = useState<Date | null>(new Date());
+
+  // Memoizing the timer display logic for better performance
+  const timerDisplay = useCallback((seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+
+    if (minutes > 0) {
+      return {
+        number: `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`,
+        label: "minutes",
+      };
+    }
+
+    return {
+      number: remainingSeconds,
+      label: remainingSeconds === 1 ? "second" : "seconds",
+    };
+  }, []);
 
   return (
     <div className="flex flex-col h-[75vh] w-full relative">
@@ -170,23 +188,6 @@ function TimerStage() {
       </ActionsContainer>
     </div>
   );
-}
-
-function timerDisplay(seconds: number) {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-
-  if (minutes > 0) {
-    return {
-      number: `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`,
-      label: "minutes",
-    };
-  }
-
-  return {
-    number: remainingSeconds,
-    label: remainingSeconds === 1 ? "second" : "seconds",
-  };
 }
 
 export default TimerStage;
