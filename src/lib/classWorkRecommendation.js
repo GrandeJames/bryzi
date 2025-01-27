@@ -68,23 +68,20 @@ function distributeMultiDayTasks() {
         let remainingMinsInDay = getIdealRemainingTimeInDay(tasksForSelectedDay, dayIndex);
 
         if (remainingMinsInDay > 0) {
-          const taskDuration = Math.min(remainingTaskDuration, remainingMinsInDay, BLOCK_SIZE);
-          taskScheduled = scheduleTaskOnDay(tasksForSelectedDay, task, taskDuration);
-          remainingTaskDuration -= taskDuration;
+          const sessionDuration = Math.min(remainingTaskDuration, remainingMinsInDay, BLOCK_SIZE);
+          taskScheduled = scheduleTaskOnDay(tasksForSelectedDay, task, sessionDuration);
+          remainingTaskDuration -= sessionDuration;
         }
       }
 
       if (!taskScheduled) {
         while (remainingTaskDuration > 0) {
           let lowestDurationDayIndex = 0;
-          for (let z = 0; z < schedule.length; z++) {
-            const totalDuration = schedule[z].reduce((acc, task) => acc + task.duration, 0);
+          for (let dayIndex = 0; dayIndex < schedule.length; dayIndex++) {
+            const totalDuration = getTotalDurationForDay(dayIndex);
 
-            if (
-              totalDuration <
-              schedule[lowestDurationDayIndex].reduce((acc, task) => acc + task.duration, 0)
-            ) {
-              lowestDurationDayIndex = z;
+            if (totalDuration < getTotalDurationForDay(lowestDurationDayIndex)) {
+              lowestDurationDayIndex = dayIndex;
             }
           }
 
@@ -94,13 +91,17 @@ function distributeMultiDayTasks() {
 
           const day = schedule[lowestDurationDayIndex];
 
-          const taskDuration = Math.min(remainingTaskDuration, BLOCK_SIZE);
-          scheduleTaskOnDay(day, task, taskDuration);
-          remainingTaskDuration -= taskDuration;
+          const sessionDuration = Math.min(remainingTaskDuration, BLOCK_SIZE);
+          scheduleTaskOnDay(day, task, sessionDuration);
+          remainingTaskDuration -= sessionDuration;
         }
       }
     }
   }
+}
+
+function getTotalDurationForDay(dayIndex) {
+  return schedule[dayIndex].reduce((acc, task) => acc + task.duration, 0);
 }
 
 function scheduleTaskOnDay(day, task, duration) {
