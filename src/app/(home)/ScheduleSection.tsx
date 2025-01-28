@@ -1,7 +1,7 @@
 function ScheduleSection({ scheduledTasks }: { scheduledTasks: any[] }) {
   return (
     <section>
-      <header className="font-semibold text-xl mb-1 text-blue-200">Schedule</header>
+      <header className="font-semibold text-xl mb-1 text-blue-100">Schedule</header>
       <div className="flex gap-2">
         {scheduledTasks.map((task, index) => (
           <ScheduledTask key={index} task={task} />

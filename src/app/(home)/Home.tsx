@@ -54,10 +54,17 @@ function Home() {
       </header>
       <main className="space-y-10">
         <div className="pb-20 pt-5 space-y-5">
-          <DateHeading />
+          <header>
+            <div className="flex gap-5">
+              <span className="text-3xl font-bold text-neutral-200">Today</span>
+              <span className="text-3xl font-bold text-neutral-600">Tomorrow</span>
+              <span className="text-3xl font-bold text-neutral-600">This week</span>
+            </div>
+          </header>
+          {/* <DateHeading /> */}
           <div className="space-y-8 flex flex-col">
             <ScheduleSection scheduledTasks={scheduledTasks} />
-            <div className="grid grid-cols-12 gap-10">
+            <div className="flex flex-col xl:grid xl:grid-cols-12 gap-10">
               <AssignmentsSection tasks={assignments} />
               <MiscSection miscTasks={miscTasks} />
             </div>

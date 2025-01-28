@@ -17,20 +17,14 @@ function AssignmentsSection({ tasks }: { tasks: any[] }) {
   return (
     <section className="col-span-8">
       <header className="flex flex-col gap-2">
-        <div className="font-semibold text-xl text-orange-200">Class Work ✏</div>
+        <div className="font-semibold text-xl text-orange-100">Class Work</div>
         <div className="flex mb-2 gap-4 px-2">
-          <div className="bg-orange-500 text-xs px-3 py-1 rounded-full text-neutral-100 font-medium">
-            Recommended
-          </div>
-          <div className="bg-neutral-800 text-xs px-3 py-1 rounded-full text-neutral-100">
+          {/* <div className="bg-neutral-800 text-xs px-3 py-1 rounded-full text-neutral-100">
             Today
           </div>
           <div className="bg-neutral-800 text-xs px-3 py-1 rounded-full text-neutral-100">
-            Tomorrow
-          </div>
-          <div className="bg-neutral-800 text-xs px-3 py-1 rounded-full text-neutral-100">
             This week
-          </div>
+          </div> */}
         </div>
       </header>
       <div className="px-2">
@@ -98,7 +92,7 @@ function Assignment({ task }: { task: Task }) {
 
   return (
     <div
-      className={`grid grid-cols-12 w-full rounded-3xl ${
+      className={`grid grid-cols-12 w-full max-w-3xl rounded-3xl ${
         task.completed ? "bg-neutral-900/50" : "bg-neutral-900/70"
       }`}
     >
