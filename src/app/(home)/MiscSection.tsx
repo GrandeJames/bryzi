@@ -3,7 +3,7 @@ import { Task } from "@/types/task";
 function MiscSection({ miscTasks }: { miscTasks: any[] }) {
   return (
     <section className="col-span-4">
-      <header className="font-semibold text-xl mb-2 text-gray-300">Personal</header>
+      <header className="font-semibold text-xl mb-2 text-gray-200">Personal</header>
       <ul className="grid grid-cols-1 space-y-1">
         {miscTasks.map((task, index) => (
           <MiscTask key={index} task={task} />

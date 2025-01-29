@@ -146,13 +146,13 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
         <Selection
           title="Estimated Duration"
           items={[
-            { text: "5", value: 5 },
             { text: "25", value: 25 },
             { text: "60", value: 60 },
             { text: "90", value: 90 },
             { text: "3h", value: 180 },
             { text: "5h", value: 300 },
             { text: "8h", value: 480 },
+            { text: "20h", value: 1200 },
           ]}
           icon={<ClockIcon />}
           onSelect={(value) => handleChange("estimatedDurationInMins", value)}
