@@ -15,9 +15,9 @@ const IDEAL_TIME_LIMIT_HRS = 8;
 const IDEAL_TIME_LIMIT_MINS = IDEAL_TIME_LIMIT_HRS * 60;
 const BLOCK_SIZE = 60;
 
-type DayProps = ScheduleTaskProps[];
+export type DayProps = ScheduleTaskProps[];
 
-interface ScheduleTaskProps {
+export interface ScheduleTaskProps {
   taskId: Task["id"];
   title?: Task["title"];
   duration: number;
@@ -25,9 +25,7 @@ interface ScheduleTaskProps {
   type?: string;
 }
 
-const schedule: DayProps[] = [];
-
-function insertSingleDayTasks(SINGLE_DAY_TASKS: ScheduleTaskProps[]) {
+function insertSingleDayTasks(SINGLE_DAY_TASKS: ScheduleTaskProps[], schedule: DayProps[]) {
   for (const scheduledTask of SINGLE_DAY_TASKS) {
     if (!schedule[scheduledTask.daysUntilDeadline!]) {
       schedule[scheduledTask.daysUntilDeadline!] = [
@@ -36,6 +34,7 @@ function insertSingleDayTasks(SINGLE_DAY_TASKS: ScheduleTaskProps[]) {
           title: scheduledTask.title,
           duration: scheduledTask.duration,
           daysUntilDeadline: scheduledTask.daysUntilDeadline,
+          type: "event",
         },
       ];
     } else {
@@ -44,12 +43,13 @@ function insertSingleDayTasks(SINGLE_DAY_TASKS: ScheduleTaskProps[]) {
         title: scheduledTask.title,
         duration: scheduledTask.duration,
         daysUntilDeadline: scheduledTask.daysUntilDeadline,
+        type: "event",
       });
     }
   }
 }
 
-function distributeMultiDayTasks(MULTI_DAY_TASKS: ScheduleTaskProps[]) {
+function distributeMultiDayTasks(MULTI_DAY_TASKS: ScheduleTaskProps[], schedule: DayProps[]) {
   for (let i = 0; i < MULTI_DAY_TASKS.length; i++) {
     const scheduleTask = MULTI_DAY_TASKS[i];
     const daysLeftUntilTaskDeadline = scheduleTask.daysUntilDeadline! + 1;
@@ -64,11 +64,17 @@ function distributeMultiDayTasks(MULTI_DAY_TASKS: ScheduleTaskProps[]) {
           schedule[dayIndex] = [];
         }
         const tasksForSelectedDay = schedule[dayIndex];
-        let remainingMinsInDay = getIdealRemainingTimeInDay(tasksForSelectedDay, dayIndex);
+        let remainingMinsInDay = getIdealRemainingTimeInDay(dayIndex, schedule);
 
         if (remainingMinsInDay > 0) {
           const sessionDuration = Math.min(remainingTaskDuration, remainingMinsInDay, BLOCK_SIZE);
-          taskScheduled = scheduleTaskOnDay(tasksForSelectedDay, scheduleTask, sessionDuration);
+          taskScheduled = scheduleTaskOnDay(
+            scheduleTask,
+            sessionDuration,
+            "class",
+            dayIndex,
+            schedule
+          );
           remainingTaskDuration -= sessionDuration;
         }
       }
@@ -77,9 +83,9 @@ function distributeMultiDayTasks(MULTI_DAY_TASKS: ScheduleTaskProps[]) {
         while (remainingTaskDuration > 0) {
           let lowestDurationDayIndex = 0;
           for (let dayIndex = 0; dayIndex < schedule.length; dayIndex++) {
-            const totalDuration = getTotalDurationForDay(dayIndex);
+            const totalDuration = getTotalDurationForDay(dayIndex, schedule);
 
-            if (totalDuration < getTotalDurationForDay(lowestDurationDayIndex)) {
+            if (totalDuration < getTotalDurationForDay(lowestDurationDayIndex, schedule)) {
               lowestDurationDayIndex = dayIndex;
             }
           }
@@ -91,7 +97,13 @@ function distributeMultiDayTasks(MULTI_DAY_TASKS: ScheduleTaskProps[]) {
           const day = schedule[lowestDurationDayIndex];
 
           const sessionDuration = Math.min(remainingTaskDuration, BLOCK_SIZE);
-          scheduleTaskOnDay(day, scheduleTask, sessionDuration);
+          scheduleTaskOnDay(
+            scheduleTask,
+            sessionDuration,
+            "class",
+            lowestDurationDayIndex,
+            schedule
+          );
           remainingTaskDuration -= sessionDuration;
         }
       }
@@ -99,34 +111,48 @@ function distributeMultiDayTasks(MULTI_DAY_TASKS: ScheduleTaskProps[]) {
   }
 }
 
-function getTotalDurationForDay(dayIndex: number) {
+function getTotalDurationForDay(dayIndex: number, schedule: DayProps[]) {
+  if (!schedule[dayIndex]) {
+    return 0;
+  }
   return schedule[dayIndex].reduce((acc, task) => acc + task.duration, 0);
 }
 
-function scheduleTaskOnDay(day: DayProps, task: ScheduleTaskProps, duration: number) {
-  const taskInDay = day.find((t) => task.taskId === t.taskId);
+function scheduleTaskOnDay(
+  task: ScheduleTaskProps,
+  duration: number,
+  type: string,
+  dayIndex: number,
+  schedule: DayProps[]
+) {
+  const day2 = schedule[dayIndex];
+  const taskInDay = day2?.find((t) => task.taskId === t.taskId);
+
+  if (!day2) {
+    schedule[dayIndex] = [];
+  }
 
   if (taskInDay) {
     taskInDay.duration += duration;
   } else {
-    day.push({
+    schedule[dayIndex].push({
       taskId: task.taskId,
       title: task.title,
       duration: duration,
       daysUntilDeadline: task.daysUntilDeadline,
-      // type: task.type,
+      type,
     });
   }
   return true;
 }
 
-function getIdealRemainingTimeInDay(day: DayProps, dayIndex: number) {
+function getIdealRemainingTimeInDay(dayIndex: number, schedule: DayProps[]) {
   const availableTime =
     dayIndex === 0
       ? Math.min(getMinutesUntilMidnight(), IDEAL_TIME_LIMIT_MINS)
       : IDEAL_TIME_LIMIT_MINS;
 
-  const timeSpent = day.reduce((total, task) => total + task.duration, 0);
+  const timeSpent = (schedule[dayIndex] ?? []).reduce((total, task) => total + task.duration, 0);
   return availableTime - timeSpent;
 }
 
@@ -138,36 +164,53 @@ function getMinutesUntilMidnight() {
 }
 
 function getCalendarDaysUntilDeadline(task: Task) {
-  return differenceInCalendarDays(task.deadline!, new Date());
+  return Math.max(0, differenceInCalendarDays(task.deadline!, new Date()));
 }
 
 function getRemainingDuration(task: Task) {
-  return task.estimatedDurationInMins! - task.actualDurationInMins!;
+  return (task.estimatedDurationInMins ?? 90) - (task.actualDurationInMins ?? 0);
 }
 
-function distributeNoDeadlineTasks(NO_DEADLINE_TASKS: ScheduleTaskProps[]) {
-  for (const task of NO_DEADLINE_TASKS) {
-    let remainingTaskDuration = task.duration;
+/*
+ *[
+    { taskId: "101", title: "explore extra topics", duration: 540 },
+    { taskId: "102", title: "practice exercises", duration: 300 },
+  ]
+*/
+function distributeNoDeadlineTasks(NO_DEADLINE_TASKS: ScheduleTaskProps[], schedule: DayProps[]) {
+  const durations = NO_DEADLINE_TASKS.map((task) => task.duration);
 
-    for (let dayIndex = 0; remainingTaskDuration > 0; dayIndex++) {
-      // Ensure the day exists in the schedule
-      if (!schedule[dayIndex]) {
-        schedule[dayIndex] = [];
+  const isDurationsEmpty = () => durations.every((duration) => duration <= 0);
+  const remainingTimeInDay = () => getIdealRemainingTimeInDay(dayIndex, schedule);
+
+  let taskIndex = 0;
+  let dayIndex = 0;
+
+  while (!isDurationsEmpty() && remainingTimeInDay() > 0) {
+    const task = NO_DEADLINE_TASKS[taskIndex];
+
+    const sessionDuration = Math.min(task.duration, remainingTimeInDay(), BLOCK_SIZE);
+    if (sessionDuration !== 0) {
+      scheduleTaskOnDay(task, sessionDuration, "misc", dayIndex, schedule);
+      durations[taskIndex] -= sessionDuration;
+    }
+
+    if (taskIndex === NO_DEADLINE_TASKS.length - 1) {
+      taskIndex = 0;
+      if (remainingTimeInDay() <= 0) {
+        dayIndex++;
       }
-
-      const tasksForDay = schedule[dayIndex];
-      const remainingTimeInDay = getIdealRemainingTimeInDay(tasksForDay, dayIndex);
-
-      if (remainingTimeInDay > 0) {
-        const sessionDuration = Math.min(remainingTaskDuration, remainingTimeInDay, BLOCK_SIZE);
-        scheduleTaskOnDay(tasksForDay, task, sessionDuration);
-        remainingTaskDuration -= sessionDuration;
-      } else {
-        // If no time left in the day, move to the next day
-        continue;
-      }
+    } else {
+      taskIndex++;
     }
   }
+}
+
+function isOvertime(dayIndex: number, schedule: DayProps[]) {
+  return (
+    schedule.reduce((acc, day) => acc + getTotalDurationForDay(dayIndex, schedule), 0) >
+    IDEAL_TIME_LIMIT_MINS
+  );
 }
 
 function getRecommendedClassWorkList(
@@ -175,14 +218,16 @@ function getRecommendedClassWorkList(
   scheduledTasks: Task[],
   noDeadlineTasks: Task[]
 ) {
+  const schedule: DayProps[] = [];
+
   // TODO: create new tasks data from tasks provided
   // Should return an array like these:
-  let singleDayTasks: ScheduleTaskProps[] = [
-    { taskId: "10", title: "lecture0", duration: 35, daysUntilDeadline: 1 },
-    { taskId: "12", title: "lecture3333", duration: 50, daysUntilDeadline: 2 },
-    { taskId: "11", title: "lecture2222", duration: 75, daysUntilDeadline: 2 },
-    { taskId: "13", title: "work", duration: 270, daysUntilDeadline: 3 },
-  ];
+  // let singleDayTasks: ScheduleTaskProps[] = [
+  //   { taskId: "10", title: "lecture0", duration: 35, daysUntilDeadline: 1 },
+  //   { taskId: "12", title: "lecture3333", duration: 50, daysUntilDeadline: 2 },
+  //   { taskId: "11", title: "lecture2222", duration: 75, daysUntilDeadline: 2 },
+  //   { taskId: "13", title: "work", duration: 270, daysUntilDeadline: 6 },
+  // ];
 
   // singleDayTasks = scheduledTasks.map((task) => {
   //   return {
@@ -193,53 +238,64 @@ function getRecommendedClassWorkList(
   //   };
   // });
 
-  // get incomplete tasks
   // TODO: set duration to estimated duration - actual duration, assuming that actual duration is less than estimated duration
   // TODO: ensure provided tasks have minimum daysUntilDeadline of 0
-  let multiDayTasks: ScheduleTaskProps[] = [
-    { taskId: "1", title: "post", duration: 35, daysUntilDeadline: 0 },
-    { taskId: "2", title: "essay", duration: 500, daysUntilDeadline: 0 },
-    { taskId: "3", title: "read chap", duration: 120, daysUntilDeadline: 1 },
-    { taskId: "4", title: "create presentation", duration: 200, daysUntilDeadline: 2 },
-    { taskId: "5", title: "build app", duration: 450, daysUntilDeadline: 3 },
-    { taskId: "6", title: "paper", duration: 900, daysUntilDeadline: 4 },
-    { taskId: "7", title: "post2", duration: 25, daysUntilDeadline: 4 },
-    { taskId: "8", title: "review for exam", duration: 500, daysUntilDeadline: 5 },
-    { taskId: "9", title: "write research paper", duration: 1200, daysUntilDeadline: 24 },
-  ];
+  // let multiDayTasks: ScheduleTaskProps[] = [
+  //   { taskId: "1", title: "post", duration: 35, daysUntilDeadline: 0 },
+  //   { taskId: "2", title: "essay", duration: 500, daysUntilDeadline: 0 },
+  //   { taskId: "3", title: "read chap", duration: 120, daysUntilDeadline: 1 },
+  //   { taskId: "4", title: "create presentation", duration: 200, daysUntilDeadline: 2 },
+  //   { taskId: "5", title: "build app", duration: 450, daysUntilDeadline: 3 },
+  //   { taskId: "6", title: "paper", duration: 900, daysUntilDeadline: 4 },
+  //   { taskId: "7", title: "post2", duration: 25, daysUntilDeadline: 4 },
+  //   { taskId: "8", title: "review for exam", duration: 500, daysUntilDeadline: 5 },
+  //   { taskId: "9", title: "write research paper", duration: 1200, daysUntilDeadline: 24 },
+  // ];
 
-  // multiDayTasks = classWork.map((task) => {
-  //   return {
-  //     taskId: task.id,
-  //     title: task.title,
-  //     duration: getRemainingDuration(task),
-  //     daysUntilDeadline: getCalendarDaysUntilDeadline(task),
-  //   };
-  // });
+  // const classWorkWithDeadlines = classWork.filter((task) => task.deadline);
+  // const classWorkWithoutDeadlines = classWork.filter((task) => !task.deadline);
 
-  let tasksWithNodeadlines: ScheduleTaskProps[] = [
-    // Tasks with no deadlines
-    { taskId: "101", title: "explore extra topics", duration: 240 },
-    { taskId: "102", title: "practice exercises", duration: 300 },
-  ];
+  let multiDayTasks: ScheduleTaskProps[] = classWork.map((task) => {
+    return {
+      taskId: task.id,
+      title: task.title,
+      duration: getRemainingDuration(task),
+      daysUntilDeadline: getCalendarDaysUntilDeadline(task),
+    };
+  });
 
-  insertSingleDayTasks(singleDayTasks);
-  distributeMultiDayTasks(multiDayTasks);
-  distributeNoDeadlineTasks(tasksWithNodeadlines);
+  const tasksWithNodeadlines = classWork.map((task) => {
+    return {
+      taskId: task.id,
+      title: task.title,
+      duration: getRemainingDuration(task),
+    };
+  });
+
+  // let tasksWithNodeadlines: ScheduleTaskProps[] = [
+  //   { taskId: "101", title: "explore extra topics", duration: 540 },
+  //   { taskId: "102", title: "practice exercises", duration: 300 },
+  // ];
+
+  // insertSingleDayTasks(singleDayTasks, schedule); // good
+  distributeMultiDayTasks(multiDayTasks, schedule);
+  // distributeNoDeadlineTasks(tasksWithNodeadlines, schedule);
 
   // TODO: sort and filter tasks to only show classwork
 
   const filteredSchedule = schedule.map((day) => {
-    return day.map((task) => {
+    return day.map((scheduleTask) => {
       return {
-        taskId: task.taskId,
-        title: task.title,
-        duration: task.duration,
+        taskId: scheduleTask.taskId,
+        title: scheduleTask.title, // todo: remove
+        duration: scheduleTask.duration,
+        type: scheduleTask.type, // todo: remove
+        daysUntilDeadline: scheduleTask.daysUntilDeadline, // todo: remove
       };
     });
   });
 
-  console.log(filteredSchedule);
+  console.log("fs", filteredSchedule);
 
   return filteredSchedule;
 }
