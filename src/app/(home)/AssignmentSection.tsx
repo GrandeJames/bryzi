@@ -7,31 +7,45 @@ import { ListTodoIcon, Repeat2Icon } from "lucide-react";
 import { cn } from "@/utils.ts/cn";
 import clsx from "clsx";
 import { TASK_DIFFICULTY, TASK_IMPACT } from "@/constants/taskConstants";
-import { differenceInCalendarDays, format, getYear } from "date-fns";
+import { addDays, differenceInCalendarDays, format, getYear } from "date-fns";
 import useTasksStore from "@/stores/tasksStore";
 import { handleTaskComplete } from "@/lib/taskUtils";
 import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
 import FocusStageSwitchButton from "@/components/FocusStageSwitchButton";
+import { DayProps, getRecommendedClassWorkList } from "@/lib/classWorkRecommendation";
 
 function AssignmentsSection({ tasks }: { tasks: any[] }) {
   return (
     <section className="col-span-8">
       <header className="flex flex-col gap-2">
-        <div className="font-semibold text-xl text-orange-100">Class Work</div>
-        <div className="flex mb-2 gap-4 px-2">
-          {/* <div className="bg-neutral-800 text-xs px-3 py-1 rounded-full text-neutral-100">
+        <div className="font-semibold text-xl text-neutral-200">Class Work</div>
+        {/* <div className="flex mb-2 gap-4 px-2">
+          <div className="bg-neutral-800 text-xs px-3 py-1 rounded-full text-neutral-100">
             Today
           </div>
           <div className="bg-neutral-800 text-xs px-3 py-1 rounded-full text-neutral-100">
             This week
-          </div> */}
-        </div>
+          </div>
+        </div> */}
       </header>
       <div className="px-2">
         <AssignmentsList tasks={tasks} />
       </div>
     </section>
   );
+}
+
+function getTasksForDay(scheduleDay: DayProps | undefined, allTasks: Task[]): Task[] {
+  const dayTasks: Task[] = [];
+  scheduleDay?.forEach((dayTask) => {
+    const task = allTasks.find((task) => task.id === dayTask.taskId);
+    if (task) {
+      (task as any).duration = dayTask.duration;
+
+      dayTasks.push(task);
+    }
+  });
+  return dayTasks;
 }
 
 function AssignmentsList({ tasks }: { tasks: Task[] }) {
@@ -44,6 +58,24 @@ function AssignmentsList({ tasks }: { tasks: Task[] }) {
   const incompleteTasks = tasks.filter((task) => !task.completed);
   const completedTasks = tasks.filter((task) => task.completed);
 
+  let schedule = getRecommendedClassWorkList(incompleteTasks, [], []);
+
+  let today = schedule[0];
+  let tomorrow = schedule[1];
+
+  let todayTasks: Task[] = [];
+  let tomorrowTasks: Task[] = [];
+
+  getTasksForDay(schedule[0], incompleteTasks);
+
+  const week = [];
+
+  for (let i = 0; i < 7; i++) {
+    week.push(getTasksForDay(schedule[i], incompleteTasks));
+  }
+
+  console.log("week", week);
+
   incompleteTasks.sort((task1, task2) => {
     if (task1.impact === task2.impact) {
       return (task1.difficulty ?? 0) - (task2.difficulty ?? 0);
@@ -55,15 +87,29 @@ function AssignmentsList({ tasks }: { tasks: Task[] }) {
 
   return (
     <div>
-      <ul className="space-y-2">
-        {incompleteTasks.map((task, index) => (
-          <li key={index}>
-            <div className="py-0">
-              <Assignment task={task} />
-            </div>
-          </li>
-        ))}
-      </ul>
+      {week.map((dayTasks, index) => {
+        return (
+          <div key={index}>
+            <header className="text-neutral-500 text-xs font-semibold mt-5 mb-1">
+              {index === 0 && "Today"}
+              {index === 1 && "Tomorrow"}
+              {index > 1 && format(addDays(new Date(), index - 1), "EEEE")}
+            </header>
+            <ul className="space-y-2">
+              {dayTasks.length === 0 && (
+                <div className="text-neutral-600 text-xs text-center">No tasks</div>
+              )}
+              {dayTasks.map((task, index) => (
+                <li key={index}>
+                  <div className="py-0">
+                    <Assignment task={task} />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      })}
       {completedTasks.length > 0 && (
         <div>
           <header className="text-neutral-500 text-xs font-semibold mt-5 mb-1">COMPLETED</header>
@@ -133,7 +179,6 @@ function Assignment({ task }: { task: Task }) {
             <div className="text-neutral-500 flex items-center gap-1">
               {task.impact && (
                 <span>
-                  Impact:{" "}
                   <span
                     className={clsx("border rounded-lg px-1", {
                       "text-red-300/80 border-red-400/10": task.impact === 4,
@@ -142,7 +187,7 @@ function Assignment({ task }: { task: Task }) {
                       "text-green-300/80 border-green-400/10": task.impact === 1,
                     })}
                   >
-                    {TASK_IMPACT[task.impact as keyof typeof TASK_IMPACT]}
+                    {TASK_IMPACT[task.impact as keyof typeof TASK_IMPACT]} Impact
                   </span>
                 </span>
               )}
@@ -150,7 +195,6 @@ function Assignment({ task }: { task: Task }) {
             <div className="text-neutral-500 flex items-center gap-1">
               {task.difficulty && (
                 <span>
-                  Effort:{" "}
                   <span
                     className={clsx("border rounded-lg px-1", {
                       "text-red-300/80 border-red-500/10": task.difficulty === 4,
@@ -159,7 +203,7 @@ function Assignment({ task }: { task: Task }) {
                       "text-green-300/80 border-green-500/10": task.difficulty === 1,
                     })}
                   >
-                    {TASK_DIFFICULTY[task.difficulty as keyof typeof TASK_DIFFICULTY]}
+                    {TASK_DIFFICULTY[task.difficulty as keyof typeof TASK_DIFFICULTY]} Effort
                   </span>
                 </span>
               )}
