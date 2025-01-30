@@ -7,8 +7,10 @@ import Link from "next/link";
 // import { auth } from "@/auth";
 import { MenuItemContainer } from "./MenuItemContainer";
 // import { UserDropDownMenu } from "./UserDropDownMenu";
-import { LibraryIcon, SunIcon } from "lucide-react";
+import { CircleUserRoundIcon, CogIcon, LibraryIcon, SunIcon, User2Icon } from "lucide-react";
 import { HomeIcon } from "./icons/HomeIcon";
+import { ComponentPlaceholderIcon } from "@radix-ui/react-icons";
+import { Cog6ToothIcon } from "./icons/Cog6ToothIcon";
 
 export function Menu() {
   // const session = await auth();
@@ -26,16 +28,28 @@ export function Menu() {
             <QueueListIcon />
           </MenuItemContainer>
         </Link>
-        <Link href={"classes"}>
+        {/* <Link href={"classes"}>
           <MenuItemContainer>
             <LibraryIcon />
           </MenuItemContainer>
-        </Link>
+        </Link> */}
         {/* <Link href={"data-insights"}>
           <MenuItemContainer>
             <ChartBarIcon />
           </MenuItemContainer>
         </Link> */}
+      </div>
+      <div>
+        <Link href={"settings"}>
+          <MenuItemContainer>
+            <Cog6ToothIcon />
+          </MenuItemContainer>
+        </Link>
+        <Link href={"/"}>
+          <MenuItemContainer>
+          <ComponentPlaceholderIcon />
+          </MenuItemContainer>
+        </Link>
       </div>
       {/* <div className="flex justify-center">{session ? <UserDropDownMenu /> : <SignInDialog />}</div> */}
     </div>

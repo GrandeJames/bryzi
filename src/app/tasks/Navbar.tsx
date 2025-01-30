@@ -14,6 +14,14 @@ function TasksNavbar({ className }: { className?: string }) {
       <ul className="flex font-bol text-gray-600 font-bold text-4xl space-x-7">
         <li>
           <button
+            className={`${selectedTab === "All" && "text-white"}`}
+            onClick={() => onTabClick("All")}
+          >
+            All
+          </button>
+        </li>
+        <li>
+          <button
             className={`${selectedTab === "Inbox" && "text-white"}`}
             onClick={() => onTabClick("Inbox")}
           >

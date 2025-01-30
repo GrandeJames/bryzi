@@ -3,7 +3,7 @@
 import { Progress } from "@/components/ui/progress";
 import useDialogStore from "@/stores/dialogStore";
 import { Task } from "@/types/task";
-import { ListTodoIcon, Repeat2Icon } from "lucide-react";
+import { ListTodoIcon, NotebookPenIcon, PlusIcon, Repeat2Icon } from "lucide-react";
 import { cn } from "@/utils.ts/cn";
 import clsx from "clsx";
 import { TASK_DIFFICULTY, TASK_IMPACT } from "@/constants/taskConstants";
@@ -13,12 +13,19 @@ import { handleTaskComplete } from "@/lib/taskUtils";
 import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
 import FocusStageSwitchButton from "@/components/FocusStageSwitchButton";
 import { DayProps, getRecommendedClassWorkList } from "@/lib/classWorkRecommendation";
+import { useCallback } from "react";
+import { FlagIcon } from "@/components/icons/FlagIcon";
 
-function AssignmentsSection({ tasks }: { tasks: any[] }) {
+function AssignmentsSection({ tasks, className }: { tasks: any[], className?: string }) {
+  const open = useDialogStore((state) => state.openDialog);
+  const openCreateTaskDialog = useCallback(() => open("create"), [open]);
+
   return (
-    <section className="col-span-8">
-      <header className="flex flex-col gap-2">
-        <div className="font-semibold text-xl text-neutral-200">Class Work</div>
+    <section className={className}>
+      <header className="flex justify-between gap-2">
+        <div className="font-semibold text-xl text-neutral-300 mb-2 flex items-center gap-2">
+          Class Work
+        </div>
         {/* <div className="flex mb-2 gap-4 px-2">
           <div className="bg-neutral-800 text-xs px-3 py-1 rounded-full text-neutral-100">
             Today
@@ -27,6 +34,9 @@ function AssignmentsSection({ tasks }: { tasks: any[] }) {
             This week
           </div>
         </div> */}
+        {/* <button className="text-neutral-400 flex items-center gap-2 bg-neutral-900 px-4 py-2 rounded-lg text-sm" onClick={openCreateTaskDialog}>
+          <NotebookPenIcon className="size-4" /> Add
+        </button> */}
       </header>
       <div className="px-2">
         <AssignmentsList tasks={tasks} />
@@ -86,11 +96,11 @@ function AssignmentsList({ tasks }: { tasks: Task[] }) {
   incompleteTasks.reverse();
 
   return (
-    <div>
+    <div className="space-y-5">
       {week.map((dayTasks, index) => {
         return (
           <div key={index}>
-            <header className="text-neutral-500 text-xs font-semibold mt-5 mb-1">
+            <header className="text-neutral-500 text-xs font-semibold mb-1">
               {index === 0 && "Today"}
               {index === 1 && "Tomorrow"}
               {index > 1 && format(addDays(new Date(), index - 1), "EEEE")}
@@ -138,9 +148,9 @@ function Assignment({ task }: { task: Task }) {
 
   return (
     <div
-      className={`grid grid-cols-12 w-full max-w-3xl rounded-3xl ${
-        task.completed ? "bg-neutral-900/50" : "bg-neutral-900/70"
-      }`}
+      className={`grid grid-cols-12 w-full rounded-3xl ${
+        task.completed ? "bg-neutral-900/50" : "bg-neutral-900/60"
+      } hover:bg-neutral-900`}
     >
       <div
         className="col-span-10 flex justify-between hover:cursor-pointer py-5 px-6"
@@ -151,7 +161,7 @@ function Assignment({ task }: { task: Task }) {
       >
         <div className="flex flex-col">
           <div className="text-neutral-300 text-xs">Introductory Psychology</div>
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-3 items-center">
             <span
               className={`font-semibold text-md ${
                 task.completed
@@ -173,42 +183,15 @@ function Assignment({ task }: { task: Task }) {
             {task.recurrence?.frequency !== "once" && (
               <Repeat2Icon className="text-neutral-400 size-4" />
             )}
+            {task.deadline && (
+              <div className="flex gap-4 items-center text-xs">
+                <Deadline deadline={task.deadline} />
+              </div>
+            )}
           </div>
-          <div className="flex gap-4 items-center text-xs">
+          {/* <div className="flex gap-4 items-center text-xs">
             {task.deadline && <Deadline deadline={task.deadline} />}
-            <div className="text-neutral-500 flex items-center gap-1">
-              {task.impact && (
-                <span>
-                  <span
-                    className={clsx("border rounded-lg px-1", {
-                      "text-red-300/80 border-red-400/10": task.impact === 4,
-                      "text-orange-300/80 border-orange-400/10": task.impact === 3,
-                      "text-yellow-300/80 border-yellow-400/10": task.impact === 2,
-                      "text-green-300/80 border-green-400/10": task.impact === 1,
-                    })}
-                  >
-                    {TASK_IMPACT[task.impact as keyof typeof TASK_IMPACT]} Impact
-                  </span>
-                </span>
-              )}
-            </div>
-            <div className="text-neutral-500 flex items-center gap-1">
-              {task.difficulty && (
-                <span>
-                  <span
-                    className={clsx("border rounded-lg px-1", {
-                      "text-red-300/80 border-red-500/10": task.difficulty === 4,
-                      "text-orange-300/80 border-orange-500/10": task.difficulty === 3,
-                      "text-yellow-300/80 border-yellow-500/10": task.difficulty === 2,
-                      "text-green-300/80 border-green-500/10": task.difficulty === 1,
-                    })}
-                  >
-                    {TASK_DIFFICULTY[task.difficulty as keyof typeof TASK_DIFFICULTY]} Effort
-                  </span>
-                </span>
-              )}
-            </div>
-          </div>
+          </div> */}
         </div>
         {(task.estimatedDurationInMins ?? 0) > 0 && (
           <div className="text-xs w-20 flex place-items-center">
@@ -282,7 +265,12 @@ function Status({ task, className }: { task: Task; className?: string }) {
     }
 
     return (
-      <FocusStageSwitchButton task={task} className="text-orange-500 font-bold">
+      <FocusStageSwitchButton
+        task={task}
+        className="text-orange-500 font-bold relative inline-block 
+before:absolute before:inset-0 before:bg-orange-500/15 
+before:rounded-full before:blur-3xl"
+      >
         {task.actualDurationInMins ?? 0 > 0 ? "Continue" : "Start"}
       </FocusStageSwitchButton>
     );
@@ -300,28 +288,36 @@ function Deadline({ deadline }: { deadline: Date }) {
   const now = new Date();
   const diffInDays = differenceInCalendarDays(deadline, now);
 
-  if (diffInDays < 0) {
-    return <div className="text-red-500">Overdue</div>;
-  }
-
-  if (diffInDays === 0) {
-    return <div className="text-red-500">Today</div>;
-  }
-
-  if (diffInDays === 1) {
-    return <div className="text-red-500">Tomorrow</div>;
-  }
+  const getFlagColor = () => {
+    if (diffInDays < 0) return "text-red-400"; // Overdue
+    if (diffInDays === 0) return "text-red-400"; // Today
+    if (diffInDays === 1) return "text-red-400"; // Tomorrow
+    if (diffInDays < 3) return "text-red-400"; // Urgent (next 3 days)
+    if (diffInDays < 7) return "text-orange-400"; // This week
+    return "text-neutral-400"; // Future
+  };
 
   if (diffInDays < 7) {
     return (
-      <div className={`${diffInDays < 3 ? "text-red-500" : "text-orange-500"}`}>
-        {Math.floor(diffInDays)}d
+      <div className={`flex items-center gap-1 ${getFlagColor()}`}>
+        <FlagIcon className="size-3" />
+        {diffInDays < 0
+          ? "Overdue"
+          : diffInDays === 0
+          ? "Today"
+          : diffInDays === 1
+          ? "Tomorrow"
+          : `${diffInDays}d`}
       </div>
     );
   }
 
-  if (getYear(deadline) === getYear(now)) {
-    return <div className="text-neutral-400">{format(deadline, "MMM dd")}</div>;
-  }
-  return <div className="text-neutral-400">{format(deadline, "MMM dd, yyyy")}</div>;
+  return (
+    <div className="flex items-center gap-1 text-neutral-400">
+      <FlagIcon className="size-3" />
+      {getYear(deadline) === getYear(now)
+        ? format(deadline, "MMM dd")
+        : format(deadline, "MMM dd, yyyy")}
+    </div>
+  );
 }

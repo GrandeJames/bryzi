@@ -10,7 +10,13 @@ import MiscSection from "./MiscSection";
 import useTasksStore from "@/stores/tasksStore";
 import { useCallback, useEffect, useState } from "react";
 import useDialogStore from "@/stores/dialogStore";
-import { PlusIcon } from "lucide-react";
+import {
+  CalendarIcon,
+  CircleCheckIcon,
+  NotebookPenIcon,
+  PlusIcon,
+  SparklesIcon,
+} from "lucide-react";
 
 function Home() {
   const open = useDialogStore((state) => state.openDialog);
@@ -26,7 +32,7 @@ function Home() {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "n" && event.ctrlKey) {
         event.preventDefault();
-        openCreateTaskDialog();
+        // openCreateTaskDialog();
       }
     };
 
@@ -35,7 +41,7 @@ function Home() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [openCreateTaskDialog]);
+  }, []);
 
   if (!isHydrated) {
     return <div>Loading...</div>;
@@ -54,28 +60,38 @@ function Home() {
       </header>
       <main className="space-y-10">
         <div className="pb-20 pt-5 space-y-5">
-          <header>
-            <div className="flex gap-5">
-              <span className="text-3xl font-bold text-neutral-600">Today</span>
-              <span className="text-3xl font-bold text-neutral-600">Tomorrow</span>
-              <span className="text-3xl font-bold text-neutral-200">This week</span>
+          <div className="flex justify-between items-center mb-10">
+            <DateHeading />
+            <div className="flex gap-5 mr-5 relative">
+              <span className="text-xl font-bold text-neutral-600">Today</span>
+              <span className="text-xl font-bold text-neutral-600">Tomorrow</span>
+              <span className="text-xl font-bold text-neutral-300 relative after:content-[''] after:absolute after:bottom-[-4px] after:left-1/2 after:-translate-x-1/2 after:w-8 after:h-[2px] after:bg-orange-400">
+                This week
+              </span>
             </div>
-          </header>
-          {/* <DateHeading /> */}
+          </div>
           <div className="space-y-8 flex flex-col">
             {/* <ScheduleSection scheduledTasks={scheduledTasks} /> */}
-            <div className="flex flex-col xl:grid xl:grid-cols-12 gap-1">
-              <AssignmentsSection tasks={assignments} />
-              <MiscSection miscTasks={miscTasks} />
+            <div className="flex flex-col xl:flex-row gap-10">
+              <AssignmentsSection tasks={assignments} className="flex-grow max-w-3xl" />
+              <MiscSection miscTasks={miscTasks} className="flex-grow max-w-md" />
             </div>
           </div>
         </div>
-        <button
-          onClick={openCreateTaskDialog}
-          className="fixed right-5 bottom-5 bg-orange-500 rounded-full p-4"
-        >
-          <PlusIcon className="size-6 text-neutral-200" />
-        </button>
+        <div className="fixed bottom-5 right-5 flex flex-col items-center gap-3">
+          <button className="group bg-neutral-900 rounded-full p-3 shadow-lg shadow-neutral-950 transition-all duration-300 hover:scale-110 relative">
+            <PlusIcon className="size-5 text-neutral-300" />
+
+            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 flex flex-col items-center gap-6 bg-neutral-900 px-3 py-5 rounded-full shadow-lg shadow-neutral-950 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300">
+              <CircleCheckIcon className="size-5 text-neutral-300" />
+              <button onClick={openCreateTaskDialog}>
+                <NotebookPenIcon className="size-5 text-neutral-300" />
+              </button>
+              <CalendarIcon className="size-5 text-neutral-300" />
+              <SparklesIcon className="size-5 text-neutral-300" />
+            </div>
+          </button>
+        </div>
       </main>
     </div>
   );
@@ -88,10 +104,10 @@ function DateHeading() {
   const monthAndDay = format(today, "MMM d");
 
   return (
-    <header className="flex items-end gap-2">
-      <span className="text-2xl font-bold text-neutral-200">{day}</span>
+    <div className="flex items-end gap-2">
+      <span className="text-3xl font-bold text-neutral-200">{day}</span>
       <span className="text-xl font-bold text-neutral-500">{monthAndDay}</span>
-    </header>
+    </div>
   );
 }
 

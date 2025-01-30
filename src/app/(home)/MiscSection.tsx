@@ -1,9 +1,17 @@
 import { Task } from "@/types/task";
+import { CircleCheckIcon, PlusIcon } from "lucide-react";
 
-function MiscSection({ miscTasks }: { miscTasks: any[] }) {
+function MiscSection({ miscTasks, className }: { miscTasks: any[], className?: string }) {
   return (
-    <section className="col-span-4">
-      <header className="font-semibold text-xl mb-2 text-gray-200">Personal</header>
+    <section className={className}>
+      <header className="flex justify-between gap-2">
+        <div className="font-semibold text-xl text-neutral-300 mb-2 flex items-center gap-2">
+          Personal
+        </div>
+        {/* <button className="text-neutral-400 p-2">
+          <PlusIcon className="size-5" />
+        </button> */}
+      </header>
       <ul className="grid grid-cols-1 space-y-1">
         {miscTasks.map((task, index) => (
           <MiscTask key={index} task={task} />
