@@ -3,7 +3,13 @@
 import { Progress } from "@/components/ui/progress";
 import useDialogStore from "@/stores/dialogStore";
 import { Task } from "@/types/task";
-import { ListTodoIcon, NotebookPenIcon, PlusIcon, Repeat2Icon } from "lucide-react";
+import {
+  CalendarSyncIcon,
+  ListTodoIcon,
+  NotebookPenIcon,
+  PlusIcon,
+  Repeat2Icon,
+} from "lucide-react";
 import { cn } from "@/utils.ts/cn";
 import clsx from "clsx";
 import { TASK_DIFFICULTY, TASK_IMPACT } from "@/constants/taskConstants";
@@ -16,24 +22,19 @@ import { DayProps, getRecommendedClassWorkList } from "@/lib/classWorkRecommenda
 import { useCallback } from "react";
 import { FlagIcon } from "@/components/icons/FlagIcon";
 
-function AssignmentsSection({ tasks, className }: { tasks: any[], className?: string }) {
+function AssignmentsSection({ tasks, className }: { tasks: any[]; className?: string }) {
   const open = useDialogStore((state) => state.openDialog);
   const openCreateTaskDialog = useCallback(() => open("create"), [open]);
 
   return (
     <section className={className}>
-      <header className="flex justify-between gap-2">
+      <header className="flex justify-between gap-2 items-center">
         <div className="font-semibold text-xl text-neutral-300 mb-2 flex items-center gap-2">
           Class Work
         </div>
-        {/* <div className="flex mb-2 gap-4 px-2">
-          <div className="bg-neutral-800 text-xs px-3 py-1 rounded-full text-neutral-100">
-            Today
-          </div>
-          <div className="bg-neutral-800 text-xs px-3 py-1 rounded-full text-neutral-100">
-            This week
-          </div>
-        </div> */}
+        <div className="border-orange-400 dark:bg-orange-400/30 dark:text-orange-300 font-semibold text-[0.6rem] px-3 rounded-full flex gap-1 items-center h-min py-1">
+          <span>RECOMMENDED</span>
+        </div>
         {/* <button className="text-neutral-400 flex items-center gap-2 bg-neutral-900 px-4 py-2 rounded-lg text-sm" onClick={openCreateTaskDialog}>
           <NotebookPenIcon className="size-4" /> Add
         </button> */}

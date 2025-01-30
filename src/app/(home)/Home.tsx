@@ -56,11 +56,11 @@ function Home() {
   const miscTasks = tasks.filter((task) => !task.startTime && !task.expectedDuration);
 
   return (
-    <div className="">
-      <header>
+    <div className="mx-2">
+      <header className="mx-2">
         <Progress value={70} label="3/5 Tasks" className="mb-2 mt-5 text-xs" />
         <Timeline
-          startTime="8:20"
+          startTime="8:00"
           endTime="23:00"
           events={[
             { start: "9:00", end: "10:30", type: "focus" },
@@ -70,8 +70,8 @@ function Home() {
         />
       </header>
       <main className="space-y-10">
-        <div className="pb-20 pt-5 space-y-5">
-          <div className="flex justify-between items-center mb-10">
+        <div className="pb-20 space-y-5">
+          <header className="flex justify-between items-center mb-10">
             <DateHeading />
             <div className="flex gap-5 mr-5 relative">
               <span className="text-xl font-bold text-neutral-600">Today</span>
@@ -80,7 +80,7 @@ function Home() {
                 This week
               </span>
             </div>
-          </div>
+          </header>
           <div className="space-y-8 flex flex-col">
             {/* <ScheduleSection scheduledTasks={scheduledTasks} /> */}
             <div className="flex flex-col xl:flex-row gap-10">
