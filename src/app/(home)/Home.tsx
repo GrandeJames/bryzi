@@ -5,7 +5,6 @@ import { Progress } from "@/components/ui/progress";
 import { tasks } from "@/data/sampleTasks";
 import { format } from "date-fns";
 import AssignmentsSection from "./AssignmentSection";
-import ScheduleSection from "./ScheduleSection";
 import MiscSection from "./MiscSection";
 import useTasksStore from "@/stores/tasksStore";
 import { useCallback, useEffect, useState } from "react";
@@ -13,13 +12,11 @@ import useDialogStore from "@/stores/dialogStore";
 import {
   CalendarIcon,
   CircleCheckIcon,
-  EllipsisVerticalIcon,
   NotebookPenIcon,
   PlusIcon,
   SparklesIcon,
 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Button } from "react-day-picker";
 
 function Home() {
   const tasks2 = useTasksStore((state) => state.tasks);

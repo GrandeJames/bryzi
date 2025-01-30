@@ -4,19 +4,13 @@ import { Progress } from "@/components/ui/progress";
 import useDialogStore from "@/stores/dialogStore";
 import { Task } from "@/types/task";
 import {
-  CalendarSyncIcon,
   ListTodoIcon,
-  NotebookPenIcon,
-  PlusIcon,
   Repeat2Icon,
 } from "lucide-react";
 import { cn } from "@/utils.ts/cn";
-import clsx from "clsx";
-import { TASK_DIFFICULTY, TASK_IMPACT } from "@/constants/taskConstants";
 import { addDays, differenceInCalendarDays, format, getYear } from "date-fns";
 import useTasksStore from "@/stores/tasksStore";
 import { handleTaskComplete } from "@/lib/taskUtils";
-import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
 import FocusStageSwitchButton from "@/components/FocusStageSwitchButton";
 import { DayProps, getRecommendedClassWorkList } from "@/lib/classWorkRecommendation";
 import { useCallback } from "react";

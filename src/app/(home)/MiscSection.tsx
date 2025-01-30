@@ -1,5 +1,4 @@
 import { Task } from "@/types/task";
-import { CircleCheckIcon, PlusIcon } from "lucide-react";
 
 function MiscSection({ miscTasks, className }: { miscTasks: any[], className?: string }) {
   return (
