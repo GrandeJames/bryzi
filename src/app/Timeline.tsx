@@ -1,3 +1,4 @@
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { cn } from "@/utils.ts/cn";
 
 interface TimelineEvent {
@@ -33,7 +34,7 @@ function toMinutes(time: string) {
 function formatHour(hours: number) {
   const period = hours >= 12 ? "PM" : "AM";
   const displayHours = hours % 12 || 12;
-  return `${displayHours} ${period}`;
+  return `${displayHours}:00 ${period}`;
 }
 
 function calculatePosition(startReference: string, time: string, totalMinutes: number) {
@@ -64,7 +65,7 @@ const Timeline = ({
   }
 
   return (
-    <div className="relative mx-3">
+    <div className="relative">
       <div
         className={cn(
           "border border-white rounded-md h-10 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900 relative overflow-hidden",
@@ -86,19 +87,37 @@ const Timeline = ({
           return (
             <div
               key={index}
-              className={`absolute h-full rounded-full ${eventType.color} blur-lg hover:blur-none`}
+              className="absolute h-full"
               style={{
                 width: `${width}%`,
                 left: `${left}%`,
               }}
-              title={`${eventType.label}: ${event.start} - ${event.end}`}
-            />
+            >
+              <HoverCard openDelay={0} closeDelay={0}>
+                <HoverCardTrigger asChild>
+                  <div
+                    className={`h-full rounded-md ${eventType.color} blur-lg hover:blur-none cursor-pointer`}
+                  />
+                </HoverCardTrigger>
+                <HoverCardContent
+                  align="center"
+                  className="min-w-[200px] max-w-[90vw] break-words z-30 dark:bg-neutral-900/70 dark:backdrop-blur-lg"
+                >
+                  <div className="text-sm">
+                    <span className="font-medium">{eventType.label}:</span>
+                    <div className="text-muted-foreground">
+                      {event.start} - {event.end}
+                    </div>
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
+            </div>
           );
         })}
 
         {showCurrentTime && (
           <div
-            className="absolute w-[1px] h-full bg-neutral-800 z-20"
+            className="absolute w-[1px] h-full bg-orange-400/30 z-20"
             style={{
               left: `${calculatePosition(roundedStart, currentTimeString, totalMinutes)}%`,
             }}
