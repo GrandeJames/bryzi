@@ -1,5 +1,6 @@
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { cn } from "@/utils.ts/cn";
+import { useEffect, useState } from "react";
 
 interface TimelineEvent {
   start: string;
@@ -56,13 +57,22 @@ const Timeline = ({
   const roundedEnd = `${end.hours}:${Math.ceil(end.minutes / 30) * 30}`;
 
   const totalMinutes = toMinutes(roundedEnd) - toMinutes(roundedStart);
-  const currentTime = new Date();
+
+  const [currentTime, setCurrentTime] = useState<Date>(new Date());
   const currentTimeString = `${currentTime.getHours()}:${currentTime.getMinutes()}`;
 
   const timeMarkers = [];
   for (let hour = start.hours; hour <= end.hours; hour++) {
     timeMarkers.push(`${hour}:00`);
   }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 60 * 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="relative">
