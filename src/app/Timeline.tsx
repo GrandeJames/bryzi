@@ -1,242 +1,131 @@
 import { cn } from "@/utils.ts/cn";
 
-// TODO: create unit tests
-
-// currently only works for end time > start time
-function minutesBetweenTimes(startTime: string, endTime: string) {
-  let startTimeHour = Number(startTime.split(":")[0]);
-  let startTimeMinute = Number(startTime.split(":")[1]);
-
-  let endTimeHour = Number(endTime.split(":")[0]);
-  let endTimeMinute = Number(endTime.split(":")[1]);
-
-  let totalFocusTimeHours = endTimeHour - startTimeHour;
-  let totalFocusTimeMinutes = endTimeMinute - startTimeMinute;
-
-  return totalFocusTimeHours * 60 + totalFocusTimeMinutes;
+interface TimelineEvent {
+  start: string;
+  end: string;
+  type: "focus" | "task" | "custom";
 }
 
-const FOCUS_SESSIONS = [
-  { start: "9:00", end: "10:30" },
-  { start: "10:45", end: "12:00" },
-  { start: "13:45", end: "13:55" },
-];
+interface TimelineProps {
+  className?: string;
+  startTime?: string;
+  endTime?: string;
+  events?: TimelineEvent[];
+  showCurrentTime?: boolean;
+}
 
-const SCHEDULED_TASKS = [
-  { start: "7:02", end: "8:00" },
-  { start: "12:15", end: "13:00" },
-];
+const EVENT_TYPES = {
+  focus: { color: "bg-orange-400/80", label: "Focus Session" },
+  task: { color: "bg-blue-500/80", label: "Scheduled Task" },
+  custom: { color: "bg-green-400/80", label: "Custom Event" },
+};
 
-// TODO: use actual user data
+function parseTime(time: string) {
+  const [hours, minutes] = time.split(":").map(Number);
+  return { hours, minutes };
+}
 
-// EDGE CASE: Task starts before the start time
-// EDGE CASE: Task ends after the end time
+function toMinutes(time: string) {
+  const { hours, minutes } = parseTime(time);
+  return hours * 60 + minutes;
+}
 
-// TODO: update key
+function formatHour(hours: number) {
+  const period = hours >= 12 ? "PM" : "AM";
+  const displayHours = hours % 12 || 12;
+  return `${displayHours} ${period}`;
+}
 
-const START_TIME = "6:46";
-const END_TIME = "20:42";
+function calculatePosition(startReference: string, time: string, totalMinutes: number) {
+  const minutesFromStart = Math.max(toMinutes(time) - toMinutes(startReference), 0);
+  return (minutesFromStart / totalMinutes) * 100;
+}
 
-// TODO: fix duplication
-function Timeline({ className }: { className?: string }) {
-  const CURRENT_TIME = "15:46";
-  const startTimeRoundedDown = Math.floor(Number(START_TIME.split(":")[1]) / 30) * 30;
-  const ROUNDED_START_TIME = `${START_TIME.split(":")[0]}:${startTimeRoundedDown}`;
+const Timeline = ({
+  className,
+  startTime = "7:00",
+  endTime = "23:00",
+  events = [],
+  showCurrentTime = true,
+}: TimelineProps) => {
+  const start = parseTime(startTime);
+  const end = parseTime(endTime);
 
-  const endTimeRoundedUp = Math.ceil(Number(END_TIME.split(":")[1]) / 30) * 30;
-  const ROUNDED_END_TIME = `${END_TIME.split(":")[0]}:${endTimeRoundedUp}`;
+  const roundedStart = `${start.hours}:${Math.floor(start.minutes / 30) * 30}`;
+  const roundedEnd = `${end.hours}:${Math.ceil(end.minutes / 30) * 30}`;
 
-  // console.log(ROUNDED_START_TIME, ROUNDED_END_TIME, CURRENT_TIME);
+  const totalMinutes = toMinutes(roundedEnd) - toMinutes(roundedStart);
+  const currentTime = new Date();
+  const currentTimeString = `${currentTime.getHours()}:${currentTime.getMinutes()}`;
 
-  const TOTAL_FOCUS_MINUTES = minutesBetweenTimes(ROUNDED_START_TIME, ROUNDED_END_TIME);
-  let startTimeOffset = `${Math.round(
-    (minutesBetweenTimes(ROUNDED_START_TIME, START_TIME) / TOTAL_FOCUS_MINUTES) * 100
-  )}%`;
-
-  let endTimeOffset = `${Math.round(
-    (minutesBetweenTimes(ROUNDED_START_TIME, END_TIME) / TOTAL_FOCUS_MINUTES) * 100
-  )}%`;
-
-  let currentTimeOffset = `${Math.round(
-    (minutesBetweenTimes(ROUNDED_START_TIME, CURRENT_TIME) / TOTAL_FOCUS_MINUTES) * 100
-  )}%`;
+  const timeMarkers = [];
+  for (let hour = start.hours; hour <= end.hours; hour++) {
+    timeMarkers.push(`${hour}:00`);
+  }
 
   return (
-    <div className="relative">
-      <div
-        className="absolute bottom-[-20px] text-neutral-600 text-xs -translate-x-1/2"
-        style={{ left: startTimeOffset }}
-      >
-        {START_TIME}AM
-      </div>
-      <div
-        className="absolute bottom-[-20px] text-neutral-600 text-xs -translate-x-1/2"
-        style={{ left: endTimeOffset }}
-      >
-        {END_TIME}PM
-      </div>
-      <div
-        className="absolute bottom-[-20px] text-neutral-600 text-xs -translate-x-1/2"
-        style={{ left: currentTimeOffset }}
-      >
-        now
-      </div>
-
-      <div
-        className="absolute bottom-[-20px] text-neutral-600 text-xs -translate-x-1/2"
-        style={{
-          left: `${Math.round(
-            (minutesBetweenTimes(ROUNDED_START_TIME, "7:00") / TOTAL_FOCUS_MINUTES) * 100
-          )}%`,
-        }}
-      >
-        {"7:00 AM"}
-      </div>
-      <div
-        className="absolute bottom-[-20px] text-neutral-600 text-xs -translate-x-1/2"
-        style={{
-          left: `${Math.round(
-            (minutesBetweenTimes(ROUNDED_START_TIME, "8:00") / TOTAL_FOCUS_MINUTES) * 100
-          )}%`,
-        }}
-      >
-        {"8:00 AM"}
-      </div>
-      <div
-        className="absolute bottom-[-20px] text-neutral-600 text-xs -translate-x-1/2"
-        style={{
-          left: `${Math.round(
-            (minutesBetweenTimes(ROUNDED_START_TIME, "9:00") / TOTAL_FOCUS_MINUTES) * 100
-          )}%`,
-        }}
-      >
-        {"9:00 AM"}
-      </div>
-      <div
-        className="absolute bottom-[-20px] text-neutral-600 text-xs -translate-x-1/2"
-        style={{
-          left: `${Math.round(
-            (minutesBetweenTimes(ROUNDED_START_TIME, "10:00") / TOTAL_FOCUS_MINUTES) * 100
-          )}%`,
-        }}
-      >
-        {"10:00 AM"}
-      </div>
-      <div
-        className="absolute bottom-[-20px] text-neutral-600 text-xs -translate-x-1/2"
-        style={{
-          left: `${Math.round(
-            (minutesBetweenTimes(ROUNDED_START_TIME, "11:00") / TOTAL_FOCUS_MINUTES) * 100
-          )}%`,
-        }}
-      >
-        {"11:00 AM"}
-      </div>
-      <div
-        className="absolute bottom-[-20px] text-neutral-600 text-xs -translate-x-1/2"
-        style={{
-          left: `${Math.round(
-            (minutesBetweenTimes(ROUNDED_START_TIME, "12:00") / TOTAL_FOCUS_MINUTES) * 100
-          )}%`,
-        }}
-      >
-        {"12:00 PM"}
-      </div>
-      <div
-        className="absolute bottom-[-20px] text-neutral-600 text-xs -translate-x-1/2"
-        style={{
-          left: `${Math.round(
-            (minutesBetweenTimes(ROUNDED_START_TIME, "13:00") / TOTAL_FOCUS_MINUTES) * 100
-          )}%`,
-        }}
-      >
-        {"1:00 PM"}
-      </div>
-      <div
-        className="absolute bottom-[-20px] text-neutral-600 text-xs -translate-x-1/2"
-        style={{
-          left: `${Math.round(
-            (minutesBetweenTimes(ROUNDED_START_TIME, "14:00") / TOTAL_FOCUS_MINUTES) * 100
-          )}%`,
-        }}
-      >
-        {"2:00 PM"}
-      </div>
-      <div
-        className="absolute bottom-[-20px] text-neutral-600 text-xs -translate-x-1/2"
-        style={{
-          left: `${Math.round(
-            (minutesBetweenTimes(ROUNDED_START_TIME, "15:00") / TOTAL_FOCUS_MINUTES) * 100
-          )}%`,
-        }}
-      >
-        {"3:00 PM"}
-      </div>
-      <div
-        className="absolute bottom-[-20px] text-neutral-600 text-xs -translate-x-1/2"
-        style={{
-          left: `${Math.round(
-            (minutesBetweenTimes(ROUNDED_START_TIME, "16:00") / TOTAL_FOCUS_MINUTES) * 100
-          )}%`,
-        }}
-      >
-        {"4:00 PM"}
-      </div>
-
+    <div className="relative mx-3">
       <div
         className={cn(
           "border border-white rounded-md h-10 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900 relative overflow-hidden",
           className
         )}
       >
-        <div
-          className="absolute text-neutral-600 text-xs border-l-2 border-l-neutral-800 h-full"
-          style={{ left: startTimeOffset }}
-        ></div>
-        <div
-          className="absolute text-neutral-600 text-xs border-l-2 border-l-neutral-800 h-full"
-          style={{ left: endTimeOffset }}
-        ></div>
-        <div
-          className="absolute text-neutral-600 text-xs border-l-2 border-l-neutral-800 h-full"
-          style={{ left: currentTimeOffset }}
-        ></div>
+        {events.map((event, index) => {
+          const eventStart = Math.max(toMinutes(event.start), toMinutes(roundedStart));
+          const eventEnd = Math.min(toMinutes(event.end), toMinutes(roundedEnd));
+          const duration = eventEnd - eventStart;
 
-        {FOCUS_SESSIONS.map((session, index) => {
-          let taskDurationInMinutes = minutesBetweenTimes(session.start, session.end);
-          let taskWidth = Math.round((taskDurationInMinutes / TOTAL_FOCUS_MINUTES) * 100);
+          if (duration <= 0) return null;
 
-          let minutesFromStartTime = minutesBetweenTimes(ROUNDED_START_TIME, session.start);
-          let taskOffset = Math.round((minutesFromStartTime / TOTAL_FOCUS_MINUTES) * 100);
+          const left = calculatePosition(roundedStart, event.start, totalMinutes);
+          const width = (duration / totalMinutes) * 100;
+
+          const eventType = EVENT_TYPES[event.type] || EVENT_TYPES.custom;
+
           return (
             <div
               key={index}
-              className={
-                "absolute h-full rounded-full bg-orange-400/80 blur-lg hover:blur-none"
-              }
-              style={{ width: `${taskWidth}%`, left: `${taskOffset}%` }}
+              className={`absolute h-full rounded-full ${eventType.color} blur-lg hover:blur-none`}
+              style={{
+                width: `${width}%`,
+                left: `${left}%`,
+              }}
+              title={`${eventType.label}: ${event.start} - ${event.end}`}
             />
           );
         })}
-        {SCHEDULED_TASKS.map((task, index) => {
-          let taskDurationInMinutes = minutesBetweenTimes(task.start, task.end);
-          let minutesFromStartTime = minutesBetweenTimes(START_TIME, task.start);
 
-          let taskWidth = Math.round((taskDurationInMinutes / TOTAL_FOCUS_MINUTES) * 100);
-          let taskOffset = Math.round((minutesFromStartTime / TOTAL_FOCUS_MINUTES) * 100);
+        {showCurrentTime && (
+          <div
+            className="absolute w-[1px] h-full bg-neutral-800 z-20"
+            style={{
+              left: `${calculatePosition(roundedStart, currentTimeString, totalMinutes)}%`,
+            }}
+          >
+            <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-xs text-red-500 font-medium whitespace-nowrap">
+              {currentTime.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="relative h-6 mb-4">
+        {timeMarkers.map((time) => {
+          const position = calculatePosition(roundedStart, time, totalMinutes);
           return (
             <div
-              key={index}
-              className={
-                "absolute h-full rounded-full bg-blue-500/80 blur-lg hover:blur-none"
-              }
-              style={{ width: `${taskWidth}%`, left: `${taskOffset}%` }}
-            />
+              key={time}
+              className="absolute bottom-0 text-neutral-600 text-[0.65rem] -translate-x-1/2 text-nowrap"
+              style={{ left: `${position}%` }}
+            >
+              {formatHour(parseTime(time).hours)}
+            </div>
           );
         })}
       </div>
     </div>
   );
-}
+};
 
 export { Timeline };

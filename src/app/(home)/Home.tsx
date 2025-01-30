@@ -56,7 +56,15 @@ function Home() {
     <div className="">
       <header>
         <Progress value={70} label="3/5 Tasks" className="mb-2 mt-5 text-xs" />
-        <Timeline className="mb-4" />
+        <Timeline
+          startTime="8:20"
+          endTime="23:00"
+          events={[
+            { start: "9:00", end: "10:30", type: "focus" },
+            { start: "12:15", end: "13:00", type: "task" },
+            { start: "14:00", end: "15:30", type: "focus" },
+          ]}
+        />
       </header>
       <main className="space-y-10">
         <div className="pb-20 pt-5 space-y-5">
