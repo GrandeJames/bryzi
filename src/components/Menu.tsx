@@ -1,57 +1,61 @@
 "use client";
 
-import { ChartBarIcon } from "@/components/icons/ChartBarIcon";
 import { QueueListIcon } from "@/components/icons/QueueListIcon";
 import Link from "next/link";
-// import { SignInDialog } from "./SignInDialog";
-// import { auth } from "@/auth";
+import { usePathname } from "next/navigation";
 import { MenuItemContainer } from "./MenuItemContainer";
-// import { UserDropDownMenu } from "./UserDropDownMenu";
-import { CircleUserRoundIcon, CogIcon, LibraryIcon, SunIcon, User2Icon } from "lucide-react";
 import { HomeIcon } from "./icons/HomeIcon";
 import { ComponentPlaceholderIcon } from "@radix-ui/react-icons";
 import { Cog6ToothIcon } from "./icons/Cog6ToothIcon";
+import clsx from "clsx"; // Import clsx for conditional classNames
+import { ChartBarIcon } from "./icons/ChartBarIcon";
+import Icon1 from "./icons/Icon1";
+
+const mainMenuItems = [
+  { href: "/", icon: <HomeIcon />, label: "Home" },
+  { href: "/tasks", icon: <QueueListIcon />, label: "Tasks" },
+  { href: "/data-insights", icon: <ChartBarIcon />, label: "Analytics" },
+];
+
+const bottomMenuItems = [
+  { href: "/settings", icon: <Cog6ToothIcon />, label: "Settings" },
+  { href: "/profile", icon: <ComponentPlaceholderIcon />, label: "Profile" },
+];
 
 export function Menu() {
-  // const session = await auth();
+  const pathname = usePathname();
+
+  const activeStyle = "text-orange-500";
 
   return (
-    <div className="flex flex-col h-screen justify-between border-r border-neutral-900 px-2 py-7 sticky top-0">
-      <div className="flex flex-col space-y-3">
-        <Link href={"/"}>
-          <MenuItemContainer>
-            <HomeIcon />
-          </MenuItemContainer>
-        </Link>
-        <Link href={"tasks"}>
-          <MenuItemContainer>
-            <QueueListIcon />
-          </MenuItemContainer>
-        </Link>
-        {/* <Link href={"classes"}>
-          <MenuItemContainer>
-            <LibraryIcon />
-          </MenuItemContainer>
-        </Link> */}
-        {/* <Link href={"data-insights"}>
-          <MenuItemContainer>
-            <ChartBarIcon />
-          </MenuItemContainer>
-        </Link> */}
+    <div className="flex flex-col h-screen justify-between px-5 py-7 sticky top-0 bg-neutral-900/60 text-neutral-400">
+      <Link className="flex justify-center mb-8" href="/landing">
+        <Icon1 />
+      </Link>
+
+      <div className="flex flex-col space-y-12 flex-grow mt-20">
+        {mainMenuItems.map((item) => (
+          <Link key={item.href} href={item.href}>
+            <MenuItemContainer
+              className={clsx(pathname === item.href && activeStyle)} // Conditionally apply the active style
+            >
+              {item.icon}
+            </MenuItemContainer>
+          </Link>
+        ))}
       </div>
-      <div>
-        <Link href={"settings"}>
-          <MenuItemContainer>
-            <Cog6ToothIcon />
-          </MenuItemContainer>
-        </Link>
-        <Link href={"/"}>
-          <MenuItemContainer>
-          <ComponentPlaceholderIcon />
-          </MenuItemContainer>
-        </Link>
+
+      <div className="flex flex-col space-y-12">
+        {bottomMenuItems.map((item) => (
+          <Link key={item.href} href={item.href}>
+            <MenuItemContainer
+              className={clsx(pathname === item.href && activeStyle)} // Conditionally apply the active style
+            >
+              {item.icon}
+            </MenuItemContainer>
+          </Link>
+        ))}
       </div>
-      {/* <div className="flex justify-center">{session ? <UserDropDownMenu /> : <SignInDialog />}</div> */}
     </div>
   );
 }
