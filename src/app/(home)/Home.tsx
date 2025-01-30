@@ -13,10 +13,13 @@ import useDialogStore from "@/stores/dialogStore";
 import {
   CalendarIcon,
   CircleCheckIcon,
+  EllipsisVerticalIcon,
   NotebookPenIcon,
   PlusIcon,
   SparklesIcon,
 } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Button } from "react-day-picker";
 
 function Home() {
   const open = useDialogStore((state) => state.openDialog);
@@ -88,15 +91,24 @@ function Home() {
         </div>
         <div className="fixed bottom-5 right-5 flex flex-col items-center gap-3">
           <button className="group bg-neutral-900 rounded-full p-3 shadow-lg shadow-neutral-950 transition-all duration-300 hover:scale-110 relative">
-            <PlusIcon className="size-5 text-neutral-300" />
+            <EllipsisVerticalIcon className="size-5 text-neutral-300" />
 
             <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 flex flex-col items-center gap-6 bg-neutral-900 px-3 py-5 rounded-full shadow-lg shadow-neutral-950 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300">
-              <CircleCheckIcon className="size-5 text-neutral-300" />
-              <button onClick={openCreateTaskDialog}>
-                <NotebookPenIcon className="size-5 text-neutral-300" />
-              </button>
-              <CalendarIcon className="size-5 text-neutral-300" />
               <SparklesIcon className="size-5 text-neutral-300" />
+              <CalendarIcon className="size-5 text-neutral-300" />
+              <CircleCheckIcon className="size-5 text-neutral-300" />
+              <TooltipProvider delayDuration={50}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button onClick={openCreateTaskDialog}>
+                      <NotebookPenIcon className="size-5 text-neutral-300 hover:text-white" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent side="left">
+                    <p>Add class work</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           </button>
         </div>
