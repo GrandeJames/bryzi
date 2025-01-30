@@ -23,7 +23,7 @@ function MiscSection({ miscTasks, className }: { miscTasks: any[], className?: s
 
 function MiscTask({ task }: { task: Task }) {
   return (
-    <div className="grid grid-cols-4 py-3 px-5 bg bg-neutral-900/70 rounded-xl max-w-3xl">
+    <div className="grid grid-cols-4 py-3 px-5 bg bg-neutral-900/60 rounded-xl max-w-3xl">
       <div className="flex flex-col col-span-3">
         <div className="font-semibold text-neutral-200">{task.title}</div>
       </div>
