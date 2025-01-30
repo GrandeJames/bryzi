@@ -127,7 +127,7 @@ const Timeline = ({
 
         {showCurrentTime && (
           <div
-            className="absolute w-[1px] h-full bg-orange-400/30 z-20"
+            className="absolute w-[2px] h-full bg-neutral-600/40 z-20"
             style={{
               left: `${calculatePosition(roundedStart, currentTimeString, totalMinutes)}%`,
             }}
