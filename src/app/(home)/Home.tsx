@@ -64,7 +64,6 @@ function Home() {
           endTime="23:00"
           events={[
             { start: "9:00", end: "10:30", type: "focus" },
-            { start: "12:15", end: "13:00", type: "task" },
             { start: "14:00", end: "15:30", type: "focus" },
           ]}
         />

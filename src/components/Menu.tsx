@@ -10,6 +10,7 @@ import { Cog6ToothIcon } from "./icons/Cog6ToothIcon";
 import clsx from "clsx"; // Import clsx for conditional classNames
 import { ChartBarIcon } from "./icons/ChartBarIcon";
 import Icon1 from "./icons/Icon1";
+import Icon2 from "./icons/Icon2";
 
 const mainMenuItems = [
   { href: "/", icon: <HomeIcon />, label: "Home" },
@@ -30,7 +31,7 @@ export function Menu() {
   return (
     <div className="flex flex-col h-screen justify-between px-5 py-7 sticky top-0 bg-neutral-900/60 text-neutral-400">
       <Link className="flex justify-center mb-8" href="/landing">
-        <Icon1 />
+        <Icon2 />
       </Link>
 
       <div className="flex flex-col space-y-12 flex-grow mt-20">

@@ -32,7 +32,7 @@ function AssignmentsSection({ tasks, className }: { tasks: any[]; className?: st
         <div className="font-semibold text-xl text-neutral-300 mb-2 flex items-center gap-2">
           Class Work
         </div>
-        <div className="border-orange-400 dark:bg-orange-400/30 dark:text-orange-300 font-semibold text-[0.6rem] px-3 rounded-full flex gap-1 items-center h-min py-1">
+        <div className="border-orange-400 dark:bg-orange-400/30 dark:text-orange-400 font-semibold text-[0.6rem] px-3 rounded-full flex gap-1 items-center h-min py-1">
           <span>RECOMMENDED</span>
         </div>
         {/* <button className="text-neutral-400 flex items-center gap-2 bg-neutral-900 px-4 py-2 rounded-lg text-sm" onClick={openCreateTaskDialog}>
