@@ -28,22 +28,11 @@ export default function TaskIcon() {
             d="M-12 6h24v12h-24V6zm-3-9h18v6h-18V-3z"
             className="fill-current opacity-90"
           />
-          
-          {/* Time pulse indicator */}
-          <circle
-            cx="0"
-            cy="-12"
-            r="2"
-            className="fill-orange-400 animate-pulse"
-          />
+        
         </g>
         
-        {/* Floating course nodes */}
-        <g className="opacity-75">
-          <circle cx="48" cy="16" r="3" className="fill-orange-300" />
-          <circle cx="56" cy="32" r="2" className="fill-orange-200" />
-          <circle cx="48" cy="48" r="2" className="fill-orange-200" />
-        </g>
+         {/* Subtle sparkle accent */}
+         <path d="M44 24l-2 3 3-2 3 2-2-3 2-3-3 2-3-2z" className="fill-orange-300/70" />
       </svg>
     );
   }
