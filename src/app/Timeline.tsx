@@ -78,7 +78,7 @@ const Timeline = ({
     <div className="relative">
       <div
         className={cn(
-          "border border-white rounded-md h-10 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900 relative overflow-hidden",
+          "border rounded-lg h-10 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900 relative overflow-hidden",
           className
         )}
       >
@@ -127,7 +127,7 @@ const Timeline = ({
 
         {showCurrentTime && (
           <div
-            className="absolute w-[2px] h-full bg-neutral-600/40 z-20"
+            className="absolute w-[2px] h-full bg-neutral-800/80 z-20"
             style={{
               left: `${calculatePosition(roundedStart, currentTimeString, totalMinutes)}%`,
             }}

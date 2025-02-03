@@ -1,18 +1,17 @@
 "use client";
 
-import useDialogStore from "@/stores/dialogStore";
 import { Task } from "@/types/task";
-import { addDays, differenceInCalendarDays, format, getYear } from "date-fns";
+import { addDays, format } from "date-fns";
 import { DayProps, getRecommendedClassWorkList } from "@/lib/classWorkRecommendation";
-import { useCallback } from "react";
 import Assignment from "./Assignment";
+import { BookIcon } from "lucide-react";
 
 function AssignmentsSection({ tasks, className }: { tasks: any[]; className?: string }) {
   return (
     <section className={className}>
       <header className="flex justify-between gap-2 items-center">
         <div className="font-semibold text-xl text-neutral-300 mb-2 flex items-center gap-2">
-          Class Work
+          Assignments
         </div>
         <div className="border-orange-400 dark:bg-orange-400/30 dark:text-orange-400 font-semibold text-[0.6rem] px-3 rounded-full flex gap-1 items-center h-min py-1">
           <span>RECOMMENDED</span>
@@ -58,7 +57,7 @@ function AssignmentsList({ tasks }: { tasks: Task[] }) {
 
   getTasksForDay(schedule[0], incompleteTasks);
 
-  const week = [];
+  const week: any[] = [];
 
   for (let i = 0; i < 7; i++) {
     week.push(getTasksForDay(schedule[i], incompleteTasks));
@@ -77,29 +76,41 @@ function AssignmentsList({ tasks }: { tasks: Task[] }) {
 
   return (
     <div className="space-y-5">
-      {week.map((dayTasks, index) => {
-        return (
-          <div key={index}>
-            <header className="text-neutral-500 text-xs font-semibold mb-1">
-              {index === 0 && "Today"}
-              {index === 1 && "Tomorrow"}
-              {index > 1 && format(addDays(new Date(), index - 1), "EEEE")}
-            </header>
-            <ul className="space-y-2">
-              {dayTasks.length === 0 && (
-                <div className="text-neutral-600 text-xs text-center">No tasks</div>
-              )}
-              {dayTasks.map((task, index) => (
-                <li key={index}>
-                  <div className="py-0">
-                    <Assignment task={task} />
-                  </div>
-                </li>
-              ))}
-            </ul>
+      {incompleteTasks?.length === 0 && completedTasks?.length === 0 && (
+        <div className="my-[5rem] text-center">
+          <BookIcon className="size-5 text-neutral-500 mx-auto mb-3" />
+          <div className="font-medium text-neutral-500 text-sm">No Assignments</div>
+          <div className="flex justify-center mt-1">
+            <p className="text-xs text-neutral-600 max-w-[15rem]">
+              Looks like you’re up to date with your assignments!
+            </p>
           </div>
-        );
-      })}
+        </div>
+      )}
+      {incompleteTasks?.length > 0 &&
+        week.map((dayTasks, index) => {
+          if (week[index].length <= 0) {
+            return null; // returning null to skip rendering this day
+          }
+          return (
+            <div key={index}>
+              <header className="text-neutral-500 text-xs font-semibold mb-1">
+                {index === 0 && "Today"}
+                {index === 1 && "Tomorrow"}
+                {index > 1 && format(addDays(new Date(), index - 1), "EEEE")}
+              </header>
+              <ul className="space-y-2">
+                {dayTasks.map((task: Task, index: number) => (
+                  <li key={index}>
+                    <div className="py-0">
+                      <Assignment task={task} />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
       {completedTasks.length > 0 && (
         <div>
           <header className="text-neutral-500 text-xs font-semibold mt-5 mb-1">COMPLETED</header>
