@@ -61,8 +61,18 @@ function Home() {
           endTime="23:00"
           events={[
             {
-              start: new Date("2025-02-03T09:00:00"),
-              end: new Date("2025-02-03T10:00:00"),
+              start: new Date("2025-02-03T10:30:00"),
+              end: new Date("2025-02-03T11:45:00"),
+              type: "event" as "focus",
+            },
+            {
+              start: new Date("2025-02-03T12:00:00"),
+              end: new Date("2025-02-03T13:15:00"),
+              type: "event" as "focus",
+            },
+            {
+              start: new Date("2025-02-03T15:00:00"),
+              end: new Date("2025-02-03T16:15:00"),
               type: "event" as "focus",
             },
             ...focusEvents,
