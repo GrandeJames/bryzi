@@ -1,14 +1,15 @@
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { cn } from "@/utils.ts/cn";
+import { getHours, getMinutes } from "date-fns";
 import { useEffect, useState } from "react";
 
-interface TimelineEvent {
-  start: string;
-  end: string;
-  type: "focus" | "task" | "custom";
+export interface TimelineEvent {
+  start: Date | string;
+  end: Date | string;
+  type: "focus" | "event" | "custom";
 }
 
-interface TimelineProps {
+export interface TimelineProps {
   className?: string;
   startTime?: string;
   endTime?: string;
@@ -18,16 +19,22 @@ interface TimelineProps {
 
 const EVENT_TYPES = {
   focus: { color: "bg-orange-400/80", label: "Focus Session" },
-  task: { color: "bg-blue-500/80", label: "Scheduled Task" },
+  event: { color: "bg-blue-500/80", label: "Scheduled Task" },
   custom: { color: "bg-green-400/80", label: "Custom Event" },
 };
 
-function parseTime(time: string) {
-  const [hours, minutes] = time.split(":").map(Number);
+function parseTime(time: Date | string) {
+  if (typeof time === "string") {
+    const [hours, minutes] = time.split(":").map(Number);
+    return { hours, minutes };
+  }
+
+  const hours = getHours(time);
+  const minutes = getMinutes(time);
   return { hours, minutes };
 }
 
-function toMinutes(time: string) {
+function toMinutes(time: Date | string) {
   const { hours, minutes } = parseTime(time);
   return hours * 60 + minutes;
 }
@@ -38,9 +45,19 @@ function formatHour(hours: number) {
   return `${displayHours}:00 ${period}`;
 }
 
-function calculatePosition(startReference: string, time: string, totalMinutes: number) {
+function calculatePosition(startReference: string, time: Date | string, totalMinutes: number) {
   const minutesFromStart = Math.max(toMinutes(time) - toMinutes(startReference), 0);
   return (minutesFromStart / totalMinutes) * 100;
+}
+
+function getDisplayTimeRange(start: Date | string, end: Date | string) {
+  const startTime = parseTime(start);
+  const endTime = parseTime(end);
+
+  const startHour = formatHour(startTime.hours);
+  const endHour = formatHour(endTime.hours);
+
+  return `${startHour} - ${endHour}`;
 }
 
 const Timeline = ({
@@ -115,9 +132,7 @@ const Timeline = ({
                 >
                   <div className="text-sm">
                     <span className="font-medium">{eventType.label}:</span>
-                    <div className="text-muted-foreground">
-                      {event.start} - {event.end}
-                    </div>
+                    <div className="text-muted-foreground">{getDisplayTimeRange(event.start, event.end)}</div>
                   </div>
                 </HoverCardContent>
               </HoverCard>

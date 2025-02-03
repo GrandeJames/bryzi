@@ -10,9 +10,12 @@ import useDialogStore from "@/stores/dialogStore";
 import CreateMenu from "./components/CreateMenu";
 import DateHeading from "./components/DateHeading";
 import DateNavigation from "./components/DateSelectionNav";
+import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
+import { isToday } from "date-fns";
 
 function Home() {
   const tasks2 = useTasksStore((state) => state.tasks);
+  const focusEntries = useFocusTrackerStore((state) => state.focusEntries);
 
   const open = useDialogStore((state) => state.openDialog);
   const openCreateTaskDialog = useCallback(() => open("create"), [open]);
@@ -43,16 +46,26 @@ function Home() {
   const assignments = tasks2.filter((task) => task.title);
   const miscTasks = tasks.filter((task) => !task.startTime && !task.expectedDuration);
 
+  const todayFocusEntries = focusEntries.filter((entry) => isToday(entry.startDate));
+  const focusEvents = todayFocusEntries.map((entry) => ({
+    start: new Date(entry.startDate),
+    end: new Date(entry.endDate),
+    type: "focus" as "focus",
+  }));
+
   return (
     <div className="mx-2">
       <header className="mx-2 mt-5">
         <Timeline
-          startTime="8:00"
+          startTime="6:00"
           endTime="23:00"
           events={[
-            { start: "9:00", end: "10:30", type: "focus" },
-            { start: "14:00", end: "15:30", type: "focus" },
-            { start: "18:00", end: "19:30", type: "task" },
+            {
+              start: new Date("2025-02-03T09:00:00"),
+              end: new Date("2025-02-03T10:00:00"),
+              type: "event" as "focus",
+            },
+            ...focusEvents,
           ]}
         />
       </header>
