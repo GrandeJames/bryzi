@@ -12,9 +12,9 @@ function AssignmentsSection({ tasks, className }: { tasks: any[]; className?: st
   return (
     <section className={className}>
       <header className="flex justify-between gap-2 items-center">
-        <div className="font-semibold text-xl text-neutral-300 mb-2 flex items-center gap-2">
-          Assignments
-        </div>
+        <h2 className="font-semibold text-xl text-neutral-300 mb-2 flex items-center gap-2">
+          Class Tasks
+        </h2>
         <HoverCard openDelay={500}>
           <HoverCardTrigger asChild>
             <button className="border-orange-400 dark:bg-orange-400/30 dark:text-orange-400 font-semibold text-[0.6rem] px-3 rounded-full flex gap-1 items-center h-min py-1 hover:dark:bg-orange-400/15">
