@@ -93,7 +93,7 @@ function AssignmentsList({ tasks }: { tasks: ClassTask[] }) {
       {incompleteTasks?.length === 0 && completedTasks?.length === 0 && (
         <div className="my-[5rem] text-center">
           <BookIcon className="size-5 text-neutral-500 mx-auto mb-3" />
-          <div className="font-medium text-neutral-500 text-sm">No Assignments</div>
+          <div className="font-medium text-neutral-500 text-sm">No Tasks</div>
           <div className="flex justify-center mt-1">
             <p className="text-xs text-neutral-600 max-w-[15rem]">
               Looks like you’re up to date with your assignments!
