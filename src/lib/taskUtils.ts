@@ -1,4 +1,4 @@
-import { Task } from "@/types/task";
+import { ClassTask } from "@/types/classTask";
 import { FocusEntry } from "@/types/focusEntry";
 import { differenceInSeconds } from "date-fns";
 import {
@@ -13,28 +13,28 @@ import { LOCAL_STORAGE_KEYS } from "@/constants/localStorageKeys";
  * Note: updateTask must be passed as a prop otherwise it causes a hook error
  */
 
-export function handleTaskComplete(task: Task, updateTask: (task: Task) => void) {
+export function handleTaskComplete(task: ClassTask, updateTask: (task: ClassTask) => void) {
   const updatedTask = { ...task, completed: !task.completed };
   updateLocalStorageItem(LOCAL_STORAGE_KEYS.TASKS, updatedTask);
   updateTask(updatedTask);
 }
 
-export function handleTaskUpdate(task: Task, updateTask: (task: Task) => void) {
+export function handleTaskUpdate(task: ClassTask, updateTask: (task: ClassTask) => void) {
   updateLocalStorageItem(LOCAL_STORAGE_KEYS.TASKS, task);
   updateTask(task);
 }
 
-export function handleTaskAdd(task: Task, addTask: (task: Task) => void) {
+export function handleTaskAdd(task: ClassTask, addTask: (task: ClassTask) => void) {
   addTask(task);
   addLocalStorageItem(LOCAL_STORAGE_KEYS.TASKS, task);
 }
 
-export function handleTaskRemove(task: Task, removeTask: (id: string) => void) {
+export function handleTaskRemove(task: ClassTask, removeTask: (id: string) => void) {
   removeLocalStorageItem(LOCAL_STORAGE_KEYS.TASKS, task.id);
   removeTask(task.id);
 }
 
-export function getActualDurationMins(task: Task) {
+export function getActualDurationMins(task: ClassTask) {
   const focusEntries = getLocalStorageData<FocusEntry>(LOCAL_STORAGE_KEYS.FOCUS_ENTRIES);
 
   if (!focusEntries) {

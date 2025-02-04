@@ -1,6 +1,6 @@
 "use client";
 
-import { Task } from "@/types/task";
+import { ClassTask } from "@/types/classTask";
 import { addDays, format } from "date-fns";
 import { DayProps, getRecommendedClassWorkList } from "@/lib/classWorkRecommendation";
 import Assignment from "./Assignment";
@@ -38,8 +38,8 @@ function AssignmentsSection({ tasks, className }: { tasks: any[]; className?: st
   );
 }
 
-function getTasksForDay(scheduleDay: DayProps | undefined, allTasks: Task[]): Task[] {
-  const dayTasks: Task[] = [];
+function getTasksForDay(scheduleDay: DayProps | undefined, allTasks: ClassTask[]): ClassTask[] {
+  const dayTasks: ClassTask[] = [];
   scheduleDay?.forEach((dayTask) => {
     const task = allTasks.find((task) => task.id === dayTask.taskId);
     if (task) {
@@ -51,7 +51,7 @@ function getTasksForDay(scheduleDay: DayProps | undefined, allTasks: Task[]): Ta
   return dayTasks;
 }
 
-function AssignmentsList({ tasks }: { tasks: Task[] }) {
+function AssignmentsList({ tasks }: { tasks: ClassTask[] }) {
   /* TODO: sort by task properties including: deadline, impact, estimated duration, difficulty
    * TODO: the tasks shown should be completable within the day though all tasks due today should be shown even if they are likely not completable
    *
@@ -66,8 +66,8 @@ function AssignmentsList({ tasks }: { tasks: Task[] }) {
   let today = schedule[0];
   let tomorrow = schedule[1];
 
-  let todayTasks: Task[] = [];
-  let tomorrowTasks: Task[] = [];
+  let todayTasks: ClassTask[] = [];
+  let tomorrowTasks: ClassTask[] = [];
 
   getTasksForDay(schedule[0], incompleteTasks);
 
@@ -114,7 +114,7 @@ function AssignmentsList({ tasks }: { tasks: Task[] }) {
                 {index > 1 && format(addDays(new Date(), index - 1), "EEEE")}
               </header>
               <ul className="space-y-2">
-                {dayTasks.map((task: Task, index: number) => (
+                {dayTasks.map((task: ClassTask, index: number) => (
                   <li key={index}>
                     <div className="py-0">
                       <Assignment task={task} />

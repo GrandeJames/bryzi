@@ -1,4 +1,4 @@
-import { Task } from "@/types/task";
+import { ClassTask } from "@/types/classTask";
 import { Subtask } from "@/types/subtask";
 import useTasksStore from "@/stores/tasksStore";
 import { CircleCheckIcon, PencilIcon, Repeat2Icon, Trash2Icon } from "lucide-react";
@@ -6,7 +6,7 @@ import useDialogStore from "@/stores/dialogStore";
 import { Checkbox } from "./ui/checkbox";
 import { handleTaskComplete, handleTaskRemove, handleTaskUpdate } from "@/lib/taskUtils";
 
-function ClassTaskDetails({ task }: { task: Task }) {
+function ClassTaskDetails({ task }: { task: ClassTask }) {
   const removeTask = useTasksStore((state) => state.removeTask);
   const updateTask = useTasksStore((state) => state.updateTask);
 

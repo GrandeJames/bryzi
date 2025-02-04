@@ -1,4 +1,4 @@
-import { Task } from "@/types/task";
+import { ClassTask } from "@/types/classTask";
 
 function PersonalSection({ miscTasks, className }: { miscTasks: any[]; className?: string }) {
   return (
@@ -17,7 +17,7 @@ function PersonalSection({ miscTasks, className }: { miscTasks: any[]; className
   );
 }
 
-function PersonalTask({ task }: { task: Task }) {
+function PersonalTask({ task }: { task: ClassTask }) {
   return (
     <div className="grid grid-cols-4 py-3 px-5 bg bg-neutral-900/60 rounded-xl max-w-3xl">
       <div className="flex flex-col col-span-3">

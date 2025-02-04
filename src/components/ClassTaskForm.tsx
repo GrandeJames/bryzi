@@ -10,14 +10,14 @@ import { Textarea } from "./ui/textarea";
 import Selection from "./Selection";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Task } from "@/types/task";
+import { ClassTask } from "@/types/classTask";
 import { Subtask } from "@/types/subtask";
 import useDialogStore from "@/stores/dialogStore";
 import { TASK_DIFFICULTY, TASK_IMPACT } from "@/constants/taskConstants";
 import { handleTaskAdd, handleTaskUpdate } from "@/lib/taskUtils";
 
-function ClassTaskForm({ className, initialTask }: { className?: string; initialTask?: Task }) {
-  const [task, setTask] = useState<Task>({
+function ClassTaskForm({ className, initialTask }: { className?: string; initialTask?: ClassTask }) {
+  const [task, setTask] = useState<ClassTask>({
     id: initialTask?.id || uuidv4(),
     title: initialTask?.title || "",
     deadline: initialTask?.deadline,

@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useFocusSessionStore } from "../stores/focusSessionStore";
 import { handleSessionSave } from "@/lib/focusSessionUtils";
 import useTasksStore from "@/stores/tasksStore";
-import { Task } from "@/types/task";
+import { ClassTask } from "@/types/classTask";
 
 const TASK_TIME_MINUTES = 90;
 
-export function useTimer(task: Task) {
+export function useTimer(task: ClassTask) {
   const reset = useFocusSessionStore((state) => state.reset);
   const updateTask = useTasksStore((state) => state.updateTask);
 

@@ -2,14 +2,14 @@ import FocusStageSwitchButton from "@/components/FocusStageSwitchButton";
 import { handleTaskComplete } from "@/lib/taskUtils";
 import useDialogStore from "@/stores/dialogStore";
 import useTasksStore from "@/stores/tasksStore";
-import { Task } from "@/types/task";
+import { ClassTask } from "@/types/classTask";
 import { cn } from "@/utils.ts/cn";
 import { ListTodoIcon, Repeat2Icon } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { differenceInCalendarDays, format, getYear } from "date-fns";
 import { FlagIcon } from "@/components/icons/FlagIcon";
 
-function Assignment({ task }: { task: Task }) {
+function Assignment({ task }: { task: ClassTask }) {
   const { dialogData } = useDialogStore();
   const open = useDialogStore((state) => state.openDialog);
   const openTaskDetailsDialog = () => open("details", { task });
@@ -81,7 +81,7 @@ function Assignment({ task }: { task: Task }) {
   );
 }
 
-function getProgressLabel(task: Task) {
+function getProgressLabel(task: ClassTask) {
   const round = (num: number, precision: number) => {
     const factor = Math.pow(10, precision);
     return Math.round(num * factor) / factor;
@@ -111,7 +111,7 @@ function getProgressLabel(task: Task) {
   return `${formattedActual}${actualUnit} / ${formattedEstimated}${estimatedUnit}`;
 }
 
-function Status({ task, className }: { task: Task; className?: string }) {
+function Status({ task, className }: { task: ClassTask; className?: string }) {
   const updateTask = useTasksStore((state) => state.updateTask);
 
   const renderContent = () => {

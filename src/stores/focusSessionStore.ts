@@ -1,5 +1,5 @@
 import { getNextStage } from "@/lib/focusSessionUtils";
-import { Task } from "@/types/task";
+import { ClassTask } from "@/types/classTask";
 import { create } from "zustand";
 
 // TODO: handle edge cases such as timer only
@@ -10,13 +10,13 @@ STAGES.unshift(...OPTIONAL_STAGES);
 
 type State = {
   sessionStage?: string;
-  sessionTask?: Task;
+  sessionTask?: ClassTask;
 };
 
 type Actions = {
-  initializeSession: (focusTask: Task) => void;
+  initializeSession: (focusTask: ClassTask) => void;
   proceedToNextStage: () => void;
-  setSessionTask: (focusTask: Task) => void;
+  setSessionTask: (focusTask: ClassTask) => void;
   reset: () => void;
 };
 
@@ -29,8 +29,8 @@ export const useFocusSessionStore = create<State & Actions>((set) => ({
   ...initialState,
   focusTimes: [],
   reset: () => set(initialState),
-  setSessionTask: (focusTask: Task) => set(() => ({ sessionTask: focusTask })),
-  initializeSession: (sessionTask: Task) => {
+  setSessionTask: (focusTask: ClassTask) => set(() => ({ sessionTask: focusTask })),
+  initializeSession: (sessionTask: ClassTask) => {
     set((state) => ({ sessionStage: getNextStage(state.sessionStage), sessionTask }));
   },
   proceedToNextStage: () => {

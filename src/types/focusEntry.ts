@@ -1,7 +1,7 @@
-import { Task } from "./task";
+import { ClassTask } from "./classTask";
 
 export interface FocusEntry {
   startDate: Date;
   endDate: Date;
-  taskId: Task["id"];
+  taskId: ClassTask["id"];
 }

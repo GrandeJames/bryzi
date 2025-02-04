@@ -1,12 +1,12 @@
 import { useFocusSessionStore } from "@/stores/focusSessionStore";
-import { Task } from "@/types/task";
+import { ClassTask } from "@/types/classTask";
 
 function FocusStageSwitchButton({
   task: taskProp,
   className,
   children,
 }: {
-  task?: Task;
+  task?: ClassTask;
   className?: string;
   children?: React.ReactNode;
 }) {
