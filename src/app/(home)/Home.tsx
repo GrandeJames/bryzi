@@ -18,7 +18,7 @@ function Home() {
   const focusEntries = useFocusTrackerStore((state) => state.focusEntries);
 
   const open = useDialogStore((state) => state.openDialog);
-  const openCreateTaskDialog = useCallback(() => open("create"), [open]);
+  const openCreateClassTaskDialog = useCallback(() => open("createClassTask"), [open]);
 
   const [isHydrated, setIsHydrated] = useState(false);
 
@@ -28,7 +28,7 @@ function Home() {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "n" && event.ctrlKey) {
         event.preventDefault();
-        openCreateTaskDialog();
+        openCreateClassTaskDialog();
       }
     };
 
