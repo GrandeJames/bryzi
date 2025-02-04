@@ -4,9 +4,9 @@ function PersonalSection({ miscTasks, className }: { miscTasks: any[]; className
   return (
     <section className={className}>
       <header className="flex justify-between gap-2">
-        <div className="font-semibold text-xl text-neutral-300 mb-2 flex items-center gap-2">
+        <h2 className="font-semibold text-xl text-neutral-300 mb-2 flex items-center gap-2">
           Personal
-        </div>
+        </h2>
       </header>
       <ul className="grid grid-cols-1 space-y-1">
         {miscTasks.map((task, index) => (
