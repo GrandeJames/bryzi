@@ -1,12 +1,12 @@
 import { create } from "zustand";
 
-type OpenDialogName = "create" | "edit" | "details" | null;
+type OpenDialogName = "createClassTask" | "editClassTask" | "classTaskDetails" | null;
 
 interface DialogStore {
   openDialogName: OpenDialogName;
   dialogData: { [key: string]: any };
   setDialogData: (data: any) => void;
-  openDialog: (name: "create" | "edit" | "details", data?: any) => void;
+  openDialog: (name: OpenDialogName, data?: any) => void;
   closeDialog: () => void;
 }
 

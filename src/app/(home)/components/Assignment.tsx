@@ -12,7 +12,7 @@ import { FlagIcon } from "@/components/icons/FlagIcon";
 function Assignment({ task }: { task: ClassTask }) {
   const { dialogData } = useDialogStore();
   const open = useDialogStore((state) => state.openDialog);
-  const openTaskDetailsDialog = () => open("details", { task });
+  const openClassTaskDetailsDialog = () => open("classTaskDetails", { task });
 
   const actualTaskDuration = task.actualDurationInMins ?? 0;
   const progressPercentage = (actualTaskDuration / (task.estimatedDurationInMins ?? 0)) * 100;
@@ -27,7 +27,7 @@ function Assignment({ task }: { task: ClassTask }) {
         className="col-span-10 flex justify-between hover:cursor-pointer py-5 px-6"
         onClick={() => {
           dialogData.task = task;
-          openTaskDetailsDialog();
+          openClassTaskDetailsDialog();
         }}
       >
         <div className="flex flex-col">

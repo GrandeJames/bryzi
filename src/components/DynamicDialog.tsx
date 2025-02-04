@@ -14,9 +14,9 @@ function DynamicDialog() {
     <Dialog open={!!openDialogName} onOpenChange={(isOpen) => !isOpen && closeDialog()}>
       <DialogContent className="max-w-md px-0">
         <ScrollArea className="max-h-[80vh]">
-          {openDialogName === "create" && <ClassTaskForm />}
-          {openDialogName === "details" && <ClassTaskDetails task={dialogData.task} />}
-          {openDialogName === "edit" && <ClassTaskForm initialTask={dialogData.task} />}
+          {openDialogName === "createClassTask" && <ClassTaskForm />}
+          {openDialogName === "classTaskDetails" && <ClassTaskDetails task={dialogData.task} />}
+          {openDialogName === "editClassTask" && <ClassTaskForm initialTask={dialogData.task} />}
         </ScrollArea>
       </DialogContent>
     </Dialog>

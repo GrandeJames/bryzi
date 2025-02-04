@@ -11,7 +11,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 
 function PlannerCreationMenu() {
   const open = useDialogStore((state) => state.openDialog);
-  const openCreateTaskDialog = useCallback(() => open("create"), [open]);
+  const openCreateClassTaskDialog = useCallback(() => open("createClassTask"), [open]);
 
   const menuItems = [
     { icon: SparklesIcon, text: "Generate class tasks" },
@@ -30,7 +30,7 @@ function PlannerCreationMenu() {
             <TooltipProvider key={index} delayDuration={50}>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <button onClick={openCreateTaskDialog}>
+                  <button onClick={openCreateClassTaskDialog}>
                     <Icon className="size-5 text-neutral-300 hover:text-white" />
                   </button>
                 </TooltipTrigger>
