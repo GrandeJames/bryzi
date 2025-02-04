@@ -6,7 +6,7 @@ import useDialogStore from "@/stores/dialogStore";
 import { Checkbox } from "./ui/checkbox";
 import { handleTaskComplete, handleTaskRemove, handleTaskUpdate } from "@/lib/taskUtils";
 
-function TaskDetails({ task }: { task: Task }) {
+function ClassTaskDetails({ task }: { task: Task }) {
   const removeTask = useTasksStore((state) => state.removeTask);
   const updateTask = useTasksStore((state) => state.updateTask);
 
@@ -105,4 +105,4 @@ function TaskDetails({ task }: { task: Task }) {
   );
 }
 
-export default TaskDetails;
+export default ClassTaskDetails;

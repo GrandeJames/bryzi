@@ -2,9 +2,9 @@
 
 import useDialogStore from "@/stores/dialogStore";
 import { Dialog, DialogContent } from "./ui/dialog";
-import TaskForm from "./TaskForm";
+import ClassTaskForm from "./ClassTaskForm";
 import { ScrollArea } from "./ui/scroll-area";
-import TaskDetails from "./TaskDetails";
+import ClassTaskDetails from "./ClassTaskDetails";
 
 function DynamicDialog() {
   const { openDialogName, closeDialog, dialogData } = useDialogStore();
@@ -14,9 +14,9 @@ function DynamicDialog() {
     <Dialog open={!!openDialogName} onOpenChange={(isOpen) => !isOpen && closeDialog()}>
       <DialogContent className="max-w-md px-0">
         <ScrollArea className="max-h-[80vh]">
-          {openDialogName === "create" && <TaskForm />}
-          {openDialogName === "details" && <TaskDetails task={dialogData.task} />}
-          {openDialogName === "edit" && <TaskForm initialTask={dialogData.task} />}
+          {openDialogName === "create" && <ClassTaskForm />}
+          {openDialogName === "details" && <ClassTaskDetails task={dialogData.task} />}
+          {openDialogName === "edit" && <ClassTaskForm initialTask={dialogData.task} />}
         </ScrollArea>
       </DialogContent>
     </Dialog>

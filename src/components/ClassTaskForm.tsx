@@ -10,15 +10,13 @@ import { Textarea } from "./ui/textarea";
 import Selection from "./Selection";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Button } from "./ui/button";
 import { Task } from "@/types/task";
 import { Subtask } from "@/types/subtask";
 import useDialogStore from "@/stores/dialogStore";
 import { TASK_DIFFICULTY, TASK_IMPACT } from "@/constants/taskConstants";
 import { handleTaskAdd, handleTaskUpdate } from "@/lib/taskUtils";
 
-function TaskForm({ className, initialTask }: { className?: string; initialTask?: Task }) {
+function ClassTaskForm({ className, initialTask }: { className?: string; initialTask?: Task }) {
   const [task, setTask] = useState<Task>({
     id: initialTask?.id || uuidv4(),
     title: initialTask?.title || "",
@@ -258,4 +256,4 @@ function TaskForm({ className, initialTask }: { className?: string; initialTask?
   );
 }
 
-export default TaskForm;
+export default ClassTaskForm;

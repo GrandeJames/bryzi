@@ -9,7 +9,7 @@ import {
 import { useCallback } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
-function AddTaskFloatingMenu() {
+function PlannerCreationMenu() {
   const open = useDialogStore((state) => state.openDialog);
   const openCreateTaskDialog = useCallback(() => open("create"), [open]);
 
@@ -46,4 +46,4 @@ function AddTaskFloatingMenu() {
   );
 }
 
-export default AddTaskFloatingMenu;
+export default PlannerCreationMenu;
