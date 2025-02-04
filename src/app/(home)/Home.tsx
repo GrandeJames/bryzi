@@ -7,7 +7,7 @@ import PersonalSection from "./components/PersonalSection";
 import useTasksStore from "@/stores/tasksStore";
 import { useCallback, useEffect, useState } from "react";
 import useDialogStore from "@/stores/dialogStore";
-import CreateMenu from "./components/CreateMenu";
+import AddTaskFloatingMenu from "./components/AddTaskFloatingMenu";
 import DateHeading from "./components/DateHeading";
 import DateNavigation from "./components/DateSelectionNav";
 import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
@@ -98,7 +98,7 @@ function Home() {
             </div>
           </div>
         </div>
-        <CreateMenu />
+        <AddTaskFloatingMenu />
       </main>
     </div>
   );

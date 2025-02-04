@@ -9,7 +9,7 @@ import {
 import { useCallback } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
-function CreateMenu() {
+function AddTaskFloatingMenu() {
   const open = useDialogStore((state) => state.openDialog);
   const openCreateTaskDialog = useCallback(() => open("create"), [open]);
 
@@ -17,7 +17,7 @@ function CreateMenu() {
     { icon: SparklesIcon, text: "Generate class tasks" },
     { icon: CalendarIcon, text: "Add event" },
     { icon: CircleCheckIcon, text: "Add personal task" },
-    { icon: NotebookPenIcon, text: "Add assignment" },
+    { icon: NotebookPenIcon, text: "Add class task" },
   ];
 
   return (
@@ -46,4 +46,4 @@ function CreateMenu() {
   );
 }
 
-export default CreateMenu;
+export default AddTaskFloatingMenu;
