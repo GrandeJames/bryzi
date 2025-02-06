@@ -12,12 +12,14 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 function PlannerCreationMenu() {
   const open = useDialogStore((state) => state.openDialog);
   const openCreateClassTaskDialog = useCallback(() => open("createClassTask"), [open]);
+  const openCreatePersonalTaskDialog = useCallback(() => open("createPersonalTask"), [open]);
+
 
   const menuItems = [
-    { icon: SparklesIcon, text: "Generate class tasks" },
+    { icon: SparklesIcon, text: "Generate class tasks", },
     { icon: CalendarIcon, text: "Add event" },
-    { icon: CircleCheckIcon, text: "Add personal task" },
-    { icon: NotebookPenIcon, text: "Add class task" },
+    { icon: CircleCheckIcon, text: "Add personal task", onClick: openCreatePersonalTaskDialog },
+    { icon: NotebookPenIcon, text: "Add class task", onClick: openCreateClassTaskDialog },
   ];
 
   return (
@@ -26,11 +28,11 @@ function PlannerCreationMenu() {
         <PlusIcon className="size-5 text-neutral-300" />
 
         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 flex flex-col items-center gap-6 bg-neutral-900 px-3 py-5 rounded-full shadow-lg shadow-neutral-950 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300">
-          {menuItems.map(({ icon: Icon, text }, index) => (
+          {menuItems.map(({ icon: Icon, text, onClick }, index) => (
             <TooltipProvider key={index} delayDuration={50}>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <button onClick={openCreateClassTaskDialog}>
+                  <button onClick={onClick}>
                     <Icon className="size-5 text-neutral-300 hover:text-white" />
                   </button>
                 </TooltipTrigger>

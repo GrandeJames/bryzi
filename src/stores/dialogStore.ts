@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type OpenDialogName = "createClassTask" | "editClassTask" | "classTaskDetails" | null;
+type OpenDialogName = "createClassTask" | "editClassTask" | "classTaskDetails" | "createPersonalTask" | null;
 
 interface DialogStore {
   openDialogName: OpenDialogName;
