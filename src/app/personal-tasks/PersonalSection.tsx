@@ -19,7 +19,6 @@ function PersonalSection({ tasks, className }: { tasks: PersonalTask[]; classNam
 }
 
 function PersonalTaskItem({ personalTask }: { personalTask: PersonalTask }) {
-  const { dialogData } = useDialogStore();
   const open = useDialogStore((state) => state.openDialog);
   const openPersonalTaskDetailsDialog = () => open("personalTaskDetails", { task: personalTask });
 
@@ -27,8 +26,6 @@ function PersonalTaskItem({ personalTask }: { personalTask: PersonalTask }) {
     <div
       className="grid grid-cols-4 py-3 px-5 bg bg-neutral-900/60 rounded-xl max-w-3xl"
       onClick={() => {
-        console.log("personalTask", personalTask);
-        console.log("dialogData", dialogData);
         openPersonalTaskDetailsDialog();
       }}
     >
