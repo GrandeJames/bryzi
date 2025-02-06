@@ -1,10 +1,6 @@
-import { Subtask } from "./subtask";
+import { Task } from "./task";
 
-export interface ClassTask {
-  id: string;
-  title: string;
-  completed: boolean;
-  type?: "class" | "event" | "misc";
+export interface ClassTask extends Task {
   deadline?: Date; // determines urgency
   impact?: number;
   difficulty?: number;
@@ -15,20 +11,8 @@ export interface ClassTask {
     startTime: string;
     endTime: string; // end time can be calculated from start time and duration
   };
-  recurrence?: {
-    frequency?: "once" | "daily" | "weekly" | "monthly";
-    occurrences?: number; // e.g., 3 times a week
-    daysOfWeek?: ("mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun")[]; // for weekly tasks
-    // maybe have a start date? because if it's a generated task by AI, for example, it should not start immediately
-    // another ex: guest speaker talks are every Wednesday from 4-Sept to 20-Nov
-    startDate?: Date;
-    endDate?: Date;
-  };
-  subtasks?: Subtask[];
   class?: {
     name: string;
     abbreviation?: string;
   };
-  createdAt?: string;
-  updatedAt?: string;
 }
