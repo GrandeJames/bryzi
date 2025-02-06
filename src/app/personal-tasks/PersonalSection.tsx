@@ -1,10 +1,11 @@
 import useDialogStore from "@/app/dialogs/dialogStore";
 import EmptyPlaceholder from "@/components/EmptyPlaceholder";
 import { PersonalTask } from "@/types/personalTask";
+import { cn } from "@/utils.ts/cn";
 
 function PersonalSection({ tasks, className }: { tasks: PersonalTask[]; className?: string }) {
   return (
-    <section className={className}>
+    <section className={cn(className, "flex-grow")}>
       <header className="flex justify-between gap-2">
         <h2 className="font-semibold text-xl text-neutral-300 mb-2 flex items-center gap-2">
           Personal

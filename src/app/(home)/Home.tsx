@@ -88,11 +88,11 @@ function Home() {
             <div className="flex flex-col xl:flex-row gap-5">
               <AssignmentsSection
                 tasks={assignments}
-                className="flex-grow max-w-4xl bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl"
+                className="flex-grow xl:max-w-4xl bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl"
               />
               <PersonalSection
                 tasks={personalTasks}
-                className="flex-grow max-w-md bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-full"
+                className="flex-grow xl:max-w-lg bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-full"
               />
             </div>
           </div>
