@@ -140,7 +140,7 @@ function Status({ task, className }: { task: ClassTask; className?: string }) {
   before:absolute before:inset-0 before:bg-orange-500/15 
   before:rounded-full before:blur-3xl"
       >
-        {task.actualDurationInMins ?? 0 > 0 ? "Continue" : "Start"}
+        {task.actualDurationInMins ?? 0 > 0 ? "Continue" : "Focus"}
       </FocusStageSwitchButton>
     );
   };
