@@ -1,8 +1,8 @@
 "use client";
 
 import ActionsContainer from "@/components/Actions";
-import DiscardSessionButton from "@/app/(focus-stages)/DiscardSessionButton";
-import NextStageButton from "@/app/(focus-stages)/NextStageButton";
+import DiscardSessionButton from "@/app/focus-stages/DiscardSessionButton";
+import NextStageButton from "@/app/focus-stages/NextStageButton";
 import { useBreathingCycle } from "@/hooks/useBreathingCycle";
 
 export function BreathStage() {

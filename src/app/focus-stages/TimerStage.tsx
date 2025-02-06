@@ -1,7 +1,7 @@
 "use client";
 
 import ActionsContainer from "@/components/Actions";
-import DiscardSessionButton from "@/app/(focus-stages)/DiscardSessionButton";
+import DiscardSessionButton from "@/app/focus-stages/DiscardSessionButton";
 import { PauseIcon } from "@/components/icons/PauseIcon";
 import { PlayIcon } from "@/components/icons/PlayIcon";
 import { Progress } from "@/components/ui/progress";
