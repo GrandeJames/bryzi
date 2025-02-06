@@ -2,7 +2,7 @@
 
 import { Timeline } from "./components/Timeline";
 import AssignmentsSection from "./components/AssignmentsSection";
-import PersonalSection from "./components/PersonalSection";
+import PersonalSection from "../personal-tasks/PersonalSection";
 import useTasksStore from "@/stores/tasksStore";
 import { useCallback, useEffect, useState } from "react";
 import useDialogStore from "@/app/dialogs/dialogStore";

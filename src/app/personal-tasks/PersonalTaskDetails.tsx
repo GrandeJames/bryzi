@@ -22,7 +22,7 @@ function PersonalTaskDetails({ task }: { task: PersonalTask }) {
     return null;
   }
 
-  const openEditClassTaskDialog = () => openDialog("editClassTask", { task });
+  const openEditPersonalTaskDialog = () => openDialog("editPersonalTask", { task });
 
   const handleTaskDeleteClick = () => {
     handleTaskRemove(task, removeTask);
@@ -44,7 +44,7 @@ function PersonalTaskDetails({ task }: { task: PersonalTask }) {
 
   const handleTaskEditClick = () => {
     closeDialog();
-    openEditClassTaskDialog();
+    openEditPersonalTaskDialog(); // TODO: change to edit personal task dialog // TODO: prevent this even working
   };
 
   return (

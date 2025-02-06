@@ -5,6 +5,7 @@ type OpenDialogName =
   | "editClassTask"
   | "classTaskDetails"
   | "createPersonalTask"
+  | "editPersonalTask"
   | "personalTaskDetails"
   | null;
 
