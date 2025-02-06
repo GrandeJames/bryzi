@@ -11,7 +11,7 @@ import { FlagIcon } from "@/components/icons/FlagIcon";
 
 function Assignment({ task }: { task: ClassTask }) {
   const open = useDialogStore((state) => state.openDialog);
-  const openClassTaskDetailsDialog = () => open("classTaskDetails", { task });
+  const openClassTaskDetailsDialog = () => open("classTaskDetails", { task: task });
 
   const actualTaskDuration = task.actualDurationInMins ?? 0;
   const progressPercentage = (actualTaskDuration / (task.estimatedDurationInMins ?? 0)) * 100;
