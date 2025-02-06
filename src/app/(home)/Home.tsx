@@ -13,7 +13,7 @@ import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
 import { isToday } from "date-fns";
 
 function Home() {
-  const tasks2 = useTasksStore((state) => state.tasks);
+  const tasks = useTasksStore((state) => state.tasks);
   const focusEntries = useFocusTrackerStore((state) => state.focusEntries);
 
   const open = useDialogStore((state) => state.openDialog);
@@ -42,8 +42,8 @@ function Home() {
     return <div>Loading...</div>;
   }
 
-  const assignments = tasks2.filter((task) => task.title);
-  const personalTasks = tasks2.filter((task) => task.type === "personal");
+  const assignments = tasks.filter((task) => task.title);
+  const personalTasks = tasks.filter((task) => task.type === "personal");
 
   const todayFocusEntries = focusEntries.filter((entry) => isToday(entry.startDate));
   const focusEvents = todayFocusEntries.map((entry) => ({
