@@ -11,7 +11,7 @@ interface EmptyPlaceholderProps {
 function EmptyPlaceholder({ icon, title, description, className }: EmptyPlaceholderProps) {
   return (
     <div className={cn("text-center", className)}>
-      {icon && <BookIcon className="size-5 text-neutral-500 mx-auto mb-3" />}
+      {icon && <div className="size-5 text-neutral-500 mx-auto mb-3">{icon}</div>}
       {title && <div className="font-medium text-neutral-500 text-sm">No Tasks</div>}
       {description && (
         <div className="flex justify-center mt-1">
