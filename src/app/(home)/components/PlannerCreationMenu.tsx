@@ -11,12 +11,11 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 
 function PlannerCreationMenu() {
   const open = useDialogStore((state) => state.openDialog);
-  const openCreateClassTaskDialog = useCallback(() => open("createClassTask"), [open]);
-  const openCreatePersonalTaskDialog = useCallback(() => open("createPersonalTask"), [open]);
-
+  const openCreateClassTaskDialog = () => open("createClassTask", undefined, "Add class task");
+  const openCreatePersonalTaskDialog = () => open("createPersonalTask", undefined, "Add personal task");
 
   const menuItems = [
-    { icon: SparklesIcon, text: "Generate class tasks", },
+    { icon: SparklesIcon, text: "Generate class tasks" },
     { icon: CalendarIcon, text: "Add event" },
     { icon: CircleCheckIcon, text: "Add personal task", onClick: openCreatePersonalTaskDialog },
     { icon: NotebookPenIcon, text: "Add class task", onClick: openCreateClassTaskDialog },
