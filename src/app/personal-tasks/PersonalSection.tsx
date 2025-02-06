@@ -2,6 +2,7 @@ import useDialogStore from "@/app/dialogs/dialogStore";
 import EmptyPlaceholder from "@/components/EmptyPlaceholder";
 import { PersonalTask } from "@/types/personalTask";
 import { cn } from "@/utils.ts/cn";
+import { CheckCircleIcon } from "lucide-react";
 
 function PersonalSection({ tasks, className }: { tasks: PersonalTask[]; className?: string }) {
   return (
@@ -13,6 +14,7 @@ function PersonalSection({ tasks, className }: { tasks: PersonalTask[]; classNam
       </header>
       {tasks.length === 0 && (
         <EmptyPlaceholder
+          icon={<CheckCircleIcon />}
           title="No Personal Tasks"
           description="Add some tasks to your personal list."
           className="my-[6rem]"
