@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ClassTask } from "@/types/classTask";
 import { Subtask } from "@/types/subtask";
-import useDialogStore from "@/stores/dialogStore";
+import useDialogStore from "@/app/dialogs/dialogStore";
 import { TASK_DIFFICULTY, TASK_IMPACT } from "@/constants/taskConstants";
 import { handleTaskAdd, handleTaskUpdate } from "@/lib/taskUtils";
 

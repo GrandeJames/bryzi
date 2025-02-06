@@ -1,6 +1,6 @@
 import FocusStageSwitchButton from "@/components/FocusStageSwitchButton";
 import { handleTaskComplete } from "@/lib/taskUtils";
-import useDialogStore from "@/stores/dialogStore";
+import useDialogStore from "@/app/dialogs/dialogStore";
 import useTasksStore from "@/stores/tasksStore";
 import { ClassTask } from "@/types/classTask";
 import { cn } from "@/utils.ts/cn";

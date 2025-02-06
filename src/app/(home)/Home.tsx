@@ -5,7 +5,7 @@ import AssignmentsSection from "./components/AssignmentsSection";
 import PersonalSection from "./components/PersonalSection";
 import useTasksStore from "@/stores/tasksStore";
 import { useCallback, useEffect, useState } from "react";
-import useDialogStore from "@/stores/dialogStore";
+import useDialogStore from "@/app/dialogs/dialogStore";
 import PlannerCreationMenu from "./components/PlannerCreationMenu";
 import DateHeading from "./components/DateHeading";
 import DateNavigation from "./components/DateSelectionNav";

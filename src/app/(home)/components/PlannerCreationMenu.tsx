@@ -1,4 +1,4 @@
-import useDialogStore from "@/stores/dialogStore";
+import useDialogStore from "@/app/dialogs/dialogStore";
 import {
   SparklesIcon,
   CalendarIcon,

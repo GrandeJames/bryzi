@@ -10,7 +10,7 @@ import { Textarea } from "./ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Subtask } from "@/types/subtask";
-import useDialogStore from "@/stores/dialogStore";
+import useDialogStore from "@/app/dialogs/dialogStore";
 import { handleTaskAdd, handleTaskUpdate } from "@/lib/taskUtils";
 import { PersonalTask } from "@/types/personalTask";
 

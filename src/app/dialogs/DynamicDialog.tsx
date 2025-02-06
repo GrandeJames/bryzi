@@ -1,11 +1,11 @@
 "use client";
 
-import useDialogStore from "@/stores/dialogStore";
-import { Dialog, DialogContent } from "./ui/dialog";
-import ClassTaskForm from "./ClassTaskForm";
-import { ScrollArea } from "./ui/scroll-area";
-import ClassTaskDetails from "./ClassTaskDetails";
-import PersonalTaskForm from "./PersonalTaskForm";
+import useDialogStore from "@/app/dialogs/dialogStore";
+import { Dialog, DialogContent } from "../../components/ui/dialog";
+import ClassTaskForm from "../../components/ClassTaskForm";
+import { ScrollArea } from "../../components/ui/scroll-area";
+import ClassTaskDetails from "../../components/ClassTaskDetails";
+import PersonalTaskForm from "../../components/PersonalTaskForm";
 
 function DynamicDialog() {
   const { openDialogName, closeDialog, dialogData } = useDialogStore();

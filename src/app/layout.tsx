@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Menu } from "@/components/Menu";
-import DynamicDialog from "@/components/DynamicDialog";
+import DynamicDialog from "@/app/dialogs/DynamicDialog";
 import { useFocusSessionStore } from "@/stores/focusSessionStore";
 import { usePathname } from "next/navigation";
 import Head from "next/head";
