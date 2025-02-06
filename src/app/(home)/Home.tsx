@@ -42,7 +42,7 @@ function Home() {
     return <div>Loading...</div>;
   }
 
-  const assignments = tasks.filter((task) => task.title);
+  const assignments = tasks.filter((task) => task.type === "class");
   const personalTasks = tasks.filter((task) => task.type === "personal");
 
   const todayFocusEntries = focusEntries.filter((entry) => isToday(entry.startDate));

@@ -5,7 +5,6 @@ import { addDays, format } from "date-fns";
 import { DayProps, getRecommendedClassWorkList } from "@/lib/classWorkRecommendation";
 import Assignment from "./Assignment";
 import { BookIcon } from "lucide-react";
-import Link from "next/link";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 
 function AssignmentsSection({ tasks, className }: { tasks: any[]; className?: string }) {
@@ -32,7 +31,7 @@ function AssignmentsSection({ tasks, className }: { tasks: any[]; className?: st
         </HoverCard>
       </header>
       <div className="px-2">
-        <AssignmentsList tasks={tasks} />
+        <AssignmentsList classTasks={tasks} />
       </div>
     </section>
   );
@@ -51,14 +50,12 @@ function getTasksForDay(scheduleDay: DayProps | undefined, allTasks: ClassTask[]
   return dayTasks;
 }
 
-function AssignmentsList({ tasks }: { tasks: ClassTask[] }) {
+function AssignmentsList({ classTasks }: { classTasks: ClassTask[] }) {
   /* TODO: sort by task properties including: deadline, impact, estimated duration, difficulty
    * TODO: the tasks shown should be completable within the day though all tasks due today should be shown even if they are likely not completable
    *
    * Actual: closer deadline ^, higher impact ^, more difficult ^, longer estimated duration ^.
    */
-
-  const classTasks = tasks.filter((task) => task.type === "class");
 
   const incompleteTasks = classTasks.filter((task) => !task.completed);
   const completedTasks = classTasks.filter((task) => task.completed);
