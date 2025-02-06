@@ -94,7 +94,7 @@ function AssignmentsList({ classTasks }: { classTasks: ClassTask[] }) {
         <EmptyPlaceholder
           icon={<BookIcon />}
           title="No Tasks"
-          description="Looks like you’re up to date with your assignments!"
+          description="Looks like you’re all caught up with your class tasks!"
           className="my-[10rem]"
         />
       )}
