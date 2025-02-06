@@ -4,7 +4,7 @@ export interface Task {
   id: string;
   title: string;
   completed: boolean;
-  type?: "class" | "personal";
+  type: "class" | "personal";
   recurrence?: {
     frequency?: "once" | "daily" | "weekly" | "monthly";
     occurrences?: number;

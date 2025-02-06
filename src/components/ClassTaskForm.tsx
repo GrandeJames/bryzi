@@ -32,6 +32,7 @@ function ClassTaskForm({ className, initialTask }: { className?: string; initial
     description: initialTask?.description || "",
     subtasks: initialTask?.subtasks || [],
     completed: initialTask?.completed || false,
+    type: "class",
   });
   const [currentSubtaskInput, setCurrentSubtaskInput] = useState<string>("");
 
@@ -89,6 +90,7 @@ function ClassTaskForm({ className, initialTask }: { className?: string; initial
       description: "",
       subtasks: [],
       completed: false,
+      type: "class",
     });
   };
 

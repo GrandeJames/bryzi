@@ -58,8 +58,10 @@ function AssignmentsList({ tasks }: { tasks: ClassTask[] }) {
    * Actual: closer deadline ^, higher impact ^, more difficult ^, longer estimated duration ^.
    */
 
-  const incompleteTasks = tasks.filter((task) => !task.completed);
-  const completedTasks = tasks.filter((task) => task.completed);
+  const classTasks = tasks.filter((task) => task.type === "class");
+
+  const incompleteTasks = classTasks.filter((task) => !task.completed);
+  const completedTasks = classTasks.filter((task) => task.completed);
 
   let schedule = getRecommendedClassWorkList(incompleteTasks, [], []);
 
