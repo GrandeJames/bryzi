@@ -6,6 +6,7 @@ import { DayProps, getRecommendedClassWorkList } from "@/lib/classWorkRecommenda
 import Assignment from "./Assignment";
 import { BookIcon } from "lucide-react";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
+import EmptyPlaceholder from "@/components/EmptyPlaceholder";
 
 function AssignmentsSection({ tasks, className }: { tasks: any[]; className?: string }) {
   return (
@@ -90,15 +91,12 @@ function AssignmentsList({ classTasks }: { classTasks: ClassTask[] }) {
   return (
     <div className="space-y-5">
       {incompleteTasks?.length === 0 && completedTasks?.length === 0 && (
-        <div className="my-[5rem] text-center">
-          <BookIcon className="size-5 text-neutral-500 mx-auto mb-3" />
-          <div className="font-medium text-neutral-500 text-sm">No Tasks</div>
-          <div className="flex justify-center mt-1">
-            <p className="text-xs text-neutral-600 max-w-[15rem]">
-              Looks like you’re up to date with your assignments!
-            </p>
-          </div>
-        </div>
+        <EmptyPlaceholder
+          icon={<BookIcon />}
+          title="No Tasks"
+          description="Looks like you’re up to date with your assignments!"
+          className="my-[10rem]"
+        />
       )}
       {incompleteTasks?.length > 0 &&
         week.map((dayTasks, index) => {

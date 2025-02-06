@@ -1,4 +1,5 @@
 import useDialogStore from "@/app/dialogs/dialogStore";
+import EmptyPlaceholder from "@/components/EmptyPlaceholder";
 import { PersonalTask } from "@/types/personalTask";
 
 function PersonalSection({ tasks, className }: { tasks: PersonalTask[]; className?: string }) {
@@ -9,6 +10,13 @@ function PersonalSection({ tasks, className }: { tasks: PersonalTask[]; classNam
           Personal
         </h2>
       </header>
+      {tasks.length === 0 && (
+        <EmptyPlaceholder
+          title="No Personal Tasks"
+          description="Add some tasks to your personal list."
+          className="my-[6rem]"
+        />
+      )}
       <ul className="grid grid-cols-1 space-y-1">
         {tasks.map((personalTask, index) => (
           <PersonalTaskItem key={index} personalTask={personalTask} />
