@@ -3,6 +3,7 @@ import EmptyPlaceholder from "@/components/EmptyPlaceholder";
 import { PersonalTask } from "@/types/personalTask";
 import { cn } from "@/utils.ts/cn";
 import { CheckCircleIcon } from "lucide-react";
+import PersonalTaskItem from "./PersonalTaskItem";
 
 function PersonalSection({ tasks, className }: { tasks: PersonalTask[]; className?: string }) {
   return (
@@ -26,25 +27,6 @@ function PersonalSection({ tasks, className }: { tasks: PersonalTask[]; classNam
         ))}
       </ul>
     </section>
-  );
-}
-
-function PersonalTaskItem({ personalTask }: { personalTask: PersonalTask }) {
-  const open = useDialogStore((state) => state.openDialog);
-  const openPersonalTaskDetailsDialog = () => open("personalTaskDetails", { task: personalTask });
-
-  return (
-    <div
-      className="grid grid-cols-4 py-3 px-5 bg bg-neutral-900/60 rounded-xl max-w-3xl"
-      onClick={() => {
-        openPersonalTaskDetailsDialog();
-      }}
-    >
-      <div className="flex flex-col col-span-3">
-        <div className="font-semibold text-neutral-200">{personalTask.title}</div>
-      </div>
-      <div className="mx-auto border rounded-md border-neutral-700 size-5"></div>
-    </div>
   );
 }
 

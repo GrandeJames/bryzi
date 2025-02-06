@@ -85,14 +85,14 @@ function Home() {
             <DateNavigation />
           </header>
           <div className="space-y-8 flex flex-col">
-            <div className="flex flex-col xl:flex-row gap-5">
+            <div className="flex flex-col xl:flex-row gap-5 xl:gap-16">
               <AssignmentsSection
                 tasks={assignments}
-                className="flex-grow xl:max-w-4xl bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl"
+                className="w-full max-w-3xl xl:max-w-3xl bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-fit"
               />
               <PersonalSection
                 tasks={personalTasks}
-                className="flex-grow xl:max-w-lg bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-full"
+                className="w-full max-w-xl xl:max-w-lg bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-fit"
               />
             </div>
           </div>
