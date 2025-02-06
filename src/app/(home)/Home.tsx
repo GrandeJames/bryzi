@@ -25,7 +25,7 @@ function Home() {
     setIsHydrated(true);
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "c") {
+      if (event.key === "n" && event.ctrlKey) {
         event.preventDefault();
         openCreateClassTaskDialog();
       }
