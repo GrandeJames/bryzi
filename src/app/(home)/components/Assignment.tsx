@@ -10,7 +10,6 @@ import { differenceInCalendarDays, format, getYear } from "date-fns";
 import { FlagIcon } from "@/components/icons/FlagIcon";
 
 function Assignment({ task }: { task: ClassTask }) {
-  const { dialogData } = useDialogStore();
   const open = useDialogStore((state) => state.openDialog);
   const openClassTaskDetailsDialog = () => open("classTaskDetails", { task });
 
@@ -26,7 +25,6 @@ function Assignment({ task }: { task: ClassTask }) {
       <div
         className="col-span-10 flex justify-between hover:cursor-pointer py-5 px-6"
         onClick={() => {
-          dialogData.task = task;
           openClassTaskDetailsDialog();
         }}
       >
