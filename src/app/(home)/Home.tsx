@@ -1,7 +1,6 @@
 "use client";
 
 import { Timeline } from "./components/Timeline";
-import { tasks } from "@/data/sampleTasks";
 import AssignmentsSection from "./components/AssignmentsSection";
 import PersonalSection from "./components/PersonalSection";
 import useTasksStore from "@/stores/tasksStore";
@@ -44,7 +43,7 @@ function Home() {
   }
 
   const assignments = tasks2.filter((task) => task.title);
-  const miscTasks = tasks.filter((task) => !task.startTime && !task.expectedDuration);
+  const personalTasks = tasks2.filter((task) => task.type === "personal");
 
   const todayFocusEntries = focusEntries.filter((entry) => isToday(entry.startDate));
   const focusEvents = todayFocusEntries.map((entry) => ({
@@ -92,7 +91,7 @@ function Home() {
                 className="flex-grow max-w-4xl bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl"
               />
               <PersonalSection
-                miscTasks={miscTasks}
+                tasks={personalTasks}
                 className="flex-grow max-w-md bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-full"
               />
             </div>
