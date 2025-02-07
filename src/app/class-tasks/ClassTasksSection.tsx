@@ -1,12 +1,6 @@
 "use client";
 
-import { ClassTask } from "@/types/classTask";
-import { addDays, format } from "date-fns";
-import { DayProps, getRecommendedClassWorkList } from "@/lib/classWorkRecommendation";
-import ClassTaskItem from "./ClassTaskItem";
-import { BookIcon } from "lucide-react";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
-import EmptyPlaceholder from "@/components/EmptyPlaceholder";
 import ClassTasksList from "./ClassTasksList";
 
 function ClassTasksSection({ tasks, className }: { tasks: any[]; className?: string }) {
@@ -39,7 +33,5 @@ function ClassTasksSection({ tasks, className }: { tasks: any[]; className?: str
     </section>
   );
 }
-
-
 
 export default ClassTasksSection;
