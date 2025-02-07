@@ -9,7 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { differenceInCalendarDays, format, getYear } from "date-fns";
 import { FlagIcon } from "@/components/icons/FlagIcon";
 
-function Assignment({ task }: { task: ClassTask }) {
+function ClassTaskItem({ task }: { task: ClassTask }) {
   const open = useDialogStore((state) => state.openDialog);
   const openClassTaskDetailsDialog = () => open("classTaskDetails", { task: task });
 
@@ -190,4 +190,4 @@ function Deadline({ deadline }: { deadline: Date }) {
   );
 }
 
-export default Assignment;
+export default ClassTaskItem;

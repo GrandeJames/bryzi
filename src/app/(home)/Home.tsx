@@ -1,7 +1,7 @@
 "use client";
 
 import { Timeline } from "./components/Timeline";
-import AssignmentsSection from "./components/AssignmentsSection";
+import ClassTasksSection from "../class-tasks/ClassTasksSection";
 import PersonalSection from "../personal-tasks/PersonalSection";
 import useTasksStore from "@/stores/tasksStore";
 import { useCallback, useEffect, useState } from "react";
@@ -86,7 +86,7 @@ function Home() {
           </header>
           <div className="space-y-8 flex flex-col">
             <div className="flex flex-col xl:flex-row gap-5 xl:gap-16">
-              <AssignmentsSection
+              <ClassTasksSection
                 tasks={assignments}
                 className="w-full max-w-3xl xl:max-w-3xl bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-fit"
               />
