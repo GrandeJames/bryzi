@@ -36,7 +36,7 @@ function Home() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [openCreateClassTaskDialog]);
 
   if (!isHydrated) {
     return <div>Loading...</div>;
@@ -62,17 +62,17 @@ function Home() {
             {
               start: new Date("2025-02-03T10:30:00"),
               end: new Date("2025-02-03T11:45:00"),
-              type: "event" as "focus",
+              type: "event" as "event",
             },
             {
               start: new Date("2025-02-03T12:00:00"),
               end: new Date("2025-02-03T13:15:00"),
-              type: "event" as "focus",
+              type: "event" as "event",
             },
             {
               start: new Date("2025-02-03T15:00:00"),
               end: new Date("2025-02-03T16:15:00"),
-              type: "event" as "focus",
+              type: "event" as "event",
             },
             ...focusEvents,
           ]}
