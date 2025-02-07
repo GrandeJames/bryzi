@@ -4,17 +4,16 @@ import { QueueListIcon } from "@/components/icons/QueueListIcon";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MenuItemContainer } from "./MenuItemContainer";
-import { HomeIcon } from "./icons/HomeIcon";
 import { ComponentPlaceholderIcon } from "@radix-ui/react-icons";
 import { Cog6ToothIcon } from "./icons/Cog6ToothIcon";
 import clsx from "clsx"; // Import clsx for conditional classNames
 import { ChartBarIcon } from "./icons/ChartBarIcon";
-import Icon1 from "./icons/Icon1";
 import Icon2 from "./icons/Icon2";
+import { CalendarIcon } from "./icons/CalendarIcon";
 
 const mainMenuItems = [
-  { href: "/", icon: <HomeIcon />, label: "Home" },
-  { href: "/tasks", icon: <QueueListIcon />, label: "Tasks" },
+  { href: "/", icon: <QueueListIcon />, label: "Tasks" },
+  { href: "/calendar", icon: <CalendarIcon />, label: "Calendar" },
   { href: "/data-insights", icon: <ChartBarIcon />, label: "Analytics" },
 ];
 
@@ -38,7 +37,7 @@ export function Menu() {
         {mainMenuItems.map((item) => (
           <Link key={item.href} href={item.href}>
             <MenuItemContainer
-              className={clsx(pathname === item.href && activeStyle)} // Conditionally apply the active style
+              className={clsx(pathname === item.href && activeStyle)}
             >
               {item.icon}
             </MenuItemContainer>
@@ -50,7 +49,7 @@ export function Menu() {
         {bottomMenuItems.map((item) => (
           <Link key={item.href} href={item.href}>
             <MenuItemContainer
-              className={clsx(pathname === item.href && activeStyle)} // Conditionally apply the active style
+              className={clsx(pathname === item.href && activeStyle)}
             >
               {item.icon}
             </MenuItemContainer>
