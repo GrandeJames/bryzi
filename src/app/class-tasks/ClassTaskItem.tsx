@@ -8,6 +8,7 @@ import { ListTodoIcon, Repeat2Icon } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { differenceInCalendarDays, format, getYear } from "date-fns";
 import { FlagIcon } from "@/components/icons/FlagIcon";
+import MarkTaskCompleteCheckbox from "@/components/MarkTaskCompleteCheckbox";
 
 function ClassTaskItem({ task }: { task: ClassTask }) {
   const open = useDialogStore((state) => state.openDialog);
@@ -114,14 +115,7 @@ function Status({ task, className }: { task: ClassTask; className?: string }) {
 
   const renderContent = () => {
     if (task.completed) {
-      return (
-        <div
-          className="border rounded-md border-neutral-800 size-5 mx-auto relative hover:cursor-pointer"
-          onClick={() => handleTaskComplete(task, updateTask)}
-        >
-          <span className="text-orange-500 text-3xl absolute bottom-0 left-1">✔</span>
-        </div>
-      );
+      return <MarkTaskCompleteCheckbox task={task} updateTask={updateTask} />;
     }
 
     if ((task.estimatedDurationInMins ?? 0) <= 0) {
