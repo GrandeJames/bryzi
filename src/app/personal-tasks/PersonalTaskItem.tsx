@@ -7,7 +7,7 @@ function PersonalTaskItem({ personalTask }: { personalTask: PersonalTask }) {
 
   return (
     <div
-      className="grid grid-cols-4 py-3 px-5 bg bg-neutral-900/60 rounded-2xl"
+      className="grid grid-cols-4 py-5 px-6 bg bg-neutral-900/60 rounded-3xl"
       onClick={() => {
         openPersonalTaskDetailsDialog();
       }}

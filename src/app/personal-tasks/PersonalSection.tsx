@@ -21,7 +21,7 @@ function PersonalSection({ tasks, className }: { tasks: PersonalTask[]; classNam
           className="my-[6rem]"
         />
       )}
-      <ul className="grid grid-cols-1 space-y-1">
+      <ul className="flex flex-col gap-2">
         {tasks.map((personalTask, index) => (
           <PersonalTaskItem key={index} personalTask={personalTask} />
         ))}
