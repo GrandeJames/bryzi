@@ -3,6 +3,7 @@ import PersonalSection from "@/app/personal-tasks/PersonalSection";
 import useTasksStore from "@/stores/tasksStore";
 import { isToday } from "date-fns";
 import PlannerCreationMenu from "../components/PlannerCreationMenu";
+import DateHeading from "../components/DateHeading";
 
 function TodayView() {
   const tasks = useTasksStore((state) => state.tasks);
@@ -23,6 +24,7 @@ function TodayView() {
 
   return (
     <>
+      <DateHeading date={new Date()} />
       <div className="flex flex-col xl:flex-row gap-5 xl:gap-16">
         <ClassTasksSection
           tasks={classTasksToday}

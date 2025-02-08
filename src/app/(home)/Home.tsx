@@ -7,6 +7,7 @@ import TodayView from "./views/TodayView";
 import TodayTimeline from "./components/TodayTimeline";
 import { useTasksNavStore } from "./stores/tasksNavStore";
 import InboxView from "./views/InboxView";
+import UpcomingView from "./views/UpcomingView";
 
 function Home() {
   const open = useDialogStore((state) => state.openDialog);
@@ -49,7 +50,7 @@ function Home() {
             <TasksNavigation />
           </header>
           {activeTaskNavItem === "today" && <TodayView />}
-          {activeTaskNavItem === "upcoming" && <div>Upcoming</div>}
+          {activeTaskNavItem === "upcoming" && <UpcomingView />}
           {activeTaskNavItem === "inbox" && <InboxView />}
         </div>
       </main>

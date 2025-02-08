@@ -3,21 +3,20 @@ import { DayProps, getRecommendedClassWorkList } from "@/lib/classWorkRecommenda
 import { ClassTask } from "@/types/classTask";
 import { BookIcon } from "lucide-react";
 import ClassTaskItem from "./ClassTaskItem";
-import { addDays, format } from "date-fns";
 
 function ClassTasksList({ classTasks }: { classTasks: ClassTask[] }) {
   const incompleteTasks = classTasks.filter((task) => !task.completed);
   const completedTasks = classTasks.filter((task) => task.completed);
 
-  let schedule = getRecommendedClassWorkList(incompleteTasks, [], []);
+  // let schedule = getRecommendedClassWorkList(incompleteTasks, [], []);
 
-  getTasksForDay(schedule[0], incompleteTasks);
+  // getTasksForDay(schedule[0], incompleteTasks);
 
   const week: any[] = [];
 
-  for (let i = 0; i < 7; i++) {
-    week.push(getTasksForDay(schedule[i], incompleteTasks));
-  }
+  // for (let i = 0; i < 7; i++) {
+  //   week.push(getTasksForDay(schedule[i], incompleteTasks));
+  // }
 
   incompleteTasks.sort((task1, task2) => {
     if (task1.impact === task2.impact) {
@@ -38,30 +37,18 @@ function ClassTasksList({ classTasks }: { classTasks: ClassTask[] }) {
           className="my-[10rem]"
         />
       )}
-      {incompleteTasks?.length > 0 &&
-        week.map((dayTasks, index) => {
-          if (week[index].length <= 0) {
-            return null; // returning null to skip rendering this day
-          }
-          return (
-            <div key={index}>
-              {/* <header className="text-neutral-500 text-xs font-semibold mb-1">
-                {index === 0 && "Today"}
-                {index === 1 && "Tomorrow"}
-                {index > 1 && format(addDays(new Date(), index - 1), "EEEE")}
-              </header> */}
-              <ul className="space-y-2">
-                {dayTasks.map((task: ClassTask, index: number) => (
-                  <li key={index}>
-                    <div className="py-0">
-                      <ClassTaskItem task={task} />
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          );
-        })}
+      {incompleteTasks?.length > 0 && (
+        <ul className="space-y-2">
+          {classTasks.map((task: ClassTask, index: number) => (
+            <li key={index}>
+              <div className="py-0">
+                <ClassTaskItem task={task} />
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+
       {completedTasks.length > 0 && (
         <div>
           <header className="text-neutral-500 text-xs font-semibold mt-5 mb-1">COMPLETED</header>
