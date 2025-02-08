@@ -6,10 +6,10 @@ import DateHeading from "../components/DateHeading";
 import PersonalSection from "@/app/personal-tasks/PersonalSection";
 
 function UpcomingView() {
+  // TODO: show events
+
   const tasks = useTasksStore((state) => state.tasks);
   const upcomingTasks = tasks.filter((task) => task.deadline && isFuture(task.deadline));
-
-  console.log("upcomingTasks", upcomingTasks);
 
   const getUpcomingUniqueDates = () => {
     const dates = upcomingTasks
