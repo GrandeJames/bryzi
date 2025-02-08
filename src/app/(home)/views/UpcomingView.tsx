@@ -1,6 +1,6 @@
 import ClassTasksSection from "@/app/class-tasks/ClassTasksSection";
 import useTasksStore from "@/stores/tasksStore";
-import { isFuture, isSameDay, startOfDay } from "date-fns";
+import { format, isFuture, isSameDay, parse, startOfDay } from "date-fns";
 import PlannerCreationMenu from "../components/PlannerCreationMenu";
 import DateHeading from "../components/DateHeading";
 import PersonalSection from "@/app/personal-tasks/PersonalSection";
@@ -11,17 +11,20 @@ function UpcomingView() {
   const tasks = useTasksStore((state) => state.tasks);
   const upcomingTasks = tasks.filter((task) => task.deadline && isFuture(task.deadline));
 
-  const getUpcomingUniqueDates = () => {
+  const getUpcomingUniqueDateStrings = () => {
     const dates = upcomingTasks
       .filter((task) => task.deadline)
-      .map((task) => task.deadline && startOfDay(task.deadline));
+      .map((task) => format(task.deadline!, "yyyy-MM-dd"));
     return new Set(dates);
   };
 
-  const upcomingUniqueDates = Array.from(getUpcomingUniqueDates());
+  const upcomingUniqueDateStrings = Array.from(getUpcomingUniqueDateStrings());
 
-  const sortedUpcomingDates = upcomingUniqueDates.sort((a, b) => {
-    return (a?.getTime() ?? 0) - (b?.getTime() ?? 0);
+  const sortedUpcomingDateStrings = upcomingUniqueDateStrings.sort((a, b) => {
+    const aDate = new Date(a);
+    const bDate = new Date(b);
+
+    return (aDate?.getTime() ?? 0) - (bDate?.getTime() ?? 0);
   });
 
   const classTasks = tasks.filter((task) => task.type === "class");
@@ -29,9 +32,11 @@ function UpcomingView() {
 
   return (
     <>
-      {upcomingUniqueDates.length > 0 && (
+      {upcomingUniqueDateStrings.length > 0 && (
         <div className="flex flex-col gap-24 max-w-3xl mx-auto pb-28">
-          {sortedUpcomingDates.map((upcomingDate) => {
+          {sortedUpcomingDateStrings.map((upcomingDateString) => {
+            const upcomingDate = parse(upcomingDateString, "yyyy-MM-dd", new Date());
+
             const classTasksForDate = classTasks.filter((classTask) => {
               return classTask.deadline && isSameDay(classTask.deadline, upcomingDate!);
             });
@@ -40,7 +45,7 @@ function UpcomingView() {
             });
 
             return (
-              <div key={upcomingDate!.toString()}>
+              <div key={upcomingDateString!.toString()}>
                 <h2 className="flex gap-1 mb-5">
                   <DateHeading date={upcomingDate!} />
                 </h2>
