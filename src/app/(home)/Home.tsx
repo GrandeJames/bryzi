@@ -78,7 +78,7 @@ function Home() {
           ]}
         />
       </header>
-      <main>
+      <main className="container">
         <div className="space-y-8">
           <header className="flex justify-between items-center">
             <DateHeading />

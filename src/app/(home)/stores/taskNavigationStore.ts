@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type NavOption = "today" | "tomorrow" | "nextSevenDays";
+type NavOption = "today" | "upcoming" | "all" | "inbox" | "trash" | "completed";
 
 interface NavState {
   activeNavItem: NavOption;
