@@ -33,7 +33,6 @@ function ClassTasksList({ classTasks }: { classTasks: ClassTask[] }) {
         <EmptyPlaceholder
           icon={<BookIcon />}
           title="No Tasks"
-          description="Looks like you’re all caught up with your class tasks!"
           className="my-[10rem]"
         />
       )}

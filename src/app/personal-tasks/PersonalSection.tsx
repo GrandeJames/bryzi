@@ -13,7 +13,6 @@ function PersonalSection({ tasks, className }: { tasks: PersonalTask[]; classNam
         <EmptyPlaceholder
           icon={<CheckCircleIcon />}
           title="No Personal Tasks"
-          description="Add some tasks to your personal list."
           className="my-[6rem]"
         />
       )}

@@ -46,7 +46,8 @@ function Home() {
       <main className="container">
         <div className="space-y-8">
           <header className="flex justify-between items-center">
-            <div className="text-3xl font-bold text-neutral-200">Tasks</div>
+            {/* <div className="text-3xl font-bold text-neutral-200">Tasks</div> */}
+            <div></div>
             <TasksNavigation />
           </header>
           {activeTaskNavItem === "today" && <TodayView />}

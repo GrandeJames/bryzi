@@ -12,7 +12,7 @@ import Icon2 from "./icons/Icon2";
 import { CalendarIcon } from "./icons/CalendarIcon";
 
 const mainMenuItems = [
-  { href: "/", icon: <QueueListIcon />, label: "Tasks" },
+  { href: "/", icon: <QueueListIcon />, label: "Dashboard" },
   { href: "/calendar", icon: <CalendarIcon />, label: "Calendar" },
   { href: "/data-insights", icon: <ChartBarIcon />, label: "Analytics" },
 ];
