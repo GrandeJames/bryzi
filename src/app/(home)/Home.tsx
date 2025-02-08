@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import useDialogStore from "@/app/dialogs/dialogStore";
-import TasksNavigation from "./components/DateSelectionNav";
+import TasksNavigation from "./components/TasksNavigation";
 import Today from "./views/Today";
 import TodayTimeline from "./components/TodayTimeline";
 import { useTasksNavStore } from "./stores/tasksNavStore";
