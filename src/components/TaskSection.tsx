@@ -10,9 +10,9 @@ interface TaskSectionProps {
 
 function TaskSection({ title, className, children }: TaskSectionProps) {
   return (
-    <section className={cn(className, "flex flex-col gap-5")}>
+    <section className={cn(className, "flex flex-col gap-3")}>
       <header>
-        <h2 className="font-semibold text-xl text-neutral-300">{title}</h2>
+        <h2 className="font-semibold text-lg text-neutral-300">{title}</h2>
       </header>
       <div className="px-2">{children}</div>
     </section>

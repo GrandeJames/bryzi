@@ -8,6 +8,7 @@ import DynamicDialog from "@/app/dialogs/DynamicDialog";
 import { useFocusSessionStore } from "@/stores/focusSessionStore";
 import { usePathname } from "next/navigation";
 import Head from "next/head";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,9 +32,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex w-full min-h-screen">
+          <div className="flex">
             {!stage && !hiddenNavPages.includes(pathname) && <Menu />}
-            <div className="flex-1">{children}</div>
+            <ScrollArea className="flex-1 h-screen">
+              <div className="flex-1">{children}</div>
+            </ScrollArea>
             <DynamicDialog />
           </div>
         </ThemeProvider>

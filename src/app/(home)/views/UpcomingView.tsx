@@ -30,7 +30,7 @@ function UpcomingView() {
   return (
     <>
       {upcomingUniqueDates.length > 0 && (
-        <div className="flex flex-col gap-24">
+        <div className="flex flex-col gap-24 max-w-3xl mx-auto pb-28">
           {sortedUpcomingDates.map((upcomingDate) => {
             const classTasksForDate = classTasks.filter((classTask) => {
               return classTask.deadline && isSameDay(classTask.deadline, upcomingDate!);
@@ -38,8 +38,6 @@ function UpcomingView() {
             const personalTasksForDate = personalTasks.filter((classTask) => {
               return classTask.deadline && isSameDay(classTask.deadline, upcomingDate!);
             });
-
-            console.log("classTasksForDate", classTasksForDate);
 
             return (
               <div key={upcomingDate!.toString()}>
@@ -51,13 +49,13 @@ function UpcomingView() {
                   {classTasksForDate.length > 0 && (
                     <ClassTasksSection
                       tasks={[...classTasksForDate]}
-                      className="w-full max-w-3xl bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-fit"
+                      className="bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-fit"
                     />
                   )}
                   {personalTasksForDate.length > 0 && (
                     <PersonalSection
                       tasks={[...personalTasksForDate]}
-                      className="w-full max-w-3xl bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-fit"
+                      className="bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-fit"
                     />
                   )}
                 </div>
