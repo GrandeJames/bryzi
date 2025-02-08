@@ -17,9 +17,6 @@ function TasksNavigation() {
       <NavButton isActive={activeNavItem === "inbox"} onClick={() => setNavItem("inbox")}>
         Inbox
       </NavButton>
-      <NavButton isActive={activeNavItem === "completed"} onClick={() => setNavItem("completed")}>
-        Completed
-      </NavButton>
     </div>
   );
 }
