@@ -7,7 +7,7 @@ interface NavState {
   setNavItem: (filter: NavOption) => void;
 }
 
-export const useTaskNavigationStore = create<NavState>((set) => ({
+export const useTasksNavStore = create<NavState>((set) => ({
   activeNavItem: "today",
   setNavItem: (filter) => set({ activeNavItem: filter }),
 }));

@@ -1,10 +1,10 @@
 import { DropdownMenu, DropdownMenuContent } from "@/components/ui/dropdown-menu";
-import { useTaskNavigationStore } from "../stores/taskNavigationStore";
+import { useTasksNavStore } from "../stores/tasksNavStore";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 
-function DateNavigation() {
-  const activeNavItem = useTaskNavigationStore((state) => state.activeNavItem);
-  const setNavItem = useTaskNavigationStore((state) => state.setNavItem);
+function TasksNavigation() {
+  const activeNavItem = useTasksNavStore((state) => state.activeNavItem);
+  const setNavItem = useTasksNavStore((state) => state.setNavItem);
 
   return (
     <div className="flex">
@@ -70,4 +70,4 @@ function NavButton({
   );
 }
 
-export default DateNavigation;
+export default TasksNavigation;
