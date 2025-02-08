@@ -7,15 +7,31 @@ import useTasksStore from "@/stores/tasksStore";
 import { useCallback, useEffect, useState } from "react";
 import useDialogStore from "@/app/dialogs/dialogStore";
 import PlannerCreationMenu from "./components/PlannerCreationMenu";
-import DateHeading from "./components/DateHeading";
 import DateNavigation from "./components/DateSelectionNav";
 import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
 import { isToday } from "date-fns";
+import Today from "./views/Today";
+
+const sampleScheduledItems = [
+  {
+    start: new Date("2025-02-03T10:30:00"),
+    end: new Date("2025-02-03T11:45:00"),
+    type: "event" as "event",
+  },
+  {
+    start: new Date("2025-02-03T12:00:00"),
+    end: new Date("2025-02-03T13:15:00"),
+    type: "event" as "event",
+  },
+  {
+    start: new Date("2025-02-03T15:00:00"),
+    end: new Date("2025-02-03T16:15:00"),
+    type: "event" as "event",
+  },
+];
 
 function Home() {
-  const tasks = useTasksStore((state) => state.tasks);
   const focusEntries = useFocusTrackerStore((state) => state.focusEntries);
-
   const open = useDialogStore((state) => state.openDialog);
   const openCreateClassTaskDialog = useCallback(() => open("createClassTask"), [open]);
 
@@ -23,14 +39,15 @@ function Home() {
 
   useEffect(() => {
     setIsHydrated(true);
+  }, []);
 
+  useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "n" && event.ctrlKey) {
         event.preventDefault();
         openCreateClassTaskDialog();
       }
     };
-
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
@@ -41,9 +58,6 @@ function Home() {
   if (!isHydrated) {
     return <div>Loading...</div>;
   }
-
-  const assignments = tasks.filter((task) => task.type === "class");
-  const personalTasks = tasks.filter((task) => task.type === "personal");
 
   const todayFocusEntries = focusEntries.filter((entry) => isToday(entry.startDate));
   const focusEvents = todayFocusEntries.map((entry) => ({
@@ -58,24 +72,7 @@ function Home() {
         <Timeline
           startTime="6:00"
           endTime="23:00"
-          events={[
-            {
-              start: new Date("2025-02-03T10:30:00"),
-              end: new Date("2025-02-03T11:45:00"),
-              type: "event" as "event",
-            },
-            {
-              start: new Date("2025-02-03T12:00:00"),
-              end: new Date("2025-02-03T13:15:00"),
-              type: "event" as "event",
-            },
-            {
-              start: new Date("2025-02-03T15:00:00"),
-              end: new Date("2025-02-03T16:15:00"),
-              type: "event" as "event",
-            },
-            ...focusEvents,
-          ]}
+          events={[...sampleScheduledItems, ...focusEvents]}
         />
       </header>
       <main className="container">
@@ -85,18 +82,7 @@ function Home() {
             <div className="text-3xl font-bold text-neutral-200">Tasks</div>
             <DateNavigation />
           </header>
-          <div className="space-y-8 flex flex-col">
-            <div className="flex flex-col xl:flex-row gap-5 xl:gap-16">
-              <ClassTasksSection
-                tasks={assignments}
-                className="w-full max-w-3xl xl:max-w-3xl bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-fit"
-              />
-              <PersonalSection
-                tasks={personalTasks}
-                className="w-full max-w-xl xl:max-w-lg bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-fit"
-              />
-            </div>
-          </div>
+          <Today />
         </div>
         <PlannerCreationMenu />
       </main>
