@@ -81,7 +81,8 @@ function Home() {
       <main className="container">
         <div className="space-y-8">
           <header className="flex justify-between items-center">
-            <DateHeading />
+            {/* <DateHeading /> */}
+            <div className="text-3xl font-bold text-neutral-200">Tasks</div>
             <DateNavigation />
           </header>
           <div className="space-y-8 flex flex-col">

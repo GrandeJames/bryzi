@@ -45,11 +45,11 @@ function ClassTasksList({ classTasks }: { classTasks: ClassTask[] }) {
           }
           return (
             <div key={index}>
-              <header className="text-neutral-500 text-xs font-semibold mb-1">
+              {/* <header className="text-neutral-500 text-xs font-semibold mb-1">
                 {index === 0 && "Today"}
                 {index === 1 && "Tomorrow"}
                 {index > 1 && format(addDays(new Date(), index - 1), "EEEE")}
-              </header>
+              </header> */}
               <ul className="space-y-2">
                 {dayTasks.map((task: ClassTask, index: number) => (
                   <li key={index}>

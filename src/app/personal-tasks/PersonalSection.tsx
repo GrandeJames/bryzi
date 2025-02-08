@@ -4,15 +4,11 @@ import { PersonalTask } from "@/types/personalTask";
 import { cn } from "@/utils.ts/cn";
 import { CheckCircleIcon } from "lucide-react";
 import PersonalTaskItem from "./PersonalTaskItem";
+import TaskSection from "@/components/TaskSection";
 
 function PersonalSection({ tasks, className }: { tasks: PersonalTask[]; className?: string }) {
   return (
-    <section className={cn(className, "flex-grow")}>
-      <header className="flex justify-between gap-2">
-        <h2 className="font-semibold text-xl text-neutral-300 mb-2 flex items-center gap-2">
-          Personal
-        </h2>
-      </header>
+    <TaskSection title="Personal" className={className}>
       {tasks.length === 0 && (
         <EmptyPlaceholder
           icon={<CheckCircleIcon />}
@@ -26,7 +22,7 @@ function PersonalSection({ tasks, className }: { tasks: PersonalTask[]; classNam
           <PersonalTaskItem key={index} personalTask={personalTask} />
         ))}
       </ul>
-    </section>
+    </TaskSection>
   );
 }
 
