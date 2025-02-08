@@ -3,10 +3,10 @@
 import { useCallback, useEffect, useState } from "react";
 import useDialogStore from "@/app/dialogs/dialogStore";
 import TasksNavigation from "./components/TasksNavigation";
-import Today from "./views/Today";
+import TodayView from "./views/TodayView";
 import TodayTimeline from "./components/TodayTimeline";
 import { useTasksNavStore } from "./stores/tasksNavStore";
-import Inbox from "./views/Inbox";
+import InboxView from "./views/InboxView";
 
 function Home() {
   const open = useDialogStore((state) => state.openDialog);
@@ -48,9 +48,9 @@ function Home() {
             <div className="text-3xl font-bold text-neutral-200">Tasks</div>
             <TasksNavigation />
           </header>
-          {activeTaskNavItem === "today" && <Today />}
+          {activeTaskNavItem === "today" && <TodayView />}
           {activeTaskNavItem === "upcoming" && <div>Upcoming</div>}
-          {activeTaskNavItem === "inbox" && <Inbox />}
+          {activeTaskNavItem === "inbox" && <InboxView />}
         </div>
       </main>
     </div>

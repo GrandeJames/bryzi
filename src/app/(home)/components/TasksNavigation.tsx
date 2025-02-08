@@ -7,41 +7,19 @@ function TasksNavigation() {
   const setNavItem = useTasksNavStore((state) => state.setNavItem);
 
   return (
-    <div className="flex">
-      <div className="flex items-center space-x-4 mr-5">
-        <NavButton isActive={activeNavItem === "today"} onClick={() => setNavItem("today")}>
-          Today
-        </NavButton>
-        <NavButton isActive={activeNavItem === "upcoming"} onClick={() => setNavItem("upcoming")}>
-          Upcoming
-        </NavButton>
-        <NavButton isActive={activeNavItem === "inbox"} onClick={() => setNavItem("inbox")}>
-          Inbox
-        </NavButton>
-      </div>
-      <div className="flex items-center space-x-4 mr-5">
-        <DropdownMenu>
-          <DropdownMenuTrigger className="font-bold text-xl text-neutral-600 hover:text-neutral-400">
-            More
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <div className="flex flex-col space-y-2">
-              <button
-                className="text-neutral-600 hover:text-neutral-400"
-                onClick={() => setNavItem("trash")}
-              >
-                Trash
-              </button>
-              <button
-                className="text-neutral-600 hover:text-neutral-400"
-                onClick={() => setNavItem("completed")}
-              >
-                Completed
-              </button>
-            </div>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+    <div className="flex items-center space-x-4 mr-5">
+      <NavButton isActive={activeNavItem === "today"} onClick={() => setNavItem("today")}>
+        Today
+      </NavButton>
+      <NavButton isActive={activeNavItem === "upcoming"} onClick={() => setNavItem("upcoming")}>
+        Upcoming
+      </NavButton>
+      <NavButton isActive={activeNavItem === "inbox"} onClick={() => setNavItem("inbox")}>
+        Inbox
+      </NavButton>
+      <NavButton isActive={activeNavItem === "completed"} onClick={() => setNavItem("completed")}>
+        Completed
+      </NavButton>
     </div>
   );
 }

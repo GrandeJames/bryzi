@@ -4,7 +4,7 @@ import useTasksStore from "@/stores/tasksStore";
 import { isToday } from "date-fns";
 import PlannerCreationMenu from "../components/PlannerCreationMenu";
 
-function Today() {
+function TodayView() {
   const tasks = useTasksStore((state) => state.tasks);
 
   const classTasks = tasks.filter((task) => task.type === "class");
@@ -38,4 +38,4 @@ function Today() {
   );
 }
 
-export default Today;
+export default TodayView;

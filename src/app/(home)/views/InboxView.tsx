@@ -3,7 +3,7 @@ import PersonalSection from "@/app/personal-tasks/PersonalSection";
 import useTasksStore from "@/stores/tasksStore";
 import PlannerCreationMenu from "../components/PlannerCreationMenu";
 
-function Inbox() {
+function InboxView() {
   const tasks = useTasksStore((state) => state.tasks);
 
   const classTasks = tasks.filter((task) => task.type === "class");
@@ -34,4 +34,4 @@ function Inbox() {
   );
 }
 
-export default Inbox;
+export default InboxView;
