@@ -3,7 +3,7 @@ import PersonalSection from "@/app/personal-tasks/PersonalSection";
 import useTasksStore from "@/stores/tasksStore";
 import { isToday } from "date-fns";
 import PlannerCreationMenu from "../components/PlannerCreationMenu";
-import DateHeading from "../components/DateHeading";
+import AutoPlanToggle from "@/components/AutoPlanToggle";
 
 function TodayView() {
   const tasks = useTasksStore((state) => state.tasks);
@@ -23,7 +23,10 @@ function TodayView() {
   });
 
   return (
-    <>
+    <div className="flex flex-col gap-5">
+      <header>
+        <AutoPlanToggle />
+      </header>
       <div className="flex flex-col xl:flex-row gap-5 xl:gap-16">
         <ClassTasksSection
           tasks={classTasksToday}
@@ -35,7 +38,7 @@ function TodayView() {
         />
       </div>
       <PlannerCreationMenu />
-    </>
+    </div>
   );
 }
 
