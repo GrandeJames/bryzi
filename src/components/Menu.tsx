@@ -4,7 +4,7 @@ import { QueueListIcon } from "@/components/icons/QueueListIcon";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MenuItemContainer } from "./MenuItemContainer";
-import { ComponentPlaceholderIcon } from "@radix-ui/react-icons";
+// import { ComponentPlaceholderIcon } from "@radix-ui/react-icons";
 import { Cog6ToothIcon } from "./icons/Cog6ToothIcon";
 import clsx from "clsx"; // Import clsx for conditional classNames
 import { ChartBarIcon } from "./icons/ChartBarIcon";
@@ -14,12 +14,12 @@ import { CalendarIcon } from "./icons/CalendarIcon";
 const mainMenuItems = [
   { href: "/", icon: <QueueListIcon />, label: "Dashboard" },
   { href: "/calendar", icon: <CalendarIcon />, label: "Calendar" },
-  { href: "/data-insights", icon: <ChartBarIcon />, label: "Analytics" },
+  { href: "/analytics", icon: <ChartBarIcon />, label: "Analytics" },
 ];
 
 const bottomMenuItems = [
   { href: "/settings", icon: <Cog6ToothIcon />, label: "Settings" },
-  { href: "/profile", icon: <ComponentPlaceholderIcon />, label: "Profile" },
+  // { href: "/profile", icon: <ComponentPlaceholderIcon />, label: "Profile" },
 ];
 
 export function Menu() {
@@ -36,9 +36,7 @@ export function Menu() {
       <div className="flex flex-col space-y-12 flex-grow mt-20">
         {mainMenuItems.map((item) => (
           <Link key={item.href} href={item.href}>
-            <MenuItemContainer
-              className={clsx(pathname === item.href && activeStyle)}
-            >
+            <MenuItemContainer className={clsx(pathname === item.href && activeStyle)}>
               {item.icon}
             </MenuItemContainer>
           </Link>
@@ -48,9 +46,7 @@ export function Menu() {
       <div className="flex flex-col space-y-12">
         {bottomMenuItems.map((item) => (
           <Link key={item.href} href={item.href}>
-            <MenuItemContainer
-              className={clsx(pathname === item.href && activeStyle)}
-            >
+            <MenuItemContainer className={clsx(pathname === item.href && activeStyle)}>
               {item.icon}
             </MenuItemContainer>
           </Link>
