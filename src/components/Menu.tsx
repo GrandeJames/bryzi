@@ -11,12 +11,12 @@ import Icon2 from "./icons/Icon2";
 import { CalendarIcon } from "./icons/CalendarIcon";
 
 const mainMenuItems = [
-  { href: "/today", icon: <QueueListIcon />, label: "Dashboard" },
-  { href: "/calendar", icon: <CalendarIcon />, label: "Calendar" },
-  { href: "/analytics", icon: <ChartBarIcon />, label: "Analytics" },
+  { href: "/app/today", icon: <QueueListIcon />, label: "Dashboard" },
+  { href: "/app/calendar", icon: <CalendarIcon />, label: "Calendar" },
+  { href: "/app/analytics", icon: <ChartBarIcon />, label: "Analytics" },
 ];
 
-const bottomMenuItems = [{ href: "/settings", icon: <Cog6ToothIcon />, label: "Settings" }];
+const bottomMenuItems = [{ icon: <Cog6ToothIcon />, label: "Settings" }];
 
 export function Menu() {
   const pathname = usePathname();
@@ -25,13 +25,13 @@ export function Menu() {
 
   // Check if the pathname matches any of the 'Dashboard' related pages
   const isDashboardActive =
-    pathname.startsWith("/today") ||
-    pathname.startsWith("/inbox") ||
-    pathname.startsWith("/upcoming");
+    pathname.startsWith("/app/today") ||
+    pathname.startsWith("/app/inbox") ||
+    pathname.startsWith("/app/upcoming");
 
   return (
     <div className="flex flex-col h-screen justify-between px-5 py-7 sticky top-0 bg-neutral-900/60 text-neutral-400">
-      <Link className="flex justify-center mb-8" href="/landing">
+      <Link className="flex justify-center mb-8" href="/">
         <Icon2 />
       </Link>
 
@@ -52,11 +52,7 @@ export function Menu() {
 
       <div className="flex flex-col space-y-12">
         {bottomMenuItems.map((item) => (
-          <Link key={item.href} href={item.href}>
-            <MenuItemContainer className={clsx(pathname === item.href && activeStyle)}>
-              {item.icon}
-            </MenuItemContainer>
-          </Link>
+          <MenuItemContainer key={item.label}>{item.icon}</MenuItemContainer>
         ))}
       </div>
     </div>
