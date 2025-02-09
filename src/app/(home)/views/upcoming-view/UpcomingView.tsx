@@ -4,7 +4,7 @@ import PlannerCreationMenu from "../../components/PlannerCreationMenu";
 import Next7Days from "./Next7Days";
 import RemainingMonths from "./RemainingMonths";
 
-const CURRENT_DATE = new Date(2025, 7, 26, 14, 0, 0);
+const CURRENT_DATE = new Date();
 
 function UpcomingView() {
   const tasks = useTasksStore((state) => state.tasks);
