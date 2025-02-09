@@ -25,7 +25,7 @@ function RemainingMonths({ groupedTasksByDate, currentDate, startDate }: Remaini
     // TODO: separate section per day
 
     return (
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-10" key={format(monthDate, "MMMM yyyy")}>
         <header className="text-neutral-300 font-bold text-2xl border-t pt-2 border-neutral-800">{format(monthDate, "MMMM")}</header>
         <div>
           <Sections tasks={allTasksForMonth} />
