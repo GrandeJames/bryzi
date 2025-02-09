@@ -1,10 +1,26 @@
+"use client";
+
 import ClassTasksSection from "@/app/class-tasks/ClassTasksSection";
 import PersonalSection from "@/app/personal-tasks/PersonalSection";
 import useTasksStore from "@/stores/tasksStore";
 import PlannerCreationMenu from "../components/PlannerCreationMenu";
+import { useEffect, useState } from "react";
+import AutoPlanToggle from "@/components/AutoPlanToggle";
+import TasksNavigation from "../components/TasksNavigation";
+import { Timeline } from "../components/Timeline";
 
-function InboxView() {
+export default function Inbox() {
   const tasks = useTasksStore((state) => state.tasks);
+
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  if (!isHydrated) {
+    return <div>Loading...</div>;
+  }
 
   const classTasks = tasks.filter((task) => task.type === "class");
   const personalTasks = tasks.filter((task) => task.type === "personal");
@@ -18,7 +34,14 @@ function InboxView() {
   });
 
   return (
-    <>
+    <div>
+      <header>
+        <Timeline />
+        <div className="flex justify-between items-center">
+          <div></div>
+          <TasksNavigation />
+        </div>
+      </header>
       <div className="flex flex-col xl:flex-row gap-5 xl:gap-16">
         <ClassTasksSection
           tasks={classTasksUnscheduled}
@@ -30,8 +53,6 @@ function InboxView() {
         />
       </div>
       <PlannerCreationMenu />
-    </>
+    </div>
   );
 }
-
-export default InboxView;

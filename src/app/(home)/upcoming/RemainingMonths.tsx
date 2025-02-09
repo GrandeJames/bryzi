@@ -11,8 +11,9 @@ import {
 import { Sections } from "./Next7Days";
 import { ClassTask } from "@/types/classTask";
 import { PersonalTask } from "@/types/personalTask";
-import SecondaryDateHeading from "../../components/SecondayDateHeading";
+
 import groupBy from "@/utils/groupBy";
+import SecondaryDateHeading from "../components/SecondayDateHeading";
 
 interface RemainingMonthsProps {
   groupedTasksByDate: { [key: string]: any[] };

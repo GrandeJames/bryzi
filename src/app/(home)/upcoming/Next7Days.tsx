@@ -1,7 +1,8 @@
 import { addDays, format, startOfDay } from "date-fns";
-import DateHeading from "../../components/DateHeading";
+
 import ClassTasksSection from "@/app/class-tasks/ClassTasksSection";
 import PersonalSection from "@/app/personal-tasks/PersonalSection";
+import DateHeading from "../components/DateHeading";
 
 function Next7Days({
   CURRENT_DATE,

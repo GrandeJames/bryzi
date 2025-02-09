@@ -13,7 +13,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const stage = useFocusSessionStore((state) => state.sessionStage);
+  const inFocusSession = useFocusSessionStore((state) => state.sessionStage);
   const pathname = usePathname();
 
   const hiddenNavPages = ["/landing"];
@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           disableTransitionOnChange
         >
           <div className="flex">
-            {!stage && !hiddenNavPages.includes(pathname) && <Menu />}
+            {!inFocusSession && !hiddenNavPages.includes(pathname) && <Menu />}
             <ScrollArea className="flex-1 h-screen">
               <div className="flex-1">{children}</div>
             </ScrollArea>
