@@ -9,10 +9,8 @@ import {
   parseISO,
 } from "date-fns";
 import { Sections } from "./Next7Days";
-import { Task } from "@/types/task";
 import { ClassTask } from "@/types/classTask";
 import { PersonalTask } from "@/types/personalTask";
-import DateHeading from "../../components/DateHeading";
 import SecondaryDateHeading from "../../components/SecondayDateHeading";
 import groupBy from "@/utils/groupBy";
 
@@ -48,8 +46,6 @@ function RemainingMonths({ groupedTasksByDate, currentDate, startDate }: Remaini
 
     const groupedByDateArr = Object.entries(groupedByDate);
 
-    console.log("gar", groupedByDateArr);
-
     return (
       <div className="flex flex-col gap-10" key={format(monthDate, "MMMM yyyy")}>
         <Header monthDate={monthDate} startDate={startDate} />
@@ -68,7 +64,7 @@ function RemainingMonths({ groupedTasksByDate, currentDate, startDate }: Remaini
 
 function Header({ monthDate, startDate }: { monthDate: Date; startDate: Date }) {
   return (
-    <div className="flex gap-1 items-end pt-2 border-t border-neutral-800">
+    <div className="flex gap-1 items-end pt-2 border-t border-neutral-800 mt-14">
       <span className="text-2xl text-neutral-300 font-bold">{format(monthDate, "MMMM")}</span>
       <span className="text-2xl text-neutral-400 font-bold">
         {startDate.getDate() > 1 && isSameMonth(monthDate, startDate)
