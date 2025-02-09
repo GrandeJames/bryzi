@@ -31,6 +31,7 @@ function RemainingMonths({ groupedTasksByDate, currentDate, startDate }: Remaini
     const allTasksForMonth = tasksForMonth.map(([, tasks]) => tasks).flat();
 
     // TODO: separate section per day
+    // TODO: years
 
     return (
       <div className="flex flex-col gap-10" key={format(monthDate, "MMMM yyyy")}>
