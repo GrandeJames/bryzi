@@ -8,6 +8,11 @@ import {
   getDaysInMonth,
 } from "date-fns";
 import { Sections } from "./Next7Days";
+import { Task } from "@/types/task";
+import { ClassTask } from "@/types/classTask";
+import { PersonalTask } from "@/types/personalTask";
+import DateHeading from "../../components/DateHeading";
+import SecondaryDateHeading from "../../components/SecondayDateHeading";
 
 interface RemainingMonthsProps {
   groupedTasksByDate: { [key: string]: any[] };
@@ -28,16 +33,28 @@ function RemainingMonths({ groupedTasksByDate, currentDate, startDate }: Remaini
       return isSameMonth(parsedDate, monthDate) && startOfDay(parsedDate) >= startOfDay(startDate);
     });
 
-    const allTasksForMonth = tasksForMonth.map(([, tasks]) => tasks).flat();
+    const allTasksForMonth: (ClassTask | PersonalTask)[] = tasksForMonth
+      .map(([, tasks]) => tasks)
+      .flat();
 
-    // TODO: separate section per day
     // TODO: years
+
+    const groupedByDate = Object.groupBy(allTasksForMonth, (task) =>
+      format(new Date(task.deadline!), "yyyy-MM-dd")
+    );
+
+    const groupedByDateArr = Object.entries(groupedByDate);
 
     return (
       <div className="flex flex-col gap-10" key={format(monthDate, "MMMM yyyy")}>
         <Header monthDate={monthDate} startDate={startDate} />
-        <div>
-          <Sections tasks={allTasksForMonth} />
+        <div className="flex flex-col gap-10">
+          {groupedByDateArr.map(([date, tasks]) => (
+            <div key={date} className="flex flex-col gap-2">
+              <SecondaryDateHeading date={parse(date, "yyyy-MM-dd", new Date())} />
+              <Sections tasks={tasks || []} />
+            </div>
+          ))}
         </div>
       </div>
     );
