@@ -16,7 +16,13 @@ import useDialogStore from "@/app/dialogs/dialogStore";
 import { TASK_DIFFICULTY, TASK_IMPACT } from "@/constants/taskConstants";
 import { handleTaskAdd, handleTaskUpdate } from "@/lib/taskUtils";
 
-function ClassTaskForm({ className, initialTask }: { className?: string; initialTask?: ClassTask }) {
+function ClassTaskForm({
+  className,
+  initialTask,
+}: {
+  className?: string;
+  initialTask?: ClassTask;
+}) {
   const [task, setTask] = useState<ClassTask>({
     id: initialTask?.id || uuidv4(),
     title: initialTask?.title || "",
@@ -121,7 +127,7 @@ function ClassTaskForm({ className, initialTask }: { className?: string; initial
         />
         <DatePickerWithPresets
           date={task.deadline}
-          setDate={(date) => handleChange("deadline", date)}
+          setDate={(date) => handleChange("deadline", date?.toISOString())}
         />
       </div>
 

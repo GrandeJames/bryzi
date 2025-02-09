@@ -118,7 +118,7 @@ function PersonalTaskForm({
         />
         <DatePickerWithPresets
           date={task.deadline}
-          setDate={(date) => handleChange("deadline", date)}
+          setDate={(date) => handleChange("deadline", date?.toISOString())}
         />
       </div>
 
