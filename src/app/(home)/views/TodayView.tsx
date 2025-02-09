@@ -24,7 +24,6 @@ function TodayView() {
 
   return (
     <>
-      <DateHeading date={new Date()} />
       <div className="flex flex-col xl:flex-row gap-5 xl:gap-16">
         <ClassTasksSection
           tasks={classTasksToday}

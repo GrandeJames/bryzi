@@ -11,8 +11,8 @@ import PersonalTaskDetails from "../personal-tasks/PersonalTaskDetails";
 function DynamicDialog() {
   const { openDialogName, closeDialog, dialogData, title } = useDialogStore();
 
-  console.log("title", title);
-  console.log("dialogData", dialogData);
+  // console.log("title", title);
+  // console.log("dialogData", dialogData);
 
   // onOpenChange is provided to ensure that when the dialog is closed, the openDialog state is set to null so that the dialog is closed.
   return (

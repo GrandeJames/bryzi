@@ -1,14 +1,12 @@
-import { format } from "date-fns";
+import { format, isTomorrow } from "date-fns";
 
 function DateHeading({ date }: { date: Date }) {
-  const dayOfWeek = format(date, "EEEE");
-  // const monthAndDay = format(date, "MMM d");
-  const day = format(date, "d");
-
   return (
     <div className="flex items-end gap-1">
-      <span className="text-3xl font-extrabold text-neutral-300/90">{day}</span>
-      <span className="text-xl font-bold text-neutral-400/80">{dayOfWeek}</span>
+      <span className="text-3xl font-extrabold text-neutral-300/90">{format(date, "d")}</span>
+      <span className="text-md font-bold text-neutral-400/80">
+        {isTomorrow(date) ? "Tomorrow" : format(date, "EEEE")}
+      </span>
     </div>
   );
 }

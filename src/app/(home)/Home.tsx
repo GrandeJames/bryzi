@@ -7,7 +7,8 @@ import TodayView from "./views/TodayView";
 import TodayTimeline from "./components/TodayTimeline";
 import { useTasksNavStore } from "./stores/tasksNavStore";
 import InboxView from "./views/InboxView";
-import UpcomingView from "./views/UpcomingView";
+import UpcomingView from "./views/upcoming-view/UpcomingView";
+import { format } from "date-fns";
 
 function Home() {
   const open = useDialogStore((state) => state.openDialog);
@@ -47,7 +48,7 @@ function Home() {
         <div className="space-y-8">
           <header className="flex justify-between items-center">
             {/* <div className="text-3xl font-bold text-neutral-200">Tasks</div> */}
-            <div></div>
+            <div>{activeTaskNavItem === "today" && <TodayHeading />}</div>
             <TasksNavigation />
           </header>
           {activeTaskNavItem === "today" && <TodayView />}
@@ -56,6 +57,17 @@ function Home() {
         </div>
       </main>
     </div>
+  );
+}
+
+function TodayHeading() {
+  const currentDate = new Date();
+  const dayOfWeek = format(currentDate, "EEEE");
+  return (
+    <h1 className="flex gap-2 font-bold items-end ">
+      <span className="text-neutral-200 text-3xl">{dayOfWeek}</span>
+      <span className="text-neutral-500 text-lg">{format(currentDate, "MMM d")}</span>
+    </h1>
   );
 }
 
