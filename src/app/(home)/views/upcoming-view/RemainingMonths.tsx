@@ -1,4 +1,12 @@
-import { isSameMonth, addMonths, startOfMonth, format, startOfDay, parse } from "date-fns";
+import {
+  isSameMonth,
+  addMonths,
+  startOfMonth,
+  format,
+  startOfDay,
+  parse,
+  getDaysInMonth,
+} from "date-fns";
 import { Sections } from "./Next7Days";
 
 interface RemainingMonthsProps {
@@ -26,15 +34,26 @@ function RemainingMonths({ groupedTasksByDate, currentDate, startDate }: Remaini
 
     return (
       <div className="flex flex-col gap-10" key={format(monthDate, "MMMM yyyy")}>
-        <header className="text-neutral-300 font-bold text-2xl border-t pt-2 border-neutral-800">{format(monthDate, "MMMM")}</header>
+        <Header monthDate={monthDate} startDate={startDate} />
         <div>
           <Sections tasks={allTasksForMonth} />
         </div>
       </div>
     );
   });
+}
 
-  return <div></div>;
+function Header({ monthDate, startDate }: { monthDate: Date; startDate: Date }) {
+  return (
+    <div className="flex gap-1 items-end pt-2 border-t border-neutral-800">
+      <span className="text-2xl text-neutral-300 font-bold">{format(monthDate, "MMMM")}</span>
+      <span className="text-2xl text-neutral-400 font-bold">
+        {startDate.getDate() > 1 && isSameMonth(monthDate, startDate)
+          ? `${startDate.getDate()}-${getDaysInMonth(monthDate)}`
+          : ""}
+      </span>
+    </div>
+  );
 }
 
 export default RemainingMonths;
