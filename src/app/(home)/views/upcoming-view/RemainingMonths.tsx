@@ -6,6 +6,7 @@ import {
   startOfDay,
   parse,
   getDaysInMonth,
+  parseISO,
 } from "date-fns";
 import { Sections } from "./Next7Days";
 import { Task } from "@/types/task";
@@ -13,6 +14,7 @@ import { ClassTask } from "@/types/classTask";
 import { PersonalTask } from "@/types/personalTask";
 import DateHeading from "../../components/DateHeading";
 import SecondaryDateHeading from "../../components/SecondayDateHeading";
+import groupBy from "@/utils/groupBy";
 
 interface RemainingMonthsProps {
   groupedTasksByDate: { [key: string]: any[] };
@@ -39,11 +41,14 @@ function RemainingMonths({ groupedTasksByDate, currentDate, startDate }: Remaini
 
     // TODO: years
 
-    const groupedByDate = Object.groupBy(allTasksForMonth, (task) =>
-      format(new Date(task.deadline!), "yyyy-MM-dd")
+    const groupedByDate: { [key: string]: (ClassTask | PersonalTask)[] } = groupBy(
+      allTasksForMonth,
+      "deadline"
     );
 
     const groupedByDateArr = Object.entries(groupedByDate);
+
+    console.log("gar", groupedByDateArr);
 
     return (
       <div className="flex flex-col gap-10" key={format(monthDate, "MMMM yyyy")}>
@@ -51,7 +56,7 @@ function RemainingMonths({ groupedTasksByDate, currentDate, startDate }: Remaini
         <div className="flex flex-col gap-10">
           {groupedByDateArr.map(([date, tasks]) => (
             <div key={date} className="flex flex-col gap-2">
-              <SecondaryDateHeading date={parse(date, "yyyy-MM-dd", new Date())} />
+              <SecondaryDateHeading date={parseISO(date)} />
               <Sections tasks={tasks || []} />
             </div>
           ))}
