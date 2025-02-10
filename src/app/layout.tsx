@@ -23,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <Head>
         <title>Focus</title>
         <meta name="description" content="Boost your focus." />
+        <meta name="apple-mobile-web-app-title" content="Bryzi" />
       </Head>
       <body className={`dark:bg-black bg-white antialiased ${inter.className}`}>
         <ThemeProvider
