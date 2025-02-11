@@ -1,4 +1,4 @@
-import { signIn } from "@/auth";
+// import { signIn } from "@/auth";
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { UserCircleIcon } from "./icons/UserCircleIcon";
@@ -49,7 +49,7 @@ function SignInForm({ provider }: { provider: string }) {
     <form
       action={async () => {
         "use server";
-        await signIn(providerLowerCase);
+        // await signIn(providerLowerCase);
       }}
       className="w-full flex justify-center"
     >

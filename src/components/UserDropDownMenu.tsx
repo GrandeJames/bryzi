@@ -1,4 +1,4 @@
-import { auth, signOut } from "@/auth";
+// import { auth, signOut } from "@/auth";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,13 +11,13 @@ import { UserCircleIcon } from "./icons/UserCircleIcon";
 import { MenuItemContainer } from "./MenuItemContainer";
 
 async function UserDropDownMenu() {
-  const session = await auth();
+  // const session = await auth();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <div className="relative size-[40px] rounded-full overflow-hidden">
-          {session?.user?.image ? (
+          {/* {session?.user?.image ? (
             <div className="relative size-[40px] rounded-full overflow-hidden">
               <Image src={session.user.image ?? ""} alt="" fill={true} />
             </div>
@@ -25,7 +25,7 @@ async function UserDropDownMenu() {
             <MenuItemContainer>
               <UserCircleIcon />
             </MenuItemContainer>
-          )}
+          )} */}
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
@@ -34,7 +34,7 @@ async function UserDropDownMenu() {
           <form
             action={async () => {
               "use server";
-              await signOut();
+              // await signOut();
             }}
             className="w-full"
           >
