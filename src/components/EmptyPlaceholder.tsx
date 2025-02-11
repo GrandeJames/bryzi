@@ -1,4 +1,4 @@
-import { cn } from "@/utils.ts/cn";
+import { cn } from "@/utils/cn";
 import { BookIcon } from "lucide-react";
 
 interface EmptyPlaceholderProps {

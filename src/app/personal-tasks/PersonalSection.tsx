@@ -1,7 +1,7 @@
 import useDialogStore from "@/app/dialogs/dialogStore";
 import EmptyPlaceholder from "@/components/EmptyPlaceholder";
 import { PersonalTask } from "@/types/personalTask";
-import { cn } from "@/utils.ts/cn";
+import { cn } from "@/utils/cn";
 import { CheckCircleIcon } from "lucide-react";
 import PersonalTaskItem from "./PersonalTaskItem";
 import TaskSection from "@/components/TaskSection";

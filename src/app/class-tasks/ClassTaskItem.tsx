@@ -3,7 +3,7 @@ import { handleTaskComplete } from "@/lib/taskUtils";
 import useDialogStore from "@/app/dialogs/dialogStore";
 import useTasksStore from "@/stores/tasksStore";
 import { ClassTask } from "@/types/classTask";
-import { cn } from "@/utils.ts/cn";
+import { cn } from "@/utils/cn";
 import { ListTodoIcon, Repeat2Icon } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { differenceInCalendarDays, format, getYear } from "date-fns";

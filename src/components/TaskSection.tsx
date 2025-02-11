@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/utils.ts/cn";
+import { cn } from "@/utils/cn";
 
 interface TaskSectionProps {
   title: string;

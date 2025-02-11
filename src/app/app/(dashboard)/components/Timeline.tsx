@@ -1,5 +1,5 @@
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import { cn } from "@/utils.ts/cn";
+import { cn } from "@/utils/cn";
 import { getHours, getMinutes } from "date-fns";
 import { useEffect, useState } from "react";
 

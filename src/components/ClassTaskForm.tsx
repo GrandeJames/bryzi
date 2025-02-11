@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import useTasksStore from "@/stores/tasksStore";
-import { cn } from "@/utils.ts/cn";
+import { cn } from "@/utils/cn";
 import { DatePickerWithPresets } from "@/components/ui/date-picker-presets";
 import { ClockIcon, FlameIcon, PlusIcon, RepeatIcon, XIcon, ZapIcon } from "lucide-react";
 import { Textarea } from "./ui/textarea";
