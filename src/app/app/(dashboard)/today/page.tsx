@@ -3,7 +3,7 @@
 import ClassTasksSection from "@/app/class-tasks/ClassTasksSection";
 import PersonalSection from "@/app/personal-tasks/PersonalSection";
 import useTasksStore from "@/stores/tasksStore";
-import { format, isToday } from "date-fns";
+import { format, isBefore, isToday } from "date-fns";
 import AutoPlanToggle from "@/components/AutoPlanToggle";
 import PlannerCreationMenu from "../components/PlannerCreationMenu";
 import { useEffect, useState } from "react";
@@ -35,11 +35,13 @@ export default function Page() {
   // TODO: actually use the recommended algorithm when auto plan is turned on
   const classTasksToday = classTasks.filter((task) => {
     if (task.deadline === undefined) return false;
+    if (isBefore(task.deadline, new Date()) && !task.completed) return true;
     return isToday(task.deadline);
   });
 
   const personalTasksToday = personalTasks.filter((task) => {
     if (task.deadline === undefined) return false;
+    if (isBefore(task.deadline, new Date()) && !task.completed) return true;
     return isToday(task.deadline);
   });
 
