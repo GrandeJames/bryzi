@@ -13,7 +13,7 @@ import { VisualStage } from "@/app/focus-stages/VisualStage";
 import TimerStage from "@/app/focus-stages/TimerStage";
 import { PrepareStage } from "@/app/focus-stages/PrepareStage";
 import TasksNavigation from "../components/TasksNavigation";
-import { Timeline } from "../components/Timeline";
+import TodayTimeline from "../components/TodayTimeline";
 
 export default function Page() {
   const tasks = useTasksStore((state) => state.tasks);
@@ -51,7 +51,7 @@ export default function Page() {
         {!stage && (
           <div className="flex flex-col gap-5">
             <header>
-              <Timeline />
+              <TodayTimeline />
               <div className="flex justify-between items-center">
                 <TodayHeading />
                 <TasksNavigation />

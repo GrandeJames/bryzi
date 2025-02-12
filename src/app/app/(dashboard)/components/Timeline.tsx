@@ -51,13 +51,18 @@ function calculatePosition(startReference: string, time: Date | string, totalMin
 }
 
 function getDisplayTimeRange(start: Date | string, end: Date | string) {
-  const startTime = parseTime(start);
-  const endTime = parseTime(end);
+  return `${getDisplayTime(start)} - ${getDisplayTime(end)}`;
+}
 
-  const startHour = formatHour(startTime.hours);
-  const endHour = formatHour(endTime.hours);
+function getDisplayTime(date: Date | string) {
+  const parsedTime = parseTime(date);
 
-  return `${startHour} - ${endHour}`;
+  let displayStartTime = `${parsedTime.hours > 12 ? parsedTime.hours % 12 : parsedTime.hours}:${
+    parsedTime.minutes
+  }
+    ${parsedTime.hours >= 12 ? "PM" : "AM"}`;
+
+  return `${displayStartTime}`;
 }
 
 const Timeline = ({
@@ -132,7 +137,9 @@ const Timeline = ({
                 >
                   <div className="text-sm">
                     <span className="font-medium">{eventType.label}:</span>
-                    <div className="text-muted-foreground">{getDisplayTimeRange(event.start, event.end)}</div>
+                    <div className="text-muted-foreground">
+                      {getDisplayTimeRange(event.start, event.end)}
+                    </div>
                   </div>
                 </HoverCardContent>
               </HoverCard>
