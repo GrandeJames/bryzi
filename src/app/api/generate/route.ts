@@ -4,7 +4,7 @@ import { generateSignedUrl } from "./server/generateSignedUrl";
 
 export const maxDuration = 60;
 
-export async function POST(req?: Request) {
+export async function POST(req: Request) {
   // 'data' contains the additional data that you have sent:
   //   const { data } = await req.json();
 
