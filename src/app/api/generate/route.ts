@@ -38,24 +38,5 @@ export async function POST(req: Request) {
 
   console.log("generateTextResult", generateTextResult);
 
-  // Call the language model
-  //   const result = streamText({
-  //     model: openai("gpt-4o-mini"),
-  //     messages: [
-  //       ...initialMessages,
-  //       {
-  //         role: "user",
-  //         content: [
-  //           { type: "text", text: currentMessage.content },
-  //           //   { type: "image", image: new URL(data.imageUrl) },
-  //           { type: "image", image: new URL(imageUrl) },
-  //         ],
-  //       },
-  //     ],
-  //   });
-
-  // Respond with the stream
-  //   return result.toDataStreamResponse();
-
   return new Response(JSON.stringify({ generateTextResult }), { status: 200 });
 }
