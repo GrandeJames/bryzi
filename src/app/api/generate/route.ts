@@ -1,5 +1,5 @@
 import { openai } from "@ai-sdk/openai";
-import { generateObject, generateText, streamText } from "ai";
+import { generateObject } from "ai";
 import { generateSignedUrl } from "./server/generateSignedUrl";
 import { z } from "zod";
 
