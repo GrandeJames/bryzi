@@ -47,7 +47,7 @@ export async function POST(req: Request) {
       {
         role: "system",
         content:
-          "You are a helpful assistant that generates a list of class tasks from an image of a schedule.",
+          "You are a helpful assistant that generates a list of class tasks from an image of a schedule. Dates should be in yyyy-MM-dd format. Reviews must be created for assessments (exams, quizzes, etc.) and be due the day before the date of the assessment.",
       },
       {
         role: "user",
