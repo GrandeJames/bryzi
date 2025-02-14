@@ -1,6 +1,7 @@
 import { openai } from "@ai-sdk/openai";
-import { generateText, streamText } from "ai";
+import { generateObject, generateText, streamText } from "ai";
 import { generateSignedUrl } from "./server/generateSignedUrl";
+import { z } from "zod";
 
 export const maxDuration = 60;
 
@@ -16,27 +17,46 @@ export async function POST(req: Request) {
 
   console.log("imageUrl", imageUrl);
 
-  let generateTextResult;
-  try {
-    generateTextResult = await generateText({
-      model: openai("gpt-4o-mini"),
-      messages: [
-        {
-          role: "system",
-          content: "Describe the image in detail.",
-        },
-        {
-          role: "user",
-          content: [{ type: "image", image: new URL(imageUrl) }],
-        },
-      ],
-    });
-  } catch (error) {
-    console.error("Error generating text:", error);
-    return new Response("Error generating text", { status: 500 });
-  }
+  const result = await generateObject({
+    model: openai("gpt-4o-mini", {
+      structuredOutputs: true,
+    }),
+    schemaName: "tasks",
+    schemaDescription: "A list of class tasks.",
+    schema: z.object({
+      tasks: z.array(
+        z.object({
+          title: z.string(),
+          frequency: z.object({
+            frequency: z.enum(["once", "daily", "weekly", "monthly"]),
+            occurrences: z.number(),
+            daysOfWeek: z.array(z.enum(["mon", "tue", "wed", "thu", "fri", "sat", "sun"])),
+          }),
+          deadline: z.object({
+            dueDate: z.string(),
+            dueTime: z.string(),
+          }),
+          impact: z.number(),
+          difficulty: z.number(),
+          estimatedDurationInMins: z.number(),
+          description: z.string(),
+        })
+      ),
+    }),
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are a helpful assistant that generates a list of class tasks from an image of a schedule.",
+      },
+      {
+        role: "user",
+        content: [{ type: "image", image: new URL(imageUrl) }],
+      },
+    ],
+  });
 
-  console.log("generateTextResult", generateTextResult);
+  console.log("result", JSON.stringify(result.object, null, 2));
 
-  return new Response(JSON.stringify({ generateTextResult }), { status: 200 });
+  return new Response(JSON.stringify(result.object), { status: 200 });
 }
