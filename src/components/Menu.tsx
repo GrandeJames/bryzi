@@ -27,7 +27,8 @@ export function Menu() {
   const isDashboardActive =
     pathname.startsWith("/app/today") ||
     pathname.startsWith("/app/inbox") ||
-    pathname.startsWith("/app/upcoming");
+    pathname.startsWith("/app/upcoming") ||
+    pathname.startsWith("/app/generate");
 
   return (
     <div className="flex flex-col h-screen justify-between px-5 py-7 sticky top-0 bg-neutral-900/60 text-neutral-400">

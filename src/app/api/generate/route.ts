@@ -1,7 +1,7 @@
 import { openai } from "@ai-sdk/openai";
-import { generateObject } from "ai";
+import { streamObject } from "ai";
 import { generateSignedUrl } from "./server/generateSignedUrl";
-import { z } from "zod";
+import { generatedTaskSchema } from "@/app/schemas/generatedTaskSchema";
 
 export const maxDuration = 60;
 
@@ -17,32 +17,14 @@ export async function POST(req: Request) {
 
   console.log("imageUrl", imageUrl);
 
-  const result = await generateObject({
+  const result = streamObject({
     model: openai("gpt-4o-mini", {
       structuredOutputs: true,
     }),
     schemaName: "tasks",
     schemaDescription: "A list of class tasks.",
-    schema: z.object({
-      tasks: z.array(
-        z.object({
-          title: z.string(),
-          frequency: z.object({
-            frequency: z.enum(["once", "daily", "weekly", "monthly"]),
-            occurrences: z.number(),
-            daysOfWeek: z.array(z.enum(["mon", "tue", "wed", "thu", "fri", "sat", "sun"])),
-          }),
-          deadline: z.object({
-            dueDate: z.string(),
-            dueTime: z.string(),
-          }),
-          impact: z.number(),
-          difficulty: z.number(),
-          estimatedDurationInMins: z.number(),
-          description: z.string(),
-        })
-      ),
-    }),
+    schema: generatedTaskSchema,
+    output: "array",
     messages: [
       {
         role: "system",
@@ -56,7 +38,7 @@ export async function POST(req: Request) {
     ],
   });
 
-  console.log("result", JSON.stringify(result.object, null, 2));
+  //   console.log("result", JSON.stringify(result.object, null, 2));
 
-  return new Response(JSON.stringify(result.object), { status: 200 });
+  return result.toTextStreamResponse();
 }

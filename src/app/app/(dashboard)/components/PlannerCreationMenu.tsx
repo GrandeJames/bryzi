@@ -7,6 +7,7 @@ import {
   PlusIcon,
 } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useRouter } from "next/navigation";
 
 function PlannerCreationMenu() {
   const open = useDialogStore((state) => state.openDialog);
@@ -14,8 +15,14 @@ function PlannerCreationMenu() {
   const openCreatePersonalTaskDialog = () =>
     open("createPersonalTask", undefined, "Add personal task");
 
+  const router = useRouter();
+
   const menuItems = [
-    { icon: SparklesIcon, text: "Generate class tasks" },
+    {
+      icon: SparklesIcon,
+      text: "Generate class tasks",
+      onClick: () => router.push("/app/generate"),
+    },
     { icon: CalendarIcon, text: "Add event" },
     { icon: CircleCheckIcon, text: "Add personal task", onClick: openCreatePersonalTaskDialog },
     { icon: NotebookPenIcon, text: "Add class task", onClick: openCreateClassTaskDialog },

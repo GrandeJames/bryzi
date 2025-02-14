@@ -1,9 +1,8 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { useDropzone } from "react-dropzone";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { X } from "lucide-react";
 
@@ -30,7 +29,6 @@ export function MultiFileUpload() {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      "application/pdf": [".pdf"],
       "image/*": [".png", ".jpg", ".jpeg"],
     },
     multiple: true,
@@ -60,14 +58,14 @@ export function MultiFileUpload() {
   };
 
   return (
-    <Card className="w-full max-w-2xl">
+    <Card className="w-full dark:bg-neutral-900 dark:border-neutral-800">
       <CardHeader>
-        <CardTitle>Upload Files</CardTitle>
+        <CardTitle>Upload images of your course schedule</CardTitle>
       </CardHeader>
       <CardContent>
         <div
           {...getRootProps()}
-          className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors
+          className={`border border-neutral-800 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors
             ${
               isDragActive
                 ? "border-primary bg-primary/10"
@@ -76,18 +74,14 @@ export function MultiFileUpload() {
         >
           <input {...getInputProps()} />
           {isDragActive ? (
-            <p>Drop the files here...</p>
+            <p>Drop the images here...</p>
           ) : (
-            <p>Drag & drop files here, or click to select files</p>
+            <p>Drag & drop images here, or click to select images</p>
           )}
-          <p className="text-sm text-muted-foreground mt-2">
-            Supported formats: PDF, PNG, JPG (max 10MB each)
-          </p>
+          <p className="text-sm text-muted-foreground mt-2">PNG or JPG up to 5MB</p>
         </div>
 
-        {error && (
-          <p className="text-destructive text-sm mt-2">{error}</p>
-        )}
+        {error && <p className="text-destructive text-sm mt-2">{error}</p>}
 
         {uploadedFiles.length > 0 && (
           <div className="mt-6">
@@ -102,23 +96,15 @@ export function MultiFileUpload() {
                     <p className="font-medium">{file.name}</p>
                     <p className="text-sm text-muted-foreground">{file.size}</p>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => removeFile(file.name)}
-                  >
+                  <Button variant="ghost" size="icon" onClick={() => removeFile(file.name)}>
                     <X className="h-4 w-4" />
                   </Button>
                 </div>
               ))}
             </div>
 
-            <Button
-              onClick={handleUpload}
-              className="mt-4 w-full"
-              size="lg"
-            >
-              Upload {uploadedFiles.length} Files
+            <Button onClick={handleUpload} className="mt-4 w-full" size="lg">
+              Upload {uploadedFiles.length} images
             </Button>
           </div>
         )}
