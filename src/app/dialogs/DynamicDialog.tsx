@@ -7,6 +7,7 @@ import { ScrollArea } from "../../components/ui/scroll-area";
 import ClassTaskDetails from "../../components/ClassTaskDetails";
 import PersonalTaskForm from "../../components/PersonalTaskForm";
 import PersonalTaskDetails from "../personal-tasks/PersonalTaskDetails";
+import CourseForm from "../courses/CourseForm";
 
 function DynamicDialog() {
   const { openDialogName, closeDialog, dialogData, title } = useDialogStore();
@@ -35,6 +36,7 @@ function DynamicDialog() {
             {openDialogName === "editPersonalTask" && (
               <PersonalTaskForm initialTask={dialogData.task} />
             )}
+            {openDialogName === "createCourse" && <CourseForm />}
           </div>
         </ScrollArea>
       </DialogContent>

@@ -1,10 +1,15 @@
 "use client";
 
+import useDialogStore from "../dialogs/dialogStore";
 import { getCourses } from "./courseUtils";
 
 export default function CourseSelector() {
+  const openDialog = useDialogStore((state) => state.openDialog);
+  const openCreateCourseDialog = () => openDialog("createCourse", {}, "Create Course");
+
   const handleCourseAdd = () => {
     console.log("Add Course");
+    openCreateCourseDialog();
   };
 
   return (

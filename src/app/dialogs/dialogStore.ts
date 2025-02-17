@@ -7,6 +7,7 @@ type OpenDialogName =
   | "createPersonalTask"
   | "editPersonalTask"
   | "personalTaskDetails"
+  | "createCourse"
   | null;
 
 interface DialogStore {
