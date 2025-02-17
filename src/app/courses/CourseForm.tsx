@@ -14,12 +14,26 @@ export default function CourseForm() {
         <Input placeholder="Calculus II" className="col-span-4" />
         <Input placeholder="MATH 242" className="col-span-2" />
       </div>
-      <div className="flex gap-2">
-        <span>Mon</span>
-        <span>Tue</span>
-        <span>Wed</span>
-        <span>Thu</span>
-        <span>Fri</span>
+
+      <div className="flex flex-col gap-1">
+        <header>Days</header>
+        <div className="flex gap-3">
+          <span className="py-1 px-2 rounded-md border border-neutral-600 text-neutral-300">
+            Mon
+          </span>
+          <span className="py-1 px-2 rounded-md border border-neutral-600 text-neutral-300">
+            Tue
+          </span>
+          <span className="py-1 px-2 rounded-md border border-neutral-600 text-neutral-300">
+            Wed
+          </span>
+          <span className="py-1 px-2 rounded-md border border-neutral-600 text-neutral-300">
+            Thu
+          </span>
+          <span className="py-1 px-2 rounded-md border border-neutral-600 text-neutral-300">
+            Fri
+          </span>
+        </div>
       </div>
       <div className="flex gap-2">
         <div>Start time</div>
