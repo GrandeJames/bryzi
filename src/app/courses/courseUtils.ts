@@ -1,6 +1,6 @@
-import { addLocalStorageItem } from "./localStorageUtils";
-import { getLocalStorageData } from "./localStorageUtils";
-import { Course } from "@/types/courses";
+import { addLocalStorageItem } from "../../lib/localStorageUtils";
+import { getLocalStorageData } from "../../lib/localStorageUtils";
+import { Course } from "@/app/courses/courses";
 
 export function handleCourseAdd(course: Course) {
   addLocalStorageItem<Course>("courses", course);
