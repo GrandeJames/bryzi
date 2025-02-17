@@ -15,6 +15,9 @@ import {
   WandSparklesIcon,
   Loader2Icon,
   Loader2,
+  ClockIcon,
+  ZapIcon,
+  PencilIcon,
 } from "lucide-react";
 import { DropdownMenu } from "@/components/ui/dropdown-menu";
 import {
@@ -25,9 +28,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
+import { Checkbox } from "@/components/ui/checkbox";
+import { FlagIcon } from "@/components/icons/FlagIcon";
+import { ClassTask } from "@/types/classTask";
+import { v4 as uuidv4 } from "uuid";
 
 export default function GeneratePage() {
   const [showGeneratedTasks, setShowGeneratedTasks] = useState(false);
+  const [generatedTasks, setGeneratedTasks] = useState<ClassTask[]>([]);
 
   const { object, submit, isLoading, stop } = useObject({
     api: "/api/generate",
@@ -45,22 +53,81 @@ export default function GeneratePage() {
   const handleDiscardClick = () => {};
 
   const handleSaveClick = () => {
-    const saveConvertedTasks = async (tasks: any[]) => {
-      console.log("saving coonverted tasks");
-    };
+    const convertedClassTasks = object?.map((task) => ({
+      ...task,
+      id: uuidv4(),
+      completed: false,
+      actualDurationInMins: 0,
+    }));
+
+    // console.log("generatedClassTasks", generatedClassTasks);
+
+    console.log("object", object);
+  };
+
+  const handleGeneratedTaskClick = (generatedTask: any) => {
+    console.log("generatedTask clicked", generatedTask);
   };
 
   return (
     <div>
-      <div className="container max-w-4xl">
+      <div className="container max-w-3xl">
         {object && (
           <div>
-            <h1 className="text-3xl font-bold text-neutral-300">Generated Tasks</h1>
-            {object?.map((generatedTask, index) => (
-              <div key={index}>
-                <p>{generatedTask?.title}</p>
+            <header>
+              <h1 className="text-3xl font-bold text-neutral-300">Generated Tasks</h1>
+              <h2 className="text-md text-neutral-400">
+                Please ensure that the information is correct
+              </h2>
+            </header>
+            <div className="grid grid-cols-1 gap-3">
+              {object?.map((generatedTask, index) => (
+                <div
+                  key={index}
+                  className="border border-neutral-800 bg-neutral-900/70 rounded-2xl p-4 col-span-1 grid grid-cols-12 relative"
+                  onClick={() => handleGeneratedTaskClick(generatedTask)}
+                >
+                  <div className="col-span-11">
+                    <div className="font-semibold text-base">{generatedTask?.title}</div>
+                    <div className="flex gap-4">
+                      <div className="text-sm flex gap-1 items-center text-neutral-400">
+                        {/* <FlagIcon className="size-3" /> {generatedTask?.deadline?.dueDate}{" "} */}
+                        Due: {generatedTask?.deadline?.dueDate} {generatedTask?.deadline?.dueTime}{" "}
+                        3:30 PM
+                      </div>
+                      <div className="text-sm flex gap-1 items-center text-neutral-400">
+                        Duration: {generatedTask?.estimatedDurationInMins} m
+                      </div>
+                      <div className="text-sm flex gap-1 items-center text-neutral-400">
+                        {generatedTask?.difficulty} Effort
+                      </div>
+                      <div className="text-sm flex gap-1 items-center text-neutral-400">
+                        {generatedTask?.impact} Impact
+                      </div>
+                    </div>
+                  </div>
+                  <Checkbox
+                    defaultChecked={true}
+                    className="absolute right-3 top-3 rounded-lg size-5 dark:data-[state=checked]:bg-orange-500/80 dark:data-[state=checked]:text-white data-[state=checked]:border-none data-[state=unchecked]:bg-neutral-800 data-[state=unchecked]:text-neutral-400"
+                  />
+                </div>
+              ))}
+            </div>
+            {!isLoading && (
+              <div className="flex justify-end gap-8 my-5">
+                <button onClick={handleDiscardClick} className="">
+                  Discard
+                </button>
+                <button onClick={handleSaveClick} className="bg-orange-400 py-3 px-8 rounded-lg">
+                  Save checked tasks
+                </button>
               </div>
-            ))}
+            )}
+            {isLoading && (
+              <button type="button" onClick={() => stop()}>
+                Stop
+              </button>
+            )}
           </div>
         )}
         {!object && (
@@ -93,27 +160,23 @@ export default function GeneratePage() {
             </div>
             {/* <div>Options:</div> */}
 
-            <div className="flex flex-col gap-2 my-7">
-              <div className="flex items-center space-x-5 border border-neutral-700 rounded-lg p-4 w-fit">
-                <AlertCircleIcon className="size-6 text-yellow-300/80 flex-shrink-0" />
+            <div className="flex items-center space-x-5 border border-neutral-700 rounded-lg p-4 w-fit my-8">
+              <AlertCircleIcon className="size-5 text-yellow-300/80 flex-shrink-0" />
+              <div className="space-y-2">
                 <p className="text-sm text-neutral-500">
-                  Please ensure that you comply with your institution&apos;s AI usage and privacy
-                  policies, as well as your instructor&apos;s guidelines when uploading your course
-                  schedules. Only proceed if you have the necessary permissions to use this AI tool
-                  for task generation.
+                  Ensure compliance with your institution’s AI usage and privacy policies, as well
+                  as your instructor’s guidelines when uploading your course schedules to be
+                  processed by OpenAI (creator of ChatGPT). Only proceed if you have permission to
+                  use this AI tool for task generation.
                 </p>
-              </div>
-
-              <div className="flex items-center space-x-5 border border-neutral-700 rounded-lg p-4 w-fit">
-                <AlertCircleIcon className="size-6 text-yellow-300/80 flex-shrink-0" />
                 <p className="text-sm text-neutral-500">
-                  Your image(s) will be temporarily stored to be processed by OpenAI to analyze your
-                  course schedule and generate the tasks. Your photos are deleted immediately after
-                  the tasks are generated. Ensure that your files do not contain any sensitive
-                  information and you are not violating any policies by uploading them.
+                  Your images will be temporarily stored for analysis and task generation. They’re
+                  deleted after task generation. Ensure your files are sensitive information-free
+                  and comply with policies.
                 </p>
               </div>
             </div>
+
             <div className="flex justify-end my-5">
               <button
                 className="bg-orange-500 px-20 py-3 flex gap-2 items-center disabled:bg-opacity-15 disabled:text-neutral-700 rounded-md"
@@ -129,21 +192,6 @@ export default function GeneratePage() {
                 <span>Generate class tasks</span>
               </button>
             </div>
-          </div>
-        )}
-        {isLoading && object && (
-          <button type="button" onClick={() => stop()}>
-            Stop
-          </button>
-        )}
-        {!isLoading && object && (
-          <div>
-            <button onClick={handleSaveClick} className="bg-orange-400">
-              Save tasks
-            </button>
-            <button onClick={handleDiscardClick} className="border">
-              Discard
-            </button>
           </div>
         )}
       </div>

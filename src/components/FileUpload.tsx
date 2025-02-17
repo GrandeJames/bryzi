@@ -76,7 +76,7 @@ export function MultiFileUpload() {
           {isDragActive ? (
             <p>Drop the images here...</p>
           ) : (
-            <p>Drag & drop images here, or click to select images</p>
+            <p>Drag & drop images here, or click to select</p>
           )}
           <p className="text-sm text-muted-foreground mt-2">PNG or JPG up to 5MB</p>
         </div>
