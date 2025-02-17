@@ -40,5 +40,7 @@ export async function POST(req: Request) {
 
   //   console.log("result", JSON.stringify(result.object, null, 2));
 
+  // TODO: delete the image(s) from the server after done using
+
   return result.toTextStreamResponse();
 }
