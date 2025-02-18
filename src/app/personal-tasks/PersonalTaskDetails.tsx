@@ -8,7 +8,7 @@ import useDialogStore from "@/app/dialogs/dialogStore";
 import { handleTaskComplete, handleTaskRemove, handleTaskUpdate } from "@/lib/taskUtils";
 import { Checkbox } from "@/components/ui/checkbox";
 import { PersonalTask } from "@/types/personalTask";
-import ActionButton from "../app/(dashboard)/components/ActionButton";
+import ActionButton from "../app/(tasks)/components/ActionButton";
 
 function PersonalTaskDetails({ task }: { task: PersonalTask }) {
   const removeTask = useTasksStore((state) => state.removeTask);

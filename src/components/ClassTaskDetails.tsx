@@ -5,7 +5,7 @@ import { CircleCheckIcon, LucideIcon, PencilIcon, Repeat2Icon, Trash2Icon } from
 import useDialogStore from "@/app/dialogs/dialogStore";
 import { Checkbox } from "./ui/checkbox";
 import { handleTaskComplete, handleTaskRemove, handleTaskUpdate } from "@/lib/taskUtils";
-import ActionButton from "@/app/app/(dashboard)/components/ActionButton";
+import ActionButton from "@/app/app/(tasks)/components/ActionButton";
 
 function ClassTaskDetails({ task }: { task: ClassTask }) {
   const removeTask = useTasksStore((state) => state.removeTask);
