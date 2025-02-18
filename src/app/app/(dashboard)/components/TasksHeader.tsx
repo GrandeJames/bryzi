@@ -5,7 +5,7 @@ export default function TasksHeader({ leftHeading }: { leftHeading?: React.React
   return (
     <header>
       <TodayTimeline />
-      <div className="flex justify-between items-center px-5">
+      <div className="flex justify-between items-start px-5">
         {leftHeading || <div />}
         <TasksNavigation />
       </div>
