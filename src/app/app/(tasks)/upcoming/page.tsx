@@ -44,19 +44,22 @@ export default function Page() {
   return (
     <div>
       <TasksHeader />
-      <AutoPlanToggle />
-
-      <div className="flex flex-col gap-5 max-w-3xl mx-auto">
-        <div className="flex flex-col gap-12">
-          <Next7Days groupedTasksByDate={groupedTasksByDate} CURRENT_DATE={CURRENT_DATE} />
-          <RemainingMonths
-            groupedTasksByDate={groupedTasksByDate}
-            currentDate={CURRENT_DATE}
-            startDate={addDays(CURRENT_DATE, 8)}
-          />
-          <PlannerCreationMenu />
+      <main className="container max-w-3xl">
+        <div className="space-y-3">
+          <header>
+            <AutoPlanToggle />
+          </header>
+          <div>
+            <Next7Days groupedTasksByDate={groupedTasksByDate} CURRENT_DATE={CURRENT_DATE} />
+            <RemainingMonths
+              groupedTasksByDate={groupedTasksByDate}
+              currentDate={CURRENT_DATE}
+              startDate={addDays(CURRENT_DATE, 8)}
+            />
+          </div>
         </div>
-      </div>
+        <PlannerCreationMenu />
+      </main>
     </div>
   );
 }

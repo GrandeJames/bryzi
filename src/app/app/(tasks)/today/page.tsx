@@ -49,17 +49,19 @@ export default function Page() {
   return (
     <div className="flex-1">
       {!stage && (
-        <div className="flex flex-col gap-5">
+        <>
           <TasksHeader leftHeading={<TodayHeading />} />
-          <main>
-            <AutoPlanToggle />
-            <div className="flex flex-col xl:flex-row gap-5 xl:gap-16 mx-5">
+          <main className="container space-y-3">
+            <header>
+              <AutoPlanToggle />
+            </header>
+            <div className="flex flex-col xl:flex-row gap-5 xl:gap-16">
               <ClassTasksSection tasks={classTasksToday} className="max-w-3xl xl:max-w-3xl" />
               <PersonalSection tasks={personalTasksToday} className="max-w-xl xl:max-w-lg" />
             </div>
           </main>
           <PlannerCreationMenu />
-        </div>
+        </>
       )}
       {stage === "breath" && <BreathStage />}
       {stage === "visual" && <VisualStage />}
