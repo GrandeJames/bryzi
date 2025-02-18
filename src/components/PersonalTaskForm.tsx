@@ -117,8 +117,8 @@ function PersonalTaskForm({
           className={`px-3 py-2 outline-blue-600 outline-4 w-full placeholder-gray-600 dark:bg-neutral-800 bg-neutral-50  text-neutral-200`}
         />
         <DatePickerWithPresets
-          date={task.deadline}
-          setDate={(date) => handleChange("deadline", date?.toISOString())}
+          deadline={task.deadline}
+          setDeadline={(date) => handleChange("deadline", date?.toISOString())}
         />
       </div>
 
