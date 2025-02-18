@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import TasksNavigation from "../components/TasksNavigation";
 import Next7Days from "./Next7Days";
 import RemainingMonths from "./RemainingMonths";
-import TodayTimeline from "../components/TodayTimeline";
+import TodayTimeline from "../../../timeline/TodayTimeline";
 import TasksHeader from "../components/TasksHeader";
 
 const CURRENT_DATE = new Date();

@@ -1,5 +1,5 @@
 import TasksNavigation from "./TasksNavigation";
-import TodayTimeline from "./TodayTimeline";
+import TodayTimeline from "../../../timeline/TodayTimeline";
 
 export default function TasksHeader({ leftHeading }: { leftHeading?: React.ReactNode }) {
   return (

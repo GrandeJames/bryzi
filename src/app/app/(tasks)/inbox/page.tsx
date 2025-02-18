@@ -6,7 +6,7 @@ import useTasksStore from "@/stores/tasksStore";
 import PlannerCreationMenu from "../components/PlannerCreationMenu";
 import { useEffect, useState } from "react";
 import TasksNavigation from "../components/TasksNavigation";
-import TodayTimeline from "../components/TodayTimeline";
+import TodayTimeline from "../../../timeline/TodayTimeline";
 import TasksHeader from "../components/TasksHeader";
 
 export default function Inbox() {

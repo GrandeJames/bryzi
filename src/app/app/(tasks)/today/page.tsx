@@ -13,7 +13,7 @@ import { VisualStage } from "@/app/focus-stages/VisualStage";
 import TimerStage from "@/app/focus-stages/TimerStage";
 import { PrepareStage } from "@/app/focus-stages/PrepareStage";
 import TasksNavigation from "../components/TasksNavigation";
-import TodayTimeline from "../components/TodayTimeline";
+import TodayTimeline from "../../../timeline/TodayTimeline";
 import TasksHeader from "../components/TasksHeader";
 
 export default function Page() {
