@@ -30,7 +30,7 @@ export function Menu() {
     pathname.startsWith("/app/upcoming");
 
   return (
-    <div className="flex flex-col h-screen justify-between px-5 py-7 sticky top-0 dark:bg-neutral-900/60 bg-white border border-neutral-100 dark:border-none dark:text-neutral-400 text-neutral-800">
+    <div className="flex flex-col h-screen justify-between px-5 py-7 sticky top-0 dark:bg-neutral-900/60 bg-white border border-neutral-100 dark:border-none dark:text-neutral-400 text-neutral-400">
       <Link className="flex justify-center mb-8" href="/">
         <Icon2 />
       </Link>
