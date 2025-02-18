@@ -54,8 +54,8 @@ export default function Page() {
           <main>
             <AutoPlanToggle />
             <div className="flex flex-col xl:flex-row gap-5 xl:gap-16 mx-5">
-              <ClassTasksSection tasks={classTasksToday} />
-              <PersonalSection tasks={personalTasksToday} />
+              <ClassTasksSection tasks={classTasksToday} className="max-w-3xl xl:max-w-3xl" />
+              <PersonalSection tasks={personalTasksToday} className="max-w-xl xl:max-w-lg" />
             </div>
           </main>
           <PlannerCreationMenu />

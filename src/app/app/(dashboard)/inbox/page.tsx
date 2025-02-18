@@ -36,7 +36,7 @@ export default function Inbox() {
   return (
     <div>
       <TasksHeader />
-      <div className="flex flex-col xl:flex-row gap-5 xl:gap-16">
+      <div className="flex flex-col gap-5 max-w-3xl xl:max-w-3xl mx-auto">
         <ClassTasksSection tasks={classTasksUnscheduled} />
         <PersonalSection tasks={personalTasksUnscheduled} />
       </div>
