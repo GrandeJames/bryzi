@@ -65,8 +65,8 @@ function RemainingMonths({ groupedTasksByDate, currentDate, startDate }: Remaini
 
 function Header({ monthDate, startDate }: { monthDate: Date; startDate: Date }) {
   return (
-    <div className="flex gap-1 items-end pt-2 border-t border-neutral-800 mt-14">
-      <span className="text-2xl text-neutral-300 font-bold">{format(monthDate, "MMMM")}</span>
+    <div className="flex gap-1 items-end pt-2 border-t dark:border-neutral-800 border-neutral-200 mt-14">
+      <span className="text-2xl dark:text-neutral-300 text-neutral-800 font-bold">{format(monthDate, "MMMM")}</span>
       <span className="text-2xl text-neutral-400 font-bold">
         {startDate.getDate() > 1 && isSameMonth(monthDate, startDate)
           ? `${startDate.getDate()}-${getDaysInMonth(monthDate)}`

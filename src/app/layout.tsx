@@ -28,8 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`dark:bg-black bg-white antialiased ${inter.className}`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          forcedTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >

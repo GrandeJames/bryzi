@@ -1,10 +1,11 @@
 import { ClassTask } from "@/types/classTask";
 import { Subtask } from "@/types/subtask";
 import useTasksStore from "@/stores/tasksStore";
-import { CircleCheckIcon, PencilIcon, Repeat2Icon, Trash2Icon } from "lucide-react";
+import { CircleCheckIcon, LucideIcon, PencilIcon, Repeat2Icon, Trash2Icon } from "lucide-react";
 import useDialogStore from "@/app/dialogs/dialogStore";
 import { Checkbox } from "./ui/checkbox";
 import { handleTaskComplete, handleTaskRemove, handleTaskUpdate } from "@/lib/taskUtils";
+import ActionButton from "@/app/app/(dashboard)/components/ActionButton";
 
 function ClassTaskDetails({ task }: { task: ClassTask }) {
   const removeTask = useTasksStore((state) => state.removeTask);
@@ -56,7 +57,9 @@ function ClassTaskDetails({ task }: { task: ClassTask }) {
               </div>
             )}
           </div>
-          <div className="font-bold text-xl mb-1 text-neutral-200">{task.title}</div>
+          <div className="font-bold text-xl mb-1 dark:text-neutral-200 text-neutral-800">
+            {task.title}
+          </div>
           <div className="text-neutral-300">{task.description && <p>{task.description}</p>}</div>
         </div>
         <div className="my-2">
@@ -75,31 +78,23 @@ function ClassTaskDetails({ task }: { task: ClassTask }) {
 
       <div className="text-orange-400 text-sm font-semibold flex flex-col gap-5">
         <div className="flex gap-5">
-          <button
-            className="w-full bg-neutral-800/80 rounded-md py-4 flex flex-col items-center gap-2"
-            onClick={handleTaskDeleteClick}
-          >
-            <Trash2Icon className="size-4" />
-            <span>Delete</span>
-          </button>
-          <button
-            className="w-full bg-neutral-800/80 rounded-md py-4 flex flex-col items-center gap-2"
+          <ActionButton icon={Trash2Icon} label="Delete" onClick={handleTaskDeleteClick} />
+          <ActionButton
+            icon={CircleCheckIcon}
+            label={task.completed ? "Incomplete" : "Complete"}
             onClick={() => {
               handleTaskComplete(task, updateTask);
               closeDialog();
             }}
-          >
-            <CircleCheckIcon className="size-4" />
-            <span>{task.completed ? "Incomplete" : "Complete"}</span>
-          </button>
+          />
         </div>
-        <button
-          className="w-full bg-neutral-800/80 rounded-md py-4 flex justify-center gap-2"
+
+        <ActionButton
+          icon={PencilIcon}
+          label={task.completed ? "Incomplete" : "Edit"}
           onClick={handleTaskEditClick}
-        >
-          <PencilIcon className="size-4" />
-          <span>Edit</span>
-        </button>
+          inline
+        />
       </div>
     </div>
   );

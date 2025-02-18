@@ -19,9 +19,9 @@ export function BreathStage() {
       <div className="h-[75vh] flex justify-center">
         <div className="flex flex-col align-middle justify-center text-center">
           <div className="font-semibold text-9xl text-orange-400">{cyclesLeft}</div>
-          {stage === "inhale" && <div>{breathLabels.inhale}</div>}
-          {stage === "hold" && <div>{breathLabels.hold}</div>}
-          {stage === "exhale" && <div>{breathLabels.exhale}</div>}
+          {stage === "inhale" && <div className="text-neutral-400 dark:text-neutral-300">{breathLabels.inhale}</div>}
+          {stage === "hold" && <div className="text-neutral-400 dark:text-neutral-300">{breathLabels.hold}</div>}
+          {stage === "exhale" && <div className="text-neutral-400 dark:text-neutral-300">{breathLabels.exhale}</div>}
         </div>
       </div>
 

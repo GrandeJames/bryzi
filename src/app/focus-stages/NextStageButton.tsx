@@ -2,7 +2,7 @@ import FocusStageSwitchButton from "@/components/FocusStageSwitchButton";
 
 function NextStageButton() {
   return (
-    <FocusStageSwitchButton className="rounded-full dark:bg-neutral-800 bg-neutral-100 p-2">
+    <FocusStageSwitchButton className="rounded-full dark:bg-neutral-800 bg-neutral-100 text-neutral-600 dark:text-neutral-300 p-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

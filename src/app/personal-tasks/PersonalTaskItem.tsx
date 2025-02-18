@@ -9,13 +9,13 @@ function PersonalTaskItem({ personalTask }: { personalTask: PersonalTask }) {
   const updateTask = useTasksStore((state) => state.updateTask);
 
   return (
-    <div className="grid grid-cols-12 py-4 px-5 bg-neutral-900/60 rounded-2xl">
+    <div className="grid grid-cols-12 py-4 px-5 dark:bg-neutral-900/60 bg-neutral-50/60 rounded-2xl">
       <div
         className="col-span-10 hover:cursor-pointer"
         onClick={() => openPersonalTaskDetailsDialog()}
       >
         <div className="flex flex-col col-span-3">
-          <div className="font-semibold text-neutral-200">{personalTask.title}</div>
+          <div className="font-semibold dark:text-neutral-200 text-black">{personalTask.title}</div>
         </div>
       </div>
       <div className="col-span-2">

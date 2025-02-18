@@ -42,7 +42,7 @@ function toMinutes(time: Date | string) {
 function formatHour(hours: number) {
   const period = hours >= 12 ? "PM" : "AM";
   const displayHours = hours % 12 || 12;
-  return `${displayHours}:00 ${period}`;
+  return `${displayHours} ${period}`;
 }
 
 function calculatePosition(startReference: string, time: Date | string, totalMinutes: number) {
@@ -149,7 +149,7 @@ const Timeline = ({
 
         {showCurrentTime && (
           <div
-            className="absolute w-[2px] h-full bg-neutral-800/80 z-20"
+            className="absolute w-[2px] h-full dark:bg-neutral-800/80 bg-neutral-300/80 z-20"
             style={{
               left: `${calculatePosition(roundedStart, currentTimeString, totalMinutes)}%`,
             }}
@@ -167,7 +167,7 @@ const Timeline = ({
           return (
             <div
               key={time}
-              className="absolute bottom-0 text-neutral-600 text-[0.65rem] -translate-x-1/2 text-nowrap"
+              className="absolute bottom-0 dark:text-neutral-600 text-neutral-400 text-[0.65rem] -translate-x-1/2 text-nowrap"
               style={{ left: `${position}%` }}
             >
               {formatHour(parseTime(time).hours)}

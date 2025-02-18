@@ -117,13 +117,13 @@ function ClassTaskForm({
       onSubmit={handleTaskFormSubmit}
       className={cn(className, "gap-2 flex flex-col relative px-6")}
     >
-      <div className="flex bg-neutral-800 rounded-md p-1">
+      <div className="flex dark:bg-neutral-800 bg-neutral-50 rounded-md p-1 gap-1 items-center">
         <input
           type="text"
           placeholder="Add Task"
           onChange={(e) => handleChange("title", e.target.value)}
           value={task.title}
-          className={`px-3 py-2 outline-blue-600 outline-4 w-full placeholder-gray-600 bg-neutral-800 text-neutral-200`}
+          className={`px-3 py-2 outline-blue-600 outline-4 w-full placeholder-gray-600 dark:bg-neutral-800 bg-neutral-50 dark:text-neutral-200 text-neutral-800`}
         />
         <DatePickerWithPresets
           date={task.deadline}
@@ -133,7 +133,7 @@ function ClassTaskForm({
 
       <div className="flex flex-col gap-7 mt-5 mb-14">
         <Textarea
-          className="resize-none border-none focus-visible:ring-0 bg-neutral-800 text-neutral-200"
+          className="resize-none border-none focus-visible:ring-0 dark:bg-neutral-800 bg-neutral-50 dark:text-neutral-200 text-neutral-800"
           placeholder="Description"
           value={task.description}
           onChange={(e) => handleChange("description", e.target.value)}
@@ -178,7 +178,7 @@ function ClassTaskForm({
           <div className="flex gap-1">
             <Input
               placeholder="Add subtask"
-              className="border-none bg-neutral-800 focus-visible:ring-0 text-neutral-200"
+              className="border-none dark:bg-neutral-800 bg-neutral-50 focus-visible:ring-0 dark:text-neutral-200 text-neutral-800"
               value={currentSubtaskInput}
               onChange={(e) => setCurrentSubtaskInput(e.target.value)}
               onKeyDown={(e) => {
@@ -190,7 +190,7 @@ function ClassTaskForm({
             />
             <button
               type="button"
-              className="bg-neutral-800 rounded-md p-2 hover:bg-neutral-700"
+              className="dark:bg-neutral-800 bg-neutral-50 rounded-md p-2 dark:hover:bg-neutral-700"
               onClick={() => {
                 handleSubtaskAdd();
               }}

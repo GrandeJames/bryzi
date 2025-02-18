@@ -14,6 +14,7 @@ import TimerStage from "@/app/focus-stages/TimerStage";
 import { PrepareStage } from "@/app/focus-stages/PrepareStage";
 import TasksNavigation from "../components/TasksNavigation";
 import TodayTimeline from "../components/TodayTimeline";
+import TasksHeader from "../components/TasksHeader";
 
 export default function Page() {
   const tasks = useTasksStore((state) => state.tasks);
@@ -46,36 +47,24 @@ export default function Page() {
   });
 
   return (
-    <div>
-      <div className="flex-1">
-        {!stage && (
-          <div className="flex flex-col gap-5">
-            <header>
-              <TodayTimeline />
-              <div className="flex justify-between items-center">
-                <TodayHeading />
-                <TasksNavigation />
-              </div>
-              <AutoPlanToggle />
-            </header>
-            <div className="flex flex-col xl:flex-row gap-5 xl:gap-16">
-              <ClassTasksSection
-                tasks={classTasksToday}
-                className="w-full max-w-3xl xl:max-w-3xl bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-fit"
-              />
-              <PersonalSection
-                tasks={personalTasksToday}
-                className="w-full max-w-xl xl:max-w-lg bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-fit"
-              />
+    <div className="flex-1">
+      {!stage && (
+        <div className="flex flex-col gap-5">
+          <TasksHeader leftHeading={<TodayHeading />} />
+          <main>
+            <AutoPlanToggle />
+            <div className="flex flex-col xl:flex-row gap-5 xl:gap-16 mx-5">
+              <ClassTasksSection tasks={classTasksToday} />
+              <PersonalSection tasks={personalTasksToday} />
             </div>
-            <PlannerCreationMenu />
-          </div>
-        )}
-        {stage === "breath" && <BreathStage />}
-        {stage === "visual" && <VisualStage />}
-        {stage === "timer" && <TimerStage />}
-        {stage === "prepare" && <PrepareStage />}
-      </div>
+          </main>
+          <PlannerCreationMenu />
+        </div>
+      )}
+      {stage === "breath" && <BreathStage />}
+      {stage === "visual" && <VisualStage />}
+      {stage === "timer" && <TimerStage />}
+      {stage === "prepare" && <PrepareStage />}
     </div>
   );
 }
@@ -85,8 +74,10 @@ function TodayHeading() {
   const dayOfWeek = format(currentDate, "EEEE");
   return (
     <h1 className="flex gap-2 font-bold items-end ">
-      <span className="text-neutral-200 text-3xl">{dayOfWeek}</span>
-      <span className="text-neutral-500 text-lg">{format(currentDate, "MMM d")}</span>
+      <span className="dark:text-neutral-200 text-neutral-900 text-3xl">{dayOfWeek}</span>
+      <span className="dark:text-neutral-500 text-neutral-600 text-lg">
+        {format(currentDate, "MMM d")}
+      </span>
     </h1>
   );
 }

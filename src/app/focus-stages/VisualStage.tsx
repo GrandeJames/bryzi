@@ -27,7 +27,7 @@ export function VisualStage() {
             Focus on the object for {VISUAL_FOCUS_TIME_SECONDS} seconds{" "}
           </p>
           <div className="flex items-center justify-center h-[300px]">
-            <div className="rounded-full bg-orange-400 size-10"></div>
+            <div className="rounded-full bg-orange-400 size-10" />
           </div>
         </div>
       </div>
