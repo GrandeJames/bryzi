@@ -24,11 +24,24 @@ interface RemainingMonthsProps {
 function RemainingMonths({ groupedTasksByDate, currentDate, startDate }: RemainingMonthsProps) {
   const groupedTasksByDayArr = Object.entries(groupedTasksByDate);
 
+  const isCurrentMonth = isSameMonth(currentDate, startDate);
+
+  const remainingDaysOfCurrentMonth = isCurrentMonth
+    ? Array.from({ length: getDaysInMonth(currentDate) - startDate.getDate() + 1 }, (_, i) => {
+        const date = new Date(currentDate);
+        date.setDate(startDate.getDate() + i);
+        return date;
+      })
+    : [];
+
   const next4Months = Array.from({ length: 4 }, (_, i) =>
     addMonths(startOfMonth(currentDate), i + 1)
   );
 
-  return next4Months.map((monthDate) => {
+  // Combine remaining days of the current month with the next 4 months
+  const allMonths = [...(isCurrentMonth ? [currentDate] : []), ...next4Months];
+
+  return allMonths.map((monthDate) => {
     const tasksForMonth = groupedTasksByDayArr.filter(([date]) => {
       const parsedDate = parse(date, "yyyy-MM-dd", new Date(date));
       return isSameMonth(parsedDate, monthDate) && startOfDay(parsedDate) >= startOfDay(startDate);
@@ -66,7 +79,9 @@ function RemainingMonths({ groupedTasksByDate, currentDate, startDate }: Remaini
 function Header({ monthDate, startDate }: { monthDate: Date; startDate: Date }) {
   return (
     <div className="flex gap-1 items-end pt-2 border-t dark:border-neutral-800 border-neutral-200 mt-14">
-      <span className="text-2xl dark:text-neutral-300 text-neutral-800 font-bold">{format(monthDate, "MMMM")}</span>
+      <span className="text-2xl dark:text-neutral-300 text-neutral-800 font-bold">
+        {format(monthDate, "MMMM")}
+      </span>
       <span className="text-2xl text-neutral-400 font-bold">
         {startDate.getDate() > 1 && isSameMonth(monthDate, startDate)
           ? `${startDate.getDate()}-${getDaysInMonth(monthDate)}`
