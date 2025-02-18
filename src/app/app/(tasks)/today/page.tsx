@@ -51,7 +51,7 @@ export default function Page() {
       {!stage && (
         <>
           <TasksHeader leftHeading={<TodayHeading />} />
-          <main className="container space-y-3">
+          <main className="container space-y-4">
             <header>
               <AutoPlanToggle />
             </header>

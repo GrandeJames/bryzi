@@ -45,7 +45,7 @@ export default function Page() {
     <div>
       <TasksHeader />
       <main className="container max-w-3xl">
-        <div className="space-y-3">
+        <div className="space-y-4">
           <header>
             <AutoPlanToggle />
           </header>

@@ -4,7 +4,7 @@ function AutoPlanToggle() {
   return (
     <HoverCard openDelay={500}>
       <HoverCardTrigger asChild>
-        <button className="border-orange-400 dark:bg-orange-400/30 bg-orange-400/20 dark:text-orange-400 text-orange-400 font-semibold text-[0.6rem] px-3 rounded-full flex gap-1 items-center h-min py-1 hover:dark:bg-orange-400/15">
+        <button className="border-orange-400 dark:bg-orange-400/30 bg-orange-400/20 dark:text-orange-400 text-orange-400 font-semibold text-[0.7rem] px-3 rounded-full flex gap-1 items-center h-min py-1 hover:dark:bg-orange-400/15">
           <span>AUTO PLAN</span>
         </button>
       </HoverCardTrigger>
