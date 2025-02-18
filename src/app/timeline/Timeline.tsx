@@ -18,9 +18,9 @@ export interface TimelineProps {
 }
 
 const EVENT_TYPES = {
-  focus: { color: "bg-orange-400/80", label: "Focus Session" },
-  event: { color: "bg-blue-500/80", label: "Scheduled Task" },
-  custom: { color: "bg-green-400/80", label: "Custom Event" },
+  focus: { color: "bg-orange-300/80", label: "Focus Session" },
+  event: { color: "bg-blue-300/80", label: "Scheduled Task" },
+  custom: { color: "bg-green-300/80", label: "Custom Event" },
 };
 
 function parseTime(time: Date | string) {
