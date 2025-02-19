@@ -18,7 +18,7 @@ function DynamicDialog() {
   // onOpenChange is provided to ensure that when the dialog is closed, the openDialog state is set to null so that the dialog is closed.
   return (
     <Dialog open={!!openDialogName} onOpenChange={(isOpen) => !isOpen && closeDialog()}>
-      <DialogContent className="px-0 flex flex-col divide-y dark:divide-neutral-800 divide-neutral-100">
+      <DialogContent className="w-fit px-0 flex flex-col divide-y dark:divide-neutral-800 divide-neutral-100">
         {title && (
           <DialogHeader className="px-6">
             <DialogTitle>{title}</DialogTitle>
