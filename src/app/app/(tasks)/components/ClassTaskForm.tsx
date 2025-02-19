@@ -13,7 +13,7 @@ import SubtasksFormSection from "@/app/app/(tasks)/components/SubtasksFormSectio
 import Selection from "@/components/Selection";
 import TaskDetailsFormSection from "./TaskDetailsFormSection";
 import TaskTitleDateFormSection from "./TaskTitleDateFormSection";
-import TaskFormButton from "./TaskFormButton";
+import TaskFormSubmissionButton from "./TaskFormSubmissionButton";
 
 function ClassTaskForm({
   className,
@@ -129,7 +129,7 @@ function ClassTaskForm({
         />
         <SubtasksFormSection task={task} setTask={setTask} />
       </div>
-      <TaskFormButton
+      <TaskFormSubmissionButton
         initialTask={initialTask}
         handleTaskFormSubmit={handleTaskFormSubmit}
         task={task}

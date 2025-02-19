@@ -10,7 +10,7 @@ import { PersonalTask } from "@/types/personalTask";
 import SubtasksFormSection from "@/app/app/(tasks)/components/SubtasksFormSection";
 import TaskDetailsFormSection from "@/app/app/(tasks)/components/TaskDetailsFormSection";
 import TaskTitleDateFormSection from "./TaskTitleDateFormSection";
-import TaskFormButton from "./TaskFormButton";
+import TaskFormSubmissionButton from "./TaskFormSubmissionButton";
 
 function PersonalTaskForm({
   className,
@@ -82,7 +82,7 @@ function PersonalTaskForm({
         <TaskDetailsFormSection task={task} handleChange={handleChange} />
         <SubtasksFormSection task={task} setTask={setTask} />
       </div>
-      <TaskFormButton
+      <TaskFormSubmissionButton
         initialTask={initialTask}
         handleTaskFormSubmit={handleTaskFormSubmit}
         task={task}
