@@ -6,13 +6,13 @@ import useTasksStore from "@/stores/tasksStore";
 import { cn } from "@/utils.ts/cn";
 import { DatePickerWithPresets } from "@/components/ui/date-picker-presets";
 import { ClockIcon, FlameIcon, ZapIcon } from "lucide-react";
-import { Textarea } from "./ui/textarea";
-import Selection from "./Selection";
 import { ClassTask } from "@/types/classTask";
 import useDialogStore from "@/app/dialogs/dialogStore";
 import { TASK_DIFFICULTY, TASK_IMPACT } from "@/constants/taskConstants";
 import { handleTaskAdd, handleTaskUpdate } from "@/lib/taskUtils";
 import SubtasksFormSection from "@/app/app/(tasks)/components/SubtasksFormSection";
+import { Textarea } from "@/components/ui/textarea";
+import Selection from "@/components/Selection";
 
 function ClassTaskForm({
   className,

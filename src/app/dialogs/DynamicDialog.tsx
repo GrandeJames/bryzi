@@ -2,7 +2,7 @@
 
 import useDialogStore from "@/app/dialogs/dialogStore";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../components/ui/dialog";
-import ClassTaskForm from "../../components/ClassTaskForm";
+import ClassTaskForm from "../app/(tasks)/components/ClassTaskForm";
 import { ScrollArea } from "../../components/ui/scroll-area";
 import ClassTaskDetails from "../../components/ClassTaskDetails";
 import PersonalTaskForm from "../../components/PersonalTaskForm";
