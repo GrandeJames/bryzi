@@ -5,14 +5,11 @@ import { v4 as uuidv4 } from "uuid";
 import useTasksStore from "@/stores/tasksStore";
 import { cn } from "@/utils.ts/cn";
 import { DatePickerWithPresets } from "@/components/ui/date-picker-presets";
-import { PlusIcon, XIcon } from "lucide-react";
 import { Textarea } from "./ui/textarea";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Subtask } from "@/types/subtask";
 import useDialogStore from "@/app/dialogs/dialogStore";
 import { handleTaskAdd, handleTaskUpdate } from "@/lib/taskUtils";
 import { PersonalTask } from "@/types/personalTask";
+import SubtasksFormSection from "@/app/app/(tasks)/components/SubtasksFormSection";
 
 function PersonalTaskForm({
   className,
@@ -34,7 +31,6 @@ function PersonalTaskForm({
     completed: initialTask?.completed || false,
     type: "personal",
   });
-  const [currentSubtaskInput, setCurrentSubtaskInput] = useState<string>("");
 
   const updateTask = useTasksStore((state) => state.updateTask);
   const addTask = useTasksStore((state) => state.addTask);
@@ -44,34 +40,6 @@ function PersonalTaskForm({
     setTask((prevTask) => ({
       ...prevTask,
       [key]: value,
-    }));
-  };
-
-  const handleSubtaskAdd = () => {
-    const trimmedSubtaskInput = currentSubtaskInput.trim();
-
-    if (!trimmedSubtaskInput) {
-      return;
-    }
-
-    const newSubtask = {
-      id: uuidv4(),
-      title: trimmedSubtaskInput,
-      completed: false,
-    };
-
-    setTask((prevTask) => ({
-      ...prevTask,
-      subtasks: [...(prevTask.subtasks || []), newSubtask],
-    }));
-
-    setCurrentSubtaskInput("");
-  };
-
-  const handleSubtaskRemove = (subtask: Subtask) => {
-    setTask((prevTask) => ({
-      ...prevTask,
-      subtasks: (prevTask.subtasks || []).filter((prevSubtask) => prevSubtask.id !== subtask.id),
     }));
   };
 
@@ -129,61 +97,7 @@ function PersonalTaskForm({
           value={task.description}
           onChange={(e) => handleChange("description", e.target.value)}
         />
-        <div className="flex flex-col gap-3">
-          <div className="flex gap-1">
-            <Input
-              placeholder="Add subtask"
-              className="border-none dark:bg-neutral-800 bg-neutral-50 focus-visible:ring-0 text-neutral-200"
-              value={currentSubtaskInput}
-              onChange={(e) => setCurrentSubtaskInput(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  handleSubtaskAdd();
-                }
-              }}
-            />
-            <button
-              type="button"
-              className="dark:bg-neutral-800 bg-neutral-50 rounded-md p-2 hover:bg-neutral-700"
-              onClick={() => {
-                handleSubtaskAdd();
-              }}
-            >
-              <PlusIcon className="size-5 text-neutral-200" />
-            </button>
-          </div>
-          <div className="flex flex-col gap-2 mb-2">
-            {(task.subtasks || []).map((subtask: Subtask, index: number) => (
-              <div className="flex items-center justify-between gap-2 group" key={subtask.id}>
-                <div className="flex space-x-2">
-                  <Checkbox
-                    id={`subtask-${index}`}
-                    checked={subtask.completed}
-                    onClick={() => {
-                      const updatedSubtasks = (task.subtasks || []).map((item) =>
-                        item.id === subtask.id ? { ...item, completed: !item.completed } : item
-                      );
-                      handleChange("subtasks", updatedSubtasks);
-                    }}
-                  />
-                  <label
-                    htmlFor={`subtask-${index}`}
-                    className="text-sm font-medium leading-none text-neutral-200"
-                  >
-                    {subtask.title}
-                  </label>
-                </div>
-                <div
-                  className="hidden group-hover:flex items-center gap-2 hover:cursor-pointer"
-                  onClick={() => handleSubtaskRemove(subtask)}
-                >
-                  <XIcon className="size-4 text-neutral-300" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <SubtasksFormSection task={task} setTask={setTask} />
       </div>
       <button
         className={`bg-orange-400 py-2 px-4 rounded-lg w-full font-bold sticky bottom-0 disabled:bg-orange-200 text-white`}
