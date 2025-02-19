@@ -10,6 +10,7 @@ import useDialogStore from "@/app/dialogs/dialogStore";
 import { handleTaskAdd, handleTaskUpdate } from "@/lib/taskUtils";
 import { PersonalTask } from "@/types/personalTask";
 import SubtasksFormSection from "@/app/app/(tasks)/components/SubtasksFormSection";
+import TaskDetailsFormSection from "@/app/app/(tasks)/components/TaskDetailsFormSection";
 
 function PersonalTaskForm({
   className,
@@ -91,12 +92,7 @@ function PersonalTaskForm({
       </div>
 
       <div className="flex flex-col gap-7 mt-5 mb-14">
-        <Textarea
-          className="resize-none border-none focus-visible:ring-0 dark:bg-neutral-800 bg-neutral-50 text-neutral-200"
-          placeholder="Description"
-          value={task.description}
-          onChange={(e) => handleChange("description", e.target.value)}
-        />
+        <TaskDetailsFormSection task={task} handleChange={handleChange} />
         <SubtasksFormSection task={task} setTask={setTask} />
       </div>
       <button

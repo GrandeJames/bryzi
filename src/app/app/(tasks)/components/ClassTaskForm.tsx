@@ -13,6 +13,7 @@ import { handleTaskAdd, handleTaskUpdate } from "@/lib/taskUtils";
 import SubtasksFormSection from "@/app/app/(tasks)/components/SubtasksFormSection";
 import { Textarea } from "@/components/ui/textarea";
 import Selection from "@/components/Selection";
+import TaskDetailsFormSection from "./TaskDetailsFormSection";
 
 function ClassTaskForm({
   className,
@@ -101,12 +102,7 @@ function ClassTaskForm({
       </div>
 
       <div className="flex flex-col gap-7 mt-5 mb-14">
-        <Textarea
-          className="resize-none border-none focus-visible:ring-0 dark:bg-neutral-800 bg-neutral-50 dark:text-neutral-200 text-neutral-800"
-          placeholder="Description"
-          value={task.description}
-          onChange={(e) => handleChange("description", e.target.value)}
-        />
+        <TaskDetailsFormSection task={task} handleChange={handleChange} />
         <Selection
           title="Impact"
           items={Object.entries(TASK_IMPACT).map(([taskValue, taskLabel]) => ({
