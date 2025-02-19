@@ -67,7 +67,7 @@ export default function SubtasksFormSection({ task, setTask }: { task: any; setT
             handleSubtaskAdd();
           }}
         >
-          <PlusIcon className="size-5 text-neutral-200" />
+          <PlusIcon className="size-5 dark:text-neutral-200 text-neutral-500" />
         </button>
       </div>
       <div className="flex flex-col gap-2 mb-2">
@@ -87,7 +87,7 @@ export default function SubtasksFormSection({ task, setTask }: { task: any; setT
               />
               <label
                 htmlFor={`subtask-${index}`}
-                className="text-sm font-medium leading-none text-neutral-200"
+                className="text-sm font-medium leading-none dark:text-neutral-200 text-neutral-800"
               >
                 {subtask.title}
               </label>
@@ -96,7 +96,7 @@ export default function SubtasksFormSection({ task, setTask }: { task: any; setT
               className="hidden group-hover:flex items-center gap-2 hover:cursor-pointer"
               onClick={() => handleSubtaskRemove(subtask)}
             >
-              <XIcon className="size-4 text-neutral-300" />
+              <XIcon className="size-4 dark:text-neutral-300 text-neutral-500" />
             </div>
           </div>
         ))}

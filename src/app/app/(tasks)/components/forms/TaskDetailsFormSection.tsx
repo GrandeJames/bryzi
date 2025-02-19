@@ -11,7 +11,7 @@ export default function TaskDetailsFormSection({
 }: TaskDetailsFormSectionProps) {
   return (
     <Textarea
-      className="resize-none border-none focus-visible:ring-0 dark:bg-neutral-800 bg-neutral-50 text-neutral-200"
+      className="resize-none border-none focus-visible:ring-0 dark:bg-neutral-800 bg-neutral-50 dark:text-neutral-200 text-neutral-600"
       placeholder="Description"
       value={task.description}
       onChange={(e) => handleChange("description", e.target.value)}
