@@ -14,6 +14,7 @@ import SubtasksFormSection from "@/app/app/(tasks)/components/SubtasksFormSectio
 import { Textarea } from "@/components/ui/textarea";
 import Selection from "@/components/Selection";
 import TaskDetailsFormSection from "./TaskDetailsFormSection";
+import TaskTitleDateFormSection from "./TaskTitleDateFormSection";
 
 function ClassTaskForm({
   className,
@@ -87,19 +88,7 @@ function ClassTaskForm({
       onSubmit={handleTaskFormSubmit}
       className={cn(className, "gap-2 flex flex-col relative px-6")}
     >
-      <div className="flex dark:bg-neutral-800 bg-neutral-50 rounded-md p-1 gap-1 items-center">
-        <input
-          type="text"
-          placeholder="Add Task"
-          onChange={(e) => handleChange("title", e.target.value)}
-          value={task.title}
-          className={`px-3 py-2 outline-blue-600 outline-4 w-full placeholder-gray-600 dark:bg-neutral-800 bg-neutral-50 dark:text-neutral-200 text-neutral-800`}
-        />
-        <DatePickerWithPresets
-          deadline={task.deadline}
-          setDeadline={(date) => handleChange("deadline", date?.toISOString())}
-        />
-      </div>
+      <TaskTitleDateFormSection task={task} handleChange={handleChange} />
 
       <div className="flex flex-col gap-7 mt-5 mb-14">
         <TaskDetailsFormSection task={task} handleChange={handleChange} />
