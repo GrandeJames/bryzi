@@ -13,7 +13,7 @@ import { ClassTask } from "@/types/classTask";
 import { PersonalTask } from "@/types/personalTask";
 
 import groupBy from "@/utils/groupBy";
-import SecondaryDateHeading from "../components/SecondayDateHeading";
+import SecondaryDateHeading from "../components/SecondaryDateHeading";
 
 interface RemainingMonthsProps {
   groupedTasksByDate: { [key: string]: any[] };
