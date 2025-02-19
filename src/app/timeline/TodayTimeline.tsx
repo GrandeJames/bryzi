@@ -31,11 +31,13 @@ function TodayTimeline() {
   }));
 
   return (
-    <Timeline
-      startTime="6:00"
-      endTime="23:00"
-      events={[...sampleScheduledItemsToday, ...todayFocusEvents]}
-    />
+    <div className="mx-5 my-2">
+      <Timeline
+        startTime="6:00"
+        endTime="23:00"
+        events={[...sampleScheduledItemsToday, ...todayFocusEvents]}
+      />
+    </div>
   );
 }
 

@@ -28,15 +28,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`dark:bg-black bg-white antialiased ${inter.className}`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          forcedTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
           <div className="flex">
             {!inFocusSession && !hiddenNavPages.includes(pathname) && <Menu />}
             <ScrollArea className="flex-1 h-screen">
-              <div className="flex-1">{children}</div>
+              <div className="flex-1 mb-28">{children}</div>
             </ScrollArea>
             <DynamicDialog />
           </div>

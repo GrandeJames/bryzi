@@ -27,7 +27,7 @@ function Next7Days({
             {tasks.length > 0 ? (
               <Sections tasks={tasks} />
             ) : (
-              <div className="text-neutral-700 text-sm text-center py-6 bg-neutral-900/20 border-neutral-900 border rounded-3xl">
+              <div className="dark:text-neutral-700 text-neutral-300 text-xs text-center py-6">
                 Nothing to do for this day
               </div>
             )}
@@ -42,16 +42,10 @@ export function Sections({ tasks }: { tasks: any[] }) {
   return (
     <div className="flex flex-col gap-2">
       {tasks.filter((task) => task.type === "class").length > 0 && (
-        <ClassTasksSection
-          tasks={tasks.filter((task) => task.type === "class")}
-          className="bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-fit"
-        />
+        <ClassTasksSection tasks={tasks.filter((task) => task.type === "class")} />
       )}
       {tasks.filter((task) => task.type === "personal").length > 0 && (
-        <PersonalSection
-          tasks={tasks.filter((task) => task.type === "personal")}
-          className="bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-fit"
-        />
+        <PersonalSection tasks={tasks.filter((task) => task.type === "personal")} />
       )}
     </div>
   );

@@ -2,10 +2,10 @@
 
 import useDialogStore from "@/app/dialogs/dialogStore";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../components/ui/dialog";
-import ClassTaskForm from "../../components/ClassTaskForm";
+import ClassTaskForm from "../app/(tasks)/components/forms/ClassTaskForm";
 import { ScrollArea } from "../../components/ui/scroll-area";
 import ClassTaskDetails from "../../components/ClassTaskDetails";
-import PersonalTaskForm from "../../components/PersonalTaskForm";
+import PersonalTaskForm from "../app/(tasks)/components/forms/PersonalTaskForm";
 import PersonalTaskDetails from "../personal-tasks/PersonalTaskDetails";
 import CourseForm from "../courses/CourseForm";
 
@@ -18,7 +18,7 @@ function DynamicDialog() {
   // onOpenChange is provided to ensure that when the dialog is closed, the openDialog state is set to null so that the dialog is closed.
   return (
     <Dialog open={!!openDialogName} onOpenChange={(isOpen) => !isOpen && closeDialog()}>
-      <DialogContent className="max-w-md px-0 flex flex-col divide-y divide-neutral-800">
+      <DialogContent className="max-w-md px-0 flex flex-col divide-y dark:divide-neutral-800 divide-neutral-100">
         {title && (
           <DialogHeader className="px-6">
             <DialogTitle>{title}</DialogTitle>

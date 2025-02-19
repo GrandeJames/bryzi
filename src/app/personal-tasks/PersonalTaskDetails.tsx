@@ -8,6 +8,7 @@ import useDialogStore from "@/app/dialogs/dialogStore";
 import { handleTaskComplete, handleTaskRemove, handleTaskUpdate } from "@/lib/taskUtils";
 import { Checkbox } from "@/components/ui/checkbox";
 import { PersonalTask } from "@/types/personalTask";
+import ActionButton from "../app/(tasks)/components/ActionButton";
 
 function PersonalTaskDetails({ task }: { task: PersonalTask }) {
   const removeTask = useTasksStore((state) => state.removeTask);
@@ -59,7 +60,9 @@ function PersonalTaskDetails({ task }: { task: PersonalTask }) {
               </div>
             )}
           </div>
-          <div className="font-bold text-xl mb-1 text-neutral-200">{task.title}</div>
+          <div className="font-bold text-xl mb-1 dark:text-neutral-200 text-neutral-800">
+            {task.title}
+          </div>
           <div className="text-neutral-300">{task.description && <p>{task.description}</p>}</div>
         </div>
         <div className="my-2">
@@ -78,31 +81,24 @@ function PersonalTaskDetails({ task }: { task: PersonalTask }) {
 
       <div className="text-orange-400 text-sm font-semibold flex flex-col gap-5">
         <div className="flex gap-5">
-          <button
-            className="w-full bg-neutral-800/80 rounded-md py-4 flex flex-col items-center gap-2"
-            onClick={handleTaskDeleteClick}
-          >
-            <Trash2Icon className="size-4" />
-            <span>Delete</span>
-          </button>
-          <button
-            className="w-full bg-neutral-800/80 rounded-md py-4 flex flex-col items-center gap-2"
+          <ActionButton icon={Trash2Icon} label="Delete" onClick={handleTaskDeleteClick} />
+          <ActionButton
+            icon={CircleCheckIcon}
+            label={task.completed ? "Incomplete" : "Complete"}
             onClick={() => {
               handleTaskComplete(task, updateTask);
               closeDialog();
             }}
-          >
-            <CircleCheckIcon className="size-4" />
-            <span>{task.completed ? "Incomplete" : "Complete"}</span>
-          </button>
+          />
         </div>
-        <button
-          className="w-full bg-neutral-800/80 rounded-md py-4 flex justify-center gap-2"
-          onClick={handleTaskEditClick}
-        >
-          <PencilIcon className="size-4" />
-          <span>Edit</span>
-        </button>
+        <ActionButton
+          icon={PencilIcon}
+          label="Edit"
+          onClick={() => {
+            handleTaskEditClick();
+          }}
+          inline
+        />
       </div>
     </div>
   );
