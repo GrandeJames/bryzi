@@ -4,14 +4,13 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import useTasksStore from "@/stores/tasksStore";
 import { cn } from "@/utils.ts/cn";
-import { DatePickerWithPresets } from "@/components/ui/date-picker-presets";
-import { Textarea } from "../../../../components/ui/textarea";
 import useDialogStore from "@/app/dialogs/dialogStore";
 import { handleTaskAdd, handleTaskUpdate } from "@/lib/taskUtils";
 import { PersonalTask } from "@/types/personalTask";
 import SubtasksFormSection from "@/app/app/(tasks)/components/SubtasksFormSection";
 import TaskDetailsFormSection from "@/app/app/(tasks)/components/TaskDetailsFormSection";
 import TaskTitleDateFormSection from "./TaskTitleDateFormSection";
+import TaskFormButton from "./TaskFormButton";
 
 function PersonalTaskForm({
   className,
@@ -79,18 +78,15 @@ function PersonalTaskForm({
       className={cn(className, "gap-2 flex flex-col relative px-6")}
     >
       <TaskTitleDateFormSection task={task} handleChange={handleChange} />
-
       <div className="flex flex-col gap-7 mt-5 mb-14">
         <TaskDetailsFormSection task={task} handleChange={handleChange} />
         <SubtasksFormSection task={task} setTask={setTask} />
       </div>
-      <button
-        className={`bg-orange-400 py-2 px-4 rounded-lg w-full font-bold sticky bottom-0 disabled:bg-orange-200 text-white`}
-        disabled={!task.title}
-        onClick={handleTaskFormSubmit}
-      >
-        {initialTask ? "Update Task" : "Create task"}
-      </button>
+      <TaskFormButton
+        initialTask={initialTask}
+        handleTaskFormSubmit={handleTaskFormSubmit}
+        task={task}
+      />
     </form>
   );
 }
