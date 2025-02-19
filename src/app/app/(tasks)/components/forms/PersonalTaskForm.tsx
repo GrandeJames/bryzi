@@ -7,8 +7,8 @@ import { cn } from "@/utils.ts/cn";
 import useDialogStore from "@/app/dialogs/dialogStore";
 import { handleTaskAdd, handleTaskUpdate } from "@/lib/taskUtils";
 import { PersonalTask } from "@/types/personalTask";
-import SubtasksFormSection from "@/app/app/(tasks)/components/SubtasksFormSection";
-import TaskDetailsFormSection from "@/app/app/(tasks)/components/TaskDetailsFormSection";
+import SubtasksFormSection from "@/app/app/(tasks)/components/forms/SubtasksFormSection";
+import TaskDetailsFormSection from "@/app/app/(tasks)/components/forms/TaskDetailsFormSection";
 import TaskTitleDateFormSection from "./TaskTitleDateFormSection";
 import TaskFormSubmissionButton from "./TaskFormSubmissionButton";
 

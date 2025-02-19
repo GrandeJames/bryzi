@@ -2,10 +2,10 @@
 
 import useDialogStore from "@/app/dialogs/dialogStore";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../components/ui/dialog";
-import ClassTaskForm from "../app/(tasks)/components/ClassTaskForm";
+import ClassTaskForm from "../app/(tasks)/components/forms/ClassTaskForm";
 import { ScrollArea } from "../../components/ui/scroll-area";
 import ClassTaskDetails from "../../components/ClassTaskDetails";
-import PersonalTaskForm from "../app/(tasks)/components/PersonalTaskForm";
+import PersonalTaskForm from "../app/(tasks)/components/forms/PersonalTaskForm";
 import PersonalTaskDetails from "../personal-tasks/PersonalTaskDetails";
 
 function DynamicDialog() {

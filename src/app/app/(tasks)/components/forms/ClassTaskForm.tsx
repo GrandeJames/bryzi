@@ -9,7 +9,7 @@ import { ClassTask } from "@/types/classTask";
 import useDialogStore from "@/app/dialogs/dialogStore";
 import { TASK_DIFFICULTY, TASK_IMPACT } from "@/constants/taskConstants";
 import { handleTaskAdd, handleTaskUpdate } from "@/lib/taskUtils";
-import SubtasksFormSection from "@/app/app/(tasks)/components/SubtasksFormSection";
+import SubtasksFormSection from "@/app/app/(tasks)/components/forms/SubtasksFormSection";
 import Selection from "@/components/Selection";
 import TaskDetailsFormSection from "./TaskDetailsFormSection";
 import TaskTitleDateFormSection from "./TaskTitleDateFormSection";
