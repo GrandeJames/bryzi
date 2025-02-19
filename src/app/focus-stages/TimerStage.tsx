@@ -131,7 +131,7 @@ function TimerStage() {
       </main>
       <ActionsContainer>
         <button
-          className="bg-neutral-800 rounded-full size-9"
+          className="dark:bg-neutral-800 bg-neutral-100 rounded-full size-9"
           onClick={() => {
             if (temporaryStartDate !== null) {
               const addTemporaryFocusEntry = useFocusTrackerStore.getState().addTemporaryFocusEntry;

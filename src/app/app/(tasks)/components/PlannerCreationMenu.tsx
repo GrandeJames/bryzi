@@ -32,7 +32,7 @@ function PlannerCreationMenu() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <button onClick={onClick}>
-                    <Icon className="size-4 dark:text-neutral-300 text-neutral-900 dark:hover:text-white hover:text-neutral-600" />
+                    <Icon className="size-4 dark:text-neutral-300 text-neutral-500 dark:hover:text-white hover:text-neutral-600" />
                   </button>
                 </TooltipTrigger>
                 <TooltipContent side="left" className="dark:bg-white bg-neutral-800 dark:text-black text-white">
