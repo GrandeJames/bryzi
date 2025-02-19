@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../../componen
 import ClassTaskForm from "../app/(tasks)/components/ClassTaskForm";
 import { ScrollArea } from "../../components/ui/scroll-area";
 import ClassTaskDetails from "../../components/ClassTaskDetails";
-import PersonalTaskForm from "../../components/PersonalTaskForm";
+import PersonalTaskForm from "../app/(tasks)/components/PersonalTaskForm";
 import PersonalTaskDetails from "../personal-tasks/PersonalTaskDetails";
 
 function DynamicDialog() {
