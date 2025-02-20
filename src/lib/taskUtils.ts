@@ -8,6 +8,8 @@ import {
   getLocalStorageData,
 } from "./localStorageUtils";
 import { LOCAL_STORAGE_KEYS } from "@/constants/localStorageKeys";
+import TaskAddNotification from "@/app/notifications/TaskAddNotification";
+import TaskUpdateNotification from "@/app/notifications/TaskUpdateNotification";
 
 /*
  * Note: updateTask must be passed as a prop otherwise it causes a hook error
@@ -22,11 +24,15 @@ export function handleTaskComplete(task: ClassTask, updateTask: (task: ClassTask
 export function handleTaskUpdate(task: ClassTask, updateTask: (task: ClassTask) => void) {
   updateLocalStorageItem(LOCAL_STORAGE_KEYS.TASKS, task);
   updateTask(task);
+
+  TaskUpdateNotification({ task });
 }
 
 export function handleTaskAdd(task: ClassTask, addTask: (task: ClassTask) => void) {
   addTask(task);
   addLocalStorageItem(LOCAL_STORAGE_KEYS.TASKS, task);
+
+  TaskAddNotification({ task });
 }
 
 export function handleTaskRemove(task: ClassTask, removeTask: (id: string) => void) {
