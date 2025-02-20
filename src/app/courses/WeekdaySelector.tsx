@@ -1,68 +1,75 @@
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { Course } from "./types/course";
 
 interface Day {
   label: string;
-  value: string;
+  value: Course["days"][number];
 }
 
-export default function WeekdaySelector() {
-  const days: Day[] = [
-    {
-      label: "M",
-      value: "mon",
-    },
-    {
-      label: "T",
-      value: "tue",
-    },
-    {
-      label: "W",
-      value: "wed",
-    },
-    {
-      label: "T",
-      value: "thu",
-    },
-    {
-      label: "F",
-      value: "fri",
-    },
-  ];
+const days: Day[] = [
+  {
+    label: "M",
+    value: 1,
+  },
+  {
+    label: "T",
+    value: 2,
+  },
+  {
+    label: "W",
+    value: 3,
+  },
+  {
+    label: "T",
+    value: 4,
+  },
+  {
+    label: "F",
+    value: 5,
+  },
+];
 
-  const [selectedDays, setSelectedDays] = useState<Day["value"][]>([]);
-
-  function Day({ day }: { day: { label: string; value: string } }) {
-    const handleDayClick = (event: React.MouseEvent) => {
-      event.preventDefault();
-      console.log(`Day ${day.value} clicked`);
-      setSelectedDays((prevSelectedDays) => {
-        if (prevSelectedDays.includes(day.value)) {
-          return prevSelectedDays.filter((selectedDay) => selectedDay !== day.value);
-        } else {
-          return [...prevSelectedDays, day.value];
-        }
-      });
-    };
-    return (
-      <button
-        className={`size-10 rounded-full flex justify-center items-center ${
-          selectedDays.includes(day.value)
-            ? "bg-orange-400 text-white"
-            : "bg-neutral-100 text-neutral-300"
-        }`}
-        onClick={handleDayClick}
-      >
-        {day.label}
-      </button>
-    );
-  }
-
+export default function WeekdaySelector({
+  setSelectedDays,
+  selectedDays,
+}: {
+  setSelectedDays: any;
+  selectedDays: any;
+}) {
   return (
     <div className="flex gap-3">
-      {days.map((day) => (
-        <Day key={day.value} day={day} />
+      {days.map((day: { value: any; label?: string }) => (
+        <Day key={day.value} day={day} setDays={setSelectedDays} selectedDays={selectedDays} />
       ))}
     </div>
+  );
+}
+
+function Day({ day, setDays, selectedDays }: { day: any; setDays: any; selectedDays: any }) {
+  const handleDayClick = (event: React.MouseEvent) => {
+    event.preventDefault();
+    console.log(`Day ${day.value} clicked`);
+    console.log("selectedDays", selectedDays);
+    setDays((prevSelectedDays: number[]) => {
+      if (!prevSelectedDays) {
+        return [day.value];
+      }
+      if (prevSelectedDays.includes(day.value)) {
+        return prevSelectedDays.filter((selectedDay) => selectedDay !== day.value);
+      } else {
+        return [...prevSelectedDays, day.value];
+      }
+    });
+  };
+  return (
+    <button
+      className={`size-10 rounded-full flex justify-center items-center ${
+        selectedDays?.includes(day.value)
+          ? "bg-orange-400 text-white"
+          : "bg-neutral-100 text-neutral-300"
+      }`}
+      onClick={handleDayClick}
+    >
+      {day.label}
+    </button>
   );
 }
