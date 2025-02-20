@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 export interface TimelineEvent {
   start: Date | string;
   end: Date | string;
-  type: "focus" | "event" | "custom";
+  type: "focus" | "event" | "course";
 }
 
 export interface TimelineProps {
@@ -17,10 +17,11 @@ export interface TimelineProps {
   showCurrentTime?: boolean;
 }
 
+// https://coolors.co/palette/0a0908-22333b-f2f4f3-a9927d-5e503f
 const EVENT_TYPES = {
-  focus: { color: "bg-orange-300/80", label: "Focus Session" },
-  event: { color: "bg-blue-300/80", label: "Scheduled Task" },
-  custom: { color: "bg-green-300/80", label: "Custom Event" },
+  focus: { color: "bg-orange-400", label: "Focus Session" },
+  event: { color: "bg-blue-400", label: "Scheduled Task" },
+  course: { color: "bg-purple-400", label: "Lecture" },
 };
 
 function parseTime(time: Date | string) {
@@ -57,9 +58,9 @@ function getDisplayTimeRange(start: Date | string, end: Date | string) {
 function getDisplayTime(date: Date | string) {
   const parsedTime = parseTime(date);
 
-  let displayStartTime = `${parsedTime.hours > 12 ? parsedTime.hours % 12 : parsedTime.hours}:${
-    parsedTime.minutes
-  }
+  let displayStartTime = `${
+    parsedTime.hours > 12 ? parsedTime.hours % 12 : parsedTime.hours
+  }:${parsedTime.minutes.toString().padStart(2, "0")}
     ${parsedTime.hours >= 12 ? "PM" : "AM"}`;
 
   return `${displayStartTime}`;
@@ -114,7 +115,7 @@ const Timeline = ({
           const left = calculatePosition(roundedStart, event.start, totalMinutes);
           const width = (duration / totalMinutes) * 100;
 
-          const eventType = EVENT_TYPES[event.type] || EVENT_TYPES.custom;
+          const eventType = EVENT_TYPES[event.type] || EVENT_TYPES.course;
 
           return (
             <div
@@ -128,7 +129,7 @@ const Timeline = ({
               <HoverCard openDelay={0} closeDelay={0}>
                 <HoverCardTrigger asChild>
                   <div
-                    className={`h-full rounded-md ${eventType.color} blur-lg hover:blur-none cursor-pointer`}
+                    className={`h-full rounded-md ${eventType.color} dark:opacity-70 opacity-80 blur-lg hover:blur-none cursor-pointer`}
                   />
                 </HoverCardTrigger>
                 <HoverCardContent
