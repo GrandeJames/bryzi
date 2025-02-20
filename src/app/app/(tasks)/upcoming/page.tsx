@@ -4,10 +4,10 @@ import useTasksStore from "@/stores/tasksStore";
 import { format, isFuture, startOfDay, getTime, addDays } from "date-fns";
 import AutoPlanToggle from "@/components/AutoPlanToggle";
 import PlannerCreationMenu from "../components/PlannerCreationMenu";
-import { useState, useEffect } from "react";
 import Next7Days from "./Next7Days";
 import RemainingMonths from "./RemainingMonths";
 import TasksHeader from "../components/TasksHeader";
+import { useHydrated } from "@/hooks/useHydrated";
 
 // const CURRENT_DATE = new Date(2025, 1, 13);
 const CURRENT_DATE = new Date();
@@ -15,11 +15,7 @@ const CURRENT_DATE = new Date();
 export default function Page() {
   const tasks = useTasksStore((state) => state.tasks);
 
-  const [isHydrated, setIsHydrated] = useState(false);
-
-  useEffect(() => {
-    setIsHydrated(true);
-  }, []);
+  const isHydrated = useHydrated();
 
   if (!isHydrated) {
     return <div>Loading...</div>;
