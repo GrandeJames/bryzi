@@ -5,12 +5,11 @@ import { format, isFuture, startOfDay, getTime, addDays } from "date-fns";
 import AutoPlanToggle from "@/components/AutoPlanToggle";
 import PlannerCreationMenu from "../components/PlannerCreationMenu";
 import { useState, useEffect } from "react";
-import TasksNavigation from "../components/TasksNavigation";
 import Next7Days from "./Next7Days";
 import RemainingMonths from "./RemainingMonths";
-import TodayTimeline from "../../../timeline/TodayTimeline";
 import TasksHeader from "../components/TasksHeader";
 
+// const CURRENT_DATE = new Date(2025, 1, 13);
 const CURRENT_DATE = new Date();
 
 export default function Page() {
