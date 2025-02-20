@@ -9,6 +9,7 @@ import { useFocusSessionStore } from "@/stores/focusSessionStore";
 import { usePathname } from "next/navigation";
 import Head from "next/head";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Toaster } from "../../@components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,15 +29,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`dark:bg-black bg-white antialiased ${inter.className}`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          forcedTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
           <div className="flex">
             {!inFocusSession && !hiddenNavPages.includes(pathname) && <Menu />}
             <ScrollArea className="flex-1 h-screen">
-              <div className="flex-1">{children}</div>
+              <div className="flex-1 mb-28">{children}</div>
+              <Toaster position="top-right" />
             </ScrollArea>
             <DynamicDialog />
           </div>

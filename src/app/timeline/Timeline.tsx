@@ -18,9 +18,9 @@ export interface TimelineProps {
 }
 
 const EVENT_TYPES = {
-  focus: { color: "bg-orange-400/80", label: "Focus Session" },
-  event: { color: "bg-blue-500/80", label: "Scheduled Task" },
-  custom: { color: "bg-green-400/80", label: "Custom Event" },
+  focus: { color: "bg-orange-300/80", label: "Focus Session" },
+  event: { color: "bg-blue-300/80", label: "Scheduled Task" },
+  custom: { color: "bg-green-300/80", label: "Custom Event" },
 };
 
 function parseTime(time: Date | string) {
@@ -42,7 +42,7 @@ function toMinutes(time: Date | string) {
 function formatHour(hours: number) {
   const period = hours >= 12 ? "PM" : "AM";
   const displayHours = hours % 12 || 12;
-  return `${displayHours}:00 ${period}`;
+  return `${displayHours} ${period}`;
 }
 
 function calculatePosition(startReference: string, time: Date | string, totalMinutes: number) {
@@ -51,13 +51,18 @@ function calculatePosition(startReference: string, time: Date | string, totalMin
 }
 
 function getDisplayTimeRange(start: Date | string, end: Date | string) {
-  const startTime = parseTime(start);
-  const endTime = parseTime(end);
+  return `${getDisplayTime(start)} - ${getDisplayTime(end)}`;
+}
 
-  const startHour = formatHour(startTime.hours);
-  const endHour = formatHour(endTime.hours);
+function getDisplayTime(date: Date | string) {
+  const parsedTime = parseTime(date);
 
-  return `${startHour} - ${endHour}`;
+  let displayStartTime = `${parsedTime.hours > 12 ? parsedTime.hours % 12 : parsedTime.hours}:${
+    parsedTime.minutes
+  }
+    ${parsedTime.hours >= 12 ? "PM" : "AM"}`;
+
+  return `${displayStartTime}`;
 }
 
 const Timeline = ({
@@ -132,7 +137,9 @@ const Timeline = ({
                 >
                   <div className="text-sm">
                     <span className="font-medium">{eventType.label}:</span>
-                    <div className="text-muted-foreground">{getDisplayTimeRange(event.start, event.end)}</div>
+                    <div className="text-muted-foreground">
+                      {getDisplayTimeRange(event.start, event.end)}
+                    </div>
                   </div>
                 </HoverCardContent>
               </HoverCard>
@@ -142,7 +149,7 @@ const Timeline = ({
 
         {showCurrentTime && (
           <div
-            className="absolute w-[2px] h-full bg-neutral-800/80 z-20"
+            className="absolute w-[2px] h-full dark:bg-neutral-800/80 bg-neutral-300/80 z-20"
             style={{
               left: `${calculatePosition(roundedStart, currentTimeString, totalMinutes)}%`,
             }}
@@ -160,7 +167,7 @@ const Timeline = ({
           return (
             <div
               key={time}
-              className="absolute bottom-0 text-neutral-600 text-[0.65rem] -translate-x-1/2 text-nowrap"
+              className="absolute bottom-0 dark:text-neutral-600 text-neutral-400 text-[0.65rem] -translate-x-1/2 text-nowrap"
               style={{ left: `${position}%` }}
             >
               {formatHour(parseTime(time).hours)}

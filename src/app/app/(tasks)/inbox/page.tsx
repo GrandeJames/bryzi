@@ -5,9 +5,9 @@ import PersonalSection from "@/app/personal-tasks/PersonalSection";
 import useTasksStore from "@/stores/tasksStore";
 import PlannerCreationMenu from "../components/PlannerCreationMenu";
 import { useEffect, useState } from "react";
-import AutoPlanToggle from "@/components/AutoPlanToggle";
 import TasksNavigation from "../components/TasksNavigation";
-import { Timeline } from "../components/Timeline";
+import TodayTimeline from "../../../timeline/TodayTimeline";
+import TasksHeader from "../components/TasksHeader";
 
 export default function Inbox() {
   const tasks = useTasksStore((state) => state.tasks);
@@ -35,22 +35,10 @@ export default function Inbox() {
 
   return (
     <div>
-      <header>
-        <Timeline />
-        <div className="flex justify-between items-center">
-          <div></div>
-          <TasksNavigation />
-        </div>
-      </header>
-      <div className="flex flex-col xl:flex-row gap-5 xl:gap-16">
-        <ClassTasksSection
-          tasks={classTasksUnscheduled}
-          className="w-full max-w-3xl xl:max-w-3xl bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-fit"
-        />
-        <PersonalSection
-          tasks={personalTasksUnscheduled}
-          className="w-full max-w-xl xl:max-w-lg bg-neutral-900/40 border-neutral-900 border p-5 rounded-3xl h-fit"
-        />
+      <TasksHeader />
+      <div className="flex flex-col gap-5 max-w-3xl xl:max-w-3xl mx-auto">
+        <ClassTasksSection tasks={classTasksUnscheduled} />
+        <PersonalSection tasks={personalTasksUnscheduled} />
       </div>
       <PlannerCreationMenu />
     </div>

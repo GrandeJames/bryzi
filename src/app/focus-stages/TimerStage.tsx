@@ -83,7 +83,7 @@ function TimerStage() {
     <div className="flex flex-col h-[75vh] w-full relative">
       <header className="py-3">
         <Progress value={percentComplete()} />
-        <div className="text-center font-extrabold text-3xl underline underline-offset-8 my-5">
+        <div className="text-center font-extrabold text-3xl my-5 dark:text-neutral-300 text-neutral-800">
           {focusTask?.title
             ? focusTask.title.charAt(0).toUpperCase() + focusTask.title.slice(1)
             : ""}
@@ -96,7 +96,7 @@ function TimerStage() {
               onCheckedChange={handleSubtaskToggle}
             />
             <Select value={subtaskId} onValueChange={setSubtaskId} defaultValue={subtaskId}>
-              <SelectTrigger className="w-auto border-none focus:outline-none focus:ring-0">
+              <SelectTrigger className="w-auto border-none focus:outline-none focus:ring-0 shadow-none">
                 <SelectValue placeholder="Select a subtask" />
               </SelectTrigger>
               <SelectContent className="dark:bg-neutral-900/70 backdrop-blur-lg border dark:border-neutral-800 rounded-xl">
@@ -131,7 +131,7 @@ function TimerStage() {
       </main>
       <ActionsContainer>
         <button
-          className="bg-neutral-800 rounded-full size-9"
+          className="dark:bg-neutral-800 bg-neutral-100 rounded-full size-9"
           onClick={() => {
             if (temporaryStartDate !== null) {
               const addTemporaryFocusEntry = useFocusTrackerStore.getState().addTemporaryFocusEntry;

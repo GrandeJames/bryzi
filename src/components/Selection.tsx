@@ -25,16 +25,16 @@ function Selection({
   return (
     <div className="flex flex-col gap-3">
       <header className="flex justify-between">
-        <div className="text-gray-300 flex gap-2 font-medium items-center">
-          <div className="flex items-center justify-center h-4 w-4">{icon}</div> {title}
+        <div className="dark:text-neutral-300 text-neutral-800 flex gap-2 font-medium items-center">
+          {title}
         </div>
       </header>
-      <div className="flex justify-between px-5 py-2 bg-neutral-900 rounded-md">
+      <div className="flex justify-between px-5 py-2 dark:bg-neutral-900 bg-neutral-50 rounded-md">
         {items.map((item, index) => (
           <button
             key={index}
-            className={`py-1 px-3 rounded-md text-sm text-neutral-200 ${
-              defaultValue === item.value && "bg-orange-400"
+            className={`py-1 px-3 rounded-md text-sm dark:text-neutral-200 text-neutral-400 ${
+              defaultValue === item.value && "bg-orange-400 dark:text-white text-neutral-50 font-medium"
             }`}
             onClick={(e) => handleSelectionButtonClick(e, item)}
           >

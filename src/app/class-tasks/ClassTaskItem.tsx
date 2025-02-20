@@ -20,8 +20,8 @@ function ClassTaskItem({ task }: { task: ClassTask }) {
   return (
     <div
       className={`grid grid-cols-12 w-full rounded-3xl ${
-        task.completed ? "bg-neutral-900/50" : "bg-neutral-900/60"
-      } hover:bg-neutral-900`}
+        task.completed ? "dark:bg-neutral-900/50" : "dark:bg-neutral-900/60"
+      } dark:hover:bg-neutral-900 bg-neutral-50/60`}
     >
       <div
         className="col-span-10 flex justify-between hover:cursor-pointer py-5 px-6"
@@ -30,19 +30,21 @@ function ClassTaskItem({ task }: { task: ClassTask }) {
         }}
       >
         <div className="flex flex-col">
-          <div className="text-neutral-300 text-xs">Introductory Psychology</div>
+          <div className="dark:text-neutral-300 text-neutral-600 text-xs">
+            Introductory Psychology
+          </div>
           <div className="flex gap-3 items-center">
             <span
               className={`font-semibold text-md ${
                 task.completed
-                  ? "line-through text-neutral-400 decoration-neutral-400/90"
-                  : "text-neutral-200"
+                  ? "line-through dark:text-neutral-400 text-neutral-900 decoration-neutral-400/90"
+                  : "dark:text-neutral-200"
               }`}
             >
               {task.title.charAt(0).toUpperCase() + task.title.slice(1)}
             </span>
             {(task.subtasks?.length ?? 0) > 0 && (
-              <div className="flex items-center text-neutral-400 gap-1">
+              <div className="flex items-center dark:text-neutral-400 text-neutral-700 gap-1">
                 <ListTodoIcon className="size-4" />
                 <span className="text-xs">
                   {task.subtasks?.reduce((acc, subtask) => acc + (subtask.completed ? 1 : 0), 0)}/
@@ -114,23 +116,14 @@ function Status({ task, className }: { task: ClassTask; className?: string }) {
   const updateTask = useTasksStore((state) => state.updateTask);
 
   const renderContent = () => {
-    if (task.completed) {
+    if (task.completed || (task.estimatedDurationInMins ?? 0) <= 0) {
       return <MarkTaskCompleteCheckbox task={task} updateTask={updateTask} />;
-    }
-
-    if ((task.estimatedDurationInMins ?? 0) <= 0) {
-      return (
-        <div
-          className="border rounded-md border-neutral-800 size-5 mx-auto hover:cursor-pointer"
-          onClick={() => handleTaskComplete(task, updateTask)}
-        />
-      );
     }
 
     return (
       <FocusStageSwitchButton
         task={task}
-        className="text-orange-500 font-bold relative inline-block 
+        className="text-orange-400 font-bold relative inline-block 
   before:absolute before:inset-0 before:bg-orange-500/15 
   before:rounded-full before:blur-3xl"
       >
@@ -151,12 +144,12 @@ function Deadline({ deadline }: { deadline: Date }) {
   const diffInDays = differenceInCalendarDays(deadline, now);
 
   const getFlagColor = () => {
-    if (diffInDays < 0) return "text-red-400"; // Overdue
-    if (diffInDays === 0) return "text-red-400"; // Today
-    if (diffInDays === 1) return "text-red-400"; // Tomorrow
-    if (diffInDays < 3) return "text-red-400"; // Urgent (next 3 days)
-    if (diffInDays < 7) return "text-orange-400"; // This week
-    return "text-neutral-400"; // Future
+    if (diffInDays < 0) return "dark:text-red-400 text-red-500"; // Overdue
+    if (diffInDays === 0) return "dark:text-red-400 text-red-500"; // Today
+    if (diffInDays === 1) return "dark:text-red-400 text-red-500"; // Tomorrow
+    if (diffInDays < 3) return "dark:text-orange-400 text-orange-500"; // Urgent (next 3 days)
+    if (diffInDays < 7) return "dark:text-yellow-400 text-yellow-500"; // This week
+    return "text-neutral-400";
   };
 
   if (diffInDays < 7) {
