@@ -64,7 +64,7 @@ function PersonalTaskForm({
     e.preventDefault();
 
     if (initialTask) {
-      handleTaskUpdate(task, updateTask);
+      handleTaskUpdate(task, updateTask, initialTask);
     } else {
       handleTaskAdd(task, addTask);
     }

@@ -1,6 +1,6 @@
 import { ClassTask } from "@/types/classTask";
 import { FocusEntry } from "@/types/focusEntry";
-import { differenceInSeconds } from "date-fns";
+import { differenceInSeconds, isSameDay } from "date-fns";
 import {
   addLocalStorageItem,
   updateLocalStorageItem,
@@ -10,6 +10,7 @@ import {
 import { LOCAL_STORAGE_KEYS } from "@/constants/localStorageKeys";
 import TaskAddNotification from "@/app/notifications/TaskAddNotification";
 import TaskUpdateNotification from "@/app/notifications/TaskUpdateNotification";
+import getTaskCategory from "@/app/app/(tasks)/components/getTaskCategory";
 
 /*
  * Note: updateTask must be passed as a prop otherwise it causes a hook error
@@ -21,11 +22,25 @@ export function handleTaskComplete(task: ClassTask, updateTask: (task: ClassTask
   updateTask(updatedTask);
 }
 
-export function handleTaskUpdate(task: ClassTask, updateTask: (task: ClassTask) => void) {
+export function handleTaskUpdate(
+  task: ClassTask,
+  updateTask: (task: ClassTask) => void,
+  initialTask?: ClassTask
+) {
   updateLocalStorageItem(LOCAL_STORAGE_KEYS.TASKS, task);
   updateTask(task);
 
-  TaskUpdateNotification({ task });
+  if (!initialTask) {
+    return;
+  }
+
+  const initialTaskCategory = getTaskCategory(initialTask);
+  const newTaskCategory = getTaskCategory(task);
+
+  if (initialTaskCategory !== newTaskCategory) {
+    TaskUpdateNotification({ task });
+    return;
+  }
 }
 
 export function handleTaskAdd(task: ClassTask, addTask: (task: ClassTask) => void) {
