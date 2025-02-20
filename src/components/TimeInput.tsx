@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { ClockIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export default function TimePicker() {
+export default function TimePicker({ onTimeSet }: { onTimeSet: (time: string) => void }) {
   const [hour, setHour] = useState<string | null>(null);
   const [minute, setMinute] = useState<string | null>(null);
   const [ampm, setAmpm] = useState<string | null>(null);
@@ -14,6 +14,9 @@ export default function TimePicker() {
   const [isOpen, setIsOpen] = useState(false);
 
   const hours = Array.from({ length: 12 }, (_, i) => i + 1);
+
+  // Create a ref to track if time has been set
+  const isTimeSetRef = useRef(false);
 
   const handleTimeChange = (type: "hour" | "minute" | "ampm", value: string, event: any) => {
     event.preventDefault();
@@ -26,6 +29,16 @@ export default function TimePicker() {
       setAmpm(value);
     }
   };
+
+  useEffect(() => {
+    if (hour && minute && ampm && !isTimeSetRef.current) {
+      const hours = ampm === "PM" && hour !== "12" ? parseInt(hour) + 12 : hour;
+      const formattedHours = hours.toString().padStart(2, "0");
+      const formattedMinutes = minute.padStart(2, "0");
+      const formattedTime = `${formattedHours}:${formattedMinutes}`;
+      onTimeSet(formattedTime);
+    }
+  }, [hour, minute, ampm, onTimeSet]);
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
