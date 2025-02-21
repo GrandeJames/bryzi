@@ -77,16 +77,30 @@ function RemainingMonths({ groupedTasksByDate, currentDate, startDate }: Remaini
 }
 
 function Header({ monthDate, startDate }: { monthDate: Date; startDate: Date }) {
+  const monthDays = getDaysInMonth(monthDate);
+  const isStartDateInSameMonth = isSameMonth(monthDate, startDate);
+  const isStartDateAfterFirstDay = startDate.getDate() > 1;
+  const isStartDateNotLastDay = startDate.getDate() !== monthDays;
+
+  const shouldShowRange =
+    isStartDateInSameMonth && isStartDateAfterFirstDay && isStartDateNotLastDay;
+
+  const getFormattedDateRange = () => {
+    if (shouldShowRange) {
+      return `${startDate.getDate()}-${monthDays}`;
+    }
+    if (isStartDateInSameMonth && isStartDateAfterFirstDay) {
+      return startDate.getDate().toString();
+    }
+    return "";
+  };
+
   return (
     <div className="flex gap-1 items-end pt-2 border-t dark:border-neutral-800 border-neutral-200 mt-14">
       <span className="text-2xl dark:text-neutral-300 text-neutral-800 font-bold">
         {format(monthDate, "MMMM")}
       </span>
-      <span className="text-2xl text-neutral-400 font-bold">
-        {startDate.getDate() > 1 && isSameMonth(monthDate, startDate)
-          ? `${startDate.getDate()}-${getDaysInMonth(monthDate)}`
-          : ""}
-      </span>
+      <span className="text-2xl text-neutral-400 font-bold">{getFormattedDateRange()}</span>
     </div>
   );
 }
