@@ -116,7 +116,7 @@ function ClassTaskForm({
       {page === 1 && (
         <div>
           <div className="flex flex-col gap-7 mt-5 mb-14">
-            <div className="flex gap-2 border border-neutral-800 bg-neutral-900 p-2 text-neutral-400 font-medium text-sm rounded-md">
+            <div className="flex gap-2 border dark:border-neutral-800 border-neutral-200 dark:bg-neutral-900 bg-neutral-100 p-2 dark:text-neutral-400 text-neutral-500 font-medium text-sm rounded-md">
               Course: {course?.name}
             </div>
             <Selection
@@ -167,7 +167,7 @@ function ClassTaskForm({
       )}
       {page === 0 && (
         <button
-          className="text-sm text-center bg-neutral-800 mt-3 text-white rounded-md p-2 disabled:dark:bg-neutral-900 disabled:dark:text-neutral-600"
+          className="text-sm text-center bg-neutral-800 mt-3 text-white rounded-md p-2 disabled:dark:bg-neutral-900 disabled:bg-neutral-50 disabled:dark:text-neutral-600 disabled:text-neutral-300"
           onClick={handleContinueClick}
           disabled={!course || !task.title}
         >
