@@ -1,6 +1,6 @@
 "use client";
 
-import { PlusIcon } from "lucide-react";
+import { EllipsisVerticalIcon, PlusIcon } from "lucide-react";
 import NewCourseButton from "./NewCourseButton";
 import { Course } from "./types/course";
 import { useState } from "react";
@@ -41,21 +41,15 @@ const SAMPLE_COURSES: Course[] = [
     endTime: "17:30",
     days: [0, 1, 2, 3, 4],
   },
-  {
-    name: "Biology 101",
-    abbreviation: "BIO",
-    startTime: "18:00",
-    endTime: "19:30",
-    days: [0, 1, 2, 3, 4],
-  },
 ];
 
 export default function CourseSelector({ onSelect }: { onSelect: (course: Course) => void }) {
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
-  const handleEditClick = (e: React.FormEvent) => {
+  const handleCourseEditClick = (e: React.FormEvent) => {
+    e.stopPropagation();
     e.preventDefault();
-    console.log("Edit");
+    console.log("Course Edit");
   };
 
   const handleCourseClick = (e: React.FormEvent, courseClicked: Course) => {
@@ -71,10 +65,11 @@ export default function CourseSelector({ onSelect }: { onSelect: (course: Course
       <header className="flex justify-between items-center">
         <div className="font-medium dark:text-neutral-300">Course</div>
         <div className="flex gap-3 text-neutral-400">
-          {SAMPLE_COURSES.length > 0 && <NewCourseButton className="text-xs">New</NewCourseButton>}
-          <button onClick={(e) => handleEditClick(e)} className="text-xs">
-            Edit
-          </button>
+          {SAMPLE_COURSES.length > 0 && (
+            <NewCourseButton className="text-xs dark:hover:bg-neutral-700/30 hover:bg-neutral-200/30 p-1 rounded-md">
+              <PlusIcon className="size-4" />
+            </NewCourseButton>
+          )}
         </div>
       </header>
 
@@ -88,7 +83,7 @@ export default function CourseSelector({ onSelect }: { onSelect: (course: Course
         {SAMPLE_COURSES?.map((course: Course) => (
           <div
             key={course.name}
-            className={`border rounded-md text-sm dark:border-neutral-800 p-2 ${
+            className={`border rounded-md text-sm dark:border-neutral-800 p-2 hover:cursor-pointer flex justify-between items-center ${
               selectedCourse?.name == course.name
                 ? "bg-orange-400 text-white font-medium"
                 : "dark:text-neutral-300 dark:hover:bg-neutral-800"
@@ -96,6 +91,14 @@ export default function CourseSelector({ onSelect }: { onSelect: (course: Course
             onClick={(e) => handleCourseClick(e, course)}
           >
             <span>{course.name}</span>
+            <button
+              className="dark:hover:bg-neutral-700/30 hover:bg-neutral-200/30 rounded-md p-1"
+              onClick={(e) => {
+                handleCourseEditClick(e);
+              }}
+            >
+              <EllipsisVerticalIcon className="size-4" />
+            </button>
           </div>
         ))}
       </div>
