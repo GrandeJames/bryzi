@@ -42,7 +42,7 @@ function ClassTaskForm({
     type: "class",
   });
 
-  const [course, setCourse] = useState();
+  const [course, setCourse] = useState<{ name: string } | null>(null);
 
   const [page, setPage] = useState(0);
 
