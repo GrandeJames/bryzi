@@ -9,12 +9,13 @@ export default function NewCourseButton({ children, className }: NewCourseButton
   const openDialog = useDialogStore((state) => state.openDialog);
   const openCreateCourseDialog = () => openDialog("createCourse", {}, "New Course");
 
-  const handleCourseAdd = () => {
+  const handleCourseAdd = (e: any) => {
+    e.preventDefault();
     openCreateCourseDialog();
   };
 
   return (
-    <button onClick={handleCourseAdd} className={className}>
+    <button onClick={(e) => handleCourseAdd(e)} className={className}>
       {children}
     </button>
   );
