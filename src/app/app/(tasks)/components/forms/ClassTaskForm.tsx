@@ -98,7 +98,7 @@ function ClassTaskForm({
   };
 
   return (
-    <form className={cn(className, "gap-2 flex flex-col relative px-6 w-[23rem]")}>
+    <form className={cn(className, "gap-5 flex flex-col relative px-6 w-[23rem]")}>
       <TaskTitleDateFormSection task={task} handleChange={handleChange} />
 
       {page === 0 && (
@@ -112,7 +112,7 @@ function ClassTaskForm({
 
       {page === 1 && (
         <div>
-          <div className="flex flex-col gap-7 mt-5 mb-14">
+          <div className="flex flex-col gap-7 mb-14">
             <div className="flex gap-2 border dark:border-neutral-800 border-neutral-200 dark:bg-neutral-900 bg-neutral-100 p-2 dark:text-neutral-400 text-neutral-500 font-medium text-sm rounded-md">
               Course: {course?.name}
             </div>
