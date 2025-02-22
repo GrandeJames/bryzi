@@ -78,9 +78,9 @@ export default function CourseSelector({ onSelect }: { onSelect: (course: Course
 
       <div className="flex flex-col gap-1 border rounded-md dark:border-neutral-800 p-2">
         {courses.length === 0 && (
-          <NewCourseButton>
-            <PlusIcon className="size-5" />
-            <span>New Course</span>
+          <NewCourseButton className="flex gap-1 items-center">
+            <PlusIcon className="size-4" />
+            <span className="text-sm">New Course</span>
           </NewCourseButton>
         )}
         {courses?.map((course: Course) => (
