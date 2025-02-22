@@ -8,7 +8,7 @@ export const CourseSchema = z
     startTime: z.string().regex(/^\d{2}:\d{2}$/, "Invalid time format (HH:mm)."),
     endTime: z.string().regex(/^\d{2}:\d{2}$/, "Invalid time format (HH:mm)."),
     days: z
-      .array(z.number().int().min(0).max(4))
+      .array(z.number().int().min(1).max(5))
       .min(1, { message: "At least one day must be selected" }),
   })
   .refine(
