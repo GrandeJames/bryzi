@@ -12,6 +12,7 @@ export default function TaskFormSubmissionButton({
       className={`bg-orange-400 py-2 px-4 rounded-lg w-full font-bold sticky bottom-0 disabled:bg-orange-200 text-white`}
       disabled={!task.title}
       onClick={handleTaskFormSubmit}
+      type="button"
     >
       {initialTask ? "Update Task" : "Create task"}
     </button>

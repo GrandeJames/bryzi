@@ -99,7 +99,6 @@ function ClassTaskForm({
 
   return (
     <form
-      onSubmit={handleTaskFormSubmit}
       className={cn(className, "gap-2 flex flex-col relative px-6")}
     >
       <TaskTitleDateFormSection task={task} handleChange={handleChange} />
@@ -170,6 +169,7 @@ function ClassTaskForm({
           className="text-sm text-center bg-neutral-800 mt-3 text-white rounded-md p-2 disabled:dark:bg-neutral-900 disabled:bg-neutral-50 disabled:dark:text-neutral-600 disabled:text-neutral-300"
           onClick={handleContinueClick}
           disabled={!course || !task.title}
+          type="button"
         >
           Continue
         </button>

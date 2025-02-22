@@ -15,7 +15,11 @@ export default function NewCourseButton({ children, className }: NewCourseButton
   };
 
   return (
-    <button onClick={(e) => handleCourseAdd(e)} className={className}>
+    <button 
+      onClick={(e) => handleCourseAdd(e)} 
+      className={className}
+      type="button"
+    >
       {children}
     </button>
   );
