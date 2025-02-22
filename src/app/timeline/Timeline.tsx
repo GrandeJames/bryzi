@@ -19,9 +19,9 @@ export interface TimelineProps {
 
 // https://coolors.co/palette/0a0908-22333b-f2f4f3-a9927d-5e503f
 const EVENT_TYPES = {
-  focus: { color: "bg-orange-400", label: "Focus Session" },
-  event: { color: "bg-blue-400", label: "Scheduled Task" },
-  course: { color: "bg-purple-400", label: "Lecture" },
+  focus: { color: "bg-[#F4CFB1] dark:bg-[#6B3E26]", label: "Focus Session" }, //orange
+  event: { color: "bg-[#C7E2ED] dark:bg-[#2A4B6A]", label: "Scheduled Task" }, //blue
+  course: { color: "bg-[#F0C5C1] dark:bg-[#6B2E34]", label: "Lecture" }, //red
 };
 
 function parseTime(time: Date | string) {
@@ -129,7 +129,7 @@ const Timeline = ({
               <HoverCard openDelay={0} closeDelay={0}>
                 <HoverCardTrigger asChild>
                   <div
-                    className={`h-full rounded-md ${eventType.color} dark:opacity-70 opacity-80 blur-lg hover:blur-none cursor-pointer`}
+                    className={`h-full rounded-md ${eventType.color} border border-[#00000010] dark:border-[#FFFFFF20] blur-lg hover:blur-none cursor-pointer`}
                   />
                 </HoverCardTrigger>
                 <HoverCardContent
