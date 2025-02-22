@@ -42,7 +42,12 @@ function TodayTimeline() {
 
   const focusEntries = useFocusTrackerStore((state) => state.focusEntries);
 
+  console.log("focusEntries", focusEntries);
+
   const todayFocusEntries = focusEntries.filter((entry) => isToday(entry.startDate));
+
+  console.log("todayFocusEntries", todayFocusEntries);
+
   const todayFocusEvents = todayFocusEntries.map((entry) => ({
     start: new Date(entry.startDate),
     end: new Date(entry.endDate),
