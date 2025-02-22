@@ -5,6 +5,13 @@ import NewCourseButton from "./NewCourseButton";
 import { Course } from "./types/course";
 import { useState } from "react";
 import useCoursesStore from "@/stores/coursesStore";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import CourseActionsDropdown from "./CourseActionsDropdown";
 
 const SAMPLE_COURSES: Course[] = [
   {
@@ -94,14 +101,7 @@ export default function CourseSelector({ onSelect }: { onSelect: (course: Course
             onClick={(e) => handleCourseClick(e, course)}
           >
             <span>{course.name}</span>
-            <button
-              className="dark:hover:bg-neutral-700/30 hover:bg-neutral-200/30 rounded-md p-1"
-              onClick={(e) => {
-                handleCourseEditClick(e);
-              }}
-            >
-              <EllipsisVerticalIcon className="size-4" />
-            </button>
+            <CourseActionsDropdown />
           </div>
         ))}
       </div>
