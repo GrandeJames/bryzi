@@ -98,9 +98,7 @@ function ClassTaskForm({
   };
 
   return (
-    <form
-      className={cn(className, "gap-2 flex flex-col relative px-6")}
-    >
+    <form className={cn(className, "gap-2 flex flex-col relative px-6 w-[23rem]")}>
       <TaskTitleDateFormSection task={task} handleChange={handleChange} />
 
       {page === 0 && (

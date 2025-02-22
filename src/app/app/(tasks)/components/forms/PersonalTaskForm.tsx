@@ -75,7 +75,7 @@ function PersonalTaskForm({
   return (
     <form
       onSubmit={handleTaskFormSubmit}
-      className={cn(className, "gap-2 flex flex-col relative px-6")}
+      className={cn(className, "gap-2 flex flex-col relative px-6 w-[23rem]")}
     >
       <TaskTitleDateFormSection task={task} handleChange={handleChange} />
       <div className="flex flex-col gap-7 mt-5 mb-14">
