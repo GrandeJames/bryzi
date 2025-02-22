@@ -6,8 +6,11 @@ import WeekdaySelector from "./WeekdaySelector";
 import { handleCourseAdd } from "./utils/courseUtils";
 import { useCallback, useState } from "react";
 import { Course, CourseSchema } from "./types/course";
+import useDialogStore from "../dialogs/dialogStore";
 
-export default function CourseForm() {
+export default function CourseForm({ initialCourse }: { initialCourse?: Course }) {
+  const closeDialog = useDialogStore((state) => state.closeDialog);
+
   const [name, setName] = useState<Course["name"]>();
   const [abbreviation, setAbbreviation] = useState<Course["abbreviation"]>();
   const [startTime, setStartTime] = useState<Course["startTime"]>(); // in 24h format: "HH:mm"
@@ -16,12 +19,10 @@ export default function CourseForm() {
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  const handleCreateClick = (event: React.FormEvent) => {
+  const handleCreateCourseClick = (event: React.FormEvent) => {
     event.preventDefault();
 
     setErrors({});
-
-    console.log("Create Course");
 
     const course: Course = {
       name: name!,
@@ -31,19 +32,16 @@ export default function CourseForm() {
       days: days!,
     };
 
-    console.log("newCourse", course);
-
     try {
-      console.log("newCourse", course);
       CourseSchema.parse(course);
       handleCourseAdd(course);
-      setErrors({});
 
+      closeDialog();
       console.log("Course added successfully.");
     } catch (e: any) {
       const newErrors: { [key: string]: string } = {};
       e.errors.forEach((error: any) => {
-        console.log("e.errors", e.errors);
+        console.log("errors", e.errors);
         newErrors[error.path[0]] = error.message;
       });
       setErrors(newErrors);
@@ -52,7 +50,7 @@ export default function CourseForm() {
 
   const handleCancelClick = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("Cancel Course");
+    closeDialog();
   };
 
   return (
@@ -93,7 +91,7 @@ export default function CourseForm() {
           <Button variant={"ghost"} onClick={handleCancelClick}>
             Cancel
           </Button>
-          <Button onClick={handleCreateClick}>Create</Button>
+          <Button onClick={handleCreateCourseClick}>Create</Button>
         </div>
       </div>
     </form>
