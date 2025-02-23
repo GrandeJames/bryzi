@@ -80,17 +80,22 @@ export default function TimePicker({
             </ScrollArea>
             <ScrollArea className="w-64 sm:w-auto">
               <div className="flex sm:flex-col p-2">
-                {Array.from({ length: 12 }, (_, i) => i * 5).map((minuteItem) => (
-                  <Button
-                    key={minuteItem}
-                    size="icon"
-                    variant={minute === minuteItem.toString() ? "default" : "ghost"}
-                    className="sm:w-full shrink-0 aspect-square"
-                    onClick={(e) => handleTimeChange("minute", minuteItem.toString(), e)}
-                  >
-                    {minuteItem}
-                  </Button>
-                ))}
+                {Array.from({ length: 12 }, (_, i) => i * 5).map((minuteItem) => {
+                  const parsedMinute = minute && parseInt(minute);
+                  return (
+                    <Button
+                      key={minuteItem}
+                      size="icon"
+                      variant={
+                        parsedMinute?.toString() === minuteItem.toString() ? "default" : "ghost"
+                      }
+                      className="sm:w-full shrink-0 aspect-square"
+                      onClick={(e) => handleTimeChange("minute", minuteItem.toString(), e)}
+                    >
+                      {minuteItem}
+                    </Button>
+                  );
+                })}
               </div>
               <ScrollBar orientation="horizontal" className="sm:hidden" />
             </ScrollArea>
