@@ -20,7 +20,7 @@ function ClassTaskDetails({ task }: { task: ClassTask }) {
     return null;
   }
 
-  const openEditClassTaskDialog = () => openDialog("editClassTask", { task });
+  const openEditClassTaskDialog = () => openDialog("editClassTask", { task }, "Edit class task");
 
   const handleTaskDeleteClick = () => {
     handleTaskRemove(task, removeTask);
