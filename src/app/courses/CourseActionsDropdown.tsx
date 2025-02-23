@@ -6,10 +6,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { EllipsisVerticalIcon } from "lucide-react";
 import { handleCourseRemove } from "./utils/courseUtils";
+import useDialogStore from "../dialogs/dialogStore";
 
 export default function CourseActionsDropdown({ courseId }: { courseId: string }) {
+  const openDialog = useDialogStore((state) => state.openDialog);
+
   const handleEditClick = () => {
     console.log("Edit clicked");
+
+    openDialog("editCourse", { courseId }, "Edit Course");
+
   };
 
   const handleDeleteClick = (courseId: string) => {

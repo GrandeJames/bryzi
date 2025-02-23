@@ -37,6 +37,7 @@ function DynamicDialog() {
               <PersonalTaskForm initialTask={dialogData.task} />
             )}
             {openDialogName === "createCourse" && <CourseForm />}
+            {openDialogName === "editCourse" && <CourseForm initialCourseId={dialogData.courseId} />}
           </div>
         </ScrollArea>
       </DialogContent>

@@ -9,10 +9,10 @@ import { Course, CourseSchema } from "./types/course";
 import useDialogStore from "../dialogs/dialogStore";
 import { v4 as uuidv4 } from "uuid";
 
-export default function CourseForm({ initialCourse }: { initialCourse?: Course }) {
-  const closeDialog = useDialogStore((state) => state.closeDialog);
-
+export default function CourseForm({ initialCourseId }: { initialCourseId?: string }) {
   console.log("COURSE FORM RENDERED");
+
+  const closeDialog = useDialogStore((state) => state.closeDialog);
 
   const [name, setName] = useState<Course["name"]>();
   const [abbreviation, setAbbreviation] = useState<Course["abbreviation"]>();
