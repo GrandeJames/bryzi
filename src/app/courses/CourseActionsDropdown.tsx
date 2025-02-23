@@ -23,7 +23,7 @@ export default function CourseActionsDropdown({ courseId }: { courseId: string }
       <DropdownMenuTrigger>
         <EllipsisVerticalIcon className="size-4" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-white space-y-1">
+      <DropdownMenuContent className="bg-white dark:bg-neutral-900 border dark:border-neutral-800 space-y-1">
         <ActionItem label="Edit" onClick={handleEditClick} />
         <ActionItem label="Delete" onClick={() => handleDeleteClick(courseId)} />
       </DropdownMenuContent>
@@ -34,7 +34,7 @@ export default function CourseActionsDropdown({ courseId }: { courseId: string }
 function ActionItem({ label, onClick }: { label: string; onClick: () => void }) {
   return (
     <DropdownMenuItem
-      className="cursor-pointer py-1 px-2 hover:bg-neutral-100 rounded-md"
+      className="cursor-pointer py-1 px-2 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-md"
       onClick={(e) => {
         e.stopPropagation();
         onClick();
