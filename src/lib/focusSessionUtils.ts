@@ -1,15 +1,15 @@
-import { ClassTask } from "@/types/classTask";
 import { STAGES } from "@/stores/focusSessionStore";
 import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
 import { addLocalStorageItems } from "./localStorageUtils";
 import { getActualDurationMins, handleTaskUpdate } from "./taskUtils";
 import { LOCAL_STORAGE_KEYS } from "@/constants/localStorageKeys";
+import { Task } from "@/types/task";
 
 export function handleSessionDiscard(reset: () => void) {
   handleSessionExit(reset);
 }
 
-export function handleSessionSave(reset: () => void, task: ClassTask, updateTask: (task: ClassTask) => void) {
+export function handleSessionSave(reset: () => void, task: Task, updateTask: (task: Task) => void) {
   saveFocusEntries();
 
   const actualDuration = getActualDurationMins(task);
