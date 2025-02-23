@@ -16,6 +16,7 @@ import TaskTitleDateFormSection from "./TaskTitleDateFormSection";
 import TaskFormSubmissionButton from "./TaskFormSubmissionButton";
 import useCoursesStore from "@/stores/coursesStore";
 import CourseSelector from "@/app/courses/CourseSelector";
+import { Course } from "@/app/courses/types/course";
 
 function ClassTaskForm({
   className,
@@ -40,9 +41,12 @@ function ClassTaskForm({
     subtasks: initialTask?.subtasks || [],
     completed: initialTask?.completed || false,
     type: "class",
+    courseId: initialTask?.courseId || "",
   });
 
-  const [course, setCourse] = useState<{ name: string } | null>(null);
+  const [course, setCourse] = useState<Course>();
+
+  console.log("course", course);
 
   const [page, setPage] = useState(0);
 
@@ -54,7 +58,7 @@ function ClassTaskForm({
 
   console.log("courses", courses);
 
-  const handleChange = (key: string, value: any) => {
+  const handleTaskChange = (key: string, value: any) => {
     setTask((prevTask) => ({
       ...prevTask,
       [key]: value,
@@ -77,6 +81,7 @@ function ClassTaskForm({
       subtasks: [],
       completed: false,
       type: "class",
+      courseId: "",
     });
   };
 
@@ -85,8 +90,10 @@ function ClassTaskForm({
 
     if (initialTask) {
       handleTaskUpdate(task, updateTask, initialTask);
+      console.log("task updated", task);
     } else {
       handleTaskAdd(task, addTask);
+      console.log("task added", task);
     }
     resetForm();
     close();
@@ -99,12 +106,13 @@ function ClassTaskForm({
 
   return (
     <form className={cn(className, "gap-5 flex flex-col relative px-6 w-[23rem]")}>
-      <TaskTitleDateFormSection task={task} handleChange={handleChange} />
+      <TaskTitleDateFormSection task={task} handleChange={handleTaskChange} />
 
       {page === 0 && (
         <CourseSelector
           onSelect={(courseSelected: any) => {
-            setCourse(courseSelected);
+            setCourse(courseSelected); // TODO: i could possibly remove this
+            handleTaskChange("courseId", courseSelected.id);
             console.log("courseSelected callbackFn", courseSelected);
           }}
         />
@@ -128,7 +136,7 @@ function ClassTaskForm({
                 { text: "20h", value: 1200 },
               ]}
               icon={<ClockIcon />}
-              onSelect={(value) => handleChange("estimatedDurationInMins", value)}
+              onSelect={(value) => handleTaskChange("estimatedDurationInMins", value)}
               defaultValue={task.estimatedDurationInMins}
             />
             <Selection
@@ -138,7 +146,7 @@ function ClassTaskForm({
                 value: parseInt(taskValue),
               }))}
               icon={<ZapIcon />}
-              onSelect={(value) => handleChange("impact", value)}
+              onSelect={(value) => handleTaskChange("impact", value)}
               defaultValue={task.impact}
             />
 
@@ -149,11 +157,11 @@ function ClassTaskForm({
                 value: parseInt(difficultyValue),
               }))}
               icon={<FlameIcon />}
-              onSelect={(value) => handleChange("difficulty", value)}
+              onSelect={(value) => handleTaskChange("difficulty", value)}
               defaultValue={task.difficulty}
             />
             <SubtasksFormSection task={task} setTask={setTask} />
-            <TaskDetailsFormSection task={task} handleChange={handleChange} />
+            <TaskDetailsFormSection task={task} handleChange={handleTaskChange} />
           </div>
           <TaskFormSubmissionButton
             initialTask={initialTask}
