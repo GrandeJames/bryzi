@@ -65,7 +65,7 @@ function Day({ day, setDays, selectedDays }: { day: any; setDays: any; selectedD
       className={`size-10 rounded-full flex justify-center items-center ${
         selectedDays?.includes(day.value)
           ? "bg-orange-400 text-white"
-          : "bg-neutral-100 text-neutral-300"
+          : "bg-neutral-100 dark:bg-neutral-800 text-neutral-300 dark:text-neutral-500"
       }`}
       onClick={handleDayClick}
     >
