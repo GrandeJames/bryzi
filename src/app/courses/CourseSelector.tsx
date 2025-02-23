@@ -1,66 +1,16 @@
 "use client";
 
-import { EllipsisVerticalIcon, PlusIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import NewCourseButton from "./NewCourseButton";
 import { Course } from "./types/course";
 import { useState } from "react";
 import useCoursesStore from "@/stores/coursesStore";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import CourseActionsDropdown from "./CourseActionsDropdown";
-
-const SAMPLE_COURSES: Course[] = [
-  {
-    name: "AI Programming",
-    abbreviation: "ICS-361",
-    startTime: "08:00",
-    endTime: "09:30",
-    days: [0, 1, 2, 3, 4],
-  },
-  {
-    name: "Capstone Project",
-    abbreviation: "ICS-496",
-    startTime: "10:00",
-    endTime: "11:30",
-    days: [0, 1, 2, 3, 4],
-  },
-  {
-    name: "Europeans in the Pacific",
-    abbreviation: "LLEA-371",
-    startTime: "12:00",
-    endTime: "13:30",
-    days: [0, 1, 2, 3, 4],
-  },
-  {
-    name: "Design for Mobile Devices",
-    abbreviation: "ICS-466",
-    startTime: "14:00",
-    endTime: "15:30",
-    days: [0, 1, 2, 3, 4],
-  },
-  {
-    name: "Intro to Educational Psychology",
-    abbreviation: "EDEP-311",
-    startTime: "16:00",
-    endTime: "17:30",
-    days: [0, 1, 2, 3, 4],
-  },
-];
 
 export default function CourseSelector({ onSelect }: { onSelect: (course: Course) => void }) {
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
   const courses = useCoursesStore((state) => state.courses);
-
-  const handleCourseEditClick = (e: React.FormEvent) => {
-    e.stopPropagation();
-    e.preventDefault();
-    console.log("Course Edit");
-  };
 
   const handleCourseClick = (e: React.FormEvent, courseClicked: Course) => {
     e.preventDefault();
@@ -101,7 +51,7 @@ export default function CourseSelector({ onSelect }: { onSelect: (course: Course
             onClick={(e) => handleCourseClick(e, course)}
           >
             <span>{course.name}</span>
-            <CourseActionsDropdown />
+            <CourseActionsDropdown courseId={course.id} />
           </div>
         ))}
       </div>

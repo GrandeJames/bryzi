@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const CourseSchema = z
   .object({
-    id: z.string().optional(),
+    id: z.string(),
     name: z.string().nonempty("Course name is required."),
     abbreviation: z.string().optional(),
     startTime: z.string().regex(/^\d{2}:\d{2}$/, "Invalid time format (HH:mm)."),

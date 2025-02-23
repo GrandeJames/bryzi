@@ -7,9 +7,12 @@ import { handleCourseAdd } from "./utils/courseUtils";
 import { useCallback, useState } from "react";
 import { Course, CourseSchema } from "./types/course";
 import useDialogStore from "../dialogs/dialogStore";
+import { v4 as uuidv4 } from "uuid";
 
 export default function CourseForm({ initialCourse }: { initialCourse?: Course }) {
   const closeDialog = useDialogStore((state) => state.closeDialog);
+
+  console.log("COURSE FORM RENDERED");
 
   const [name, setName] = useState<Course["name"]>();
   const [abbreviation, setAbbreviation] = useState<Course["abbreviation"]>();
@@ -25,6 +28,7 @@ export default function CourseForm({ initialCourse }: { initialCourse?: Course }
     setErrors({});
 
     const course: Course = {
+      id: uuidv4(),
       name: name!,
       abbreviation: abbreviation,
       startTime: startTime!,

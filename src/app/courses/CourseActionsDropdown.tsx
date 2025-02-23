@@ -5,14 +5,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { EllipsisVerticalIcon } from "lucide-react";
+import { handleCourseRemove } from "./utils/courseUtils";
 
-export default function CourseActionsDropdown() {
+export default function CourseActionsDropdown({ courseId }: { courseId: string }) {
   const handleEditClick = () => {
     console.log("Edit clicked");
   };
 
-  const handleDeleteClick = () => {
+  const handleDeleteClick = (courseId: string) => {
     console.log("Delete clicked");
+
+    handleCourseRemove(courseId);
   };
 
   return (
@@ -22,7 +25,7 @@ export default function CourseActionsDropdown() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-white space-y-1">
         <ActionItem label="Edit" onClick={handleEditClick} />
-        <ActionItem label="Delete" onClick={handleDeleteClick} />
+        <ActionItem label="Delete" onClick={() => handleDeleteClick(courseId)} />
       </DropdownMenuContent>
     </DropdownMenu>
   );
