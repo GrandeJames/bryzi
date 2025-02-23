@@ -42,7 +42,7 @@ export default function CourseSelector({ onSelect }: { onSelect: (course: Course
         )}
         {courses?.map((course: Course) => (
           <div
-            key={course.name}
+            key={course.id}
             className={`border rounded-md text-sm dark:border-neutral-800 p-2 hover:cursor-pointer flex justify-between items-center ${
               selectedCourse?.name == course.name
                 ? "bg-orange-400 text-white font-medium"
