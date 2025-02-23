@@ -4,8 +4,6 @@ import ClassTasksSection from "@/app/class-tasks/ClassTasksSection";
 import PersonalSection from "@/app/personal-tasks/PersonalSection";
 import useTasksStore from "@/stores/tasksStore";
 import PlannerCreationMenu from "../components/PlannerCreationMenu";
-import TasksNavigation from "../components/TasksNavigation";
-import TodayTimeline from "../../../timeline/TodayTimeline";
 import TasksHeader from "../components/TasksHeader";
 import { useHydrated } from "@/hooks/useHydrated";
 
