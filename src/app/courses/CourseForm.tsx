@@ -8,17 +8,25 @@ import { useCallback, useState } from "react";
 import { Course, CourseSchema } from "./types/course";
 import useDialogStore from "../dialogs/dialogStore";
 import { v4 as uuidv4 } from "uuid";
+import { getCourseById } from "./utils/courseUtils";
 
 export default function CourseForm({ initialCourseId }: { initialCourseId?: string }) {
-  console.log("COURSE FORM RENDERED");
+  let initialCourse: Course | undefined;
+  if (initialCourseId) {
+    initialCourse = getCourseById(initialCourseId);
+  }
 
   const closeDialog = useDialogStore((state) => state.closeDialog);
 
-  const [name, setName] = useState<Course["name"]>();
-  const [abbreviation, setAbbreviation] = useState<Course["abbreviation"]>();
-  const [startTime, setStartTime] = useState<Course["startTime"]>(); // in 24h format: "HH:mm"
-  const [endTime, setEndTime] = useState<Course["endTime"]>(); // in 24h format: "HH:mm"
-  const [days, setDays] = useState<Course["days"]>();
+  const [name, setName] = useState<Course["name"] | undefined>(initialCourse?.name);
+  const [abbreviation, setAbbreviation] = useState<Course["abbreviation"]>(
+    initialCourse?.abbreviation
+  );
+  const [startTime, setStartTime] = useState<Course["startTime"] | undefined>(
+    initialCourse?.startTime
+  ); // in 24h format: "HH:mm"
+  const [endTime, setEndTime] = useState<Course["endTime"] | undefined>(initialCourse?.endTime); // in 24h format: "HH:mm"
+  const [days, setDays] = useState<Course["days"] | undefined>(initialCourse?.days);
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
@@ -76,16 +84,16 @@ export default function CourseForm({ initialCourseId }: { initialCourseId?: stri
           {errors.days && <span className="text-red-500">{errors.days}</span>}
           <div className="flex items-center justify-between">
             <TimeInput
+              time={startTime}
               onTimeSet={useCallback((time: string) => {
                 setStartTime(time);
-                console.log("startTime", time);
               }, [])}
             />
             <ArrowRightIcon className="size-4 text-neutral-400" />
             <TimeInput
+              time={endTime}
               onTimeSet={useCallback((time: string) => {
                 setEndTime(time);
-                console.log("endTime", time);
               }, [])}
             />
           </div>

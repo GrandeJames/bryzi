@@ -27,3 +27,7 @@ export function handleCourseRemove(courseId: string) {
 
   console.log("Course removed");
 }
+
+export function getCourseById(courseId: string) {
+  return useCoursesStore.getState().courses.find((course) => course.id === courseId);
+}

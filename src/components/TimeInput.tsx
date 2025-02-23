@@ -6,10 +6,21 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { ClockIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-export default function TimePicker({ onTimeSet }: { onTimeSet: (time: string) => void }) {
-  const [hour, setHour] = useState<string | null>(null);
-  const [minute, setMinute] = useState<string | null>(null);
-  const [ampm, setAmpm] = useState<string | null>(null);
+export default function TimePicker({
+  onTimeSet,
+  time,
+}: {
+  onTimeSet: (time: string) => void;
+  time?: string;
+}) {
+  let timeObj;
+  if (time) {
+    timeObj = convertTimeStrToObj(time);
+  }
+
+  const [hour, setHour] = useState<string | undefined>(timeObj?.hour);
+  const [minute, setMinute] = useState<string | undefined>(timeObj?.minute);
+  const [ampm, setAmpm] = useState<string | undefined>(timeObj?.ampm);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -105,4 +116,21 @@ export default function TimePicker({ onTimeSet }: { onTimeSet: (time: string) =>
       </PopoverContent>
     </Popover>
   );
+}
+
+function convertTimeStrToObj(time: string) {
+  if (!time || !time.includes(":")) {
+    return undefined;
+  }
+
+  const [hour, minute] = time.split(":");
+
+  let hourNum = parseInt(hour);
+  hourNum = hourNum > 12 ? hourNum - 12 : hourNum;
+
+  return {
+    hour: hourNum.toString(),
+    minute: minute.toString(),
+    ampm: parseInt(hour, 10) >= 12 ? "PM" : "AM",
+  };
 }
