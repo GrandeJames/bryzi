@@ -11,22 +11,20 @@ import { LOCAL_STORAGE_KEYS } from "@/constants/localStorageKeys";
 import TaskAddNotification from "@/app/notifications/TaskAddNotification";
 import TaskUpdateNotification from "@/app/notifications/TaskUpdateNotification";
 import getTaskCategory from "@/app/app/(tasks)/components/getTaskCategory";
+import { Task } from "@/types/task";
+import { PersonalTask } from "@/types/personalTask";
 
 /*
  * Note: updateTask must be passed as a prop otherwise it causes a hook error
  */
 
-export function handleTaskComplete(task: ClassTask, updateTask: (task: ClassTask) => void) {
+export function handleTaskComplete(task: Task, updateTask: (task: Task) => void) {
   const updatedTask = { ...task, completed: !task.completed };
   updateLocalStorageItem(LOCAL_STORAGE_KEYS.TASKS, updatedTask);
   updateTask(updatedTask);
 }
 
-export function handleTaskUpdate(
-  task: ClassTask,
-  updateTask: (task: ClassTask) => void,
-  initialTask?: ClassTask
-) {
+export function handleTaskUpdate(task: Task, updateTask: (task: Task) => void, initialTask?: Task) {
   updateLocalStorageItem(LOCAL_STORAGE_KEYS.TASKS, task);
   updateTask(task);
 
@@ -43,19 +41,19 @@ export function handleTaskUpdate(
   }
 }
 
-export function handleTaskAdd(task: ClassTask, addTask: (task: ClassTask) => void) {
+export function handleTaskAdd(task: Task, addTask: (task: Task) => void) {
   addTask(task);
   addLocalStorageItem(LOCAL_STORAGE_KEYS.TASKS, task);
 
   TaskAddNotification({ task });
 }
 
-export function handleTaskRemove(task: ClassTask, removeTask: (id: string) => void) {
+export function handleTaskRemove(task: Task, removeTask: (id: string) => void) {
   removeLocalStorageItem(LOCAL_STORAGE_KEYS.TASKS, task.id);
   removeTask(task.id);
 }
 
-export function getActualDurationMins(task: ClassTask) {
+export function getActualDurationMins(task: ClassTask | PersonalTask) {
   const focusEntries = getLocalStorageData<FocusEntry>(LOCAL_STORAGE_KEYS.FOCUS_ENTRIES);
 
   if (!focusEntries) {
