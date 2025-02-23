@@ -77,7 +77,12 @@ export default function CourseForm({ initialCourseId }: { initialCourseId?: stri
               onChange={(e) => setName(e.target.value === "" ? undefined : e.target.value)}
             />
             {errors.name && <span className="text-red-500">{errors.name}</span>}
-            <Input placeholder="MATH 242" className="col-span-2" />
+            <Input
+              placeholder="MATH 242"
+              className="col-span-2"
+              value={abbreviation}
+              onChange={(e) => setAbbreviation(e.target.value === "" ? undefined : e.target.value)}
+            />
             {errors.abbreviation && <span className="text-red-500">{errors.abbreviation}</span>}
           </div>
           <WeekdaySelector setSelectedDays={setDays} selectedDays={days} />
