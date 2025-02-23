@@ -4,12 +4,18 @@ import {
   addLocalStorageItem,
   getLocalStorageData,
   removeLocalStorageItem,
+  updateLocalStorageItem,
 } from "@/lib/localStorageUtils";
 import useCoursesStore from "@/stores/coursesStore";
 
 export function handleCourseAdd(course: Course) {
   useCoursesStore.getState().addCourse(course);
   addLocalStorageItem<Course>(LOCAL_STORAGE_KEYS.COURSES, course);
+}
+
+export function handleCourseUpdate(course: Course) {
+  useCoursesStore.getState().updateCourse(course);
+  updateLocalStorageItem<Course>(LOCAL_STORAGE_KEYS.COURSES, course);
 }
 
 export function getCourses() {

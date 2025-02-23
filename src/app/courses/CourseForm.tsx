@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import TimeInput from "@/components/TimeInput";
 import { ArrowRightIcon } from "lucide-react";
 import WeekdaySelector from "./WeekdaySelector";
-import { handleCourseAdd } from "./utils/courseUtils";
+import { handleCourseAdd, handleCourseUpdate } from "./utils/courseUtils";
 import { useCallback, useState } from "react";
 import { Course, CourseSchema } from "./types/course";
 import useDialogStore from "../dialogs/dialogStore";
@@ -30,13 +30,13 @@ export default function CourseForm({ initialCourseId }: { initialCourseId?: stri
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  const handleCreateCourseClick = (event: React.FormEvent) => {
+  const onSubmitCourseForm = (event: React.FormEvent) => {
     event.preventDefault();
 
     setErrors({});
 
     const course: Course = {
-      id: uuidv4(),
+      id: initialCourse ? initialCourse.id : uuidv4(),
       name: name!,
       abbreviation: abbreviation,
       startTime: startTime!,
@@ -46,7 +46,8 @@ export default function CourseForm({ initialCourseId }: { initialCourseId?: stri
 
     try {
       CourseSchema.parse(course);
-      handleCourseAdd(course);
+
+      initialCourseId ? handleCourseUpdate(course) : handleCourseAdd(course);
 
       closeDialog();
       console.log("Course added successfully.");
@@ -108,7 +109,7 @@ export default function CourseForm({ initialCourseId }: { initialCourseId?: stri
           <Button variant={"ghost"} onClick={handleCancelClick}>
             Cancel
           </Button>
-          <Button onClick={handleCreateCourseClick}>Create</Button>
+          <Button onClick={onSubmitCourseForm}>{initialCourseId ? "Update" : "Create"}</Button>
         </div>
       </div>
     </form>
