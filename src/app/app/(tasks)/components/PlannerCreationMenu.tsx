@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 
 function PlannerCreationMenu() {
   const open = useDialogStore((state) => state.openDialog);
-  const openCreateClassTaskDialog = () => open("createClassTask", undefined, "New class task");
+  const openCreateClassTaskDialog = () => open("createClassTask", undefined, "New school task");
   const openCreatePersonalTaskDialog = () =>
     open("createPersonalTask", undefined, "New personal task");
 
