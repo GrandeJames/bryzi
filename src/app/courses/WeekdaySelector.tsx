@@ -1,8 +1,6 @@
-import { Course } from "./types/course";
-
 interface Day {
   label: string;
-  value: Course["days"][number];
+  value: number;
 }
 
 const days: Day[] = [
