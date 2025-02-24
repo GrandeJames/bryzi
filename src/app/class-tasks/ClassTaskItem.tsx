@@ -9,13 +9,18 @@ import { Progress } from "@/components/ui/progress";
 import { differenceInCalendarDays, format, getYear } from "date-fns";
 import { FlagIcon } from "@/components/icons/FlagIcon";
 import MarkTaskCompleteCheckbox from "@/components/MarkTaskCompleteCheckbox";
+import { getCourseById } from "../courses/utils/courseUtils";
+import useCoursesStore from "@/stores/coursesStore";
 
 function ClassTaskItem({ task }: { task: ClassTask }) {
+  const courses = useCoursesStore((state) => state.courses);
   const open = useDialogStore((state) => state.openDialog);
   const openClassTaskDetailsDialog = () => open("classTaskDetails", { task: task });
 
   const actualTaskDuration = task.actualDurationInMins ?? 0;
   const progressPercentage = (actualTaskDuration / (task.estimatedDurationInMins ?? 0)) * 100;
+
+  const course = courses.find((course) => course.id === task.courseId);
 
   return (
     <div
@@ -30,9 +35,11 @@ function ClassTaskItem({ task }: { task: ClassTask }) {
         }}
       >
         <div className="flex flex-col">
-          <div className="dark:text-neutral-300 text-neutral-600 text-xs">
-            Introductory Psychology
-          </div>
+          {course && (
+            <div className="dark:text-neutral-300 text-neutral-600 text-xs">
+              {course.abbreviation && course.abbreviation} {course.name}
+            </div>
+          )}
           <div className="flex gap-3 items-center">
             <span
               className={`font-semibold text-md ${
@@ -66,13 +73,8 @@ function ClassTaskItem({ task }: { task: ClassTask }) {
             </div> */}
         </div>
         {(task.estimatedDurationInMins ?? 0) > 0 && (
-          <div className="text-xs w-20 flex place-items-center">
-            {task.completed && actualTaskDuration > 0 && (
-              <Progress value={100} label={getProgressLabel(task)} />
-            )}
-            {!task.completed && (
-              <Progress value={progressPercentage} label={getProgressLabel(task)} />
-            )}
+          <div className="text-xs flex items-center dark:text-neutral-500 text-neutral-400">
+            {(!task.completed || actualTaskDuration > 0) && getProgressLabel(task)}
           </div>
         )}
       </div>

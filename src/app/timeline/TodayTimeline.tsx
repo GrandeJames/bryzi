@@ -1,6 +1,7 @@
 import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
 import { isToday } from "date-fns";
 import { Timeline } from "./Timeline";
+import useCoursesStore from "@/stores/coursesStore";
 
 const sampleScheduledItemsToday = [
   {
@@ -11,7 +12,7 @@ const sampleScheduledItemsToday = [
   {
     start: new Date("2025-02-03T12:00:00"),
     end: new Date("2025-02-03T13:15:00"),
-    type: "event" as "event",
+    type: "focus" as "focus",
   },
   {
     start: new Date("2025-02-03T15:00:00"),
@@ -21,9 +22,34 @@ const sampleScheduledItemsToday = [
 ];
 
 function TodayTimeline() {
+  const courses = useCoursesStore((state) => state.courses);
+
+  console.log("courses", courses);
+
+  const currentDayIndex = new Date().getDay();
+
+  console.log("currentDayIndex", currentDayIndex);
+
+  const todayCourses = courses.filter(
+    (course) => course.days?.includes(currentDayIndex) && !course.isAsynchronous
+  );
+
+  const courseEvents = todayCourses?.map((course) => ({
+    start: new Date(`2025-02-03T${course?.startTime}`), // date doesn't matter, only time
+    end: new Date(`2025-02-03T${course?.endTime}`), // date doesn't matter, only time
+    type: "course" as "course",
+  }));
+
+  console.log("courseEvents", courseEvents);
+
   const focusEntries = useFocusTrackerStore((state) => state.focusEntries);
 
+  console.log("focusEntries", focusEntries);
+
   const todayFocusEntries = focusEntries.filter((entry) => isToday(entry.startDate));
+
+  console.log("todayFocusEntries", todayFocusEntries);
+
   const todayFocusEvents = todayFocusEntries.map((entry) => ({
     start: new Date(entry.startDate),
     end: new Date(entry.endDate),
@@ -35,7 +61,7 @@ function TodayTimeline() {
       <Timeline
         startTime="6:00"
         endTime="23:00"
-        events={[...sampleScheduledItemsToday, ...todayFocusEvents]}
+        events={[...sampleScheduledItemsToday, ...todayFocusEvents, ...courseEvents]}
       />
     </div>
   );

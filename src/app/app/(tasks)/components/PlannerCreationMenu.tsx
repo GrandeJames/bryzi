@@ -11,9 +11,9 @@ import { useRouter } from "next/navigation";
 
 function PlannerCreationMenu() {
   const open = useDialogStore((state) => state.openDialog);
-  const openCreateClassTaskDialog = () => open("createClassTask", undefined, "Add class task");
+  const openCreateClassTaskDialog = () => open("createClassTask", undefined, "New class task");
   const openCreatePersonalTaskDialog = () =>
-    open("createPersonalTask", undefined, "Add personal task");
+    open("createPersonalTask", undefined, "New personal task");
 
   const router = useRouter();
 
@@ -42,7 +42,10 @@ function PlannerCreationMenu() {
                     <Icon className="size-4 dark:text-neutral-300 text-neutral-500 dark:hover:text-white hover:text-neutral-600" />
                   </button>
                 </TooltipTrigger>
-                <TooltipContent side="left" className="dark:bg-white bg-neutral-800 dark:text-black text-white">
+                <TooltipContent
+                  side="left"
+                  className="dark:bg-white bg-neutral-800 dark:text-black text-white"
+                >
                   <p>{text}</p>
                 </TooltipContent>
               </Tooltip>

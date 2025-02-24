@@ -4,19 +4,13 @@ import ClassTasksSection from "@/app/class-tasks/ClassTasksSection";
 import PersonalSection from "@/app/personal-tasks/PersonalSection";
 import useTasksStore from "@/stores/tasksStore";
 import PlannerCreationMenu from "../components/PlannerCreationMenu";
-import { useEffect, useState } from "react";
-import TasksNavigation from "../components/TasksNavigation";
-import TodayTimeline from "../../../timeline/TodayTimeline";
 import TasksHeader from "../components/TasksHeader";
+import { useHydrated } from "@/hooks/useHydrated";
 
 export default function Inbox() {
   const tasks = useTasksStore((state) => state.tasks);
 
-  const [isHydrated, setIsHydrated] = useState(false);
-
-  useEffect(() => {
-    setIsHydrated(true);
-  }, []);
+  const isHydrated = useHydrated();
 
   if (!isHydrated) {
     return <div>Loading...</div>;

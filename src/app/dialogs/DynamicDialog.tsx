@@ -7,6 +7,7 @@ import { ScrollArea } from "../../components/ui/scroll-area";
 import ClassTaskDetails from "../../components/ClassTaskDetails";
 import PersonalTaskForm from "../app/(tasks)/components/forms/PersonalTaskForm";
 import PersonalTaskDetails from "../personal-tasks/PersonalTaskDetails";
+import CourseForm from "../courses/CourseForm";
 
 function DynamicDialog() {
   const { openDialogName, closeDialog, dialogData, title } = useDialogStore();
@@ -17,7 +18,7 @@ function DynamicDialog() {
   // onOpenChange is provided to ensure that when the dialog is closed, the openDialog state is set to null so that the dialog is closed.
   return (
     <Dialog open={!!openDialogName} onOpenChange={(isOpen) => !isOpen && closeDialog()}>
-      <DialogContent className="max-w-md px-0 flex flex-col divide-y dark:divide-neutral-800 divide-neutral-100">
+      <DialogContent className="w-fit px-0 flex flex-col divide-y dark:divide-neutral-800 divide-neutral-100">
         {title && (
           <DialogHeader className="px-6">
             <DialogTitle>{title}</DialogTitle>
@@ -35,6 +36,8 @@ function DynamicDialog() {
             {openDialogName === "editPersonalTask" && (
               <PersonalTaskForm initialTask={dialogData.task} />
             )}
+            {openDialogName === "createCourse" && <CourseForm />}
+            {openDialogName === "editCourse" && <CourseForm initialCourseId={dialogData.courseId} />}
           </div>
         </ScrollArea>
       </DialogContent>

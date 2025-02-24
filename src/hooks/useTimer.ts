@@ -53,7 +53,7 @@ export function useTimer(task: ClassTask) {
     return () => {
       clearInterval(interval);
     };
-  }, [endTime, paused, reset, task, updateTask]);
+  }, [endTime, paused, reset, task, updateTask, temporaryStartDate, focusTask]);
 
   const pause = () => {
     setPaused(true);

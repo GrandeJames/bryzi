@@ -1,117 +1,165 @@
 "use client";
-import { useState } from "react";
-import { format, parse, isValid } from "date-fns";
-import { Input } from "@/components/ui/input";
+
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { ChevronUp, ChevronDown, Clock } from "lucide-react";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ClockIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
-const generateTimeOptions = () => {
-  return Array.from({ length: 96 }, (_, i) => {
-    const totalMinutes = i * 15;
-    const date = new Date();
-    date.setHours(Math.floor(totalMinutes / 60), totalMinutes % 60);
-    return format(date, "hh:mm a");
-  });
-};
+export default function TimePicker({
+  onTimeSet,
+  time,
+}: {
+  onTimeSet: (time: string) => void;
+  time?: string;
+}) {
+  let timeObj;
+  if (time) {
+    timeObj = convertTimeStrToObj(time);
+  }
 
-const TimeInput = ({ value, onChange }: { value: string; onChange: (time: string) => void }) => {
-  const [inputValue, setInputValue] = useState(value);
-  const [open, setOpen] = useState(false);
-  const timeOptions = generateTimeOptions();
+  const [hour, setHour] = useState<string | undefined>(timeObj?.hour);
+  const [minute, setMinute] = useState<string | undefined>(timeObj?.minute);
+  const [ampm, setAmpm] = useState<string | undefined>(timeObj?.ampm);
 
-  const parseTime = (time: string) => {
-    try {
-      const date = parse(time, "hh:mm a", new Date());
-      if (isValid(date)) return date;
-      return parse(time, "HH:mm", new Date());
-    } catch {
-      return new Date(NaN);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const hours = Array.from({ length: 12 }, (_, i) => i + 1);
+
+  // Create a ref to track if time has been set
+  const isTimeSetRef = useRef(false);
+
+  const handleTimeChange = (type: "hour" | "minute" | "ampm", value: string, event: any) => {
+    event.preventDefault();
+
+    if (type === "hour") {
+      setHour(value);
+    } else if (type === "minute") {
+      setMinute(value);
+    } else if (type === "ampm") {
+      setAmpm(value);
     }
   };
 
-  //   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //     const rawValue = e.target.value.toUpperCase();
-  //     // Auto-format while typing
-  //     const formatted = rawValue
-  //       .replace(/[^0-9APM]/g, "")
-  //       .replace(/^(\d{2})(\d{0,2})/, (_, hh, mm) => (mm ? `${hh}:${mm}` : hh))
-  //       .replace(/(\d{2}:\d{2})([AP]?)/, (_, time, period) => (period ? `${time} ${period}M` : time))
-  //       .substring(0, 8);
-
-  //     setInputValue(formatted);
-
-  //     if (formatted.length >= 5) {
-  //       const date = parseTime(formatted);
-  //       if (isValid(date)) onChange(format(date, "hh:mm a"));
-  //     }
-  //   };
-
-  const handleSelect = (time: string, e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    setInputValue(time);
-    onChange(time);
-    setOpen(false);
-  };
-
-  const adjustTime = (unit: "hours" | "minutes", delta: number, e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const currentTime = parseTime(inputValue);
-    if (!isValid(currentTime)) return;
-
-    if (unit === "hours") {
-      currentTime.setHours(currentTime.getHours() + delta);
-    } else {
-      currentTime.setMinutes(currentTime.getMinutes() + delta * 15);
+  useEffect(() => {
+    if (hour && minute && ampm && !isTimeSetRef.current) {
+      const hours = ampm === "PM" && hour !== "12" ? parseInt(hour) + 12 : hour;
+      const formattedHours = hours.toString().padStart(2, "0");
+      const formattedMinutes = minute.padStart(2, "0");
+      const formattedTime = `${formattedHours}:${formattedMinutes}`;
+      onTimeSet(formattedTime);
     }
+  }, [hour, minute, ampm, onTimeSet]);
 
-    const newTime = format(currentTime, "hh:mm a");
-    setInputValue(newTime);
-    onChange(newTime);
-  };
+  const timeSet = hour && minute && ampm;
 
   return (
-    <div className="relative">
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger>
-          <Input
-            value={inputValue}
-            // onChange={handleInputChange}
-            placeholder="HH:MM"
-            className="pl-10 pr-28"
-            onFocus={() => setOpen(true)}
-            onClick={(e) => e.stopPropagation()}
-          />
-        </PopoverTrigger>
-
-        <PopoverContent
-          className="w-[160px] p-0"
-          align="start"
-          //   onInteractOutside={(e) => e.preventDefault()}
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="form"
+          className={`w-fit justify-start text-left font-normal ${
+            timeSet
+              ? "dark:text-neutral-300 text-neutral-800"
+              : "dark:text-neutral-400 text-neutral-400"
+          }`}
         >
-          <ScrollArea className="h-64">
-            {timeOptions.map((time) => (
-              <Button
-                key={time}
-                variant="ghost"
-                className="w-full justify-start rounded-none h-9 text-sm"
-                onClick={(e) => handleSelect(time, e)}
-              >
-                {time}
-              </Button>
-            ))}
-          </ScrollArea>
-        </PopoverContent>
-      </Popover>
-
-      <Clock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-    </div>
+          <ClockIcon className="mr-2 h-4 w-4" />
+          {timeSet ? `${hour}:${minute.padStart(2, "0")} ${ampm}` : "hh:mm aa"}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0">
+        <div className="sm:flex">
+          <div className="flex flex-col sm:flex-row sm:h-[200px] divide-y sm:divide-y-0 sm:divide-x dark:divide-neutral-800 divide-neutral-100">
+            <ScrollArea className="w-64 sm:w-auto">
+              <div className="flex sm:flex-col p-2">
+                {hours.reverse().map((hourItem) => (
+                  <ToggleButton
+                    key={hourItem}
+                    isActive={hour === hourItem.toString()}
+                    onClick={(e) => handleTimeChange("hour", hourItem.toString(), e)}
+                  >
+                    {hourItem}
+                  </ToggleButton>
+                ))}
+              </div>
+              <ScrollBar orientation="horizontal" className="sm:hidden" />
+            </ScrollArea>
+            <ScrollArea className="w-64 sm:w-auto">
+              <div className="flex sm:flex-col p-2">
+                {Array.from({ length: 12 }, (_, i) => i * 5).map((minuteItem) => {
+                  const parsedMinute = minute && parseInt(minute);
+                  return (
+                    <>
+                      <ToggleButton
+                        key={minuteItem}
+                        isActive={parsedMinute === minuteItem}
+                        onClick={(e) => handleTimeChange("minute", minuteItem.toString(), e)}
+                      >
+                        {minuteItem.toString().padStart(2, "0")}
+                      </ToggleButton>
+                    </>
+                  );
+                })}
+              </div>
+              <ScrollBar orientation="horizontal" className="sm:hidden" />
+            </ScrollArea>
+            <ScrollArea className="">
+              <div className="flex sm:flex-col p-2">
+                {["AM", "PM"].map((ampmItem) => (
+                  <ToggleButton
+                    key={ampmItem}
+                    isActive={ampm === ampmItem}
+                    onClick={(e) => handleTimeChange("ampm", ampmItem, e)}
+                  >
+                    {ampmItem}
+                  </ToggleButton>
+                ))}
+              </div>
+            </ScrollArea>
+          </div>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
-};
+}
 
-export default TimeInput;
+interface ToggleButtonProps {
+  isActive: boolean;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  children: React.ReactNode;
+}
+
+function ToggleButton({ isActive, onClick, children }: ToggleButtonProps) {
+  return (
+    <Button
+      data-active={isActive}
+      size="icon"
+      variant="form"
+      className={`sm:w-full shrink-0 aspect-square 
+                  bg-transparent dark:bg-transparent
+                  data-[active=true]:bg-orange-400 
+                  data-[active=true]:text-white`}
+      onClick={onClick}
+    >
+      {children}
+    </Button>
+  );
+}
+
+function convertTimeStrToObj(time: string) {
+  if (!time || !time.includes(":")) {
+    return undefined;
+  }
+
+  const [hour, minute] = time.split(":");
+
+  let hourNum = parseInt(hour);
+  hourNum = hourNum > 12 ? hourNum - 12 : hourNum;
+
+  return {
+    hour: hourNum.toString(),
+    minute: minute.toString(),
+    ampm: parseInt(hour, 10) >= 12 ? "PM" : "AM",
+  };
+}

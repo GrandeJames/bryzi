@@ -15,16 +15,13 @@ import { PrepareStage } from "@/app/focus-stages/PrepareStage";
 import TasksNavigation from "../components/TasksNavigation";
 import TodayTimeline from "../../../timeline/TodayTimeline";
 import TasksHeader from "../components/TasksHeader";
+import { useHydrated } from "@/hooks/useHydrated";
 
 export default function Page() {
   const tasks = useTasksStore((state) => state.tasks);
   const stage = useFocusSessionStore((state) => state.sessionStage);
 
-  const [isHydrated, setIsHydrated] = useState(false);
-
-  useEffect(() => {
-    setIsHydrated(true);
-  }, []);
+  const isHydrated = useHydrated();
 
   if (!isHydrated) {
     return <div>Loading...</div>;

@@ -16,7 +16,7 @@ export default function TaskTitleDateFormSection({
         placeholder="Add Task"
         onChange={(e) => handleChange("title", e.target.value)}
         value={task.title}
-        className={`px-3 py-2 outline-blue-600 outline-4 w-full placeholder-gray-600 dark:bg-neutral-800 bg-neutral-50 dark:text-neutral-200 text-neutral-800`}
+        className={`px-3 py-2 outline-none w-full placeholder-gray-600 dark:bg-neutral-800 bg-neutral-50 dark:text-neutral-200 text-neutral-800`}
       />
       <DatePickerWithPresets
         deadline={task.deadline}

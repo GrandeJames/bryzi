@@ -14,17 +14,17 @@ type Actions = {
   setFocusEntries: (focusEntries: FocusEntry[]) => void;
 };
 
-const initialState: State = {
+export const useFocusTrackerStore = create<State & Actions>((set) => ({
   temporaryFocusEntries: [],
   focusEntries: getLocalStorageData(LOCAL_STORAGE_KEYS.FOCUS_ENTRIES) || [],
-};
-
-export const useFocusTrackerStore = create<State & Actions>((set) => ({
-  ...initialState,
   addTemporaryFocusEntry: (focusEntry) =>
     set((state) => ({
       temporaryFocusEntries: [...state.temporaryFocusEntries, focusEntry],
     })),
-  resetFocusTracker: () => set(initialState),
+  resetFocusTracker: () =>
+    set({
+      temporaryFocusEntries: [],
+      focusEntries: getLocalStorageData(LOCAL_STORAGE_KEYS.FOCUS_ENTRIES) || [],
+    }),
   setFocusEntries: (focusEntries: FocusEntry[]) => set({ focusEntries }),
 }));

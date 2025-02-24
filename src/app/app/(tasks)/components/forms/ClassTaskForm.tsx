@@ -14,6 +14,8 @@ import Selection from "@/components/Selection";
 import TaskDetailsFormSection from "./TaskDetailsFormSection";
 import TaskTitleDateFormSection from "./TaskTitleDateFormSection";
 import TaskFormSubmissionButton from "./TaskFormSubmissionButton";
+import useCoursesStore from "@/stores/coursesStore";
+import CourseSelector from "@/app/courses/CourseSelector";
 
 function ClassTaskForm({
   className,
@@ -38,13 +40,18 @@ function ClassTaskForm({
     subtasks: initialTask?.subtasks || [],
     completed: initialTask?.completed || false,
     type: "class",
+    courseId: initialTask?.courseId || "",
   });
+
+  const [page, setPage] = useState(0);
 
   const updateTask = useTasksStore((state) => state.updateTask);
   const addTask = useTasksStore((state) => state.addTask);
   const close = useDialogStore((state) => state.closeDialog);
 
-  const handleChange = (key: string, value: any) => {
+  const courses = useCoursesStore((state) => state.courses);
+
+  const handleTaskChange = (key: string, value: any) => {
     setTask((prevTask) => ({
       ...prevTask,
       [key]: value,
@@ -67,6 +74,7 @@ function ClassTaskForm({
       subtasks: [],
       completed: false,
       type: "class",
+      courseId: "",
     });
   };
 
@@ -74,7 +82,7 @@ function ClassTaskForm({
     e.preventDefault();
 
     if (initialTask) {
-      handleTaskUpdate(task, updateTask);
+      handleTaskUpdate(task, updateTask, initialTask);
     } else {
       handleTaskAdd(task, addTask);
     }
@@ -82,58 +90,93 @@ function ClassTaskForm({
     close();
   };
 
+  const getCourse = (courseId?: string) => {
+    return courses.find((course) => course.id === courseId);
+  };
+
+  const handleContinueClick = (e: any) => {
+    e.preventDefault();
+
+    if (getCourse(task.courseId)) {
+      setPage(1);
+    }
+  };
+
   return (
-    <form
-      onSubmit={handleTaskFormSubmit}
-      className={cn(className, "gap-2 flex flex-col relative px-6")}
-    >
-      <TaskTitleDateFormSection task={task} handleChange={handleChange} />
+    <form className={cn(className, "gap-5 flex flex-col relative px-6 w-[23rem]")}>
+      <TaskTitleDateFormSection task={task} handleChange={handleTaskChange} />
 
-      <div className="flex flex-col gap-7 mt-5 mb-14">
-        <TaskDetailsFormSection task={task} handleChange={handleChange} />
-        <Selection
-          title="Impact"
-          items={Object.entries(TASK_IMPACT).map(([taskValue, taskLabel]) => ({
-            text: taskLabel,
-            value: parseInt(taskValue),
-          }))}
-          icon={<ZapIcon />}
-          onSelect={(value) => handleChange("impact", value)}
-          defaultValue={task.impact}
+      {page === 0 && (
+        <CourseSelector
+          onSelect={(courseSelected: any) => {
+            handleTaskChange("courseId", courseSelected.id);
+          }}
+          initialCourse={getCourse(initialTask?.courseId)}
         />
+      )}
 
-        <Selection
-          title="Estimated Duration"
-          items={[
-            { text: "25", value: 25 },
-            { text: "60", value: 60 },
-            { text: "90", value: 90 },
-            { text: "3h", value: 180 },
-            { text: "5h", value: 300 },
-            { text: "8h", value: 480 },
-            { text: "20h", value: 1200 },
-          ]}
-          icon={<ClockIcon />}
-          onSelect={(value) => handleChange("estimatedDurationInMins", value)}
-          defaultValue={task.estimatedDurationInMins}
-        />
-        <Selection
-          title="Difficulty"
-          items={Object.entries(TASK_DIFFICULTY).map(([difficultyValue, difficultyLabel]) => ({
-            text: difficultyLabel,
-            value: parseInt(difficultyValue),
-          }))}
-          icon={<FlameIcon />}
-          onSelect={(value) => handleChange("difficulty", value)}
-          defaultValue={task.difficulty}
-        />
-        <SubtasksFormSection task={task} setTask={setTask} />
-      </div>
-      <TaskFormSubmissionButton
-        initialTask={initialTask}
-        handleTaskFormSubmit={handleTaskFormSubmit}
-        task={task}
-      />
+      {page === 1 && (
+        <div>
+          <div className="flex flex-col gap-7 mb-14">
+            <div className="flex gap-2 border dark:border-neutral-800 border-neutral-200 dark:bg-neutral-900 bg-neutral-100 p-2 dark:text-neutral-400 text-neutral-500 font-medium text-sm rounded-md">
+              Course: {getCourse(task.courseId)?.name}
+            </div>
+            <Selection
+              title="Estimated Duration"
+              items={[
+                { text: "25", value: 25 },
+                { text: "60", value: 60 },
+                { text: "90", value: 90 },
+                { text: "3h", value: 180 },
+                { text: "5h", value: 300 },
+                { text: "8h", value: 480 },
+                { text: "20h", value: 1200 },
+              ]}
+              icon={<ClockIcon />}
+              onSelect={(value) => handleTaskChange("estimatedDurationInMins", value)}
+              defaultValue={task.estimatedDurationInMins}
+            />
+            <Selection
+              title="Impact"
+              items={Object.entries(TASK_IMPACT).map(([taskValue, taskLabel]) => ({
+                text: taskLabel,
+                value: parseInt(taskValue),
+              }))}
+              icon={<ZapIcon />}
+              onSelect={(value) => handleTaskChange("impact", value)}
+              defaultValue={task.impact}
+            />
+
+            <Selection
+              title="Difficulty"
+              items={Object.entries(TASK_DIFFICULTY).map(([difficultyValue, difficultyLabel]) => ({
+                text: difficultyLabel,
+                value: parseInt(difficultyValue),
+              }))}
+              icon={<FlameIcon />}
+              onSelect={(value) => handleTaskChange("difficulty", value)}
+              defaultValue={task.difficulty}
+            />
+            <SubtasksFormSection task={task} setTask={setTask} />
+            <TaskDetailsFormSection task={task} handleChange={handleTaskChange} />
+          </div>
+          <TaskFormSubmissionButton
+            initialTask={initialTask}
+            handleTaskFormSubmit={handleTaskFormSubmit}
+            task={task}
+          />
+        </div>
+      )}
+      {page === 0 && (
+        <button
+          className="text-sm text-center bg-neutral-800 mt-3 text-white rounded-md p-2 disabled:dark:bg-neutral-900 disabled:bg-neutral-50 disabled:dark:text-neutral-600 disabled:text-neutral-300"
+          onClick={handleContinueClick}
+          disabled={!getCourse(task.courseId) || !task.title}
+          type="button"
+        >
+          Continue
+        </button>
+      )}
     </form>
   );
 }
