@@ -27,6 +27,9 @@ export default function CourseForm({ initialCourseId }: { initialCourseId?: stri
   ); // in 24h format: "HH:mm"
   const [endTime, setEndTime] = useState<Course["endTime"] | undefined>(initialCourse?.endTime); // in 24h format: "HH:mm"
   const [days, setDays] = useState<Course["days"] | undefined>(initialCourse?.days);
+  const [isAsynchronous, setIsAsynchronous] = useState<Course["isAsynchronous"] | undefined>(
+    initialCourse?.isAsynchronous
+  );
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
@@ -35,6 +38,13 @@ export default function CourseForm({ initialCourseId }: { initialCourseId?: stri
 
     setErrors({});
 
+    const asyncCourse = {
+      id: initialCourse ? initialCourse.id : uuidv4(),
+      name: name,
+      abbreviation: abbreviation,
+      isAsynchronous: isAsynchronous,
+    };
+
     const course: Course = {
       id: initialCourse ? initialCourse.id : uuidv4(),
       name: name!,
@@ -42,10 +52,15 @@ export default function CourseForm({ initialCourseId }: { initialCourseId?: stri
       startTime: startTime!,
       endTime: endTime!,
       days: days!,
+      isAsynchronous: isAsynchronous!,
     };
 
     try {
-      CourseSchema.parse(course);
+      if (isAsynchronous) {
+        CourseSchema.parse(asyncCourse);
+      } else {
+        CourseSchema.parse(course);
+      }
 
       initialCourseId ? handleCourseUpdate(course) : handleCourseAdd(course);
 
@@ -71,39 +86,65 @@ export default function CourseForm({ initialCourseId }: { initialCourseId?: stri
       <div className="max-w-xs mx-3 flex flex-col gap-5">
         <div className="flex flex-col gap-3">
           <div className="grid gap-2 grid-cols-6">
-            <Input
-              placeholder="Calculus II"
-              className="col-span-4"
-              value={name}
-              onChange={(e) => setName(e.target.value === "" ? undefined : e.target.value)}
-            />
-            {errors.name && <span className="text-red-500">{errors.name}</span>}
-            <Input
-              placeholder="MATH 242"
-              className="col-span-2"
-              value={abbreviation}
-              onChange={(e) => setAbbreviation(e.target.value === "" ? undefined : e.target.value)}
-            />
-            {errors.abbreviation && <span className="text-red-500">{errors.abbreviation}</span>}
+            <div className="col-span-4 space-y-2">
+              <Input
+                placeholder="Calculus II"
+                value={name}
+                onChange={(e) => setName(e.target.value === "" ? undefined : e.target.value)}
+              />
+              {errors.name && <span className="text-red-500 text-xs">{errors.name}</span>}
+            </div>
+            <div className="col-span-2 space-y-2">
+              <Input
+                placeholder="MATH-242"
+                value={abbreviation}
+                onChange={(e) =>
+                  setAbbreviation(e.target.value === "" ? undefined : e.target.value)
+                }
+              />
+              {errors.abbreviation && (
+                <span className="text-red-500 text-xs">{errors.abbreviation}</span>
+              )}
+            </div>
           </div>
-          <WeekdaySelector setSelectedDays={setDays} selectedDays={days} />
-          {errors.days && <span className="text-red-500">{errors.days}</span>}
-          <div className="flex items-center justify-between">
-            <TimeInput
-              time={startTime}
-              onTimeSet={useCallback((time: string) => {
-                setStartTime(time);
-              }, [])}
-            />
-            <ArrowRightIcon className="size-4 text-neutral-400" />
-            <TimeInput
-              time={endTime}
-              onTimeSet={useCallback((time: string) => {
-                setEndTime(time);
-              }, [])}
-            />
-          </div>
-          {errors.endTime && <span className="text-red-500">{errors.endTime}</span>}
+
+          <button
+            type="button"
+            className={`text-sm text-neutral-600 border border-neutral-200 dark:border-neutral-800 rounded-md p-1 w-fit px-5 ${
+              isAsynchronous
+                ? "bg-orange-400 text-white border-none hover:bg-orange-400/80"
+                : "hover:text-neutral-500"
+            }`}
+            onClick={(e) => {
+              e.preventDefault();
+              setIsAsynchronous((prev) => !prev);
+            }}
+          >
+            Asynchronous
+          </button>
+
+          {!isAsynchronous && (
+            <div className="space-y-2">
+              <WeekdaySelector setSelectedDays={setDays} selectedDays={days} />
+              {errors.days && <span className="text-red-500 text-xs">{errors.days}</span>}
+              <div className="flex items-center justify-between">
+                <TimeInput
+                  time={startTime}
+                  onTimeSet={(time: string) => {
+                    setStartTime(time);
+                  }}
+                />
+                <ArrowRightIcon className="size-4 text-neutral-400" />
+                <TimeInput
+                  time={endTime}
+                  onTimeSet={(time: string) => {
+                    setEndTime(time);
+                  }}
+                />
+              </div>
+              {errors.endTime && <span className="text-red-500 text-xs">{errors.endTime}</span>}
+            </div>
+          )}
         </div>
         <div className="flex justify-end gap-3">
           <Button variant={"ghost"} onClick={handleCancelClick}>

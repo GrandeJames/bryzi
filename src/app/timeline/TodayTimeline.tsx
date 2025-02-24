@@ -30,11 +30,13 @@ function TodayTimeline() {
 
   console.log("currentDayIndex", currentDayIndex);
 
-  const todayCourses = courses.filter((course) => course.days.includes(currentDayIndex));
+  const todayCourses = courses.filter(
+    (course) => course.days?.includes(currentDayIndex) && !course.isAsynchronous
+  );
 
-  const courseEvents = todayCourses.map((course) => ({
-    start: course.startTime,
-    end: course.endTime,
+  const courseEvents = todayCourses?.map((course) => ({
+    start: new Date(`2025-02-03T${course?.startTime}`), // date doesn't matter, only time
+    end: new Date(`2025-02-03T${course?.endTime}`), // date doesn't matter, only time
     type: "course" as "course",
   }));
 
