@@ -51,29 +51,35 @@ export default function TimePicker({
     }
   }, [hour, minute, ampm, onTimeSet]);
 
+  const timeSet = hour && minute && ampm;
+
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <Button variant="outline" className={"w-fit justify-start text-left font-normal"}>
+        <Button
+          variant="form"
+          className={`w-fit justify-start text-left font-normal ${
+            timeSet
+              ? "dark:text-neutral-300 text-neutral-800"
+              : "dark:text-neutral-400 text-neutral-400"
+          }`}
+        >
           <ClockIcon className="mr-2 h-4 w-4" />
-          {hour && minute && ampm ? `${hour}:${minute.padStart(2, "0")} ${ampm}` : "hh:mm aa"}
+          {timeSet ? `${hour}:${minute.padStart(2, "0")} ${ampm}` : "hh:mm aa"}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <div className="sm:flex">
-          <div className="flex flex-col sm:flex-row sm:h-[200px] divide-y sm:divide-y-0 sm:divide-x">
+          <div className="flex flex-col sm:flex-row sm:h-[200px] divide-y sm:divide-y-0 sm:divide-x dark:divide-neutral-800 divide-neutral-100">
             <ScrollArea className="w-64 sm:w-auto">
               <div className="flex sm:flex-col p-2">
                 {hours.reverse().map((hourItem) => (
-                  <Button
-                    key={hourItem}
-                    size="icon"
-                    variant={hour === hourItem.toString() ? "default" : "ghost"}
-                    className="sm:w-full shrink-0 aspect-square"
+                  <ToggleButton
+                    isActive={hour === hourItem.toString()}
                     onClick={(e) => handleTimeChange("hour", hourItem.toString(), e)}
                   >
                     {hourItem}
-                  </Button>
+                  </ToggleButton>
                 ))}
               </div>
               <ScrollBar orientation="horizontal" className="sm:hidden" />
@@ -83,17 +89,14 @@ export default function TimePicker({
                 {Array.from({ length: 12 }, (_, i) => i * 5).map((minuteItem) => {
                   const parsedMinute = minute && parseInt(minute);
                   return (
-                    <Button
-                      key={minuteItem}
-                      size="icon"
-                      variant={
-                        parsedMinute?.toString() === minuteItem.toString() ? "default" : "ghost"
-                      }
-                      className="sm:w-full shrink-0 aspect-square"
-                      onClick={(e) => handleTimeChange("minute", minuteItem.toString(), e)}
-                    >
-                      {minuteItem}
-                    </Button>
+                    <>
+                      <ToggleButton
+                        isActive={parsedMinute === minuteItem}
+                        onClick={(e) => handleTimeChange("minute", minuteItem.toString(), e)}
+                      >
+                        {minuteItem.toString().padStart(2, "0")}
+                      </ToggleButton>
+                    </>
                   );
                 })}
               </div>
@@ -102,17 +105,12 @@ export default function TimePicker({
             <ScrollArea className="">
               <div className="flex sm:flex-col p-2">
                 {["AM", "PM"].map((ampmItem) => (
-                  <Button
-                    key={ampmItem}
-                    size="icon"
-                    variant={ampm === ampmItem ? "default" : "ghost"}
-                    className="sm:w-full shrink-0 aspect-square"
-                    onClick={(e) => {
-                      handleTimeChange("ampm", ampmItem, e);
-                    }}
+                  <ToggleButton
+                    isActive={ampm === ampmItem}
+                    onClick={(e) => handleTimeChange("ampm", ampmItem, e)}
                   >
                     {ampmItem}
-                  </Button>
+                  </ToggleButton>
                 ))}
               </div>
             </ScrollArea>
@@ -120,6 +118,29 @@ export default function TimePicker({
         </div>
       </PopoverContent>
     </Popover>
+  );
+}
+
+interface ToggleButtonProps {
+  isActive: boolean;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  children: React.ReactNode;
+}
+
+function ToggleButton({ isActive, onClick, children }: ToggleButtonProps) {
+  return (
+    <Button
+      data-active={isActive}
+      size="icon"
+      variant="form"
+      className={`sm:w-full shrink-0 aspect-square 
+                  bg-transparent dark:bg-transparent
+                  data-[active=true]:bg-orange-400 
+                  data-[active=true]:text-white`}
+      onClick={onClick}
+    >
+      {children}
+    </Button>
   );
 }
 

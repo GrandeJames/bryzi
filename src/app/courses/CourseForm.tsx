@@ -109,7 +109,12 @@ export default function CourseForm({ initialCourseId }: { initialCourseId?: stri
           <Button variant={"ghost"} onClick={handleCancelClick}>
             Cancel
           </Button>
-          <Button onClick={onSubmitCourseForm}>{initialCourseId ? "Update" : "Create"}</Button>
+          <Button
+            onClick={onSubmitCourseForm}
+            className="bg-orange-400 text-white hover:bg-orange-400/80 dark:bg-orange-400 dark:text-white hover:dark:bg-orange-400/80 hover:dark:text-neutral-200"
+          >
+            {initialCourseId ? "Update" : "Create"}
+          </Button>
         </div>
       </div>
     </form>

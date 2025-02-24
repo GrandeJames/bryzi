@@ -37,9 +37,9 @@ export default function CourseSelector({
         </div>
       </header>
 
-      <div className="flex flex-col gap-1 border rounded-md dark:border-neutral-800 p-2">
+      <div className="flex flex-col gap-1 border rounded-md dark:border-neutral-900 p-2">
         {courses.length === 0 && (
-          <NewCourseButton className="flex gap-1 items-center">
+          <NewCourseButton className="flex gap-1 items-center dark:text-neutral-300">
             <PlusIcon className="size-4" />
             <span className="text-sm">New Course</span>
           </NewCourseButton>
@@ -48,7 +48,7 @@ export default function CourseSelector({
           return (
             <div
               key={course.id}
-              className={`border rounded-md text-sm dark:border-neutral-800 p-2 hover:cursor-pointer flex justify-between items-center ${
+              className={`border rounded-md text-sm dark:border-neutral-900 p-2 hover:cursor-pointer flex justify-between items-center ${
                 selectedCourse?.id == course.id
                   ? "bg-orange-400 text-white font-medium"
                   : "dark:text-neutral-300 dark:hover:bg-neutral-800"
