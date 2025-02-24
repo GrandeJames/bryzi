@@ -73,13 +73,9 @@ function ClassTaskItem({ task }: { task: ClassTask }) {
             </div> */}
         </div>
         {(task.estimatedDurationInMins ?? 0) > 0 && (
-          <div className="text-xs w-20 flex place-items-center">
-            {task.completed && actualTaskDuration > 0 && (
-              <Progress value={100} label={getProgressLabel(task)} />
-            )}
-            {!task.completed && (
-              <Progress value={progressPercentage} label={getProgressLabel(task)} />
-            )}
+          <div className="text-xs w-20 flex place-items-center dark:text-neutral-500 text-neutral-400">
+            {task.completed && actualTaskDuration > 0 && getProgressLabel(task)}
+            {!task.completed && getProgressLabel(task)}
           </div>
         )}
       </div>
