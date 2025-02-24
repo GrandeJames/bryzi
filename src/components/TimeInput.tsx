@@ -75,6 +75,7 @@ export default function TimePicker({
               <div className="flex sm:flex-col p-2">
                 {hours.reverse().map((hourItem) => (
                   <ToggleButton
+                    key={hourItem}
                     isActive={hour === hourItem.toString()}
                     onClick={(e) => handleTimeChange("hour", hourItem.toString(), e)}
                   >
@@ -91,6 +92,7 @@ export default function TimePicker({
                   return (
                     <>
                       <ToggleButton
+                        key={minuteItem}
                         isActive={parsedMinute === minuteItem}
                         onClick={(e) => handleTimeChange("minute", minuteItem.toString(), e)}
                       >
@@ -106,6 +108,7 @@ export default function TimePicker({
               <div className="flex sm:flex-col p-2">
                 {["AM", "PM"].map((ampmItem) => (
                   <ToggleButton
+                    key={ampmItem}
                     isActive={ampm === ampmItem}
                     onClick={(e) => handleTimeChange("ampm", ampmItem, e)}
                   >
