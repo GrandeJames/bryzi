@@ -4,7 +4,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import useTasksStore from "@/stores/tasksStore";
 import { cn } from "@/utils.ts/cn";
-import { ClockIcon, FlameIcon, ZapIcon } from "lucide-react";
+import { ClockIcon, FlameIcon, SparklesIcon, ZapIcon } from "lucide-react";
 import { ClassTask } from "@/types/classTask";
 import useDialogStore from "@/app/dialogs/dialogStore";
 import { TASK_DIFFICULTY, TASK_IMPACT } from "@/constants/taskConstants";
@@ -16,6 +16,8 @@ import TaskTitleDateFormSection from "./TaskTitleDateFormSection";
 import TaskFormSubmissionButton from "./TaskFormSubmissionButton";
 import useCoursesStore from "@/stores/coursesStore";
 import CourseSelector from "@/app/courses/CourseSelector";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 function ClassTaskForm({
   className,
@@ -107,12 +109,21 @@ function ClassTaskForm({
       <TaskTitleDateFormSection task={task} handleChange={handleTaskChange} />
 
       {page === 0 && (
-        <CourseSelector
-          onSelect={(courseSelected: any) => {
-            handleTaskChange("courseId", courseSelected.id);
-          }}
-          initialCourse={getCourse(initialTask?.courseId)}
-        />
+        <div className="space-y-5">
+          <CourseSelector
+            onSelect={(courseSelected: any) => {
+              handleTaskChange("courseId", courseSelected.id);
+            }}
+            initialCourse={getCourse(initialTask?.courseId)}
+          />
+          <div className="flex justify-end">
+            <Button variant={"link"} className="dark:text-neutral-400" onClick={close}>
+              <Link href={"generate"} className="flex items-center gap-2">
+                <SparklesIcon /> Generate tasks from course schedule
+              </Link>
+            </Button>
+          </div>
+        </div>
       )}
 
       {page === 1 && (
