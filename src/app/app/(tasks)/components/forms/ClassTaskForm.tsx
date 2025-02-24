@@ -16,7 +16,6 @@ import TaskTitleDateFormSection from "./TaskTitleDateFormSection";
 import TaskFormSubmissionButton from "./TaskFormSubmissionButton";
 import useCoursesStore from "@/stores/coursesStore";
 import CourseSelector from "@/app/courses/CourseSelector";
-import { Course } from "@/app/courses/types/course";
 
 function ClassTaskForm({
   className,
@@ -44,10 +43,6 @@ function ClassTaskForm({
     courseId: initialTask?.courseId || "",
   });
 
-  const [course, setCourse] = useState<Course>();
-
-  console.log("course", course);
-
   const [page, setPage] = useState(0);
 
   const updateTask = useTasksStore((state) => state.updateTask);
@@ -55,8 +50,6 @@ function ClassTaskForm({
   const close = useDialogStore((state) => state.closeDialog);
 
   const courses = useCoursesStore((state) => state.courses);
-
-  console.log("courses", courses);
 
   const handleTaskChange = (key: string, value: any) => {
     setTask((prevTask) => ({
@@ -90,18 +83,23 @@ function ClassTaskForm({
 
     if (initialTask) {
       handleTaskUpdate(task, updateTask, initialTask);
-      console.log("task updated", task);
     } else {
       handleTaskAdd(task, addTask);
-      console.log("task added", task);
     }
     resetForm();
     close();
   };
 
+  const getCourse = (courseId?: string) => {
+    return courses.find((course) => course.id === courseId);
+  };
+
   const handleContinueClick = (e: any) => {
     e.preventDefault();
-    setPage(1);
+
+    if (getCourse(task.courseId)) {
+      setPage(1);
+    }
   };
 
   return (
@@ -111,10 +109,9 @@ function ClassTaskForm({
       {page === 0 && (
         <CourseSelector
           onSelect={(courseSelected: any) => {
-            setCourse(courseSelected); // TODO: i could possibly remove this
             handleTaskChange("courseId", courseSelected.id);
-            console.log("courseSelected callbackFn", courseSelected);
           }}
+          initialCourse={getCourse(initialTask?.courseId)}
         />
       )}
 
@@ -122,7 +119,7 @@ function ClassTaskForm({
         <div>
           <div className="flex flex-col gap-7 mb-14">
             <div className="flex gap-2 border dark:border-neutral-800 border-neutral-200 dark:bg-neutral-900 bg-neutral-100 p-2 dark:text-neutral-400 text-neutral-500 font-medium text-sm rounded-md">
-              Course: {course?.name}
+              Course: {getCourse(task.courseId)?.name}
             </div>
             <Selection
               title="Estimated Duration"
@@ -174,7 +171,7 @@ function ClassTaskForm({
         <button
           className="text-sm text-center bg-neutral-800 mt-3 text-white rounded-md p-2 disabled:dark:bg-neutral-900 disabled:bg-neutral-50 disabled:dark:text-neutral-600 disabled:text-neutral-300"
           onClick={handleContinueClick}
-          disabled={!course || !task.title}
+          disabled={!getCourse(task.courseId) || !task.title}
           type="button"
         >
           Continue

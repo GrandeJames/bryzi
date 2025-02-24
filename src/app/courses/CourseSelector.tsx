@@ -7,8 +7,14 @@ import { useState } from "react";
 import useCoursesStore from "@/stores/coursesStore";
 import CourseActionsDropdown from "./CourseActionsDropdown";
 
-export default function CourseSelector({ onSelect }: { onSelect: (course: Course) => void }) {
-  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+export default function CourseSelector({
+  onSelect,
+  initialCourse,
+}: {
+  onSelect: (course: Course) => void;
+  initialCourse?: Course;
+}) {
+  const [selectedCourse, setSelectedCourse] = useState<Course | undefined>(initialCourse);
 
   const courses = useCoursesStore((state) => state.courses);
 
@@ -16,8 +22,6 @@ export default function CourseSelector({ onSelect }: { onSelect: (course: Course
     e.preventDefault();
     setSelectedCourse(courseClicked);
     onSelect(courseClicked);
-
-    console.log("Course clicked");
   };
 
   return (
@@ -40,20 +44,22 @@ export default function CourseSelector({ onSelect }: { onSelect: (course: Course
             <span className="text-sm">New Course</span>
           </NewCourseButton>
         )}
-        {courses?.map((course: Course) => (
-          <div
-            key={course.id}
-            className={`border rounded-md text-sm dark:border-neutral-800 p-2 hover:cursor-pointer flex justify-between items-center ${
-              selectedCourse?.name == course.name
-                ? "bg-orange-400 text-white font-medium"
-                : "dark:text-neutral-300 dark:hover:bg-neutral-800"
-            }`}
-            onClick={(e) => handleCourseClick(e, course)}
-          >
-            <span>{course.name}</span>
-            <CourseActionsDropdown courseId={course.id} />
-          </div>
-        ))}
+        {courses?.map((course: Course) => {
+          return (
+            <div
+              key={course.id}
+              className={`border rounded-md text-sm dark:border-neutral-800 p-2 hover:cursor-pointer flex justify-between items-center ${
+                selectedCourse?.id == course.id
+                  ? "bg-orange-400 text-white font-medium"
+                  : "dark:text-neutral-300 dark:hover:bg-neutral-800"
+              }`}
+              onClick={(e) => handleCourseClick(e, course)}
+            >
+              <span>{course.name}</span>
+              <CourseActionsDropdown courseId={course.id} />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
