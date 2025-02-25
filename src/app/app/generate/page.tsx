@@ -6,13 +6,6 @@ import { generatedTaskSchema } from "@/app/schemas/generatedTaskSchema";
 import { z } from "zod";
 import { useState } from "react";
 import { AlertCircleIcon, ChevronLeftIcon, SparklesIcon, Loader2 } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ClassTask } from "@/types/classTask";
