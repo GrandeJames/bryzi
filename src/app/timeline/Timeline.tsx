@@ -17,11 +17,10 @@ export interface TimelineProps {
   showCurrentTime?: boolean;
 }
 
-// https://coolors.co/palette/0a0908-22333b-f2f4f3-a9927d-5e503f
 const EVENT_TYPES = {
-  focus: { color: "bg-[#F4CFB1] dark:bg-[#6B3E26]", label: "Focus Session" }, //orange
-  event: { color: "bg-[#C7E2ED] dark:bg-[#2A4B6A]", label: "Scheduled Task" }, //blue
-  course: { color: "bg-[#F0C5C1] dark:bg-[#6B2E34]", label: "Lecture" }, //red
+  focus: { color: "bg-orange-300/90 dark:bg-orange-300/40", label: "Focus Session" },
+  event: { color: "bg-blue-300/90 dark:bg-blue-300/40", label: "Scheduled Task" },
+  course: { color: "bg-teal-300/90 dark:bg-teal-300/40", label: "Lecture" },
 };
 
 function parseTime(time: Date | string) {
