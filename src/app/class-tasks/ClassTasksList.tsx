@@ -37,7 +37,7 @@ function ClassTasksList({ classTasks }: { classTasks: ClassTask[] }) {
         />
       )}
       {incompleteTasks?.length > 0 && (
-        <ul className="space-y-2">
+        <ul className="space-y-1">
           {classTasks.map((task: ClassTask, index: number) => (
             <li key={index}>
               <div className="py-0">
