@@ -5,21 +5,7 @@ import { experimental_useObject as useObject } from "@ai-sdk/react";
 import { generatedTaskSchema } from "@/app/schemas/generatedTaskSchema";
 import { z } from "zod";
 import { useState } from "react";
-import {
-  AlertCircleIcon,
-  ArrowLeftIcon,
-  ChevronLeftIcon,
-  ShieldAlertIcon,
-  SparkleIcon,
-  SparklesIcon,
-  WandSparklesIcon,
-  Loader2Icon,
-  Loader2,
-  ClockIcon,
-  ZapIcon,
-  PencilIcon,
-} from "lucide-react";
-import { DropdownMenu } from "@/components/ui/dropdown-menu";
+import { AlertCircleIcon, ChevronLeftIcon, SparklesIcon, Loader2 } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -29,7 +15,6 @@ import {
 } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
-import { FlagIcon } from "@/components/icons/FlagIcon";
 import { ClassTask } from "@/types/classTask";
 import { v4 as uuidv4 } from "uuid";
 
