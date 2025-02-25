@@ -21,7 +21,7 @@ const bottomMenuItems = [{ icon: <Cog6ToothIcon />, label: "Settings" }];
 export function Menu() {
   const pathname = usePathname();
 
-  const activeStyle = "text-orange-500";
+  const activeStyle = "text-neutral-800 dark:text-white";
 
   // Check if the pathname matches any of the 'Dashboard' related pages
   const isDashboardActive =
@@ -31,7 +31,7 @@ export function Menu() {
     pathname.startsWith("/app/generate");
 
   return (
-    <div className="flex flex-col h-screen justify-between px-5 py-7 sticky top-0 dark:bg-neutral-900/60 bg-white border border-neutral-100 dark:border-none dark:text-neutral-400 text-neutral-400">
+    <div className="flex flex-col h-screen justify-between px-5 py-7 sticky top-0 dark:bg-neutral-900/60 bg-white border border-neutral-100 dark:border-none dark:text-neutral-500 text-neutral-400">
       <Link className="flex justify-center mb-8" href="/">
         <Icon2 />
       </Link>

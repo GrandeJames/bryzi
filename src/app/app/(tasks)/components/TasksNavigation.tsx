@@ -15,7 +15,7 @@ function NavLink({ href, label }: { href: string; label: string }) {
   const pathname = usePathname();
 
   const activeButtonClassName =
-    "dark:text-neutral-300 text-black relative after:content-[''] after:absolute after:bottom-[-4px] after:left-1/2 after:-translate-x-1/2 after:w-8 after:h-[2px] after:bg-orange-400";
+    "dark:text-neutral-300 text-black relative after:content-[''] after:absolute after:bottom-[-4px] after:left-1/2 after:-translate-x-1/2 after:w-5 after:h-[2px] after:bg-neutral-600";
 
   return (
     <Link

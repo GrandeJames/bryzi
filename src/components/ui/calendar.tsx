@@ -43,7 +43,7 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
         day_range_start: "day-range-start",
         day_range_end: "day-range-end",
         day_selected:
-          "bg-orange-400 text-neutral-50 hover:bg-neutral-900 hover:text-neutral-50 focus:bg-orange-400 focus:text-neutral-50 dark:bg-orange-400 dark:text-neutral-900 dark:hover:bg-neutral-50 dark:hover:text-neutral-900 dark:focus:bg-orange-400 dark:focus:text-neutral-900",
+          "bg-neutral-800 text-neutral-50 hover:bg-neutral-900 hover:text-neutral-50 focus:bg-neutral-800 focus:text-neutral-50 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-50 dark:hover:text-neutral-900 dark:focus:bg-neutral-100 dark:focus:text-neutral-900",
         day_today: "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-50",
         day_outside:
           "day-outside text-neutral-500 aria-selected:bg-neutral-100/50 aria-selected:text-neutral-500 dark:text-neutral-400 dark:aria-selected:bg-neutral-800/50 dark:aria-selected:text-neutral-400",

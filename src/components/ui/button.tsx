@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils.ts/cn";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 dark:focus-visible:ring-neutral-300",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 dark:focus-visible:ring-neutral-300",
   {
     variants: {
       variant: {
@@ -20,7 +20,9 @@ const buttonVariants = cva(
         ghost:
           "text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-neutral-50",
         link: "text-neutral-900 underline-offset-4 hover:underline dark:text-neutral-50",
-        form: "bg-neutral-100 text-neutral-600 hover:bg-neutral-100/50 dark:bg-neutral-800 dark:text-neutral-300/60 dark:hover:bg-neutral-800/60 dark:data-[active=true]:bg-orange-400 dark:data-[active=true]:text-white",
+        form: "bg-neutral-100 text-neutral-600 hover:bg-neutral-100/50 dark:bg-neutral-800 dark:text-neutral-300/60 dark:hover:bg-neutral-800/60 dark:data-[active=true]:bg-neutral-900 dark:data-[active=true]:text-white",
+        submit:
+          "bg-neutral-900 text-white dark:hover:text-neutral-400 hover:text-neutral-300 p-2 disabled:dark:bg-neutral-900 disabled:bg-neutral-50 disabled:dark:text-neutral-700 disabled:text-neutral-300",
       },
       size: {
         default: "h-9 px-4 py-2",

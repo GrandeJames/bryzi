@@ -138,8 +138,8 @@ function ToggleButton({ isActive, onClick, children }: ToggleButtonProps) {
       variant="form"
       className={`sm:w-full shrink-0 aspect-square 
                   bg-transparent dark:bg-transparent
-                  data-[active=true]:bg-orange-400 
-                  data-[active=true]:text-white`}
+                  data-[active=true]:bg-neutral-100 
+                  data-[active=true]:text-black`}
       onClick={onClick}
     >
       {children}

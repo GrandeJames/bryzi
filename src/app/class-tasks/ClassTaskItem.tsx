@@ -125,7 +125,7 @@ function Status({ task, className }: { task: ClassTask; className?: string }) {
     return (
       <FocusStageSwitchButton
         task={task}
-        className="text-orange-400 font-bold relative inline-block 
+        className="text-neutral-500 font-bold text-sm relative inline-block 
   before:absolute before:inset-0 before:bg-orange-500/15 
   before:rounded-full before:blur-3xl"
       >

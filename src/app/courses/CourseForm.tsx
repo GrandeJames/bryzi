@@ -84,7 +84,7 @@ export default function CourseForm({ initialCourseId }: { initialCourseId?: stri
   return (
     <form>
       <div className="max-w-xs mx-3 flex flex-col gap-5">
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-6">
           <div className="grid gap-2 grid-cols-6">
             <div className="col-span-4 space-y-2">
               <Input
@@ -110,10 +110,10 @@ export default function CourseForm({ initialCourseId }: { initialCourseId?: stri
 
           <button
             type="button"
-            className={`text-sm text-neutral-600 border border-neutral-200 dark:border-neutral-800 rounded-md p-1 w-fit px-5 ${
+            className={`border text-sm rounded-full p-1 w-fit px-5 ${
               isAsynchronous
-                ? "bg-orange-400 text-white border-none hover:bg-orange-400/80"
-                : "hover:text-neutral-500"
+                ? "dark:bg-neutral-200 dark:text-neutral-700 bg-white text-neutral-700 border-neutral-200"
+                : "hover:text-neutral-500 bg-neutral-100 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 text-neutral-400"
             }`}
             onClick={(e) => {
               e.preventDefault();
@@ -124,7 +124,7 @@ export default function CourseForm({ initialCourseId }: { initialCourseId?: stri
           </button>
 
           {!isAsynchronous && (
-            <div className="space-y-2">
+            <>
               <WeekdaySelector setSelectedDays={setDays} selectedDays={days} />
               {errors.days && <span className="text-red-500 text-xs">{errors.days}</span>}
               <div className="flex items-center justify-between">
@@ -143,17 +143,14 @@ export default function CourseForm({ initialCourseId }: { initialCourseId?: stri
                 />
               </div>
               {errors.endTime && <span className="text-red-500 text-xs">{errors.endTime}</span>}
-            </div>
+            </>
           )}
         </div>
         <div className="flex justify-end gap-3">
           <Button variant={"ghost"} onClick={handleCancelClick}>
             Cancel
           </Button>
-          <Button
-            onClick={onSubmitCourseForm}
-            className="bg-orange-400 text-white hover:bg-orange-400/80 dark:bg-orange-400 dark:text-white hover:dark:bg-orange-400/80 hover:dark:text-neutral-200"
-          >
+          <Button onClick={onSubmitCourseForm} variant={"submit"}>
             {initialCourseId ? "Update" : "Create"}
           </Button>
         </div>

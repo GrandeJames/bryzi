@@ -179,14 +179,14 @@ function ClassTaskForm({
         </div>
       )}
       {page === 0 && (
-        <button
-          className="text-sm text-center bg-neutral-800 mt-3 text-white rounded-md p-2 disabled:dark:bg-neutral-900 disabled:bg-neutral-50 disabled:dark:text-neutral-600 disabled:text-neutral-300"
+        <Button
+        variant={"submit"}
           onClick={handleContinueClick}
           disabled={!getCourse(task.courseId) || !task.title}
           type="button"
         >
           Continue
-        </button>
+        </Button>
       )}
     </form>
   );

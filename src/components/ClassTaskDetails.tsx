@@ -76,7 +76,7 @@ function ClassTaskDetails({ task }: { task: ClassTask }) {
         </div>
       </div>
 
-      <div className="text-orange-400 text-sm font-semibold flex flex-col gap-5">
+      <div className="text-neutral-600 dark:text-neutral-400 text-sm font-semibold flex flex-col gap-5">
         <div className="flex gap-5">
           <ActionButton icon={Trash2Icon} label="Delete" onClick={handleTaskDeleteClick} />
           <ActionButton

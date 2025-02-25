@@ -48,10 +48,10 @@ export default function CourseSelector({
           return (
             <div
               key={course.id}
-              className={`border rounded-md text-sm dark:border-neutral-900 p-2 hover:cursor-pointer flex justify-between items-center ${
+              className={`border rounded-md text-sm p-2 hover:cursor-pointer flex justify-between items-center ${
                 selectedCourse?.id == course.id
-                  ? "bg-orange-400 text-white font-medium"
-                  : "dark:text-neutral-300 dark:hover:bg-neutral-800"
+                  ? "border-neutral-900 dark:border-neutral-400 dark:text-neutral-300 font-medium"
+                  : "dark:text-neutral-400 dark:hover:bg-neutral-800 dark:border-neutral-800"
               }`}
               onClick={(e) => handleCourseClick(e, course)}
             >
