@@ -17,10 +17,13 @@ import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ClassTask } from "@/types/classTask";
 import { v4 as uuidv4 } from "uuid";
+import CourseSelection from "./CourseSelection";
 
 export default function GeneratePage() {
   const [showGeneratedTasks, setShowGeneratedTasks] = useState(false);
   const [generatedTasks, setGeneratedTasks] = useState<ClassTask[]>([]);
+
+  const [selectedCourseId, setSelectedCourseId] = useState<string | undefined>();
 
   const { object, submit, isLoading, stop } = useObject({
     api: "/api/generate",
@@ -129,16 +132,12 @@ export default function GeneratePage() {
               <h1 className="text-3xl font-bold text-neutral-300">Generate Class Tasks</h1>
             </header>
             <div className="flex flex-col gap-3">
-              <Select>
-                <SelectTrigger className="bg-neutral-900 rounded-lg p-6">
-                  <SelectValue placeholder="Select a course" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="create" className="p-3 hover:cursor-pointer">
-                    Create new course
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <CourseSelection
+                onSelectCourse={(courseId) => {
+                  console.log("Course selected", courseId);
+                  setSelectedCourseId(courseId);
+                }}
+              />
               <div>
                 <MultiFileUpload />
               </div>
