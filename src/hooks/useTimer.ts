@@ -3,6 +3,7 @@ import { useFocusSessionStore } from "../stores/focusSessionStore";
 import { handleSessionSave } from "@/lib/focusSessionUtils";
 import useTasksStore from "@/stores/tasksStore";
 import { ClassTask } from "@/types/classTask";
+import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
 
 const TASK_TIME_MINUTES = 90;
 
@@ -14,6 +15,8 @@ export function useTimer(task: ClassTask) {
   const [secondsLeft, setSecondsLeft] = useState(getSecondsLeftUntilEndTime(endTime));
   const [paused, setPaused] = useState(false);
 
+  const [temporaryStartDate, setTemporaryStartDate] = useState<Date | null>(new Date());
+  const focusTask = useFocusSessionStore((state) => state.sessionTask);
   useEffect(() => {
     const interval = setInterval(() => {
       if (paused) {
@@ -26,6 +29,18 @@ export function useTimer(task: ClassTask) {
 
       if (secondsLeft <= 0) {
         document.title = "Time's up! | Focus";
+
+        if (temporaryStartDate !== null) {
+          const addTemporaryFocusEntry = useFocusTrackerStore.getState().addTemporaryFocusEntry;
+
+          addTemporaryFocusEntry({
+            startDate: temporaryStartDate,
+            endDate: new Date(),
+            taskId: focusTask!.id,
+          });
+
+          setTemporaryStartDate(null);
+        }
         handleSessionSave(reset, task, updateTask);
         return;
       }
@@ -38,7 +53,7 @@ export function useTimer(task: ClassTask) {
     return () => {
       clearInterval(interval);
     };
-  }, [endTime, paused]);
+  }, [endTime, paused, reset, task, updateTask, temporaryStartDate, focusTask]);
 
   const pause = () => {
     setPaused(true);

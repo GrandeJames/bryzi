@@ -41,11 +41,11 @@ function dateFormatted(date: Date | undefined) {
 }
 
 export function DatePickerWithPresets({
-  date,
-  setDate,
+  deadline,
+  setDeadline,
 }: {
-  date: Date | undefined;
-  setDate: (date: Date | undefined) => void;
+  deadline?: Date;
+  setDeadline: (date: Date | undefined) => void;
 }) {
   const PresetButton = ({
     onClick,
@@ -60,7 +60,10 @@ export function DatePickerWithPresets({
       <Tooltip>
         <TooltipTrigger onFocus={(e) => e.preventDefault()}>
           {/* Prevents the the preset button tooltip from showing on focus */}
-          <button onClick={onClick} className="hover:bg-neutral-900 rounded-md p-2">
+          <button
+            onClick={onClick}
+            className="dark:hover:bg-neutral-900 hover:bg-neutral-100 rounded-md p-2"
+          >
             {children}
           </button>
         </TooltipTrigger>
@@ -69,41 +72,75 @@ export function DatePickerWithPresets({
     </TooltipProvider>
   );
 
-  // const [date, setDate] = React.useState<Date>();
-  // Commented out for now because the state is managed by the parent component
+  const [date, setDate] = React.useState<Date | undefined>(
+    deadline ? (deadline instanceof Date ? deadline : new Date(deadline)) : undefined
+  );
+
   return (
     <Popover>
-      {/* setting modal to true allows the popover to be clicked on when inside a dialog */}
       <PopoverTrigger asChild>
-        <Button
-          variant={"ghost"}
-          className={cn("justify-start text-left font-normal text-neutral-200", !date && "text-muted-foreground")}
-        >
-          <CalendarIcon className="h-9 w-9 text-neutral-200" />
-          {dateFormatted(date)}
-        </Button>
+        <button className="px-2 py-2 rounded-md group flex gap-2 items-center">
+          <CalendarIcon
+            className={`size-5 ${
+              date
+                ? "text-blue-500"
+                : "text-neutral-800 dark:text-neutral-300 group-hover:dark:text-neutral-400 group-hover:text-neutral-500"
+            }`}
+          />
+          <span className="text-blue-500 font-medium text-nowrap text-sm">
+            {dateFormatted(date)}
+          </span>
+        </button>
       </PopoverTrigger>
-      <PopoverContent className="flex w-auto flex-col space-y-2 p-2 border-none" align="end">
+      <PopoverContent
+        className="flex w-auto flex-col space-y-2 p-2 border-none shadow-xl"
+        align="end"
+      >
         <div className="flex w-full justify-between px-8 py-2">
-          <PresetButton onClick={() => setDate(new Date())} text="Today">
+          <PresetButton
+            onClick={() => {
+              setDate(new Date());
+              setDeadline(new Date());
+            }}
+            text="Today"
+          >
             <SunIcon />
           </PresetButton>
-          <PresetButton onClick={() => setDate(addDays(new Date(), 1))} text="Tomorrow">
+          <PresetButton
+            onClick={() => {
+              setDate(addDays(new Date(), 1));
+              setDeadline(addDays(new Date(), 1));
+            }}
+            text="Tomorrow"
+          >
             <SunriseIcon />
           </PresetButton>
-          <PresetButton onClick={() => setDate(addDays(new Date(), 7))} text="Next week">
+          <PresetButton
+            onClick={() => {
+              setDate(addDays(new Date(), 7));
+              setDeadline(addDays(new Date(), 7));
+            }}
+            text="Next week"
+          >
             <CalendarArrowUpIcon />
           </PresetButton>
         </div>
         <div className="rounded-md">
-          <Calendar mode="single" selected={date} onSelect={setDate} />
+          <Calendar
+            mode="single"
+            selected={date}
+            onSelect={(selectedDate) => {
+              setDate(selectedDate);
+              setDeadline(selectedDate);
+            }}
+          />
         </div>
         <button
           onClick={(e) => {
             e.preventDefault();
             setDate(undefined);
           }}
-          className="flex-1 bg-neutral-800 rounded-md text-md px-3 py-1 text-white font-medium"
+          className="flex-1 dark:bg-neutral-800 bg-neutral-50 rounded-md text-md px-3 py-1 dark:text-white text-neutral-800 font-medium"
         >
           Clear
         </button>

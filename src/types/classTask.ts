@@ -11,8 +11,5 @@ export interface ClassTask extends Task {
     startTime: string;
     endTime: string; // end time can be calculated from start time and duration
   };
-  class?: {
-    name: string;
-    abbreviation?: string;
-  };
+  courseId: string;
 }

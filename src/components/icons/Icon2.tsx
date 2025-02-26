@@ -2,7 +2,7 @@ export default function TaskIcon() {
   return (
     <svg
       viewBox="0 0 64 64"
-      className="w-16 h-16 text-neutral-700 hover:text-orange-500 transition-transform duration-300 hover:scale-[1.02]"
+      className="w-16 h-16 dark:text-neutral-700 text-neutral-300 hover:text-orange-500 transition-transform duration-300 hover:scale-[1.02]"
     >
       {/* Concentric timeline rings */}
       <circle cx="32" cy="32" r="24" className="fill-none stroke-current opacity-10" />

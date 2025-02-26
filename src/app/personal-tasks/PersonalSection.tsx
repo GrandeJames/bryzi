@@ -1,4 +1,3 @@
-import useDialogStore from "@/app/dialogs/dialogStore";
 import EmptyPlaceholder from "@/components/EmptyPlaceholder";
 import { PersonalTask } from "@/types/personalTask";
 import { cn } from "@/utils/cn";
@@ -8,7 +7,7 @@ import TaskSection from "@/components/TaskSection";
 
 function PersonalSection({ tasks, className }: { tasks: PersonalTask[]; className?: string }) {
   return (
-    <TaskSection title="Personal" className={className}>
+    <TaskSection title="Personal" className={cn("w-full", className)}>
       {tasks.length === 0 && (
         <EmptyPlaceholder
           icon={<CheckCircleIcon />}
