@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import useTasksStore from "@/stores/tasksStore";
-import { cn } from "@/utils.ts/cn";
+import { cn } from "@/utils/cn";
 import { ClockIcon, FlameIcon, SparklesIcon, ZapIcon } from "lucide-react";
 import { ClassTask } from "@/types/classTask";
 import useDialogStore from "@/app/dialogs/dialogStore";
