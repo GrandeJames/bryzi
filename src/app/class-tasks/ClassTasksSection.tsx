@@ -1,4 +1,4 @@
-import { cn } from "@/utils.ts/cn";
+import { cn } from "@/utils/cn";
 import ClassTasksList from "./ClassTasksList";
 import TaskSection from "@/components/TaskSection";
 
