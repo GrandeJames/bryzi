@@ -1,6 +1,7 @@
-import Icon1 from "@/components/icons/Icon1";
+import Icon2 from "@/components/icons/Icon2";
 import { CalendarIcon, ClockIcon, ChartBarIcon, SparklesIcon } from "lucide-react";
 import Image from "next/image";
+// import { TaskPlannerDemo } from "../te";
 
 export default function Landing() {
   return (
@@ -9,8 +10,8 @@ export default function Landing() {
       <nav className="fixed w-full bg-neutral-900/80 backdrop-blur-md z-50 border-b border-neutral-800">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center">
-            <Icon1 />
-            <span className="text-2xl font-bold text-orange-500">OnlyAs</span>
+            <Icon2 />
+            <span className="text-2xl font-bold text-orange-400">Bryzi</span>
           </div>
           <div className="hidden md:flex gap-8 items-center">
             <a
@@ -19,11 +20,8 @@ export default function Landing() {
             >
               Features
             </a>
-            <a href="#pricing" className="text-neutral-300 hover:text-orange-500 transition-colors">
-              Pricing
-            </a>
             <a
-              href="/signin"
+              href="/login"
               className="text-white px-6 py-2 rounded-lg font-semibold transition-all"
             >
               Sign In
@@ -36,14 +34,14 @@ export default function Landing() {
       <header className="container mx-auto px-6 pt-32 pb-20 text-center relative">
         <div className="max-w-4xl mx-auto">
           <div className="mb-8">
-            <span className="bg-orange-500/10 text-orange-500 px-4 py-2 rounded-full text-sm font-medium">
+            <span className="bg-orange-500/10 text-orange-400 px-4 py-2 rounded-full text-sm font-medium">
               Beta Now Available
             </span>
           </div>
 
           <h1 className="text-6xl font-bold text-white mb-6 leading-tight">
-            Academic Mastery,
-            <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+            Academic Mastery,{" "}
+            <span className="bg-gradient-to-r from-orange-200 to-orange-400 bg-clip-text text-transparent">
               Automated
             </span>
           </h1>
@@ -54,8 +52,8 @@ export default function Landing() {
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-orange-500/20">
-              Start Free Trial
+            <button className="bg-orange-400 hover:bg-orange-300 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-orange-500/20">
+              Get started
             </button>
           </div>
         </div>
@@ -74,6 +72,8 @@ export default function Landing() {
           </div>
         </div>
       </header>
+
+      <section>{/* <TaskPlannerDemo /> */}</section>
 
       {/* Features Section */}
       <section id="features" className="py-20 bg-neutral-900/50">
@@ -163,7 +163,7 @@ export default function Landing() {
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold text-white mb-6">Start Your Free Trial</h2>
           <p className="text-neutral-100 mb-8 max-w-xl mx-auto text-lg">
-            Get ahead with AI-powered academic planning—try OnlyAs now!
+            Get ahead with AI-powered academic planning—try Bryzi now!
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button className="bg-white text-orange-600 px-8 py-4 rounded-xl font-semibold hover:bg-neutral-50 transition-all">
@@ -178,7 +178,7 @@ export default function Landing() {
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-white font-semibold mb-4">OnlyAs</h3>
+              <h3 className="text-white font-semibold mb-4">Bryzi</h3>
               <p className="text-neutral-400 text-sm">
                 Empowering students through intelligent organization
               </p>
@@ -186,7 +186,7 @@ export default function Landing() {
             {/* Add footer columns */}
           </div>
           <div className="border-t border-neutral-800 mt-12 pt-8 text-center">
-            <p className="text-neutral-500 text-sm">&copy; 2024 OnlyAs. All rights reserved.</p>
+            {/* <p className="text-neutral-500 text-sm">&copy; 2024 OnlyAs. All rights reserved.</p> */}
           </div>
         </div>
       </footer>
