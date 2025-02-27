@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const inFocusSession = useFocusSessionStore((state) => state.sessionStage);
   const pathname = usePathname();
 
-  const hiddenNavPages = ["/landing"];
+  const hiddenNavPages = ["/", "/login"];
 
   return (
     <html lang="en">
