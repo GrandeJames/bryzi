@@ -8,7 +8,7 @@
 
 // TODO: do not add scheduled tasks to the final schedule because it should only be showing classwork
 
-import { Task } from "@/types/task";
+import { ClassTask } from "@/types/classTask";
 import { startOfTomorrow, differenceInMinutes, differenceInCalendarDays } from "date-fns";
 
 const IDEAL_TIME_LIMIT_HRS = 8;
@@ -18,8 +18,8 @@ const BLOCK_SIZE = 60;
 export type DayProps = ScheduleTaskProps[];
 
 export interface ScheduleTaskProps {
-  taskId: Task["id"];
-  title?: Task["title"];
+  taskId: ClassTask["id"];
+  title?: ClassTask["title"];
   duration: number;
   daysUntilDeadline?: number;
   type?: string;
@@ -163,11 +163,11 @@ function getMinutesUntilMidnight() {
   return differenceInMinutes(midnight, now);
 }
 
-function getCalendarDaysUntilDeadline(task: Task) {
+function getCalendarDaysUntilDeadline(task: ClassTask) {
   return Math.max(0, differenceInCalendarDays(task.deadline!, new Date()));
 }
 
-function getRemainingDuration(task: Task) {
+function getRemainingDuration(task: ClassTask) {
   return (task.estimatedDurationInMins ?? 90) - (task.actualDurationInMins ?? 0);
 }
 
@@ -214,9 +214,9 @@ function isOvertime(dayIndex: number, schedule: DayProps[]) {
 }
 
 function getRecommendedClassWorkList(
-  classWork: Task[],
-  scheduledTasks: Task[],
-  noDeadlineTasks: Task[]
+  classWork: ClassTask[],
+  scheduledTasks: ClassTask[],
+  noDeadlineTasks: ClassTask[]
 ) {
   const schedule: DayProps[] = [];
 

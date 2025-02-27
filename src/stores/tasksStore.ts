@@ -1,10 +1,12 @@
 import { create } from "zustand";
-import { Task } from "@/types/task";
 import { getLocalStorageData } from "@/lib/localStorageUtils";
 import { LOCAL_STORAGE_KEYS } from "@/constants/localStorageKeys";
+import { Task } from "@/types/task";
+import { ClassTask } from "@/types/classTask";
+import { PersonalTask } from "@/types/personalTask";
 
 interface TasksStore {
-  tasks: Task[];
+  tasks: (ClassTask | PersonalTask)[];
   setTasks: (newTasks: Task[]) => void;
   addTask: (newTask: Task) => void;
   removeTask: (id: string) => void;

@@ -1,47 +1,44 @@
-import { auth, signOut } from "@/auth";
+"use client";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import Image from "next/image";
-import { UserCircleIcon } from "./icons/UserCircleIcon";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/utils/supabase/client";
 import { MenuItemContainer } from "./MenuItemContainer";
+import { UserCircleIcon } from "./icons/UserCircleIcon";
 
 async function UserDropDownMenu() {
-  const session = await auth();
+  const supabase = createClient();
+  const router = useRouter();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      console.error("Error signing out:", error.message);
+    } else {
+      router.push("/login");
+    }
+  };
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <div className="relative size-[40px] rounded-full overflow-hidden">
-          {session?.user?.image ? (
-            <div className="relative size-[40px] rounded-full overflow-hidden">
-              <Image src={session.user.image ?? ""} alt="" fill={true} />
-            </div>
-          ) : (
-            <MenuItemContainer>
-              <UserCircleIcon />
-            </MenuItemContainer>
-          )}
-        </div>
+      <DropdownMenuTrigger className="focus:outline-none">
+        <MenuItemContainer>
+          <UserCircleIcon className="w-6 h-6" />
+        </MenuItemContainer>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel>Account</DropdownMenuLabel>
-        <DropdownMenuItem>
-          <form
-            action={async () => {
-              "use server";
-              await signOut();
-            }}
-            className="w-full"
-          >
-            <button type="submit" className="w-full text-left p-2">
-              Sign out
-            </button>
-          </form>
+      <DropdownMenuContent className="dark:bg-neutral-900 dark:text-neutral-300 border-none space-y-2">
+        <DropdownMenuItem onClick={signOut} className="hover:bg-neutral-800 rounded-md">
+          Logout
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

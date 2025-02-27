@@ -1,4 +1,4 @@
-import { cn } from "@/utils.ts/cn";
+import { cn } from "@/utils/cn";
 import { ReactNode } from "react";
 
 function MenuItemContainer({ children, className }: { children: ReactNode; className?: string }) {

@@ -1,9 +1,9 @@
-import { Task } from "@/types/task";
 import { STAGES } from "@/stores/focusSessionStore";
 import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
 import { addLocalStorageItems } from "./localStorageUtils";
 import { getActualDurationMins, handleTaskUpdate } from "./taskUtils";
 import { LOCAL_STORAGE_KEYS } from "@/constants/localStorageKeys";
+import { Task } from "@/types/task";
 
 export function handleSessionDiscard(reset: () => void) {
   handleSessionExit(reset);
@@ -23,8 +23,15 @@ export function handleSessionSave(reset: () => void, task: Task, updateTask: (ta
   handleSessionExit(reset);
 }
 
+/**
+ * Using getState is okay here because the page is rerendered after submission/timer end.
+ */
 function saveFocusEntries() {
   const temporaryFocusEntries = useFocusTrackerStore.getState().temporaryFocusEntries;
+  const focusEntries = useFocusTrackerStore.getState().focusEntries;
+  const setFocusEntries = useFocusTrackerStore.getState().setFocusEntries;
+
+  setFocusEntries([...focusEntries, ...temporaryFocusEntries]);
   addLocalStorageItems(LOCAL_STORAGE_KEYS.FOCUS_ENTRIES, temporaryFocusEntries);
 }
 
