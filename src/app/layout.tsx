@@ -36,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="flex">
             {!inFocusSession && !hiddenNavPages.includes(pathname) && <Menu />}
             <ScrollArea className="flex-1 h-screen">
-              <div className="flex-1 mb-28">{children}</div>
+              <div className="flex-1">{children}</div>
               <Toaster position="top-right" />
             </ScrollArea>
             <DynamicDialog />
