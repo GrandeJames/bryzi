@@ -9,6 +9,7 @@ import clsx from "clsx";
 import { ChartBarIcon } from "./icons/ChartBarIcon";
 import Icon2 from "./icons/Icon2";
 import { CalendarIcon } from "./icons/CalendarIcon";
+import { UserDropDownMenu } from "./UserDropDownMenu";
 
 const mainMenuItems = [
   { href: "/app/today", icon: <QueueListIcon />, label: "Dashboard" },
@@ -55,6 +56,9 @@ export function Menu() {
         {bottomMenuItems.map((item) => (
           <MenuItemContainer key={item.label}>{item.icon}</MenuItemContainer>
         ))}
+        <MenuItemContainer>
+          <UserDropDownMenu />
+        </MenuItemContainer>
       </div>
     </div>
   );
