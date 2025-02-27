@@ -1,8 +1,10 @@
-export default function TaskIcon() {
+import { cn } from "@/utils/cn"
+
+export default function TaskIcon({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 64 64"
-      className="w-16 h-16 dark:text-neutral-700 text-neutral-300 hover:text-orange-500 transition-transform duration-300 hover:scale-[1.02]"
+      className={cn("w-16 h-16 dark:text-neutral-700 text-neutral-300 hover:text-orange-500 transition-transform duration-300 hover:scale-[1.02]", className)}
     >
       {/* Concentric timeline rings */}
       <circle cx="32" cy="32" r="24" className="fill-none stroke-current opacity-10" />
@@ -17,7 +19,7 @@ export default function TaskIcon() {
         />
 
         {/* Abstract book/task stack */}
-        <path d="M-12 6h24v12h-24V6zm-3-9h18v6h-18V-3z" className="fill-current opacity-90" />
+        <path d="M-12 6h24v12h-24V6zm-3-9h18v6h-18V-3z" className="fill-current opacity-100" />
       </g>
 
       {/* Subtle sparkle accent */}
