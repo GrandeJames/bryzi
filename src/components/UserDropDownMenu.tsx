@@ -25,7 +25,7 @@ async function UserDropDownMenu() {
     if (error) {
       console.error("Error signing out:", error.message);
     } else {
-      router.push("/login");
+      router.push("/");
     }
   };
 
