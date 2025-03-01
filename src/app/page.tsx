@@ -65,9 +65,9 @@ export default function Landing() {
           <div className="absolute inset-0 bg-orange-500/10 blur-3xl -z-10"></div>
           <div className="border border-neutral-800 rounded-2xl shadow-2xl overflow-hidden bg-neutral-900/50 backdrop-blur-xl">
             <Image
-              src="/app-interface.png"
+              src="/landing-page.png"
               alt="App interface"
-              className="w-full opacity-90 hover:opacity-100 transition-opacity"
+              className="w-full"
               width={1280}
               height={720}
             />
