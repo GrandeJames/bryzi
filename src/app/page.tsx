@@ -30,7 +30,6 @@ export default function Landing() {
         </div>
       </nav>
 
-      {/* Enhanced Hero Section */}
       <header className="container mx-auto px-6 pt-32 pb-20 text-center relative">
         <div className="max-w-4xl mx-auto">
           <div className="mb-8">
@@ -60,10 +59,9 @@ export default function Landing() {
           </div>
         </div>
 
-        {/* App Preview with Glow Effect */}
         <div className="mt-20 mx-auto max-w-5xl relative">
           <div className="absolute inset-0 bg-orange-100/40 blur-3xl -z-10"></div>
-          <div className="border border-neutral-200 rounded-2xl shadow-2xl shadow-orange-400/10 overflow-hidden bg-white backdrop-blur-xl">
+          <div className="border border-neutral-100 rounded-2xl shadow-2xl shadow-neutral-400/10 overflow-hidden bg-white backdrop-blur-xl">
             <Image
               src="/landing-page.png"
               alt="App interface"
@@ -77,7 +75,6 @@ export default function Landing() {
 
       <section>{/* <TaskPlannerDemo /> */}</section>
 
-      {/* Features Section */}
       <section id="features" className="py-20 bg-neutral-50">
         <div className="container mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
@@ -110,7 +107,7 @@ export default function Landing() {
           ].map((feature, i) => (
             <div
               key={i}
-              className="p-6 bg-white rounded-xl border border-neutral-200 hover:border-orange-200 transition-all shadow-sm"
+              className="p-6 bg-white rounded-xl border border-neutral-100 hover:border-orange-200 transition-all"
             >
               <div className="bg-orange-100 w-14 h-14 rounded-xl mb-6 flex items-center justify-center">
                 <feature.icon className="w-6 h-6 text-orange-400" />
@@ -122,7 +119,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-orange-400/90 to-amber-500/90">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold text-white mb-6">Transform Your Study Routine</h2>
@@ -139,7 +135,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="bg-white border-t border-neutral-200 py-12">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-8">
@@ -151,7 +146,7 @@ export default function Landing() {
             </div>
           </div>
           <div className="border-t border-neutral-200 mt-12 pt-8 text-center">
-            {/* <p className="text-neutral-500 text-sm">&copy; 2024 Bryzi. All rights reserved.</p> */}
+            {/* <p className="text-neutral-500 text-sm">Bryzi.</p> */}
           </div>
         </div>
       </footer>
