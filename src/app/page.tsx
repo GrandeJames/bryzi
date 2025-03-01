@@ -54,7 +54,7 @@ export default function Landing() {
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link href={"/login"}>
               <button className="bg-orange-400 hover:bg-orange-400/90 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all transform hover:scale-105 shadow-xl shadow-neutral-900">
-                Get started
+                Start for free
               </button>
             </Link>
           </div>
@@ -167,7 +167,7 @@ export default function Landing() {
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link href={"/login"}>
               <button className="bg-white text-orange-600 px-8 py-4 rounded-full font-semibold hover:bg-neutral-50 transition-all">
-                Get Started
+                Start for free
               </button>
             </Link>
           </div>
