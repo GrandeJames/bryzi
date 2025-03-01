@@ -1,12 +1,12 @@
 import Icon2 from "@/components/icons/Icon2";
-import { CalendarIcon, ClockIcon, ChartBarIcon, SparklesIcon } from "lucide-react";
+import { MagicWandIcon } from "@radix-ui/react-icons";
+import { CalendarIcon, ClockIcon, ChartBarIcon, SparklesIcon, FlameIcon } from "lucide-react";
 import Image from "next/image";
-// import { TaskPlannerDemo } from "../te";
+import Link from "next/link";
 
 export default function Landing() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-neutral-900 to-neutral-800 relative overflow-x-hidden">
-      {/* Fixed Navigation */}
       <nav className="fixed w-full bg-neutral-900/80 backdrop-blur-md z-50 border-b border-neutral-800">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center">
@@ -24,7 +24,7 @@ export default function Landing() {
               href="/login"
               className="text-white px-6 py-2 rounded-lg font-semibold transition-all"
             >
-              Sign In
+              Log In
             </a>
           </div>
         </div>
@@ -35,7 +35,7 @@ export default function Landing() {
         <div className="max-w-4xl mx-auto">
           <div className="mb-8">
             <span className="bg-orange-500/10 text-orange-400 px-4 py-2 rounded-full text-sm font-medium">
-              Beta Now Available
+              Beta
             </span>
           </div>
 
@@ -47,14 +47,16 @@ export default function Landing() {
           </h1>
 
           <p className="text-xl text-neutral-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-            The all-in-one workspace that automatically plans your day, optimizes focus sessions,
-            and tracks progress.
+            The task management system <span className="italic">built for students</span> — generate
+            tasks from your course schedules, automatically plan your days, and track your progress.
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="bg-orange-400 hover:bg-orange-300 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-orange-500/20">
-              Get started
-            </button>
+            <Link href={"/login"}>
+              <button className="bg-orange-400 hover:bg-orange-400/90 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all transform hover:scale-105 shadow-xl shadow-neutral-900">
+                Get started
+              </button>
+            </Link>
           </div>
         </div>
 
@@ -80,23 +82,23 @@ export default function Landing() {
         <div className="container mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
             {
-              icon: CalendarIcon,
+              icon: MagicWandIcon,
               title: "AI Task Generation",
-              text: "Smart course planning based on syllabus",
+              text: "Automatically plan your whole semester in seconds",
             },
             {
               icon: CalendarIcon,
               title: "Auto-Schedule",
-              text: "Smart course planning based on syllabus",
+              text: "Automated and intelligent task planning, taking into account your schedule, so you can focus on what's important",
             },
-            {
-              icon: CalendarIcon,
-              title: "Eliminate Decision Fatigue",
-              text: "Automatic task scheduling and prioritization",
-            },
+            // {
+            //   icon: BrainIcon,
+            //   title: "Eliminate Decision Fatigue",
+            //   text: "Automatic task scheduling and prioritization",
+            // },
             {
               icon: ClockIcon,
-              title: "Focus Sessions",
+              title: "Integrated Focus Sessions",
               text: "Focus timer to notify you when it's time to take a break, crucial for maintaining productivity",
             },
             {
@@ -106,15 +108,15 @@ export default function Landing() {
             },
             { icon: SparklesIcon, title: "AI Assistant", text: "Predictive task creation" },
             {
-              icon: SparklesIcon,
+              icon: FlameIcon,
               title: "Enhanced Motivation",
               text: "Use AI to break down large tasks",
             },
-            {
-              icon: SparklesIcon,
-              title: "Higher Grades",
-              text: "Spaced repetition task scheduling",
-            },
+            // {
+            //   icon: SparklesIcon,
+            //   title: "Higher Grades",
+            //   text: "Spaced repetition task scheduling",
+            // },
           ].map((feature, i) => (
             <div
               key={i}
@@ -131,7 +133,7 @@ export default function Landing() {
       </section>
 
       {/* Timeline Section */}
-      <section id="timeline" className="py-20 bg-neutral-900">
+      {/* <section id="timeline" className="py-20 bg-neutral-900">
         <div className="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-12">
           <div className="lg:w-1/2 space-y-8">
             <h2 className="text-4xl font-bold text-white mb-6">Dynamic Academic Timeline</h2>
@@ -147,28 +149,27 @@ export default function Landing() {
                   </p>
                 </div>
               </div>
-              {/* Add more feature points similarly */}
             </div>
           </div>
           <div className="lg:w-1/2 bg-neutral-800 p-6 rounded-2xl shadow-xl">
-            <div className="overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-orange-500/30 scrollbar-track-neutral-900">
-              {/* Timeline visualization content */}
-            </div>
+            <div className="overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-orange-500/30 scrollbar-track-neutral-900"></div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-orange-500 to-orange-600">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold text-white mb-6">Start Your Free Trial</h2>
+          <h2 className="text-4xl font-bold text-white mb-6">No more planning</h2>
           <p className="text-neutral-100 mb-8 max-w-xl mx-auto text-lg">
-            Get ahead with AI-powered academic planning—try Bryzi now!
+            Get ahead with AI-powered academic planning!
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="bg-white text-orange-600 px-8 py-4 rounded-xl font-semibold hover:bg-neutral-50 transition-all">
-              Get Started
-            </button>
+            <Link href={"/login"}>
+              <button className="bg-white text-orange-600 px-8 py-4 rounded-full font-semibold hover:bg-neutral-50 transition-all">
+                Get Started
+              </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -180,7 +181,7 @@ export default function Landing() {
             <div>
               <h3 className="text-white font-semibold mb-4">Bryzi</h3>
               <p className="text-neutral-400 text-sm">
-                Empowering students through intelligent organization
+                Empowering students through automated organization
               </p>
             </div>
             {/* Add footer columns */}
