@@ -12,10 +12,16 @@ export default function LoginPage() {
   const router = useRouter();
 
   const signInWithGoogle = async () => {
+    // TODO: use env variable for redirectUrl but this is fine for now
+    const redirectUrl =
+      process.env.NODE_ENV === "production"
+        ? "https://bryzi.com/app/today"
+        : "http://localhost:3000/app/today";
+
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "http://localhost:3000/app/today",
+        redirectTo: redirectUrl,
       },
     });
 
