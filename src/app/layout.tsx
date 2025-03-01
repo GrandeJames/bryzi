@@ -34,7 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           disableTransitionOnChange
         >
           <div className="flex">
-            {!inFocusSession && !hiddenNavPages.includes(pathname) && <Menu />}
+            {!inFocusSession && pathname.startsWith("/app") && <Menu />}
             <ScrollArea className="flex-1 h-screen">
               <div className="flex-1">{children}</div>
               <Toaster position="top-right" />
