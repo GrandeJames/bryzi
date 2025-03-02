@@ -7,7 +7,10 @@ export const maxDuration = 60;
 
 export async function POST(req: Request) {
   // 'data' contains the additional data that you have sent:
-  //   const { data } = await req.json();
+  const { data, body } = await req.json();
+
+  console.log("POST req data", data);
+  console.log("POST req body", body);
 
   const imageUrl = await generateSignedUrl();
 

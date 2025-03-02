@@ -16,3 +16,5 @@ export const generatedTaskSchema = z.object({
   estimatedDurationInMins: z.number(),
   description: z.string(),
 });
+
+export type GeneratedTask = z.infer<typeof generatedTaskSchema>;
