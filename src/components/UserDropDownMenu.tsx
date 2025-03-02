@@ -10,24 +10,34 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 import { MenuItemContainer } from "./MenuItemContainer";
 import { UserCircleIcon } from "./icons/UserCircleIcon";
+import { useEffect, useState } from "react";
+import { User } from "@supabase/supabase-js";
 
-async function UserDropDownMenu() {
+function UserDropDownMenu() {
   const supabase = createClient();
   const router = useRouter();
+  const [user, setUser] = useState<User | null>(null);
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription?.unsubscribe();
+  }, []);
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
-
     if (error) {
       console.error("Error signing out:", error.message);
     } else {
       router.push("/");
     }
   };
+
+  if (!user) return null;
 
   return (
     <DropdownMenu>
