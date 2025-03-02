@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const hiddenNavPages = ["/", "/login"];
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <Head>
         <title>Focus</title>
         <meta name="description" content="Boost your focus." />

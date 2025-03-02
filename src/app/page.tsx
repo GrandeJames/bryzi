@@ -68,6 +68,7 @@ export default function Landing() {
               className="w-full"
               width={1280}
               height={720}
+              priority
             />
           </div>
         </div>
