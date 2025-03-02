@@ -29,9 +29,6 @@ export default function LoginPage() {
 
     if (error) {
       console.error("Error signing in:", error.message);
-    } else {
-      console.log("no error User signed in successfully");
-      console.log("data", data);
     }
   };
 

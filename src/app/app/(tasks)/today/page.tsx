@@ -6,14 +6,11 @@ import useTasksStore from "@/stores/tasksStore";
 import { format, isBefore, isToday } from "date-fns";
 import AutoPlanToggle from "@/components/AutoPlanToggle";
 import PlannerCreationMenu from "../components/PlannerCreationMenu";
-import { useEffect, useState } from "react";
 import { useFocusSessionStore } from "@/stores/focusSessionStore";
 import { BreathStage } from "@/app/focus-stages/BreathStage";
 import { VisualStage } from "@/app/focus-stages/VisualStage";
 import TimerStage from "@/app/focus-stages/TimerStage";
 import { PrepareStage } from "@/app/focus-stages/PrepareStage";
-import TasksNavigation from "../components/TasksNavigation";
-import TodayTimeline from "../../../timeline/TodayTimeline";
 import TasksHeader from "../components/TasksHeader";
 import { useHydrated } from "@/hooks/useHydrated";
 

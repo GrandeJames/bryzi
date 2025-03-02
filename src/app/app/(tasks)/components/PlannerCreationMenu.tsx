@@ -46,7 +46,7 @@ function PlannerCreationMenu() {
                   side="left"
                   className="dark:bg-white bg-neutral-800 dark:text-black text-white"
                 >
-                  <p>{text}</p>
+                  {text}
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
