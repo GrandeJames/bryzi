@@ -7,7 +7,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import useCoursesStore from "@/stores/coursesStore";
-import { on } from "events";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 
