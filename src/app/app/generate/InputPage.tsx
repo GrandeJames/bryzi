@@ -1,6 +1,6 @@
 "use client";
 
-import { MultiFileUpload } from "@/components/FileUpload";
+import { ImageUploader } from "@/components/ImageUpload";
 import { ChevronLeftIcon, SparklesIcon, Loader2 } from "lucide-react";
 import CourseSelection from "./CourseSelection";
 import Disclaimer from "./Disclaimer";
@@ -10,9 +10,13 @@ import { useRouter } from "next/navigation";
 export default function InputPage({
   isLoading,
   handleGenerateClick,
+  onImageUpdate,
+  onCourseSelect,
 }: {
   isLoading: boolean;
   handleGenerateClick: () => void;
+  onImageUpdate: (files: File[]) => void;
+  onCourseSelect: (courseId: string) => void;
 }) {
   const [selectedCourseId, setSelectedCourseId] = useState<string | undefined>();
 
@@ -34,12 +38,16 @@ export default function InputPage({
       <div className="flex flex-col gap-3">
         <CourseSelection
           onSelectCourse={(courseId) => {
-            console.log("Course selected", courseId);
             setSelectedCourseId(courseId);
+            onCourseSelect(courseId);
           }}
         />
         <div>
-          <MultiFileUpload />
+          <ImageUploader
+            onFilesUpdated={(files: File[]) => {
+              onImageUpdate(files);
+            }}
+          />
         </div>
       </div>
       {/* <div>Options:</div> */}

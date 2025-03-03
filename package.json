@@ -26,6 +26,7 @@
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.48.1",
     "ai": "^4.1.38",
+    "browser-image-compression": "^2.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "date-fns": "^3.6.0",
