@@ -4,9 +4,11 @@ import { generateSignedUrls } from "./server/generateSignedUrls";
 import { generatedTaskSchema } from "@/app/schemas/generatedTaskSchema";
 import { createClient } from "@/utils/supabase/server";
 
-export const maxDuration = 120;
+export const maxDuration = 60; // this is the max for the free tier
 
 export async function POST(req: Request) {
+  console.log("POST /api/generate");
+
   const supabase = await createClient();
   const {
     data: { user },
