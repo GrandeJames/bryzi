@@ -1,5 +1,6 @@
 import { GeneratedTask } from "@/app/schemas/generatedTaskSchema";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Separator } from "@/components/ui/separator";
 
 export default function GeneratedTaskItem({ task }: { task: GeneratedTask }) {
   const handleGeneratedTaskClick = (generatedTask: any) => {
@@ -13,17 +14,21 @@ export default function GeneratedTaskItem({ task }: { task: GeneratedTask }) {
     >
       <div className="col-span-11">
         <div className="font-semibold text-base">{task?.title}</div>
-        <div className="flex gap-4">
+        <div className="flex gap-3">
           <div className="text-sm flex gap-1 items-center text-neutral-400">
             {/* <FlagIcon className="size-3" /> {generatedTask?.deadline?.dueDate}{" "} */}
             Due: {task?.deadline?.dueDate} {task?.deadline?.dueTime}
           </div>
+          <Separator orientation="vertical" className="w-[1px] h-5 dark:bg-neutral-700" />
           <div className="text-sm flex gap-1 items-center text-neutral-400">
             Duration: {task?.estimatedDurationInMins} m
           </div>
+          <Separator orientation="horizontal" className="w-[1px] h-5 dark:bg-neutral-700" />
           <div className="text-sm flex gap-1 items-center text-neutral-400">
             {task?.difficulty} Effort
           </div>
+          <Separator orientation="vertical" className="w-[1px] h-5 dark:bg-neutral-700" />
+
           <div className="text-sm flex gap-1 items-center text-neutral-400">
             {task?.impact} Impact
           </div>

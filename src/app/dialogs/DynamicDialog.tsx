@@ -8,7 +8,7 @@ import ClassTaskDetails from "../../components/ClassTaskDetails";
 import PersonalTaskForm from "../app/(tasks)/components/forms/PersonalTaskForm";
 import PersonalTaskDetails from "../personal-tasks/PersonalTaskDetails";
 import CourseForm from "../courses/CourseForm";
-import { Separator } from "../../../@components/ui/separator";
+import { Separator } from "../../components/ui/separator";
 
 function DynamicDialog() {
   const { openDialogName, closeDialog, dialogData, title } = useDialogStore();
