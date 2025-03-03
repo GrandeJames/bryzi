@@ -47,6 +47,9 @@ export default function GeneratePage() {
       }
 
       setGeneratedTasks(object);
+
+      // TODO: delete all of the user's (course schedule) image(s) from the server after processing, assuming that i can onnly delete after it's done processing. im not sure if can delete right away after generating urls.
+      // deleting is necessary so that no one can access the images after they are done being processed as well as prevent duplicates
     },
     onError(error) {
       console.log("Error", error);
@@ -82,19 +85,17 @@ export default function GeneratePage() {
     }
 
     try {
-      console.log("Optimizing images...");
-      const compresedImages = await optimizeImages(images);
-      console.log("Compressed images", compresedImages);
-
-      console.log("Uploading images...");
       const BUCKET_NAME = "schedules";
       const directoryName = user.id;
-      const data = await uploadBlobs(compresedImages, BUCKET_NAME, directoryName);
-      console.log("Uploaded images", data);
 
-      console.log("Submitting...");
-      // submit(undefined); // this will call the internal API route and start the process
-      console.log("Submitted");
+      console.log("Optimizing images...");
+      const compresedImages = await optimizeImages(images);
+
+      console.log("Uploading images...");
+      await uploadBlobs(compresedImages, BUCKET_NAME, directoryName);
+
+      console.log("submitting...");
+      submit("Images of course schedule");
     } catch (error) {
       console.error("Error generating", error);
       return;

@@ -18,3 +18,5 @@ export const generatedTaskSchema = z.object({
 });
 
 export type GeneratedTask = z.infer<typeof generatedTaskSchema>;
+
+// TODO: provide descriptions for each field in the schema
