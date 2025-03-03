@@ -1,6 +1,7 @@
+import { GeneratedTask } from "@/app/schemas/generatedTaskSchema";
 import { Checkbox } from "@/components/ui/checkbox";
 
-export default function GeneratedTaskItem(task: any) {
+export default function GeneratedTaskItem({ task }: { task: GeneratedTask }) {
   const handleGeneratedTaskClick = (generatedTask: any) => {
     console.log("generatedTask clicked", generatedTask);
   };
@@ -11,11 +12,11 @@ export default function GeneratedTaskItem(task: any) {
       onClick={() => handleGeneratedTaskClick(task)}
     >
       <div className="col-span-11">
-        <div className="font-semibold text-base">{task?.task.title}</div>
+        <div className="font-semibold text-base">{task?.title}</div>
         <div className="flex gap-4">
           <div className="text-sm flex gap-1 items-center text-neutral-400">
             {/* <FlagIcon className="size-3" /> {generatedTask?.deadline?.dueDate}{" "} */}
-            Due: {task?.deadline?.dueDate} {task?.deadline?.dueTime} 3:30 PM
+            Due: {task?.deadline?.dueDate} {task?.deadline?.dueTime}
           </div>
           <div className="text-sm flex gap-1 items-center text-neutral-400">
             Duration: {task?.estimatedDurationInMins} m
