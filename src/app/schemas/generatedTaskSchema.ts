@@ -1,22 +1,26 @@
 import { z } from "zod";
 
 export const generatedTaskSchema = z.object({
-  title: z.string(),
-  frequency: z.object({
-    frequency: z.enum(["once", "daily", "weekly", "monthly"]),
-    occurrences: z.number(),
-    daysOfWeek: z.array(z.enum(["mon", "tue", "wed", "thu", "fri", "sat", "sun"])),
-  }),
+  title: z.string().describe("The title of the task"),
   deadline: z.object({
-    dueDate: z.string(),
-    dueTime: z.string(),
+    dueDate: z
+      .string()
+      .describe(
+        `The date the task is due in the format YYYY-MM-DD. If no date is found, give an empty response. If no year is found, use the year ${new Date().getFullYear()}`
+      ),
+    dueTime: z
+      .string()
+      .describe(
+        "The time the task is due in the 24 hour format HH:MM. If none is provided, the task is due at 23:59"
+      ),
   }),
-  impact: z.number(),
-  difficulty: z.number(),
-  estimatedDurationInMins: z.number(),
-  description: z.string(),
+  impact: z.number().describe("The estimated grade impact. Min: 1, Max: 4"),
+  difficulty: z.number().describe("The estimated difficulty/effort of the task. Min: 1, Max: 4"),
+  estimatedDurationInMins: z
+    .number()
+    .describe(
+      "The estimated duration to complete the task, expressed in minutes. For example, a research paper may take 1200 minutes to complete. Higher impact and difficulty/effort tasks may take longer to complete."
+    ),
 });
 
 export type GeneratedTask = z.infer<typeof generatedTaskSchema>;
-
-// TODO: provide descriptions for each field in the schema
