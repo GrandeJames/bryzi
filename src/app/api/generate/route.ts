@@ -4,7 +4,6 @@ import { generateSignedUrls } from "./server/generateSignedUrls";
 import { generatedTaskSchema } from "@/app/schemas/generatedTaskSchema";
 import { createClient } from "@/utils/supabase/server";
 import { TypeValidationError } from "ai";
-import error from "next/error";
 
 export const maxDuration = 60; // this is the max for the free tier
 
@@ -18,10 +17,6 @@ export async function POST(req: Request) {
 
   if (!user) {
     return new Response("Unauthorized", { status: 401 });
-  }
-
-  if (TypeValidationError.isInstance(error)) {
-    return new Response("Type validation error", { status: 400 });
   }
 
   const imageUrls = await generateSignedUrls(user.id);
