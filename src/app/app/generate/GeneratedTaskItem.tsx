@@ -30,15 +30,11 @@ export default function GeneratedTaskItem({ task }: { task: GeneratedTask }) {
 
             <div className="flex items-center gap-1.5">
               <GaugeIcon />
-              <span
-                className={cn(
-                  "capitalize",
-                  task.difficulty === 4 && "text-red-400",
-                  task.difficulty === 3 && "text-yellow-400",
-                  task.difficulty === 2 || (task.difficulty === 1 && "text-green-400")
-                )}
-              >
-                {task.difficulty}
+              <span className={"capitalize"}>
+                {(task.difficulty === 4 && "Max") ||
+                  (task.difficulty === 3 && "High") ||
+                  (task.difficulty === 2 && "Moderate") ||
+                  (task.difficulty === 1 && "Minimal")}
               </span>
             </div>
 
@@ -46,7 +42,12 @@ export default function GeneratedTaskItem({ task }: { task: GeneratedTask }) {
 
             <div className="flex items-center gap-1.5">
               <TrendingUpIcon />
-              <span className="capitalize">{task.impact}</span>
+              <span className={"capitalize"}>
+                {(task.impact === 4 && "Critical") ||
+                  (task.impact === 3 && "High") ||
+                  (task.impact === 2 && "Moderate") ||
+                  (task.impact === 1 && "Minor")}
+              </span>
             </div>
           </div>
         </div>
