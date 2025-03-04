@@ -37,7 +37,7 @@ export default function OutputPage({
             >
               <span>Save Selection</span>
               <span className="text-sm bg-orange-600/20 px-2.5 py-1 rounded-full">
-                {object?.length || 0} tasks
+                {object?.length || 0}
               </span>
             </button>
           </div>
