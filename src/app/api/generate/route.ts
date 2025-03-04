@@ -30,7 +30,7 @@ export async function POST(req: Request) {
     .filter((url) => typeof url === "string" && url.startsWith("http"))
     .map((url) => ({
       type: "image",
-      image: url, // Use string URL directly
+      image: url,
       mimeType: "image/webp",
     }));
 
@@ -40,7 +40,6 @@ export async function POST(req: Request) {
 
   console.log("image parts", imageParts);
 
-  console.log("generatedTaskSchema:", generatedTaskSchema);
   if (!generatedTaskSchema) {
     return new Response("Schema is missing", { status: 500 });
   }
