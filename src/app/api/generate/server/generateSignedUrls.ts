@@ -21,8 +21,17 @@ export async function generateSignedUrls(userId: string) {
     return [];
   }
 
+  // This is necessary to ensure the generated URLs are in the correct order and thus the image messages are in the correct order.
+  const sortedFilesByIndex = files.sort((a, b) => {
+    // I'll need to update this if I ever change the file naming convention. A way to solve this is to store the index in the metadata of the file.
+    const aIndex = parseInt(a.name.split("_")[1].split(".")[0]);
+    const bIndex = parseInt(b.name.split("_")[1].split(".")[0]);
+
+    return aIndex - bIndex;
+  });
+
   const fileUrls = await Promise.all(
-    files.map(async (file) => {
+    sortedFilesByIndex.map(async (file) => {
       const { data: signedUrlData, error: signedUrlError } = await supabase.storage
         .from("schedules")
         .createSignedUrl(`${userId}/${file.name}`, 60);
