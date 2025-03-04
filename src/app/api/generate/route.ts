@@ -4,6 +4,7 @@ import { generateSignedUrls } from "./server/generateSignedUrls";
 import { generatedTaskSchema } from "@/app/schemas/generatedTaskSchema";
 import { createClient } from "@/utils/supabase/server";
 import { TypeValidationError } from "ai";
+import { SupabaseClient } from "@supabase/supabase-js";
 
 export const maxDuration = 60; // this is the max for the free tier
 
@@ -71,7 +72,35 @@ export async function POST(req: Request) {
     schema: generatedTaskSchema,
     output: "array",
     messages: messages,
+    onFinish: () => deleteUserImages(user.id, supabase),
   });
 
   return result.toTextStreamResponse();
+}
+
+async function deleteUserImages(userId: string, supabase: SupabaseClient) {
+  const BUCKET = "schedules";
+  const folder = userId;
+
+  const { data, error } = await supabase.storage.from(BUCKET).list(folder);
+
+  if (error) {
+    console.error("Error", error);
+    return;
+  }
+
+  const files = data || [];
+
+  for (const file of files) {
+    const fileName = file.name;
+
+    const { data: deletionData, error: deletionError } = await supabase.storage
+      .from(BUCKET)
+      .remove([`${folder}/${fileName}`]);
+
+    if (deletionError) {
+      console.error(`Error deleting file ${fileName}`, deletionError);
+      return;
+    }
+  }
 }
