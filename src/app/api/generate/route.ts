@@ -48,8 +48,8 @@ export async function POST(req: Request) {
   const systemMessages: CoreSystemMessage[] = [
     {
       role: "system",
-      content:
-        "You are a helpful assistant that generates a list of class tasks from a course schedule using every image provided by the user. Dates should be in yyyy-MM-dd format. Reviews must be created for assessments (exams, quizzes, etc.) and be due the day before the date of the assessment.",
+      content: `You are a helpful assistant that generates a list of school tasks from a course schedule using all images provided by the user. Only relevant tasks should be generated.
+       Additional tasks must be generated to review for assessments (including, but not limited to, exams and quizzes) and have a due date before the date of the actual assessment.`,
     },
   ];
 
