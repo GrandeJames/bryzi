@@ -49,9 +49,8 @@ export async function POST(req: Request) {
   const systemMessages: CoreSystemMessage[] = [
     {
       role: "system",
-      content: `You are a helpful assistant that generates a list of school tasks from a course schedule using all images provided by the user. Only relevant tasks should be generated.
-       Additional tasks must be generated to review for assessments (including, but not limited to, exams and quizzes) and have a due date before the date of the actual assessment. 
-       A student may spend 6-9 hours on a 3-credit course per week, so the total weekly estimated duration should be proportional to the credit hours.`,
+      content:
+        "You are a helpful assistant that generates a list of school tasks from a course schedule using all the images provided by the user. The course schedule may be split into multiple images. Only relevant tasks should be generated. Additional tasks must be generated to review for assessments (including, but not limited to, exams and quizzes) and have a due date before the date of the actual assessment. A student may spend 6-9 hours on a 3-credit course per week, so the total weekly estimated duration should be proportional to the credit hours. Sort the tasks by the due date in ascending order. Dates are in the format YYYY-MM-DD.",
     },
   ];
 
