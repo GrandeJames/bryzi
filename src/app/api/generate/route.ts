@@ -9,8 +9,7 @@ export const maxDuration = 60; // this is the max for the free tier
 
 export async function POST(req: Request) {
   console.log("POST /api/generate ran");
-
-  // TODO: sort the images. this is broken because the images are processed in parallel.
+  const { courseName }: { courseName: string } = await req.json();
 
   const supabase = await createClient();
   const {
@@ -46,8 +45,41 @@ export async function POST(req: Request) {
   const systemMessages: CoreSystemMessage[] = [
     {
       role: "system",
-      content:
-        "You are a helpful assistant that generates a list of school tasks from a course schedule using all the images provided by the user. The course schedule may be split into multiple images. Only relevant tasks should be generated. Additional tasks must be generated to review for assessments (including, but not limited to, exams and quizzes) and have a due date before the date of the actual assessment. A student may spend 6-9 hours on a 3-credit course per week, so the total weekly estimated duration should be proportional to the credit hours. Sort the tasks by the due date in ascending order. Dates are in the format YYYY-MM-DD.",
+      content: `
+Act as an expert task planning assistant who takes image(s) of a course schedule/calendar table to generate a list of tasks for the student to do to use. This data will be used in a task management system, essentially a digital student planner. Follow all rules and guidelines!
+
+DEFINITION(S):
+- Assessment: Exams, quizzes, or other graded evaluations
+
+IMAGE PROCESSING:
+1. Analyze ALL images collectively as single schedule
+2. Extract LITERAL text values first
+3. Flag uncertain dates as 0000-00-00
+
+TASK GENERATION RULES:
+1. REQUIRED TASKS TO INCLUDE:
+   - All academic tasks, including, but not limited to, course assessments, readings, topics, assignments, projects, and reviews.
+
+2. DATE HANDLING:
+   - If no date: Use 0000-00-00
+   - If no year: Use ${new Date().getFullYear()}
+   - Date ranges → use FIRST date
+   - All types of assessments (exams, quizzes, etc.) are due the day before the actual date listed
+
+EXAMPLE OUTPUT:
+- Preview Cellular Biology
+- Study for Midterm Exam 1
+- Study for Final Exam
+- Homework 2
+- Read Chapter 3
+- Write Essay 1
+- Research Project
+- Prepare for Presentation
+- Review for Quiz 1
+- Complete Assignment 4
+- Submit Discussion Post
+- Review for Exam 2
+`.trim(),
     },
   ];
 
@@ -66,7 +98,7 @@ export async function POST(req: Request) {
     }),
     mode: "auto",
     schemaName: "tasks",
-    schemaDescription: "A list of class tasks.",
+    schemaDescription: "A list of course tasks.",
     schema: generatedTaskSchema,
     output: "array",
     messages: messages,
