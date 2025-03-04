@@ -5,7 +5,7 @@ import { cn } from "@/utils/cn";
 
 export default function GeneratedTaskItem({ task }: { task: GeneratedTask }) {
   return (
-    <div className="group border border-neutral-800 bg-neutral-900/70 rounded-xl p-5 transition-all hover:border-neutral-700 hover:bg-neutral-900/90 cursor-pointer">
+    <div className="group border border-neutral-800 bg-neutral-900/40 rounded-xl p-5 transition-all hover:border-neutral-700 hover:bg-neutral-900/90 cursor-pointer">
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-3 flex-1">
           <h3 className="font-medium text-neutral-100 leading-snug">{task.title}</h3>
