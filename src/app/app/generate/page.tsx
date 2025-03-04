@@ -116,7 +116,7 @@ export default function GeneratePage() {
   };
 
   return (
-    <div className="container max-w-3xl">
+    <div className="container">
       {error && <div>Error: {error.message}</div>}
       {object ? (
         <OutputPage
