@@ -3,13 +3,14 @@ import { CoreSystemMessage, CoreUserMessage, ImagePart, streamObject } from "ai"
 import { generateSignedUrls } from "./server/generateSignedUrls";
 import { generatedTaskSchema } from "@/app/schemas/generatedTaskSchema";
 import { createClient } from "@/utils/supabase/server";
-import { TypeValidationError } from "ai";
 import { SupabaseClient } from "@supabase/supabase-js";
 
 export const maxDuration = 60; // this is the max for the free tier
 
 export async function POST(req: Request) {
-  console.log("POST /api/generate");
+  console.log("POST /api/generate ran");
+
+  // TODO: sort the images. this is broken because the images are processed in parallel.
 
   const supabase = await createClient();
   const {
@@ -26,8 +27,6 @@ export async function POST(req: Request) {
     return new Response("No images found", { status: 400 });
   }
 
-  console.log("image urls", imageUrls);
-
   const imageParts: ImagePart[] = imageUrls
     .filter((url) => typeof url === "string" && url.startsWith("http"))
     .map((url) => ({
@@ -39,8 +38,6 @@ export async function POST(req: Request) {
   if (!imageParts || imageParts.length === 0) {
     return new Response("No valid images to process", { status: 400 });
   }
-
-  console.log("image parts", imageParts);
 
   if (!generatedTaskSchema) {
     return new Response("Schema is missing", { status: 500 });
@@ -60,6 +57,8 @@ export async function POST(req: Request) {
   }));
 
   const messages = [...systemMessages, ...userMessages];
+
+  console.log("messages", messages);
 
   const result = streamObject({
     model: openai("gpt-4o-mini", {
