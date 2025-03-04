@@ -3,16 +3,14 @@ import { z } from "zod";
 export const generatedTaskSchema = z.object({
   title: z.string().describe("The title of the task"),
   deadline: z.object({
-    dueDate: z
-      .string()
-      .describe(
-        `The date the task is due in the format YYYY-MM-DD. If no date is found, give an empty response. If no year is found, use the year ${new Date().getFullYear()}`
-      ),
-    dueTime: z
-      .string()
-      .describe(
-        "The time the task is due in the 24 hour format HH:MM. If none is provided, the task is due at 23:59"
-      ),
+    dueDate: z.string().describe(
+      `STRICT RULES! Date in YYYY-MM-DD format. Follow EXACTLY:
+        1. If NO DATE in image: 0000-00-00
+        2. If PARTIAL DATE (e.g., "March 15"): ${new Date().getFullYear()}-03-15
+        3. If UNCLEAR/AMBIGUOUS: 0000-00-00
+        NEVER INVENT DATES! Current year: ${new Date().getFullYear()}`
+    ),
+    dueTime: z.string().describe("Time in HH:MM format. Default: 23:59 if missing"),
   }),
   impact: z.number().describe("The estimated grade impact. Min: 1, Max: 4"),
   difficulty: z.number().describe("The estimated difficulty/effort of the task. Min: 1, Max: 4"),

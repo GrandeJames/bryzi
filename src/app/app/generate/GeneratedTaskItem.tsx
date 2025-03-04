@@ -15,7 +15,13 @@ export default function GeneratedTaskItem({ task }: { task: GeneratedTask }) {
             <div className="flex items-center gap-1.5">
               <CalendarIcon />
               <span>
-                {formatCustomDate(task.deadline.dueDate)}, {formatTime(task.deadline.dueTime)}
+                {isNaN(new Date(task.deadline.dueDate).getTime()) ? (
+                  <>No deadline</>
+                ) : (
+                  <>
+                    {formatCustomDate(task.deadline.dueDate)}, {formatTime(task.deadline.dueTime)}
+                  </>
+                )}
               </span>
             </div>
 
