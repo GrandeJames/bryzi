@@ -49,7 +49,8 @@ export async function POST(req: Request) {
     {
       role: "system",
       content: `You are a helpful assistant that generates a list of school tasks from a course schedule using all images provided by the user. Only relevant tasks should be generated.
-       Additional tasks must be generated to review for assessments (including, but not limited to, exams and quizzes) and have a due date before the date of the actual assessment.`,
+       Additional tasks must be generated to review for assessments (including, but not limited to, exams and quizzes) and have a due date before the date of the actual assessment. 
+       A student may spend 6-9 hours on a 3-credit course per week, so the total weekly estimated duration should be proportional to the credit hours.`,
     },
   ];
 

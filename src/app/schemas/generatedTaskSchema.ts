@@ -19,7 +19,7 @@ export const generatedTaskSchema = z.object({
   estimatedDurationInMins: z
     .number()
     .describe(
-      "The estimated duration to complete the task, expressed in minutes. For example, a research paper may take 1200 minutes to complete. Higher impact and difficulty/effort tasks may take longer to complete."
+      "The estimated duration to complete the task, expressed in minutes. For example, a research paper may take 1200 minutes to complete. Higher impact and difficulty/effort tasks should have higher estimated durations."
     ),
 });
 
