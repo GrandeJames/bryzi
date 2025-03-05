@@ -20,6 +20,10 @@ export async function POST(req: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
 
+  if (!generatedTaskSchema) {
+    return new Response("Schema is missing", { status: 500 });
+  }
+
   const imageUrls = await generateSignedUrls(user.id);
 
   if (!imageUrls || imageUrls.length === 0) {
@@ -38,55 +42,92 @@ export async function POST(req: Request) {
     return new Response("No valid images to process", { status: 400 });
   }
 
-  if (!generatedTaskSchema) {
-    return new Response("Schema is missing", { status: 500 });
-  }
+  const userMessages: CoreUserMessage[] = imageParts.map((imagePart) => ({
+    role: "user",
+    content: [imagePart],
+  }));
+
+  const currentYear = new Date().getFullYear();
 
   const systemMessages: CoreSystemMessage[] = [
     {
       role: "system",
       content: `
-Act as an expert task planning assistant who takes image(s) of a course schedule/calendar table to generate a list of tasks for the student to do to use. This data will be used in a task management system, essentially a digital student planner. Follow all rules and guidelines!
+You are an AI assistant that helps create a todo list to plan out a student's todos for the whole semester of a course. Provide a sorted todo list from an image or images of a single course calendar/schedule table that is commonly found in a course syllabus.
 
-DEFINITION(S):
-- Assessment: Exams, quizzes, or other graded evaluations
 
-IMAGE PROCESSING:
-1. Analyze ALL images collectively as single schedule
-2. Extract LITERAL text values first
-3. Flag uncertain dates as 0000-00-00
+Be aware of common abbreviations (e.g. "HW" = "Homework", "Asst" = "Assignment").
 
-TASK GENERATION RULES:
-1. REQUIRED TASKS TO INCLUDE:
-   - All academic tasks, including, but not limited to, course assessments, readings, topics, assignments, projects, and reviews.
+Definitions:
+- Assessment: Used to evaluate a student's understanding of a topic, usually done in class (e.g., exam, quiz). Assignments are not assessments. Non-assessment examples: homework, project, reading.
+- Topic: A subject or theme that is covered in class.
+- Preparation: Getting ready for a topic or assessment.
 
-2. DATE HANDLING:
-   - If no date: Use 0000-00-00
-   - If no year: Use ${new Date().getFullYear()}
-   - Date ranges → use FIRST date
-   - All types of assessments (exams, quizzes, etc.) are due the day before the actual date listed
+Each todo item must have a title, deadline, and estimated duration.
 
-EXAMPLE OUTPUT:
-- Preview Cellular Biology
-- Study for Midterm Exam 1
-- Study for Final Exam
-- Homework 2
-- Read Chapter 3
-- Write Essay 1
-- Research Project
-- Prepare for Presentation
-- Review for Quiz 1
-- Complete Assignment 4
-- Submit Discussion Post
-- Review for Exam 2
+
+The course is "${"Programming in Mathematics"}".
+
+
+Multiple image rules:
+- If multiple images are provided, they are part of the same course schedule, so use the table header for all images.
+
+Sorting rules:
+- Sort the todos by the deadline in ascending order.
+
+Date rules:
+- If no date in the image: use 0000-00-00
+- If the date is unclear or ambiguous: use 0000-00-00
+- If no year is in the date, use the current year: ${currentYear} (e.g., "March 15"): ${currentYear}-03-15
+- If a date range is provided: Use the first date as the base date if it's a range (e.g., "8/22 (Tu), 8/24 (Th), 8/28 (Tu)": ${currentYear}-08-22).
+
+
+Title rules:
+- Keep the original text from the image.
+
+Deadline rules:
+- Assessments (assessment examples: exam, quiz, assignment; non-assessment examples: homework, project, reading): Set the deadline to the day before the assessment.
+- Topic preparations: Set the deadline to the day before the topic is covered.
+
+Estimated duration rules:
+- Provide an estimated duration in minutes for each todo item based on the impact, difficulty, and task type base.
+
+
+Assessment rules:
+- A study todo must be created for each assessment, in addition to the assessment todo (e.g., "Midterm 1" = "Study for Midterm 1" and "Midterm 1").
+- The study todo must have a deadline one day before the assessment.
+
+Topic Preparation rules:
+- A preparation todo must be created for each lecture topic (e.g., "Mathematical background, Introduction of Jupyter notebook" = "Prepare for topic: Mathematical background" and "Prepare for topic: Introduction of Jupyter notebook"
+
+
+EXAMPLE:
+
+| Week | Date                    | Topics                                                              | Assignment  |
+|------------------------------------------------------------------------------------------------------|-------------|
+|1, 2  | 8/22 (Tu)               | Introduction, mathematical background                               |             |
+|      | 8/24 (Th), 8/28 (Tu),   | Introduction of Jupyter notebook, insertion sort and merge sort     |             |
+|      | 8/31 (Th)               |                                                                     |             |
+|3, 4  | 9/5 (Tu)                | Growth of functions                                                 | Q1-1 due 9/8|
+|      | 9/7 (Th), 9/12 (Tu)     | Divide-and-conquer: maximum-subarray problem, matrix multiplication | P1          |
+|4, 5  | 9/14 (Th), 9/19 (Tu)    | Recurrence equations: Substitution method, recursion-tree method,   | *Q1-2       |
+|      |                         | Master theorem                                                      |             |
+|      | 9/21 (Th)               | **Midterm 1**                                                       |             |
+
+Output:
+- Title: Prepare for topic: Mathematical background; Deadline: 2022-08-21; Estimated duration: 60 mins
+- Title: Prepare for topic - Introduction of Jupyter notebook; Deadline: 2022-08-23; Estimated duration: 40 mins
+- Title: Prepare for topic - Introduction of insertion sort; Deadline: 2022-08-27; Estimated duration: 90 mins
+- Title: Prepare for topic - Introduction of merge sort; Deadline: 2022-08-30; Estimated duration: 90 mins
+- Title: Prepare for topic - Growth of functions; Deadline: 2022-09-04; Estimated duration: 120 mins
+- Title: Q1-1; Deadline: 2022-09-06; Estimated duration: 180 mins
+- Title: P1; Deadline: 2022-09-07; Estimated duration: 230 mins
+- Title: Q1-2; Deadline: 2022-09-14; Estimated duration: 180 mins
+- Title: Study for Midterm 1; Deadline: 2022-09-20; Estimated duration: 360 mins
+- Title: Midterm 1; Deadline: 2022-09-21; Estimated duration: 75 mins
 `.trim(),
     },
   ];
-
-  const userMessages: CoreUserMessage[] = imageParts.map((imagePart) => ({
-    role: "user",
-    content: [imagePart],
-  }));
 
   const messages = [...systemMessages, ...userMessages];
 
