@@ -3,13 +3,7 @@ import { z } from "zod";
 export const generatedTaskSchema = z.object({
   title: z.string().describe("The title of the task"),
   deadline: z.object({
-    dueDate: z.string().describe(
-      `STRICT RULES! Date in YYYY-MM-DD format. Follow EXACTLY:
-        1. If NO DATE in image: 0000-00-00
-        2. If PARTIAL DATE (e.g., "March 15"): ${new Date().getFullYear()}-03-15
-        3. If UNCLEAR/AMBIGUOUS: 0000-00-00
-        NEVER INVENT DATES! Current year: ${new Date().getFullYear()}`
-    ),
+    dueDate: z.string().describe(`The due date of the task.`),
     dueTime: z.string().describe("Time in HH:MM format. Default: 23:59 if missing"),
   }),
   // impact: z
