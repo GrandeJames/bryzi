@@ -10,7 +10,6 @@ export default function GeneratedTaskItem({ task }: { task: GeneratedTask }) {
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-3 flex-1">
           <h3 className="font-medium text-neutral-100 leading-snug">{task.title}</h3>
-
           <div className="flex flex-wrap items-center gap-3 text-sm text-neutral-400">
             <div className="flex items-center gap-1.5">
               <CalendarIcon />
@@ -19,20 +18,24 @@ export default function GeneratedTaskItem({ task }: { task: GeneratedTask }) {
                   <>No deadline</>
                 ) : (
                   <>
-                    {formatCustomDate(task.deadline.dueDate)}, {formatTime(task.deadline.dueTime)}
+                    {formatCustomDate(task.deadline.dueDate)
+                      ? `${formatCustomDate(task.deadline.dueDate)}, ${formatTime(
+                          task.deadline.dueTime
+                        )}`
+                      : "No date"}
                   </>
                 )}
               </span>
             </div>
 
-            <Separator orientation="vertical" className="h-4" />
+            <Separator orientation="vertical" className="h-4 dark:bg-neutral-800" />
 
             <div className="flex items-center gap-1.5">
               <ClockIcon />
               <span>{task.estimatedDurationInMins} mins</span>
             </div>
 
-            <Separator orientation="vertical" className="h-4" />
+            {/* <Separator orientation="vertical" className="h-4" />
 
             <div className="flex items-center gap-1.5">
               <GaugeIcon />
@@ -42,9 +45,9 @@ export default function GeneratedTaskItem({ task }: { task: GeneratedTask }) {
                   (task.difficulty === 2 && "Moderate") ||
                   (task.difficulty === 1 && "Minimal")}
               </span>
-            </div>
+            </div> */}
 
-            <Separator orientation="vertical" className="h-4" />
+            {/* <Separator orientation="vertical" className="h-4" />
 
             <div className="flex items-center gap-1.5">
               <TrendingUpIcon />
@@ -54,7 +57,7 @@ export default function GeneratedTaskItem({ task }: { task: GeneratedTask }) {
                   (task.impact === 2 && "Moderate") ||
                   (task.impact === 1 && "Minor")}
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
 
