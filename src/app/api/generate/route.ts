@@ -1,9 +1,9 @@
-import { openai } from "@ai-sdk/openai";
-import { CoreSystemMessage, CoreUserMessage, ImagePart, streamObject } from "ai";
+import { CoreSystemMessage, CoreUserMessage, FilePart, streamObject } from "ai";
 import { generateSignedUrls } from "./server/generateSignedUrls";
 import { generatedTaskSchema } from "@/app/schemas/generatedTaskSchema";
 import { createClient } from "@/utils/supabase/server";
 import { SupabaseClient } from "@supabase/supabase-js";
+import { google } from "@ai-sdk/google"
 
 export const maxDuration = 60; // this is the max for the free tier
 
@@ -30,11 +30,11 @@ export async function POST(req: Request) {
     return new Response("No images found", { status: 400 });
   }
 
-  const imageParts: ImagePart[] = imageUrls
+  const imageParts: FilePart[] = imageUrls
     .filter((url) => typeof url === "string" && url.startsWith("http"))
     .map((url) => ({
-      type: "image",
-      image: url,
+      type: "file",
+      data: url,
       mimeType: "image/webp",
     }));
 
@@ -142,17 +142,17 @@ Follow the steps and rules below to generate the to-do list!
   const messages = [...systemMessages, ...userMessages];
 
   console.log("messages", messages);
+  const model = google("gemini-2.0-flash-001", {
+    structuredOutputs: true,
+  });
 
   const result = streamObject({
-    model: openai("gpt-4o-mini", {
-      structuredOutputs: true,
-    }),
-    mode: "auto",
+    model: model,
     schemaName: "tasks",
     schemaDescription: "A list of course tasks.",
     schema: generatedTaskSchema,
-    output: "array",
     messages: messages,
+    output: "array",
     onFinish: () => deleteUserImages(user.id, supabase),
     onError: (error) => {
       handleGenerationError(`${error}`, user.id, supabase);
