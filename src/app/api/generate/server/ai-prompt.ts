@@ -58,13 +58,19 @@ IMPORTANT: Create as many to-do items as necessary to cover all tasks, including
 ### To-Do Properties
 
 #### Titles
-- Use the original text from the image, though may be adjusted if separate items are in a single cell.
+- The title should be concise while preserving meaning, summarizing the task.
+- Keep essential keywords from the original text.
 - If beneficial, prefix the title with the appropriate task type (e.g., Study, Prepare, Assignment, Reading, etc.) to clearly indicate the task's nature.
 
 #### Deadlines
 - Set study, preparation, and reading deadlines one day before the corresponding assessment or lecture. Example: If an exam is on "2025-03-10", the study to-do is due "2025-03-09"
 - Set other tasks' deadline to use the original date. Example: If a homework is on "2025-03-10", the assignment to-do is due "2025-03-10".
 - Set to "0000-00-00" if no deadline is found.
+### Additional Details
+- If necessary, provide extra context in the additionalDetails property.
+- Do not repeat information already in the title.
+- Include only relevant details that helps clarify the task.
+- If no additional details are needed, leave this property empty.
 
 #### Estimated Durations
 - Provide the usual amount of time, in minutes, for students to complete the to-do.

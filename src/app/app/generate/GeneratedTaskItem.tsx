@@ -11,6 +11,9 @@ export default function GeneratedTaskItem({ task }: { task: GeneratedTask }) {
         <div className="space-y-3 flex-1">
           <h3 className="font-medium text-neutral-100 leading-snug">{task.title}</h3>
           <div className="flex flex-wrap items-center gap-3 text-sm text-neutral-400">
+          {task.additionalDetails && (
+            <div className="text-neutral-500 text-sm">{task.additionalDetails}</div>
+          )}
             <div className="flex items-center gap-1.5">
               <CalendarIcon />
               <span>
