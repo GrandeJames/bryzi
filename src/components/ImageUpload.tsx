@@ -38,7 +38,7 @@ export function ImageUploader({
       onFilesUpdated(uploadedFiles.map((file) => file.file));
       prevUploadedFiles.current = uploadedFiles;
     }
-  }, [uploadedFiles]);
+  }, [onFilesUpdated, uploadedFiles]);
 
   const onAdd = (acceptedFiles: File[]) => {
     setError(null);
@@ -102,7 +102,7 @@ export function ImageUploader({
           ) : (
             <p>Drag & drop images here, or click to select</p>
           )}
-          <p className="text-sm text-muted-foreground mt-2">PNG, JPG, or WEBP up to 5MB</p>
+          <p className="text-sm text-muted-foreground mt-2">PNG, JPG, or WEBP up to {totalSizeLimitMB}MB</p>
         </div>
 
         {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
