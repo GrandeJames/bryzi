@@ -3,47 +3,60 @@
 import { supabase } from "@/lib/supabaseClient";
 
 export async function generateSignedUrls(userId: string) {
-  const { data: files, error } = await supabase.storage.from("schedules").list(userId, {
-    limit: 1000,
-    offset: 0,
-    sortBy: { column: "name", order: "asc" },
-  });
+  const BUCKET = "schedules";
 
-  console.log("Files list:", files);
+  const testingFolder = process.env.NEXT_PUBLIC_SUPABASE_STORAGE_SCHEDULES_TEST_FOLDER;
+  const folder = testingFolder ? testingFolder : userId;
+
+  console.log("Using folder:", folder);
+
+  const { data: filesInFolder, error } = await supabase.storage.from(BUCKET).list(folder, {
+    limit: 4,
+  });
 
   if (error) {
-    console.error("Error:", error);
-    return null;
+    throw new Error("Error listing files in folder");
   }
 
-  if (!files || files.length === 0) {
-    console.error("No files found");
-    return [];
-  }
+  console.log("FilesInFolder list:", filesInFolder);
 
-  // This is necessary to ensure the generated URLs are in the correct order and thus the image messages are in the correct order.
-  const sortedFilesByIndex = files.sort((a, b) => {
-    // I'll need to update this if I ever change the file naming convention. A way to solve this is to store the index in the metadata of the file.
-    const aIndex = parseInt(a.name.split("_")[1].split(".")[0]);
-    const bIndex = parseInt(b.name.split("_")[1].split(".")[0]);
-
-    return aIndex - bIndex;
+  const images = filesInFolder.filter((file) => {
+    console.log("File", file);
+    console.log("file metadata", file.metadata);
+    console.log("file mimetype", file.metadata["mimetype"]);
+    return file?.metadata["mimetype"]?.startsWith("image/");
   });
 
-  const fileUrls = await Promise.all(
-    sortedFilesByIndex.map(async (file) => {
-      const { data: signedUrlData, error: signedUrlError } = await supabase.storage
-        .from("schedules")
-        .createSignedUrl(`${userId}/${file.name}`, 60);
+  if (!images || images.length === 0) {
+    throw new Error("No images found");
+  }
 
-      if (signedUrlError) {
-        console.error(`Error signing ${file.name}:`, signedUrlError);
-        return null;
+  const sortedImages = images?.sort((a, b) => {
+    const [timestampA, indexA] = a.name.split("_").map((num) => parseInt(num, 10));
+    const [timestampB, indexB] = b.name.split("_").map((num) => parseInt(num, 10));
+
+    return timestampA - timestampB || indexA - indexB;
+  });
+
+  console.log("sortedImages", sortedImages);
+
+  const signedUrls = await Promise.all(
+    sortedImages.map(async (file) => {
+      const { data: signedUrlData, error } = await supabase.storage
+        .from("schedules")
+        .createSignedUrl(`${folder}/${file.name}`, 60);
+
+      if (error) {
+        throw new Error(`Error signing ${file.name}`);
       }
 
       return signedUrlData?.signedUrl;
     })
   );
 
-  return fileUrls.filter((url): url is string => !!url);
+  if (!signedUrls || signedUrls.length === 0) {
+    throw new Error("No signed URLs created");
+  }
+
+  return signedUrls;
 }

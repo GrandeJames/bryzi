@@ -79,23 +79,37 @@ export default function GeneratePage() {
       console.log("User authenticated", user);
     }
 
-    if (!images.length) {
-      console.error("No images selected");
-      return;
-    }
-
     try {
-      const BUCKET_NAME = "schedules";
-      const directoryName = user.id;
+      const uploadImages = async () => {
+        if (!images.length) {
+          console.error("No images selected");
+          return;
+        }
 
-      console.log("Optimizing images...");
-      const compresedImages = await optimizeImages(images);
+        const BUCKET_NAME = "schedules";
 
-      console.log("Uploading images...");
-      await uploadBlobs(compresedImages, BUCKET_NAME, directoryName);
+        const directoryName = user.id;
+
+        console.log("Optimizing images...");
+        const compresedImages = await optimizeImages(images);
+
+        console.log("Uploading images...");
+        await uploadBlobs(compresedImages, BUCKET_NAME, directoryName);
+      };
+
+      const testFolder = process.env.NEXT_PUBLIC_SUPABASE_STORAGE_SCHEDULES_TEST_FOLDER;
+
+      if (!testFolder) {
+        console.log("Using user provided images");
+        await uploadImages();
+      } else {
+        console.log("Skipping image upload. Using test folder", testFolder);
+      }
 
       console.log("submitting...");
-      submit("Images of course schedule");
+      submit({
+        courseName: "Intermediate Managerial and Tax Accounting", // TODO: get course name from selectedCourseId
+      });
     } catch (error) {
       console.error("Error generating", error);
       return;
