@@ -25,7 +25,7 @@ export default function CourseSelection({
 
   return (
     <Select open={selectOpen} onOpenChange={setSelectOpen} onValueChange={onValueChange}>
-      <SelectTrigger className="bg-neutral-900 rounded-lg p-6">
+      <SelectTrigger className="dark:bg-neutral-900 bg-neutral-50 rounded-lg p-6">
         <SelectValue placeholder="Select a course" />
       </SelectTrigger>
       <SelectContent>
@@ -36,7 +36,7 @@ export default function CourseSelection({
           </SelectItem>
         ))}
         <NewCourseButton
-          className="flex items-center gap-2 text-neutral-400 rounded-md p-3 hover:bg-neutral-800 w-full"
+          className="flex items-center gap-2 dark:text-neutral-400 text-neutral-500 rounded-md p-3 dark:hover:bg-neutral-800 hover:bg-neutral-100 w-full"
           onClick={() => {
             setSelectOpen(false);
           }}
