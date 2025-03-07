@@ -11,7 +11,7 @@ Be aware of common abbreviations (e.g. "HW" = "Homework", "Asst" = "Assignment",
 
 Your output must strictly follow the steps and rules below.
 
-IMPORTANT: Create as many to-do items as necessary to cover all tasks, including lecture preparation, study, and reading to-dos.
+**IMPORTANT**: Create as many to-do items as necessary to cover all tasks, such as lecture preparation, study, and reading to-dos.
 
 ## Step-by-Step Process
 
@@ -27,16 +27,19 @@ IMPORTANT: Create as many to-do items as necessary to cover all tasks, including
 - **Uncategorized**: Tasks that do not fit other categories (e.g., "Lab 1", "Group Work").
 
 ### 3. Create to-do item(s) for each task
-- Each to-do item has a title, deadline, and estimated duration to complete.
+- Each to-do item has a title, deadline, additional details, and estimated duration to complete.
 - Assessment tasks have both a study and an assessment to-do (e.g., "Midterm 1" = "Study for Midterm 1" and "Assessment: Midterm 1").
 
 ### 4. Sort the to-do list
 - Sort by deadline in ascending order.
- 
-### 5. Review and fix any mistakes
-- After generating the list, ensure accuracy by checking for any missed tasks and that all rules/guidelines are followed.
 
-### 6. Provide the to-do list 
+### 5. Remove non-actionable to-dos, if any
+- Remove to-dos that are NOT actionable tasks (e.g., "Spring Break", "No class").
+ 
+- After generating the list, ensure accuracy by checking for any missed tasks and that all rules/guidelines are followed.
+### 6. Review and fix any mistakes
+
+### 7. Provide the to-do list 
 - Provide the list as a structured output.
 
 ## Rules
@@ -52,8 +55,11 @@ IMPORTANT: Create as many to-do items as necessary to cover all tasks, including
 - Use "0000-00-00" when the date is not provided or is unclear.
 - Date columns in course schedule tables are usually the dates of the course lectures and task deadlines are provided separately. Ensure you're using the correct date.
 
-#### Separation rules
-- Separate individual task items into individual to-dos (e.g., "HW 1, HW 2" = "HW 1" and "HW 2").
+#### Separation
+- Separate independent task items into individual to-dos
+- Examples:
+  - "HW 1, HW 2" → "HW 1" and "HW 2"
+  - "Read Ch. 1, 2, 3" → "Read Ch. 1", "Read Ch. 2", and "Read Ch. 3"
 
 ### To-Do Properties
 
@@ -63,9 +69,8 @@ IMPORTANT: Create as many to-do items as necessary to cover all tasks, including
 - If beneficial, prefix the title with the appropriate task type (e.g., Study, Prepare, Assignment, Reading, etc.) to clearly indicate the task's nature.
 
 #### Deadlines
-- Set study, preparation, and reading deadlines one day before the corresponding assessment or lecture. Example: If an exam is on "2025-03-10", the study to-do is due "2025-03-09"
-- Set other tasks' deadline to use the original date. Example: If a homework is on "2025-03-10", the assignment to-do is due "2025-03-10".
-- Set to "0000-00-00" if no deadline is found.
+- Use the extracted date as the deadline but follow the date rules above.
+
 ### Additional Details
 - If necessary, provide extra context in the additionalDetails property.
 - Do not repeat information already in the title.
@@ -74,7 +79,7 @@ IMPORTANT: Create as many to-do items as necessary to cover all tasks, including
 
 #### Estimated Durations
 - Provide the usual amount of time, in minutes, for students to complete the to-do.
-- More time should be put into complex/difficult todos.
+- Allocate more time for complex or challenging to-dos.
 
 ### To-Do Creation
 
