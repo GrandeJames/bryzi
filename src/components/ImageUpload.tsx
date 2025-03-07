@@ -14,8 +14,8 @@ type UploadedFile = {
 
 export function ImageUploader({
   onFilesUpdated,
-  imageLimit = 5,
-  totalSizeLimitMB = 5,
+  imageLimit = 4,
+  totalSizeLimitMB = 3,
 }: {
   onFilesUpdated: (files: File[]) => void;
   imageLimit?: number;
