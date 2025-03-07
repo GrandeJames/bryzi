@@ -6,14 +6,17 @@ import { formatTime } from "@/utils/timeUtils";
 
 export default function GeneratedTaskItem({ task }: { task: GeneratedTask }) {
   return (
-    <div className="group bg-neutral-900/60 rounded-3xl p-5 transition-all hover:border-neutral-700 hover:bg-neutral-900/90 cursor-pointer">
+    <div className="group dark:bg-neutral-900/60 bg-neutral-50/60 rounded-3xl p-5 transition-all hover:border-neutral-700 dark:hover:bg-neutral-900/90 hover:bg-neutral-100 cursor-pointer">
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-3 flex-1">
-          <h3 className="font-medium text-neutral-100 leading-snug">{task.title}</h3>
-          <div className="flex flex-wrap items-center gap-3 text-sm text-neutral-400">
+          <h3 className="font-medium leading-snug dark:text-neutral-300 text-neutral-700 ">
+            {task.title}
+          </h3>
+          {/* <div>{task.category}</div> */}
           {task.additionalDetails && (
             <div className="text-neutral-500 text-sm">{task.additionalDetails}</div>
           )}
+          <div className="flex flex-wrap items-center gap-3 text-sm dark:text-neutral-400 text-neutral-500">
             <div className="flex items-center gap-1.5">
               <CalendarIcon />
               <span>
@@ -64,10 +67,7 @@ export default function GeneratedTaskItem({ task }: { task: GeneratedTask }) {
           </div>
         </div>
 
-        <Checkbox
-          defaultChecked
-          className="h-6 w-6 rounded-lg border-2 border-neutral-700 data-[state=checked]:border-orange-400 data-[state=checked]:bg-orange-400/10 mt-1.5"
-        />
+        <Checkbox defaultChecked className="h-6 w-6 rounded-lg mt-1.5" />
       </div>
     </div>
   );
