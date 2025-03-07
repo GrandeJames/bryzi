@@ -4,12 +4,9 @@ import { generatedTaskSchema } from "@/app/schemas/generatedTaskSchema";
 import { createClient } from "@/utils/supabase/server";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { aiPrompt } from "./server/ai-prompt";
-import { google } from "@ai-sdk/google"
+import { google } from "@ai-sdk/google";
 
-export const dynamic = 'force-dynamic';
-// export const maxDuration = 60; // this is the max for the free tier
-export const maxDuration = 900; // this is the max for the free tier
-
+export const maxDuration = 60; // this is the max for the free tier
 
 export async function POST(req: Request) {
   console.log("POST /api/generate ran");
@@ -24,31 +21,29 @@ export async function POST(req: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  if (!generatedTaskSchema) {
-    return new Response("Schema is missing", { status: 500 });
+  let imageUrls;
+
+  try {
+    imageUrls = await generateSignedUrls(user.id);
+  } catch (error) {
+    console.error("Error generating signed urls", error);
+    return new Response("Error generating signed URLs", { status: 500 });
   }
 
-  const imageUrls = await generateSignedUrls(user.id);
+  // Using FileParts instead of ImageParts because ImageParts is not supported by Gemini model
+  const fileParts: FilePart[] = imageUrls.map((url) => ({
+    type: "file",
+    data: url,
+    mimeType: "image/webp",
+  }));
 
-  if (!imageUrls || imageUrls.length === 0) {
-    return new Response("No images found", { status: 400 });
-  }
-
-  const imageParts: FilePart[] = imageUrls
-    .filter((url) => typeof url === "string" && url.startsWith("http"))
-    .map((url) => ({
-      type: "file",
-      data: url,
-      mimeType: "image/webp",
-    }));
-
-  if (!imageParts || imageParts.length === 0) {
+  if (!fileParts || fileParts.length === 0) {
     return new Response("No valid images to process", { status: 400 });
   }
 
-  const userMessages: CoreUserMessage[] = imageParts.map((imagePart) => ({
+  const userMessages: CoreUserMessage[] = fileParts.map((filePart) => ({
     role: "user",
-    content: [imagePart],
+    content: [filePart],
   }));
 
   const systemMessages: CoreSystemMessage[] = [
@@ -60,24 +55,37 @@ export async function POST(req: Request) {
 
   const messages = [...systemMessages, ...userMessages];
 
-  console.log("messages", messages);
-  const model = google("gemini-2.0-flash-001", {
-    structuredOutputs: true,
-  });
+  const handleStreamComplete = () => {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_STORAGE_SCHEDULES_TEST_FOLDER) {
+      deleteUserImages(user.id, supabase);
+    }
+  };
+
+  let streamError: any = null;
+
+  const handleStreamError = (error: any) => {
+    deleteUserImages(user.id, supabase);
+
+    streamError = error;
+  };
 
   const result = streamObject({
-    model: model,
+    model: google("gemini-2.0-flash-001", {
+      structuredOutputs: true,
+    }),
     temperature: 0.3,
     schemaName: "tasks",
     schemaDescription: "A list of course tasks.",
     schema: generatedTaskSchema,
     messages: messages,
     output: "array",
-    onFinish: () => deleteUserImages(user.id, supabase),
-    onError: (error) => {
-      handleGenerationError(`${error}`, user.id, supabase);
-    },
+    onFinish: handleStreamComplete,
+    onError: handleStreamError,
   });
+
+  if (streamError) {
+    return new Response(streamError.message, { status: 500 });
+  }
 
   return result.toTextStreamResponse();
 }
@@ -107,10 +115,4 @@ async function deleteUserImages(userId: string, supabase: SupabaseClient) {
       return;
     }
   }
-}
-
-function handleGenerationError(errorMessage: string, userId: string, supabase: SupabaseClient) {
-  console.error(errorMessage);
-  deleteUserImages(userId, supabase);
-  return new Response(errorMessage, { status: 500 });
 }
