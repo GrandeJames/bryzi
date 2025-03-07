@@ -33,7 +33,7 @@ export default function InputPage({
         >
           <ChevronLeftIcon className="size-4" /> <span>Back</span>
         </button>
-        <h1 className="text-3xl font-bold text-neutral-300">Generate Class Tasks</h1>
+        <h1 className="text-3xl font-bold dark:text-neutral-300 text-neutral-800">Generate Class Tasks</h1>
       </header>
       <div className="flex flex-col gap-3">
         <CourseSelection
@@ -56,7 +56,7 @@ export default function InputPage({
 
       <div className="flex justify-end my-5">
         <button
-          className="bg-orange-500 px-20 py-3 flex gap-2 items-center disabled:bg-opacity-15 disabled:text-neutral-700 rounded-md"
+          className="bg-orange-500 px-20 py-3 flex gap-2 items-center disabled:bg-opacity-15 disabled:text-neutral-700 text-neutral-50 dark:text-neutral-100 rounded-md"
           onClick={handleGenerateClick}
           // disabled={true}
         >

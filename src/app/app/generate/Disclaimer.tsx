@@ -2,7 +2,7 @@ import { AlertCircleIcon } from "lucide-react";
 
 export default function Disclaimer() {
   return (
-    <div className="flex items-center space-x-5 border border-neutral-700 rounded-lg p-4 w-fit my-8">
+    <div className="flex items-center space-x-5 border dark:border-neutral-700 border-neutral-200 rounded-lg p-4 w-fit my-8">
       <AlertCircleIcon className="size-5 text-yellow-300/80 flex-shrink-0" />
       <div className="space-y-2">
         <p className="text-sm text-neutral-500">

@@ -14,20 +14,20 @@ export default function OutputPage({
   return (
     <div className="px-4 sm:px-6 lg:px-8 relative">
       <header className="my-12 space-y-3">
-        <h1 className="text-4xl font-extrabold text-neutral-200">Review Generated Tasks</h1>
-        <p className="text-lg text-neutral-400 font-light">
+        <h1 className="text-4xl font-extrabold dark:text-neutral-200 text-neutral-800">Review Generated Tasks</h1>
+        <p className="text-lg dark:text-neutral-400 text-neutral-600 font-light">
           Verify and customize tasks before saving to your schedule
         </p>
       </header>
 
       <GeneratedTasksList object={object} />
 
-      <div className="sticky bottom-0 bg-gradient-to-b from-transparent via-black/50 to-black pt-16 pb-6 -mx-4 px-4">
+      <div className="sticky bottom-0 bg-gradient-to-b from-transparent dark:via-black/50 via-white/50 dark:to-black to-white pt-16 pb-6 -mx-4 px-4">
         {!isLoading ? (
           <div className="flex justify-end gap-3">
             <button
               onClick={() => {}}
-              className="px-6 py-3 rounded-xl border border-neutral-700 bg-neutral-800/20 text-neutral-300 hover:bg-neutral-700/30 transition-all duration-200 flex items-center gap-2 group"
+              className="px-6 py-3 rounded-xl border border-neutral-700 text-neutral-800 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-all duration-200 flex items-center gap-2 group"
             >
               <span>Discard All</span>
             </button>

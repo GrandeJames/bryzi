@@ -89,7 +89,7 @@ export function ImageUploader({
       <CardContent>
         <div
           {...getRootProps()}
-          className={`border border-neutral-800 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors
+          className={`border border-neutral-800 border-dashed rounded-lg p-16 text-center cursor-pointer transition-colors
             ${
               isDragActive
                 ? "border-primary bg-primary/10"
