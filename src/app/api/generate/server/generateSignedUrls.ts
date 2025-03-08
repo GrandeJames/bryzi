@@ -21,9 +21,6 @@ export async function generateSignedUrls(userId: string) {
   console.log("FilesInFolder list:", filesInFolder);
 
   const images = filesInFolder.filter((file) => {
-    console.log("File", file);
-    console.log("file metadata", file.metadata);
-    console.log("file mimetype", file.metadata["mimetype"]);
     return file?.metadata["mimetype"]?.startsWith("image/");
   });
 

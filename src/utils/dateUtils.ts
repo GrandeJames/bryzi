@@ -1,6 +1,6 @@
 import { format, parse, isValid } from "date-fns";
 
-export function formatCustomDate(dateString: string) {
+export function formatCustomDate(dateString?: string) {
   if (!dateString || dateString === "0000-00-00") {
     return null;
   }
