@@ -1,6 +1,6 @@
 import { CoreSystemMessage, CoreUserMessage, FilePart, streamObject } from "ai";
 import { generateSignedUrls } from "./server/generateSignedUrls";
-import { generatedTaskSchema } from "@/app/schemas/generatedTaskSchema";
+import { todoItemSchema } from "@/app/schemas/generatedTaskSchema";
 import { createClient } from "@/utils/supabase/server";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { aiPrompt } from "./server/ai-prompt";
@@ -61,33 +61,31 @@ export async function POST(req: Request) {
     }
   };
 
-  let streamError: any = null;
-
   const handleStreamError = (error: any) => {
     deleteUserImages(user.id, supabase);
-
-    streamError = error;
   };
 
-  const result = streamObject({
-    model: google("gemini-2.0-flash-001", {
-      structuredOutputs: true,
-    }),
-    temperature: 0.3,
-    schemaName: "tasks",
-    schemaDescription: "A list of course tasks.",
-    schema: generatedTaskSchema,
-    messages: messages,
-    output: "array",
-    onFinish: handleStreamComplete,
-    onError: handleStreamError,
-  });
+  try {
+    const result = streamObject({
+      model: google("gemini-2.0-flash-001", {
+        structuredOutputs: true,
+      }),
+      temperature: 0.3,
+      // schemaName: "tasks",
+      // schemaDescription: "A list of course tasks.",
+      schema: todoItemSchema,
+      messages: messages,
+      maxRetries: 10,
+      output: "array",
+      // onFinish: handleStreamComplete,
+      // onError: handleStreamError,
+    });
 
-  if (streamError) {
-    return new Response(streamError.message, { status: 500 });
+    return result.toTextStreamResponse();
+  } catch (error) {
+    console.error("Error streaming object", error);
+    return new Response("Error streaming object", { status: 500 });
   }
-
-  return result.toTextStreamResponse();
 }
 
 async function deleteUserImages(userId: string, supabase: SupabaseClient) {
