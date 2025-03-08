@@ -36,9 +36,9 @@ Your output must strictly follow the steps and rules below.
 ### 5. Remove non-actionable to-dos, if any
 - Remove to-dos that are NOT actionable tasks (e.g., "Spring Break", "No class").
  
-- After generating the list, ensure accuracy by checking for any missed tasks and that all rules/guidelines are followed.
 ### 6. Review and fix any mistakes
 - Ensure no tasks are missed from all images.
+- After generating the list, ensure accuracy by checking for any missed tasks and that all rules/guidelines are followed.
 
 ### 7. Provide the to-do list 
 - Provide the list as a structured output.
@@ -57,10 +57,12 @@ Your output must strictly follow the steps and rules below.
 - Date columns in course schedule tables are usually the dates of the course lectures and task deadlines are provided separately. Ensure you're using the correct date.
 
 #### Separation
-- Separate independent task items into individual to-dos
+- Separate **independent** task items into individual to-dos.
+- **Do not separate** instructions like "Skip sections 2.1-2.3" from the task (e.g., "Read Chapter 2" = "Read Chapter 2, skip sections 2.1-2.3").
 - Examples:
   - "HW 1, HW 2" → "HW 1" and "HW 2"
   - "Read Ch. 1, 2, 3" → "Read Ch. 1", "Read Ch. 2", and "Read Ch. 3"
+  - "Read Chapter 13 (skip sections 13.1-13.3)" → "Read Chapter 13 (13.1-13.3)"
 
 ### To-Do Properties
 
@@ -73,13 +75,13 @@ Your output must strictly follow the steps and rules below.
 - Use the extracted date as the deadline but follow the date rules above.
 
 ### Additional Details
-- If necessary, provide extra context in the additionalDetails property.
+- If beneficial, provide extra context in the additionalDetails property (e.g., "Read pages 1-20", "Submit on Blackboard").
 - Do not repeat information already in the title.
 - Include only relevant details that helps clarify the task.
 - If no additional details are needed, leave this property empty.
 
 #### Estimated Durations
-- Provide the usual amount of time, in minutes, for students to complete the to-do.
+- Estimate the time required to complete each task based on the task type and complexity.
 - Allocate more time for complex or challenging to-dos.
 
 ### To-Do Creation
@@ -97,7 +99,8 @@ Your output must strictly follow the steps and rules below.
 - An assignment to-do must be created for each assignment.
 
 #### Preparation Tasks
-- A preparation to-do must be created for lecture topics (e.g., "Mathematical background" = "Prepare for lecture on Mathematical background").
+- A preparation to-do must be created for only lecture topics (e.g., "Mathematical background" = "Prepare for lecture on Mathematical background").
+- Do not create preparation to-do items for reading tasks, instead create a reading to-do (e.g., "Ch 1" = "Read Ch 1").
 
 #### Reading Tasks
 - A reading to-do must be created for each reading, usually where chapters are provided (e.g., "Chapter 1" = "Read Chapter 1").
@@ -116,10 +119,10 @@ Your output must strictly follow the steps and rules below.
   {"title": "Write Lab Report: Enzyme Reactions in Digestion", "deadline": "2025-03-09", ...},
   {"title": "Prepare Business Plan Presentation", "deadline": "2025-03-09", ...},
   {"title": "Midterm 1", "deadline": "2025-03-10", ...},
-  {"title": "Debug Project Code", "deadline": "0000-00-00", ...},
+  {"title": "Debug Project Code", "deadline": "", ...},
   {"title": "Read Research Paper: Effects of Sleep on Memory", "deadline": "2025-03-08", ...},
   {"title": "Prepare for Anatomy Lab: Muscular System", "deadline": "2025-03-12", ...},
-  {"title": "Discussion Post: Ethics in AI", "deadline": "0000-00-00", ...},
+  {"title": "Discussion Post: Ethics in AI", "deadline": "", ...},
   {"title": "Complete health form", "deadline": "2025-03-14", ...},
   {"title": "Case Study Analysis: Tesla's Market Strategy", "deadline": "2025-03-15", ...},
   {"title": "Sketch Draft for Final Portfolio", "deadline": "2025-04-20", ...},
