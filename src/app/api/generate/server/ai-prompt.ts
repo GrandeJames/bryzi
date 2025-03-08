@@ -38,6 +38,7 @@ Your output must strictly follow the steps and rules below.
  
 - After generating the list, ensure accuracy by checking for any missed tasks and that all rules/guidelines are followed.
 ### 6. Review and fix any mistakes
+- Ensure no tasks are missed from all images.
 
 ### 7. Provide the to-do list 
 - Provide the list as a structured output.
