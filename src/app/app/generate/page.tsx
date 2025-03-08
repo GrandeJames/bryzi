@@ -1,7 +1,7 @@
 "use client";
 
 import { experimental_useObject as useObject } from "@ai-sdk/react";
-import { GeneratedTask, generatedTaskSchema } from "@/app/schemas/generatedTaskSchema";
+import { GeneratedTask, todoItemSchema } from "@/app/schemas/generatedTaskSchema";
 import { z } from "zod";
 import InputPage from "./InputPage";
 import OutputPage from "./OutputPage";
@@ -35,24 +35,23 @@ export default function GeneratePage() {
 
   const { object, submit, isLoading, stop, error } = useObject({
     api: "/api/generate",
-    schema: z.array(generatedTaskSchema),
+    schema: z.array(todoItemSchema).default([]),
     onFinish(result) {
       console.log("Finished", result);
 
       const { object, error } = result;
 
       if (error) {
-        console.error("Error", error);
-        return;
+        console.error("useObject Error", error);
+      } else {
+        setGeneratedTasks(object);
       }
-
-      setGeneratedTasks(object);
 
       // TODO: delete all of the user's (course schedule) image(s) from the server after processing, assuming that i can onnly delete after it's done processing. im not sure if can delete right away after generating urls.
       // deleting is necessary so that no one can access the images after they are done being processed as well as prevent duplicates
     },
     onError(error) {
-      console.log("Error", error);
+      console.log("useObject Error", error);
     },
   });
 
