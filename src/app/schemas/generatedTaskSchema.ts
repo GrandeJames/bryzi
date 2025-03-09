@@ -1,12 +1,16 @@
 import { z } from "zod";
 
+// https://sdk.vercel.ai/providers/ai-sdk-providers/google-generative-ai
+// The following Zod features are known to not work with Google Generative AI:
+//     z.union
+//     z.record
 export const todoItemSchema = z
   .object({
     title: z.string().describe("Todo item title (e.g. 'Read Chapter 1' or 'Study for Midterm 1')."),
-    category: z
-      .enum(["Preparation", "Reading", "Study", "Assignment", "Assessment", "Uncategorized"])
+    type: z
+      .enum(["Preparation", "Reading", "Study", "Assignment", "Assessment", "Other"])
       .optional()
-      .describe("Todo item category/type."),
+      .describe("Todo item type."),
     deadline: z
       .object({
         date: z.string().describe(`Todo item due date in YYYY-MM-DD format`).optional(),
