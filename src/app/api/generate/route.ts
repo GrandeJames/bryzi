@@ -70,7 +70,7 @@ export async function POST(req: Request) {
       model: google("gemini-2.0-flash-001", {
         structuredOutputs: true,
       }),
-      temperature: 0.3,
+      temperature: 0.2,
       // schemaName: "tasks",
       // schemaDescription: "A list of course tasks.",
       schema: todoItemSchema,
