@@ -42,11 +42,20 @@ export default function GeneratePage() {
       const { object, error } = result;
 
       if (error) {
-        console.error("useObject Error", error);
-      } else {
-        setGeneratedTasks(object);
+        throw new Error(`Error: useObject - ${error.message}`);
       }
 
+      if (!object) {
+        throw new Error(`Error: No object returned`);
+      }
+
+      // It's possible that the object is empty if no tasks were generated in cases the images are invalid.
+      if (!object.length) {
+        // TODO: maybe show a message to the user that no tasks were generated.
+
+        console.error("No tasks returned");
+        return;
+      }
       // TODO: delete all of the user's (course schedule) image(s) from the server after processing, assuming that i can onnly delete after it's done processing. im not sure if can delete right away after generating urls.
       // deleting is necessary so that no one can access the images after they are done being processed as well as prevent duplicates
     },
