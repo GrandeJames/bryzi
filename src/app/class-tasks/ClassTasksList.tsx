@@ -1,5 +1,5 @@
 import EmptyPlaceholder from "@/components/EmptyPlaceholder";
-import { DayProps, getRecommendedClassWorkList } from "@/lib/classWorkRecommendation";
+import { DayProps, getRecommendedClassWorkList } from "@/app/auto-plan/autoPlan";
 import { ClassTask } from "@/types/classTask";
 import { BookIcon } from "lucide-react";
 import ClassTaskItem from "./ClassTaskItem";
