@@ -3,26 +3,21 @@ import "./globals.css";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Bryzi: AI Task Management for Students - Automatically Plan Your Work",
+  // <= 60 characters
+  title: "Bryzi: AI Task Management for Students - Auto-Plan Your Work",
+
+  // <= 150-160 characters
   description:
-    "Bryzi is an AI-powered task management tool designed specifically for students in University. It automatically generates and plans your tasks, helping you stay organized and focused on your studies. Available for for free on the web.",
+    "Bryzi: AI Task Management for Students. Generate tasks from course syllabus, auto-plan semesters, & track progress. Available for free on the web.",
   keywords: [
-    "Bryzi",
     "Best Task Management App for Students",
-    "Student",
-    "Schedule",
-    "AI",
-    "Task Management",
-    "To do",
-    "Todo",
-    "Productivity",
-    "Organization",
-    "Planner",
-    "Pomodoro",
-    "ADHD",
-    "Calendar",
-    "Assignment",
-    "Homework",
+    "Student Task Planner",
+    "AI Task Management",
+    "AI Academic Scheduler",
+    "Auto Task Generator",
+    "Productivity Tool",
+    "ADHD-Friendly Planner",
+    "University Assigment Tracker",
   ],
   creator: "Bryzi",
   applicationName: "Bryzi",
