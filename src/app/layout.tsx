@@ -47,12 +47,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`dark:bg-black bg-white antialiased ${inter.className}`}>
-        <div className="flex">
-          <div className="flex-1">{children}</div>
-        </div>
-      </body>
+    <html lang="en">
+      <body className={`antialiased ${inter.className}`}>{children}</body>
     </html>
   );
 }
