@@ -63,8 +63,8 @@ export default function Landing() {
           <div className="absolute inset-0 bg-orange-100/40 blur-3xl -z-10"></div>
           <div className="border border-neutral-100 rounded-2xl shadow-2xl shadow-neutral-400/10 overflow-hidden bg-white backdrop-blur-xl">
             <Image
-              src="/landing-page.png"
-              alt="App interface"
+              src="/today-tasks-page.webp"
+              alt="Example Today Tasks Page"
               className="w-full"
               width={1280}
               height={720}
