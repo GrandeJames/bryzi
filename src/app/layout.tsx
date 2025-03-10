@@ -1,48 +1,52 @@
-"use client";
-
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Menu } from "@/components/Menu";
-import DynamicDialog from "@/app/dialogs/DynamicDialog";
-import { useFocusSessionStore } from "@/stores/focusSessionStore";
-import { usePathname } from "next/navigation";
-import Head from "next/head";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Toaster } from "../../@components/ui/sonner";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  // <= 60 characters
+  title: "Bryzi: AI Task Management for Students - Auto-Plan Your Work",
+
+  // <= 150-160 characters
+  description:
+    "Bryzi: AI Task Management for Students. Generate tasks from course syllabus, auto-plan semesters, & track progress. Available for free on the web.",
+  keywords: [
+    "Best Task Management App for Students",
+    "Student Task Planner",
+    "AI Task Management",
+    "AI Academic Scheduler",
+    "Auto Task Generator",
+    "Productivity Tool",
+    "ADHD-Friendly Planner",
+    "University Assigment Tracker",
+  ],
+  creator: "Bryzi",
+  applicationName: "Bryzi",
+  authors: [
+    {
+      name: "Bryzi",
+      url: "https://bryzi.com",
+    },
+  ],
+  openGraph: {
+    type: "website",
+    url: "https://bryzi.com",
+    title: "AI Task Management for Students - Automatically Create and Plan Your Work",
+    description:
+      "Bryzi is an AI-powered task management tool designed specifically for students in University. It automatically generates and plans your tasks, helping you stay organized and focused on your studies. Available for for free on the web.",
+    siteName: "Bryzi",
+    // images:
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
+};
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const inFocusSession = useFocusSessionStore((state) => state.sessionStage);
-  const pathname = usePathname();
-
-  const hiddenNavPages = ["/", "/login"];
-
   return (
-    <html lang="en" suppressHydrationWarning>
-      <Head>
-        <title>Focus</title>
-        <meta name="description" content="Boost your focus." />
-        <meta name="apple-mobile-web-app-title" content="Bryzi" />
-      </Head>
-      <body className={`dark:bg-black bg-white antialiased ${inter.className}`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="flex">
-            {!inFocusSession && pathname.startsWith("/app") && <Menu />}
-            <ScrollArea className="flex-1 h-screen">
-              <div className="flex-1">{children}</div>
-              <Toaster position="top-right" />
-            </ScrollArea>
-            <DynamicDialog />
-          </div>
-        </ThemeProvider>
-      </body>
+    <html lang="en">
+      <body className={`antialiased ${inter.className}`}>{children}</body>
     </html>
   );
 }
