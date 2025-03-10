@@ -8,7 +8,8 @@ export const todoItemSchema = z
   .object({
     title: z.string().describe("Todo item title (e.g. 'Read Chapter 1' or 'Study for Midterm 1')."),
     type: z
-      .enum(["Preparation", "Reading", "Study", "Assignment", "Assessment", "Other"])
+      // .enum(["Preparation", "Reading", "Study", "Assignment", "Assessment", "Other"])
+      .enum(["Reading", "Study", "Assignment", "Assessment", "Other"])
       .optional()
       .describe("Todo item type."),
     deadline: z
@@ -30,8 +31,7 @@ export const todoItemSchema = z
       .describe(`Optional additional details about the todo item (e.g. "Sections 9.3-9.5").`),
     duration: z
       .number()
-      .optional()
-      .describe(`The estimated duration, in minutes, to complete the todo item.`),
+      .describe(`An estimate, in minutes, on how long it will take to complete the todo item.`),
   })
   .describe("Generated to-do item.");
 
