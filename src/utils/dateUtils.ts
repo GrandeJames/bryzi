@@ -16,3 +16,10 @@ export function formatCustomDate(dateString?: string) {
 
   return dateYear === currentYear ? format(date, "MMM d") : format(date, "MMM d, yyyy");
 }
+
+export function getCurrentDate() {
+  if (process.env.NODE_ENV === "development") {
+    return new Date(2023, 8, 1);
+  }
+  return new Date();
+}

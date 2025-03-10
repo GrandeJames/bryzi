@@ -1,19 +1,21 @@
 "use client";
 
 import useTasksStore from "@/stores/tasksStore";
-import { format, isFuture, startOfDay, getTime, addDays } from "date-fns";
+import { format, isFuture, startOfDay, getTime, addDays, isAfter } from "date-fns";
 import AutoPlanToggle from "@/components/AutoPlanToggle";
 import PlannerCreationMenu from "../components/PlannerCreationMenu";
 import Next7Days from "./Next7Days";
 import RemainingMonths from "./RemainingMonths";
 import TasksHeader from "../components/TasksHeader";
 import { useHydrated } from "@/hooks/useHydrated";
+import { getCurrentDate } from "@/utils/dateUtils";
 
-// const CURRENT_DATE = new Date(2025, 1, 13);
-const CURRENT_DATE = new Date();
+const currentDate = getCurrentDate();
 
 export default function Page() {
   const tasks = useTasksStore((state) => state.tasks);
+
+  console.log("Tasks:", tasks);
 
   const isHydrated = useHydrated();
 
@@ -22,10 +24,12 @@ export default function Page() {
   }
 
   const upcomingTasks = tasks
-    .filter((task) => task.deadline && isFuture(task.deadline))
+    .filter((task) => task.deadline && isAfter(task.deadline, currentDate))
     .sort((taskA, taskB) => {
       return getTime(taskA.deadline!) - getTime(taskB.deadline!);
     });
+
+  console.log("Upcoming Tasks:", upcomingTasks);
 
   const groupedTasksByDate = upcomingTasks.reduce((acc, task) => {
     if (!task.deadline) return acc;
@@ -45,11 +49,11 @@ export default function Page() {
             <AutoPlanToggle />
           </header>
           <div>
-            <Next7Days groupedTasksByDate={groupedTasksByDate} CURRENT_DATE={CURRENT_DATE} />
+            <Next7Days groupedTasksByDate={groupedTasksByDate} CURRENT_DATE={currentDate} />
             <RemainingMonths
               groupedTasksByDate={groupedTasksByDate}
-              currentDate={CURRENT_DATE}
-              startDate={addDays(CURRENT_DATE, 8)}
+              currentDate={currentDate}
+              startDate={addDays(currentDate, 8)}
             />
           </div>
         </div>

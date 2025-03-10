@@ -11,6 +11,7 @@ import { FlagIcon } from "@/components/icons/FlagIcon";
 import MarkTaskCompleteCheckbox from "@/components/MarkTaskCompleteCheckbox";
 import { getCourseById } from "../courses/utils/courseUtils";
 import useCoursesStore from "@/stores/coursesStore";
+import { getCurrentDate } from "@/utils/dateUtils";
 
 function ClassTaskItem({ task }: { task: ClassTask }) {
   const courses = useCoursesStore((state) => state.courses);
@@ -142,7 +143,7 @@ function Status({ task, className }: { task: ClassTask; className?: string }) {
 }
 
 function Deadline({ deadline }: { deadline: Date }) {
-  const now = new Date();
+  const now = getCurrentDate();
   const diffInDays = differenceInCalendarDays(deadline, now);
 
   const getFlagColor = () => {

@@ -13,6 +13,7 @@ import TimerStage from "@/app/focus-stages/TimerStage";
 import { PrepareStage } from "@/app/focus-stages/PrepareStage";
 import TasksHeader from "../components/TasksHeader";
 import { useHydrated } from "@/hooks/useHydrated";
+import { getCurrentDate } from "@/utils/dateUtils";
 
 export default function Page() {
   const tasks = useTasksStore((state) => state.tasks);
@@ -27,16 +28,18 @@ export default function Page() {
   const classTasks = tasks.filter((task) => task.type === "class");
   const personalTasks = tasks.filter((task) => task.type === "personal");
 
+  const currentDate = getCurrentDate();
+
   // TODO: actually use the recommended algorithm when auto plan is turned on
   const classTasksToday = classTasks.filter((task) => {
     if (task.deadline === undefined) return false;
-    if (isBefore(task.deadline, new Date()) && !task.completed) return true;
+    if (isBefore(task.deadline, currentDate) && !task.completed) return true;
     return isToday(task.deadline);
   });
 
   const personalTasksToday = personalTasks.filter((task) => {
     if (task.deadline === undefined) return false;
-    if (isBefore(task.deadline, new Date()) && !task.completed) return true;
+    if (isBefore(task.deadline, currentDate) && !task.completed) return true;
     return isToday(task.deadline);
   });
 
