@@ -9,8 +9,15 @@ import { useEffect, useState } from "react";
 import optimizeImages from "./optimizeImages";
 import uploadBlobs from "./uploadBlobs";
 import { createClient } from "@/utils/supabase/client";
+import useGeneratedTasksStore from "./stores/generatedTasksStore";
 
 export default function GeneratePage() {
+  const generatedTasks = useGeneratedTasksStore((state) => state.generatedTasks);
+  const setGeneratedTasks = useGeneratedTasksStore((state) => state.setGeneratedTasks);
+  const setSelectedGeneratedTasks = useGeneratedTasksStore(
+    (state) => state.setSelectedGeneratedTasksIndexes
+  );
+
   const supabase = createClient();
   const [user, setUser] = useState<any>(null);
 
@@ -28,7 +35,7 @@ export default function GeneratePage() {
     checkAuth();
   }, [supabase]);
 
-  const [generatedTasks, setGeneratedTasks] = useState<GeneratedTask[] | undefined>(undefined);
+  // const [generatedTasks, setGeneratedTasks] = useState<GeneratedTask[] | undefined>(undefined);
 
   const [images, setImages] = useState<File[]>([]);
   const [selectedCourseId, setSelectedCourseId] = useState<string | undefined>();
@@ -56,6 +63,9 @@ export default function GeneratePage() {
         console.error("No tasks returned");
         return;
       }
+
+      console.log("Completed Generated tasks", object);
+
       // TODO: delete all of the user's (course schedule) image(s) from the server after processing, assuming that i can onnly delete after it's done processing. im not sure if can delete right away after generating urls.
       // deleting is necessary so that no one can access the images after they are done being processed as well as prevent duplicates
     },
@@ -63,6 +73,22 @@ export default function GeneratePage() {
       console.log("useObject Error", error);
     },
   });
+
+  // I could call this in the onFinish callback but the items would'nt be selected by default. Preference is to have them selected by default.
+  useEffect(() => {
+    if (object) {
+      console.log("Setting selected generated tasks");
+      setSelectedGeneratedTasks(new Set(object.map((_, index) => index)));
+
+      let generatedTasks: GeneratedTask[] = [];
+
+      if (object && typeof object === "object") {
+        generatedTasks = object.filter((item): item is GeneratedTask => item !== undefined);
+      }
+
+      setGeneratedTasks(generatedTasks);
+    }
+  }, [object]);
 
   const handleImageUpdate = async (files: File[]) => {
     console.log("handle image update", files);
@@ -95,7 +121,6 @@ export default function GeneratePage() {
         }
 
         const BUCKET_NAME = "schedules";
-
         const directoryName = user.id;
 
         console.log("Optimizing images...");
@@ -126,27 +151,11 @@ export default function GeneratePage() {
     // TODO: delete all of the user's (course schedule) image(s) from the server after processing
   };
 
-  const handleSaveTasks = () => {
-    console.log("Accepted and saved tasks");
-
-    // const convertedClassTasks = object?.map((task: any) => ({
-    //   ...task,
-    //   id: uuidv4(),
-    //   completed: false,
-    //   actualDurationInMins: 0,
-    // }));
-  };
-
   return (
     <div className="container max-w-4xl mx-auto">
       {error && <div>Error: {error.message}</div>}
-      {object ? (
-        <OutputPage
-          object={object}
-          isLoading={isLoading}
-          stop={stop}
-          onSaveTasks={handleSaveTasks}
-        />
+      {generatedTasks?.length ? (
+        <OutputPage generatedTasks={generatedTasks} isLoading={isLoading} stop={stop} />
       ) : (
         <InputPage
           isLoading={isLoading}
