@@ -35,13 +35,13 @@ function ClassTaskItem({ task }: { task: ClassTask }) {
       >
         <div className="flex flex-col max-w-full">
           {course && (
-            <div className="dark:text-neutral-300 text-neutral-600 text-xs">
-              {course.abbreviation && course.abbreviation} {course.name}
+            <div className="dark:text-neutral-300 text-neutral-500 text-xs">
+              {course.abbreviation && course.abbreviation}: {course.name}
             </div>
           )}
           <div className="flex gap-3 items-center">
             <span
-              className={`font-medium text-sm truncate ${
+              className={`font-medium text-md truncate ${
                 task.completed
                   ? "line-through dark:text-neutral-400 text-neutral-900 decoration-neutral-400/90"
                   : "dark:text-neutral-200"
