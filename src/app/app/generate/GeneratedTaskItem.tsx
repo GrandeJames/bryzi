@@ -1,130 +1,144 @@
+import { useEffect, useState } from "react";
 import { GeneratedTask } from "@/app/schemas/generatedTaskSchema";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { formatCustomDate } from "@/utils/dateUtils";
 import { formatTime } from "@/utils/timeUtils";
+import { CalendarIcon, ClockIcon } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import useGeneratedTasksStore from "./stores/generatedTasksStore";
 
-export default function GeneratedTaskItem({ task }: { task: GeneratedTask }) {
+interface GeneratedTaskItemProps {
+  task: GeneratedTask;
+  onTaskChange?: (updatedTask: GeneratedTask) => void;
+  taskIndex: number;
+}
+
+export default function GeneratedTaskItem({
+  task,
+  onTaskChange,
+  taskIndex,
+}: GeneratedTaskItemProps) {
+  const add = useGeneratedTasksStore((state) => state.addSelectedGeneratedTaskIndex);
+  const remove = useGeneratedTasksStore((state) => state.removeSelectedGeneratedTaskIndex);
+  const selectedGeneratedTasksIndexes = useGeneratedTasksStore(
+    (state) => state.selectedGeneratedTasksIndexes
+  );
+  const [editedTask, setEditedTask] = useState<GeneratedTask>({ ...task });
+
+  useEffect(() => {
+    setEditedTask({ ...task });
+  }, [task]);
+
+  const handleFieldChange = (field: string, value: string | number) => {
+    setEditedTask((prev) => {
+      const newTask = { ...prev, [field]: value };
+      onTaskChange?.(newTask); // TODO: implement this
+      return newTask;
+    });
+  };
+
+  const handleCheckboxChange = (checked: boolean) => {
+    if (checked) {
+      add(taskIndex);
+    } else {
+      remove(taskIndex);
+    }
+  };
+
   return (
     <div className="group dark:bg-neutral-900/60 bg-neutral-50/60 rounded-3xl p-5 transition-all hover:border-neutral-700 dark:hover:bg-neutral-900/90 hover:bg-neutral-100 cursor-pointer">
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex items-start justify-between gap-6">
         <div className="space-y-3 flex-1">
-          <h3 className="font-medium leading-snug dark:text-neutral-300 text-neutral-700 ">
-            {task.title}
-          </h3>
-          {/* <div>{task.category}</div> */}
-          {task.additionalDetails && (
-            <div className="text-neutral-500 text-sm">{task.additionalDetails}</div>
-          )}
+          <input
+            value={editedTask.title}
+            placeholder="Add title..."
+            onChange={(e) => handleFieldChange("title", e.target.value)}
+            className="font-medium leading-snug dark:text-neutral-300 text-neutral-700 bg-transparent focus:outline-none w-full placeholder:text-neutral-400"
+          />
+
+          {/* <input
+            value={editedTask.type}
+            onChange={(e) => handleFieldChange("type", e.target.value)}
+            className="bg-transparent focus:outline-none w-full"
+          /> */}
+
+          <textarea
+            value={editedTask.details || ""}
+            onChange={(e) => handleFieldChange("details", e.target.value)}
+            className="text-neutral-600 text-sm bg-transparent focus:outline-none w-full resize-none"
+            placeholder="Add details..."
+          />
+
           <div className="flex flex-wrap items-center gap-3 text-sm dark:text-neutral-400 text-neutral-500">
             <div className="flex items-center gap-1.5">
-              <CalendarIcon />
+              <CalendarIcon className="size-4" />
               <span>
-                {isNaN(new Date(task.deadline.dueDate).getTime()) ? (
+                {editedTask.deadline?.date &&
+                isNaN(new Date(editedTask.deadline.date).getTime()) ? (
                   <>No deadline</>
                 ) : (
                   <>
-                    {formatCustomDate(task.deadline.dueDate)
-                      ? `${formatCustomDate(task.deadline.dueDate)}, ${formatTime(
-                          task.deadline.dueTime
-                        )}`
-                      : "No date"}
+                    {editedTask.deadline && formatCustomDate(editedTask.deadline?.date) && (
+                      <div className="flex gap-2">
+                        <span>{formatCustomDate(editedTask.deadline?.date)}</span>
+                        <span>
+                          {editedTask.deadline?.time && formatTime(editedTask.deadline?.time)}
+                        </span>
+                      </div>
+                    )}
                   </>
                 )}
               </span>
             </div>
-
             <Separator orientation="vertical" className="h-4 dark:bg-neutral-800" />
-
-            <div className="flex items-center gap-1.5">
-              <ClockIcon />
-              <span>{task.estimatedDurationInMins} mins</span>
-            </div>
-
-            {/* <Separator orientation="vertical" className="h-4" />
-
-            <div className="flex items-center gap-1.5">
-              <GaugeIcon />
-              <span className={"capitalize"}>
-                {(task.difficulty === 4 && "Max") ||
-                  (task.difficulty === 3 && "High") ||
-                  (task.difficulty === 2 && "Moderate") ||
-                  (task.difficulty === 1 && "Minimal")}
-              </span>
-            </div> */}
-
-            {/* <Separator orientation="vertical" className="h-4" />
-
-            <div className="flex items-center gap-1.5">
-              <TrendingUpIcon />
-              <span className={"capitalize"}>
-                {(task.impact === 4 && "Critical") ||
-                  (task.impact === 3 && "High") ||
-                  (task.impact === 2 && "Moderate") ||
-                  (task.impact === 1 && "Minor")}
-              </span>
-            </div> */}
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <div className="flex items-center gap-1.5">
+                  <ClockIcon className="size-4" />
+                  <span>Duration: {editedTask.duration || 0} mins</span>
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-neutral-100">
+                <div className="flex flex-col gap-2 p-2">
+                  {[20, 60, 90, 180, 480, 600, 1200].map((duration) => (
+                    <button
+                      key={duration}
+                      onClick={() => handleFieldChange("duration", duration)}
+                      className="text-left"
+                    >
+                      {duration} mins
+                    </button>
+                  ))}
+                </div>
+                <div className="flex items-center gap-1.5 p-2">
+                  <input
+                    type="number"
+                    value={editedTask.duration}
+                    onChange={(e) => handleFieldChange("duration", parseInt(e.target.value))}
+                    className="bg-transparent focus:outline-none w-12"
+                  />
+                  <span>mins</span>
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
 
-        <Checkbox defaultChecked className="h-6 w-6 rounded-lg mt-1.5" />
+        <Checkbox
+          className="h-6 w-6 rounded-lg mt-1.5"
+          onCheckedChange={() => {
+            console.log("Checkbox clicked");
+            handleCheckboxChange(!selectedGeneratedTasksIndexes.has(taskIndex));
+          }}
+          checked={selectedGeneratedTasksIndexes.has(taskIndex) ? true : false}
+          aria-label="Select task"
+        />
       </div>
     </div>
-  );
-}
-
-function CalendarIcon() {
-  return (
-    <svg
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      viewBox="0 0 24 24"
-      className="w-4 h-4"
-    >
-      <path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-    </svg>
-  );
-}
-
-function ClockIcon() {
-  return (
-    <svg
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      viewBox="0 0 24 24"
-      className="w-4 h-4"
-    >
-      <path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  );
-}
-
-function GaugeIcon() {
-  return (
-    <svg
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      viewBox="0 0 24 24"
-      className="w-4 h-4"
-    >
-      <path d="M11.42 15.17L17.25 9.34M14.757 9.172h.001M6 12a6 6 0 1112 0 6 6 0 01-12 0z" />
-    </svg>
-  );
-}
-
-function TrendingUpIcon() {
-  return (
-    <svg
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      viewBox="0 0 24 24"
-      className="w-4 h-4"
-    >
-      <path d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.307L21.75 18" />
-    </svg>
   );
 }
