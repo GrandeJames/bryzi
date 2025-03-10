@@ -1,20 +1,50 @@
 "use client";
 
-import { create } from "zustand";
 import { GeneratedTask } from "@/app/schemas/generatedTaskSchema";
-
+import { create } from "zustand";
 interface GeneratedTasksStore {
   generatedTasks: GeneratedTask[];
-  setGeneratedTasks: (newTasks: GeneratedTask[]) => void;
+  selectedGeneratedTasksIndexes: Set<number>;
+  setGeneratedTasks: (tasks: GeneratedTask[]) => void;
+  setSelectedGeneratedTasksIndexes: (selectedTaskIndexes: Set<number>) => void;
+  removeSelectedGeneratedTaskIndex: (index: number) => void;
+  addSelectedGeneratedTaskIndex: (index: number) => void;
+  reset: () => void;
 }
 
 const useGeneratedTasksStore = create<GeneratedTasksStore>((set) => ({
   generatedTasks: [],
-  setGeneratedTasks: (newTasks: GeneratedTask[]) => {
+  reset: () => {
     set(() => {
-      return { generatedTasks: newTasks };
+      return {
+        generatedTasks: [],
+        selectedGeneratedTasksIndexes: new Set(),
+      };
     });
   },
+  setGeneratedTasks: (tasks) => {
+    set(() => {
+      return { generatedTasks: tasks };
+    });
+  },
+  selectedGeneratedTasksIndexes: new Set(),
+  setSelectedGeneratedTasksIndexes: (newTasks) => {
+    set(() => {
+      return { selectedGeneratedTasksIndexes: newTasks };
+    });
+  },
+  removeSelectedGeneratedTaskIndex: (index) =>
+    set((state) => {
+      const newSet = new Set(state.selectedGeneratedTasksIndexes);
+      newSet.delete(index);
+      return { selectedGeneratedTasksIndexes: newSet };
+    }),
+  addSelectedGeneratedTaskIndex: (index) =>
+    set((state) => {
+      const newSet = new Set(state.selectedGeneratedTasksIndexes);
+      newSet.add(index);
+      return { selectedGeneratedTasksIndexes: newSet };
+    }),
 }));
 
 export default useGeneratedTasksStore;

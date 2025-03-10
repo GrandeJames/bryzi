@@ -4,21 +4,24 @@ import { GeneratedTask } from "@/app/schemas/generatedTaskSchema";
 import GeneratedTaskItem from "./GeneratedTaskItem";
 import { useEffect, useRef } from "react";
 
-export default function GeneratedTasksList({ object }: { object: GeneratedTask[] }) {
-  console.log("object", object);
-
+export default function GeneratedTasksList({
+  generatedTasks,
+}: {
+  generatedTasks: GeneratedTask[];
+}) {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [object]);
+    console.log("Generated Tasks:", generatedTasks);
+  }, [generatedTasks]);
 
   return (
     <div className="grid grid-cols-1 gap-3">
-      {object?.map((generatedTask, index) => (
-        <GeneratedTaskItem task={generatedTask} key={index} />
+      {generatedTasks?.map((generatedTask, index) => (
+        <GeneratedTaskItem task={generatedTask} key={index} taskIndex={index} />
       ))}
       <div ref={bottomRef}></div>
     </div>

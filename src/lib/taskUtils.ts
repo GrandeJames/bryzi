@@ -13,6 +13,8 @@ import TaskUpdateNotification from "@/app/notifications/TaskUpdateNotification";
 import getTaskCategory from "@/app/app/(tasks)/components/getTaskCategory";
 import { Task } from "@/types/task";
 import { PersonalTask } from "@/types/personalTask";
+import useTasksStore from "@/stores/tasksStore";
+import TasksAddNotification from "@/app/notifications/TasksAddNotification";
 
 /*
  * Note: updateTask must be passed as a prop otherwise it causes a hook error
@@ -46,6 +48,19 @@ export function handleTaskAdd(task: Task, addTask: (task: Task) => void) {
   addLocalStorageItem(LOCAL_STORAGE_KEYS.TASKS, task);
 
   TaskAddNotification({ task });
+}
+
+export function handleTasksAdd(tasks: Task[]) {
+  const addTask = useTasksStore.getState().addTask;
+
+  tasks.forEach((task) => {
+    addTask(task);
+    addLocalStorageItem(LOCAL_STORAGE_KEYS.TASKS, task);
+  });
+
+  console.log("handleTasksAdd", tasks);
+
+  TasksAddNotification();
 }
 
 export function handleTaskRemove(task: Task, removeTask: (id: string) => void) {
