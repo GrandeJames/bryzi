@@ -13,13 +13,13 @@ function TaskSection({ title, className, children }: TaskSectionProps) {
     <section
       className={cn(
         className,
-        "flex flex-col gap-3 dark:bg-neutral-900/40 bg-none dark:border-neutral-900 border-neutral-100 border p-5 rounded-3xl h-fit"
+        "flex flex-col gap-3 dark:bg-neutral-900/40 bg-none dark:border-neutral-900 border-neutral-50 border py-5 rounded-3xl h-fit"
       )}
     >
-      <header>
-        <h2 className="font-semibold text-lg dark:text-neutral-300 text-black">{title}</h2>
+      <header className="px-4">
+        <h2 className="font-bold text-xs dark:text-neutral-500 text-neutral-400">{title}</h2>
       </header>
-      <div className="px-2">{children}</div>
+      <div>{children}</div>
     </section>
   );
 }

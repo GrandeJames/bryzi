@@ -25,17 +25,15 @@ function ClassTaskItem({ task }: { task: ClassTask }) {
 
   return (
     <div
-      className={`grid grid-cols-12 w-full rounded-3xl ${
-        task.completed ? "dark:bg-neutral-900/50" : "dark:bg-neutral-900/60"
-      } dark:hover:bg-neutral-900 bg-neutral-50/60`}
+      className={`grid grid-cols-10 w-full dark:hover:bg-neutral-900 px-8`}
     >
       <div
-        className="col-span-10 flex justify-between hover:cursor-pointer py-5 px-6"
+        className="col-span-8 flex justify-between hover:cursor-pointer py-5"
         onClick={() => {
           openClassTaskDetailsDialog();
         }}
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col max-w-full">
           {course && (
             <div className="dark:text-neutral-300 text-neutral-600 text-xs">
               {course.abbreviation && course.abbreviation} {course.name}
@@ -43,7 +41,7 @@ function ClassTaskItem({ task }: { task: ClassTask }) {
           )}
           <div className="flex gap-3 items-center">
             <span
-              className={`font-semibold text-md ${
+              className={`font-medium text-sm truncate ${
                 task.completed
                   ? "line-through dark:text-neutral-400 text-neutral-900 decoration-neutral-400/90"
                   : "dark:text-neutral-200"
@@ -52,7 +50,7 @@ function ClassTaskItem({ task }: { task: ClassTask }) {
               {task.title.charAt(0).toUpperCase() + task.title.slice(1)}
             </span>
             {(task.subtasks?.length ?? 0) > 0 && (
-              <div className="flex items-center dark:text-neutral-400 text-neutral-700 gap-1">
+              <div className="flex items-center dark:text-neutral-400 text-neutral-400 gap-1">
                 <ListTodoIcon className="size-4" />
                 <span className="text-xs">
                   {task.subtasks?.reduce((acc, subtask) => acc + (subtask.completed ? 1 : 0), 0)}/
@@ -60,11 +58,11 @@ function ClassTaskItem({ task }: { task: ClassTask }) {
                 </span>
               </div>
             )}
-            {task.recurrence?.frequency !== "once" && (
+            {task.recurrence?.frequency && task.recurrence?.frequency !== "once" && (
               <Repeat2Icon className="text-neutral-400 size-4" />
             )}
             {task.deadline && (
-              <div className="flex gap-4 items-center text-xs">
+              <div className="text-xs">
                 <Deadline deadline={task.deadline} />
               </div>
             )}
@@ -73,14 +71,13 @@ function ClassTaskItem({ task }: { task: ClassTask }) {
               {task.deadline && <Deadline deadline={task.deadline} />}
             </div> */}
         </div>
-        {(task.estimatedDurationInMins ?? 0) > 0 && (
-          <div className="text-xs flex items-center dark:text-neutral-500 text-neutral-400">
+      </div>
+      {(task.estimatedDurationInMins ?? 0) > 0 && (
+          <div className="col-span-1 text-xs flex items-center justify-center dark:text-neutral-500 text-neutral-400 whitespace-nowrap">
             {(!task.completed || actualTaskDuration > 0) && getProgressLabel(task)}
           </div>
         )}
-      </div>
-
-      <Status task={task} className="col-span-2" />
+      <Status task={task} className="col-span-1" />
     </div>
   );
 }
@@ -152,7 +149,7 @@ function Deadline({ deadline }: { deadline: Date }) {
     if (diffInDays === 1) return "dark:text-red-400 text-red-500"; // Tomorrow
     if (diffInDays < 3) return "dark:text-orange-400 text-orange-500"; // Urgent (next 3 days)
     if (diffInDays < 7) return "dark:text-yellow-400 text-yellow-500"; // This week
-    return "text-neutral-400";
+    return "text-neutral-500";
   };
 
   if (diffInDays < 7) {
@@ -171,7 +168,7 @@ function Deadline({ deadline }: { deadline: Date }) {
   }
 
   return (
-    <div className="flex items-center gap-1 text-neutral-400">
+    <div className="flex items-center gap-1 text-neutral-400 whitespace-nowrap">
       <FlagIcon className="size-3" />
       {getYear(deadline) === getYear(now)
         ? format(deadline, "MMM dd")

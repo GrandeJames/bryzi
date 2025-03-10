@@ -50,7 +50,7 @@ function ClassTaskDetails({ task }: { task: ClassTask }) {
       <div>
         <div>
           <div className="text-neutral-500 text-sm">
-            {task.recurrence?.frequency !== "once" && (
+            {task.recurrence?.frequency && task.recurrence?.frequency !== "once" && (
               <div className="flex gap-1 items-center">
                 <Repeat2Icon className="size-4" />
                 {task.recurrence && <p>{task.recurrence.frequency}</p>}

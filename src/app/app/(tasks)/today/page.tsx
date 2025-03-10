@@ -69,7 +69,7 @@ export default function Page() {
 }
 
 function TodayHeading() {
-  const currentDate = new Date();
+  const currentDate = getCurrentDate();
   const dayOfWeek = format(currentDate, "EEEE");
   return (
     <h1 className="flex gap-2 font-bold items-end ">

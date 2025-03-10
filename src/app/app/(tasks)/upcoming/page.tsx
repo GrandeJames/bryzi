@@ -5,7 +5,7 @@ import { format, isFuture, startOfDay, getTime, addDays, isAfter } from "date-fn
 import AutoPlanToggle from "@/components/AutoPlanToggle";
 import PlannerCreationMenu from "../components/PlannerCreationMenu";
 import Next7Days from "./Next7Days";
-import RemainingMonths from "./RemainingMonths";
+import UpcomingMonths from "./UpcomingMonths";
 import TasksHeader from "../components/TasksHeader";
 import { useHydrated } from "@/hooks/useHydrated";
 import { getCurrentDate } from "@/utils/dateUtils";
@@ -40,20 +40,23 @@ export default function Page() {
     return acc;
   }, {} as { [key: string]: typeof tasks });
 
+  console.log("0000", groupedTasksByDate);
+
   return (
     <div>
       <TasksHeader />
-      <main className="container max-w-3xl">
+      <main className="container max-w-4xl">
         <div className="space-y-4">
           <header>
             <AutoPlanToggle />
           </header>
           <div>
-            <Next7Days groupedTasksByDate={groupedTasksByDate} CURRENT_DATE={currentDate} />
-            <RemainingMonths
+            <Next7Days groupedTasksByDate={groupedTasksByDate} currentDate={currentDate} />
+            <UpcomingMonths
               groupedTasksByDate={groupedTasksByDate}
               currentDate={currentDate}
               startDate={addDays(currentDate, 8)}
+              tasks={tasks}
             />
           </div>
         </div>

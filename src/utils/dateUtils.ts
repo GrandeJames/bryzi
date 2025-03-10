@@ -19,7 +19,7 @@ export function formatCustomDate(dateString?: string) {
 
 export function getCurrentDate() {
   if (process.env.NODE_ENV === "development") {
-    return new Date(2023, 8, 1);
+    return new Date(2023, 7, 28);
   }
   return new Date();
 }

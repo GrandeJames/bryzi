@@ -5,13 +5,13 @@ import PersonalSection from "@/app/personal-tasks/PersonalSection";
 import DateHeading from "../components/DateHeading";
 
 function Next7Days({
-  CURRENT_DATE,
+  currentDate,
   groupedTasksByDate,
 }: {
-  CURRENT_DATE: Date;
+  currentDate: Date;
   groupedTasksByDate: { [key: string]: any[] };
 }) {
-  const next7Days = Array.from({ length: 7 }, (_, i) => addDays(startOfDay(CURRENT_DATE), i + 1));
+  const next7Days = Array.from({ length: 7 }, (_, i) => addDays(startOfDay(currentDate), i + 1));
 
   const next7DaysTasks = next7Days.map((day) => {
     const dateKey = format(day, "yyyy-MM-dd");

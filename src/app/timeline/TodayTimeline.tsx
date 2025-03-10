@@ -2,6 +2,7 @@ import { useFocusTrackerStore } from "@/stores/focusTrackerStore";
 import { isToday } from "date-fns";
 import { Timeline } from "./Timeline";
 import useCoursesStore from "@/stores/coursesStore";
+import { getCurrentDate } from "@/utils/dateUtils";
 
 const sampleScheduledItemsToday = [
   {
@@ -24,7 +25,7 @@ const sampleScheduledItemsToday = [
 function TodayTimeline() {
   const courses = useCoursesStore((state) => state.courses);
 
-  const currentDayIndex = new Date().getDay();
+  const currentDayIndex = getCurrentDate().getDay();
 
   const todayCourses = courses.filter(
     (course) => course.days?.includes(currentDayIndex) && !course.isAsynchronous
