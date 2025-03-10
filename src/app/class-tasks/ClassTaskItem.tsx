@@ -25,7 +25,7 @@ function ClassTaskItem({ task }: { task: ClassTask }) {
 
   return (
     <div
-      className={`grid grid-cols-10 w-full dark:hover:bg-neutral-900 px-8`}
+      className={`grid grid-cols-10 w-full dark:hover:bg-neutral-900 hover:bg-neutral-50 px-8`}
     >
       <div
         className="col-span-8 flex justify-between hover:cursor-pointer py-5"
