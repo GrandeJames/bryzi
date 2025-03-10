@@ -3,7 +3,7 @@ import { generateSignedUrls } from "./server/generateSignedUrls";
 import { todoItemSchema } from "@/app/schemas/generatedTaskSchema";
 import { createClient } from "@/utils/supabase/server";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { aiPrompt } from "./server/ai-prompt";
+import { aiPrompt } from "./server/systemPrompts";
 import { google } from "@ai-sdk/google";
 
 export const maxDuration = 60; // this is the max for the free tier
