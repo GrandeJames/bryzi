@@ -11,7 +11,7 @@ export function formatCustomDate(dateString?: string) {
     return null;
   }
 
-  const currentYear = new Date().getFullYear();
+  const currentYear = getCurrentDate().getFullYear();
   const dateYear = date.getFullYear();
 
   return dateYear === currentYear ? format(date, "MMM d") : format(date, "MMM d, yyyy");

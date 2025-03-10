@@ -4,6 +4,7 @@ import notification from "./Notification";
 import { ClassTask } from "@/types/classTask";
 import { PersonalTask } from "@/types/personalTask";
 import Link from "next/link";
+import { getCurrentDate } from "@/utils/dateUtils";
 
 export default function TaskUpdateNotification({ task }: { task: ClassTask | PersonalTask }) {
   notification(
@@ -12,7 +13,7 @@ export default function TaskUpdateNotification({ task }: { task: ClassTask | Per
       <Link
         href={
           task.deadline
-            ? isBefore(startOfDay(task.deadline), addDays(startOfDay(new Date()), 1))
+            ? isBefore(startOfDay(task.deadline), addDays(startOfDay(getCurrentDate()), 1))
               ? "/app/today"
               : "/app/upcoming"
             : "/app/inbox"
@@ -23,7 +24,7 @@ export default function TaskUpdateNotification({ task }: { task: ClassTask | Per
         }}
       >
         {task.deadline
-          ? isBefore(startOfDay(task.deadline), addDays(startOfDay(new Date()), 1))
+          ? isBefore(startOfDay(task.deadline), addDays(startOfDay(getCurrentDate()), 1))
             ? "Today"
             : "Upcoming"
           : "Inbox"}

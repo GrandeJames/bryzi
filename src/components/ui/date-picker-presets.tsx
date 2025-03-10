@@ -14,24 +14,26 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
+import { getCurrentDate } from "@/utils/dateUtils";
 
 function dateFormatted(date: Date | undefined) {
   if (!date) {
     return;
   }
+
   if (isToday(date)) {
     return "Today";
   }
   if (isTomorrow(date)) {
     return "Tomorrow";
   }
-  if (isSameDay(addDays(new Date(), 2), date)) {
+  if (isSameDay(addDays(getCurrentDate(), 2), date)) {
     return "In 2 days";
   }
   if (isYesterday(date)) {
     return "Yesterday";
   }
-  if (isSameDay(addDays(new Date(), -2), date)) {
+  if (isSameDay(addDays(getCurrentDate(), -2), date)) {
     return "2 days ago";
   }
   if (isThisYear(date)) {
@@ -99,8 +101,8 @@ export function DatePickerWithPresets({
         <div className="flex w-full justify-between px-8 py-2">
           <PresetButton
             onClick={() => {
-              setDate(new Date());
-              setDeadline(new Date());
+              setDate(getCurrentDate());
+              setDeadline(getCurrentDate());
             }}
             text="Today"
           >
@@ -108,8 +110,8 @@ export function DatePickerWithPresets({
           </PresetButton>
           <PresetButton
             onClick={() => {
-              setDate(addDays(new Date(), 1));
-              setDeadline(addDays(new Date(), 1));
+              setDate(addDays(getCurrentDate(), 1));
+              setDeadline(addDays(getCurrentDate(), 1));
             }}
             text="Tomorrow"
           >
@@ -117,8 +119,8 @@ export function DatePickerWithPresets({
           </PresetButton>
           <PresetButton
             onClick={() => {
-              setDate(addDays(new Date(), 7));
-              setDeadline(addDays(new Date(), 7));
+              setDate(addDays(getCurrentDate(), 7));
+              setDeadline(addDays(getCurrentDate(), 7));
             }}
             text="Next week"
           >
