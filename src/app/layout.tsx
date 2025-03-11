@@ -4,7 +4,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   // <= 60 characters
-  title: "Bryzi: AI Task Management for Students - Auto-Plan Your Work",
+  title: "Bryzi: AI Task Management for Students - Auto-Plan Your Semester",
 
   // <= 150-160 characters
   description:
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://bryzi.com",
-    title: "AI Task Management for Students - Automatically Create and Plan Your Work",
+    title: "AI Task Management for Students - Automatically Create and Plan Your Semester",
     description:
       "Bryzi is an AI-powered task management tool designed specifically for students in University. It automatically generates and plans your tasks, helping you stay organized and focused on your studies. Available for for free on the web.",
     siteName: "Bryzi",
