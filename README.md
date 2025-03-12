@@ -8,7 +8,7 @@
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
-  <a href="#planned-features">Planned Features</a> •
+  <a href="#planned">Planned Features</a> •
   <a href="#license">License</a>
 </p>
 
