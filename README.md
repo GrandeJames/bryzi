@@ -11,7 +11,7 @@
   <a href="#license">License</a>
 </p>
 
-<img width="1919" alt="Screenshot 2025-03-11 at 3 35 41 PM" src="https://github.com/user-attachments/assets/66739f33-d44f-4fc1-9e14-800e1ea7e98d" />
+![screenshot](https://github.com/user-attachments/assets/eae7a2e3-b389-42fb-95ee-6b022ac4233e)
 
 ## Key Features
 
