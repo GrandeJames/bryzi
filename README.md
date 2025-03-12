@@ -1,58 +1,42 @@
-## Technologies
 
-- Programming Languages
-    
-    Typescript, SQL
-    
-- Front-end
-    React, TailwindCSS
-    
-- Back-end
-    PostgreSQL
-    
-- Frameworks
-    NextJS
-    
-- Tools
-    AWS (RDS, etc.), Playwright, GitHub Actions (CI/CD)
-    
-- Other
-    Authentication & Authorization (NextAuth), Payment integration (Stripe)
+<h1 align="center">
+  Bryzi
+  <br>
+</h1>
 
+<h2 align="center">Automated AI Task Management System Built for University Students</h2>
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center">
+  <a href="#key-features">Key Features</a> •
+  <a href="#license">License</a>
+</p>
 
-## Getting Started
+<img width="1919" alt="Screenshot 2025-03-11 at 3 35 41 PM" src="https://github.com/user-attachments/assets/66739f33-d44f-4fc1-9e14-800e1ea7e98d" />
 
-First, run the development server:
+## Key Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+* AI Features:
+  - Generate tasks from course schedule images
+  - Future: Break down large complex tasks into smaller subtasks to enhance student motivation
+* Task Management
+  - Create, update, and delete tasks
+  - Future: Automate task scheduling/planning
+* Timeline
+  - Quickly visualize your completed and upcoming events and focus sessions for the day
+* Focus Sessions
+  - Built-in timer to encourage breaks necessary to maintain productivity
+  - Integrated time tracking to understand how long your spending on tasks
+* Dark/Light mode
+* Future: Integration with Google Calendar and other applications
+* Future: Import .ical files
+* Future: Themes
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## License
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+MIT
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+---
 
-## Learn More
+> [grandejames.com](https://www.grandejames.com) &nbsp;&middot;&nbsp;
+> GitHub [@GrandeJames](https://github.com/GrandeJames) &nbsp;&middot;&nbsp;
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
