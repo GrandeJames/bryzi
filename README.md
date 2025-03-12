@@ -4,10 +4,11 @@
   <br>
 </h1>
 
-<h2 align="center">Automated AI Task Management System Built for University Students</h2>
+<h4 align="center">Automated AI Task Management System Built for University Students</h4>
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
+  <a href="#key-features">Planned Features</a> •
   <a href="#license">License</a>
 </p>
 
@@ -23,13 +24,16 @@
 * Focus Sessions
   - Built-in timer to encourage breaks necessary to maintain productivity
   - Integrated time tracking to understand how long your spending on tasks
+* Time tracking
+  - See how long your working on tasks
 * Dark/Light mode
 
 ### Planned
-* Break down large complex tasks into smaller subtasks to enhance student motivation
 * Automate task scheduling/planning
-* Support other import methods, including .ical files and Learning Management Systems (LMS)
+* Use AI to break down large complex tasks into smaller subtasks
+* Import .ical files/links
 * Integration with Google Calendar, Notion, and other task managers
+* Export to a .csv file
 * Productivity Insights
 * Themes
 
